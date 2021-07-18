@@ -3,6 +3,35 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Solution
+
+obj
+bin
+*.userprefs
+*.user
+test-results
+
+# IDEs
+packages
+.vs
+.vscode
+.idea 
+
+# Unity
+
+Library
+Temp
+Logs
+*.unitypackage 
+Assembly_CSharp*.csproj
+
+# Jenny
+Jenny
+.userproperties
+
+# Project 
+"Actually a Game.sln"
+
 # User-specific files
 *.rsuser
 *.suo
