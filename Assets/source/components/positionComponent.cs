@@ -1,7 +1,9 @@
- using UnityEngine;
+using UnityEngine;
 using Entitas;
 
 [Game]
-public class PositionComponent : IComponent {
-    public Vector2 value;
-}   
+public class PositionComponent : IComponent
+{    
+    public Vector2 value;    
+}
+
