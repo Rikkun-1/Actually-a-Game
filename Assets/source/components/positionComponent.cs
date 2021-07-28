@@ -1,9 +1,10 @@
 using UnityEngine;
 using Entitas;
+using Entitas.CodeGeneration.Attributes;
 
 [Game]
-public class PositionComponent : IComponent
-{    
-    public Vector2 value;    
+public sealed class PositionComponent : IComponent
+{
+    [EntityIndex]
+    public Vector2Int value;
 }
-
