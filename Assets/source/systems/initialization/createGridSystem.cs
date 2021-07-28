@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Entitas;
+using Entitas.Unity;
 
 public class CreateGridSystem : IInitializeSystem
 {
-    Vector2Int gridSize = new Vector2Int(10, 10);
+    Vector2Int gridSize = new Vector2Int(5, 5);
 
-    readonly Contexts _contexts;
+    readonly Contexts contexts;
 
     public CreateGridSystem(Contexts contexts)
     {
-        _contexts = contexts;
+        this.contexts = contexts;
     }
+
     public void Initialize()
     {
         for (int i = 0; i < gridSize.x; i++)
         {
             for (int j = 0; j < gridSize.x; j++)
             {
-                var e = _contexts.game.CreateEntity();
+                var e = contexts.game.CreateEntity();
                 e.AddPosition(new Vector2Int(i, j));
+                e.AddViewPrefab("cell");
             }
         }
     }

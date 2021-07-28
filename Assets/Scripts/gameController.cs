@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class gameController : MonoBehaviour
+public class GameController : MonoBehaviour
 {
     RootSystems _systems;
 

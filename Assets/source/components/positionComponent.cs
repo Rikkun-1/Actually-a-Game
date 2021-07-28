@@ -2,7 +2,7 @@ using UnityEngine;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
 
-[Game]
+[Game, Event(EventTarget.Self)]
 public sealed class PositionComponent : IComponent
 {
     [EntityIndex]
