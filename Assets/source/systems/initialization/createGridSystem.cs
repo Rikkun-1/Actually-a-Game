@@ -19,7 +19,7 @@ public class CreateGridSystem : IInitializeSystem
     {
         for (int i = 0; i < gridSize.x; i++)
         {
-            for (int j = 0; j < gridSize.x; j++)
+            for (int j = 0; j < gridSize.y; j++)
             {
                 var e = contexts.game.CreateEntity();
                 e.AddPosition(new Vector2Int(i, j));

@@ -59,6 +59,7 @@
     <Compile Include="Assets\Generated\Game\Components\GamePositionComponent.cs" />
     <Compile Include="Assets\Generated\Game\Components\GameUnityViewComponent.cs" />
     <Compile Include="Assets\Generated\Game\Components\GameViewPrefabComponent.cs" />
+    <Compile Include="Assets\Generated\Game\Components\GameDestroyedComponent.cs" />
     <Compile Include="Assets\Generated\Game\Components\GamePositionListenerComponent.cs" />
     <Compile Include="Assets\Generated\Game\GameComponentsLookup.cs" />
     <Compile Include="Assets\Generated\Input\InputComponentsLookup.cs" />
@@ -88,6 +89,8 @@
     <Compile Include="Assets\Scripts\PositionListener.cs" />
     <Compile Include="Assets\Source\interfaces\IEventListener.cs" />
     <Compile Include="Assets\Source\components\ViewPrefabComponent.cs" />
+    <Compile Include="Assets\Source\systems\reactive\DestroySystem.cs" />
+    <Compile Include="Assets\Source\components\DestroyedComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\libraries\DesperateDevs\DesperateDevs.Networking.dll" />

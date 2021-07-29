@@ -5,13 +5,13 @@ using Entitas.Unity;
 
 public class AddViewSystem : ReactiveSystem<GameEntity>
 {
-    readonly Transform parent;
-    Contexts contexts;
+    readonly Transform _parent;
+    Contexts _contexts;
 
     public AddViewSystem(Contexts contexts) : base(contexts.game)
     {
-        parent = new GameObject("Views").transform;
-        this.contexts = contexts;
+        _parent = new GameObject("Views").transform;
+        _contexts = contexts;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -35,7 +35,7 @@ public class AddViewSystem : ReactiveSystem<GameEntity>
     void loadViewFromPrefab(GameEntity entity, string prefabName)
     { 
         var viewPrefab = Resources.Load<GameObject>("Prefabs/" + prefabName);
-        var viewGameObject = GameObject.Instantiate(viewPrefab, parent);
+        var viewGameObject = GameObject.Instantiate(viewPrefab, _parent);
 
         viewGameObject.Link(entity);
         entity.AddUnityView(viewGameObject);
