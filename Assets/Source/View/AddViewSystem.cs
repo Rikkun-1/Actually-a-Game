@@ -5,12 +5,12 @@ using Entitas.Unity;
 
 public class AddViewSystem : ReactiveSystem<GameEntity>
 {
-    readonly Transform parent;
-    Contexts contexts;
+    readonly GameObject parent;
+    readonly Contexts contexts;
 
     public AddViewSystem(Contexts contexts) : base(contexts.game)
     {
-        this.parent = new GameObject("Views").transform;
+        this.parent = new GameObject("Views");
         this.contexts = contexts;
     }
 
@@ -28,14 +28,14 @@ public class AddViewSystem : ReactiveSystem<GameEntity>
     {
         foreach (var e in entities)
         {
-            loadViewFromPrefab(e, e.viewPrefab.name);
+            loadViewFromPrefab(e, e.viewPrefab.prefabName);
         }
     }
 
     void loadViewFromPrefab(GameEntity entity, string prefabName)
     { 
         var viewPrefab = Resources.Load<GameObject>("Prefabs/" + prefabName);
-        var viewGameObject = GameObject.Instantiate(viewPrefab, this.parent);
+        var viewGameObject = GameObject.Instantiate(viewPrefab, this.parent.transform);
 
         viewGameObject.Link(entity);
         entity.AddUnityView(viewGameObject);

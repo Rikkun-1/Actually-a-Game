@@ -3,12 +3,12 @@ using Entitas;
 
 public class PositionListener : MonoBehaviour, IEventListener, IPositionListener
 {
-    GameEntity _entity;
+    GameEntity entity;
 
     public void RegisterEventListeners(IEntity entity)
     {
-        _entity = (GameEntity)entity;
-        _entity.AddPositionListener(this);
+        this.entity = (GameEntity)entity;
+        this.entity.AddPositionListener(this);
     }
 
     public void OnPosition(GameEntity e, Vector2Int newPosition)

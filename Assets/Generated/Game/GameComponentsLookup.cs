@@ -9,7 +9,7 @@
 public static class GameComponentsLookup {
 
     public const int Destroyed = 0;
-    public const int Globals = 1;
+    public const int Edges = 1;
     public const int Map = 2;
     public const int Position = 3;
     public const int PositionListener = 4;
@@ -20,7 +20,7 @@ public static class GameComponentsLookup {
 
     public static readonly string[] componentNames = {
         "Destroyed",
-        "Globals",
+        "Edges",
         "Map",
         "Position",
         "PositionListener",
@@ -30,7 +30,7 @@ public static class GameComponentsLookup {
 
     public static readonly System.Type[] componentTypes = {
         typeof(DestroyedComponent),
-        typeof(GlobalsComponent),
+        typeof(EdgesComponent),
         typeof(MapComponent),
         typeof(PositionComponent),
         typeof(PositionListenerComponent),

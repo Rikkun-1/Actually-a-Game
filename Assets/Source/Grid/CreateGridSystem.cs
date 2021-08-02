@@ -7,9 +7,9 @@ using Entitas.Unity;
 public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
 {
     readonly Contexts contexts;
-    IGroup<GameEntity> entitiesOnMap;
+    readonly IGroup<GameEntity> entitiesOnMap;
 
-    Vector2Int mapSize;
+    Vector2Int mapSize = new Vector2Int(5, 5);
 
     public CreateGridSystem(Contexts contexts) : base(contexts.game)
     {
@@ -20,7 +20,7 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
     public void Initialize()
     {
         var e = this.contexts.game.CreateEntity();
-        e.AddMap(mapSize);
+        e.AddMap(this.mapSize);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -40,8 +40,9 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
             e.isDestroyed = true;
         }
 
-        int sizeX = entities.SingleEntity().map.mapSize.x;
-        int sizeY = entities.SingleEntity().map.mapSize.y;
+        var mapSize = entities.SingleEntity().map.mapSize;
+        int sizeX = mapSize.x;
+        int sizeY = mapSize.y;
 
         for (int x = 0; x < sizeX; x++)
         {
@@ -49,7 +50,7 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
             {
                 var e = contexts.game.CreateEntity();
                 e.AddPosition(new Vector2Int(x, y));
-                e.AddViewPrefab("cell");
+                e.AddViewPrefab("floor");
             }
         }
     }

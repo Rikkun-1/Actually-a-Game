@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using Entitas;
+﻿using Entitas;
 
 [Game]
 public class DestroyedComponent : IComponent

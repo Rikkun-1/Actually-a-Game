@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    RootSystems _systems;
+    RootSystems systems;
 
-    // Start is called before the first frame update
     void Start()
     {
-        _systems = new RootSystems(Contexts.sharedInstance);
-        _systems.Initialize();
+        this.systems = new RootSystems(Contexts.sharedInstance);
+        this.systems.Initialize();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        _systems.Execute(); 
+        this.systems.Execute();
+        this.systems.Cleanup();
     }
 }

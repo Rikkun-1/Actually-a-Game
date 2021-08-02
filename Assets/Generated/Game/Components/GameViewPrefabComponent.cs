@@ -11,17 +11,17 @@ public partial class GameEntity {
     public ViewPrefabComponent viewPrefab { get { return (ViewPrefabComponent)GetComponent(GameComponentsLookup.ViewPrefab); } }
     public bool hasViewPrefab { get { return HasComponent(GameComponentsLookup.ViewPrefab); } }
 
-    public void AddViewPrefab(string newName) {
+    public void AddViewPrefab(string newPrefabName) {
         var index = GameComponentsLookup.ViewPrefab;
         var component = (ViewPrefabComponent)CreateComponent(index, typeof(ViewPrefabComponent));
-        component.name = newName;
+        component.prefabName = newPrefabName;
         AddComponent(index, component);
     }
 
-    public void ReplaceViewPrefab(string newName) {
+    public void ReplaceViewPrefab(string newPrefabName) {
         var index = GameComponentsLookup.ViewPrefab;
         var component = (ViewPrefabComponent)CreateComponent(index, typeof(ViewPrefabComponent));
-        component.name = newName;
+        component.prefabName = newPrefabName;
         ReplaceComponent(index, component);
     }
 

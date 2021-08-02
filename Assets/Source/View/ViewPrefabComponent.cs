@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using Entitas;
+﻿using Entitas;
 
 [Game]
 public class ViewPrefabComponent : IComponent
 {
-    public string name;
+    public string prefabName;
 }
