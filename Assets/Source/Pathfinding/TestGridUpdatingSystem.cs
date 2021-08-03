@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Entitas;
+﻿using Entitas;
 
-using System;
-
-public class TestSystem : IExecuteSystem
+public class TestGridUpdatingSystem : IExecuteSystem
 {
     readonly IGroup<GameEntity> entities;
 
-    public TestSystem(Contexts contexts)
+    public TestGridUpdatingSystem(Contexts contexts)
     {
         this.entities = contexts.game.GetGroup(GameMatcher.Position);
     }

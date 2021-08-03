@@ -11,7 +11,7 @@ public static class GameComponentsLookup {
     public const int Destroyed = 0;
     public const int EastWall = 1;
     public const int Edges = 2;
-    public const int Map = 3;
+    public const int MapSize = 3;
     public const int NonWalkable = 4;
     public const int NorthWall = 5;
     public const int PathfindingGrid = 6;
@@ -28,7 +28,7 @@ public static class GameComponentsLookup {
         "Destroyed",
         "EastWall",
         "Edges",
-        "Map",
+        "MapSize",
         "NonWalkable",
         "NorthWall",
         "PathfindingGrid",
@@ -44,7 +44,7 @@ public static class GameComponentsLookup {
         typeof(DestroyedComponent),
         typeof(EastWallComponent),
         typeof(EdgesComponent),
-        typeof(MapComponent),
+        typeof(MapSizeComponent),
         typeof(NonWalkableComponent),
         typeof(NorthWallComponent),
         typeof(PathfindingGridComponent),

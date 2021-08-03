@@ -25,19 +25,19 @@ public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.Map.Added());
+        return context.CreateCollector(GameMatcher.MapSize.Added());
     }
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasMap;
+        return entity.hasMapSize;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var mapSize = entities.SingleEntity().map.mapSize;
+        var mapSize = entities.SingleEntity().mapSize.value;
         var grid = createNewMap(mapSize.x, mapSize.y);
-        var edges = getAllWalkableEdgesOnMap(grid);
+        var edges = grid.GetAllEdges();
 
         this.gridHolder.ReplacePathfindingGrid(grid);
         this.edgesHolder.ReplaceEdges(edges);
@@ -48,25 +48,10 @@ public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
         var gridSize = new GridSize(columns: columns, rows: rows);
         var cellSize = new Size(Distance.FromMeters(1), Distance.FromMeters(1));
 
-        var lateralTraversalVelocity = Velocity.FromMetersPerSecond(2);
-        var diagonalTraversalVelocity = lateralTraversalVelocity;
+        var traversalVelocity = Velocity.FromMetersPerSecond(2);
 
-        var grid = Grid.CreateGridWithLateralAndDiagonalConnections(gridSize, cellSize, lateralTraversalVelocity, diagonalTraversalVelocity);
+        var grid = Grid.CreateGridWithLateralAndDiagonalConnections(gridSize, cellSize, traversalVelocity);
        
         return grid;
-    }
-
-    List<IEdge> getAllWalkableEdgesOnMap(Grid grid)
-    {
-        var nodes = grid.GetAllNodes();
-        var edges = new List<IEdge>();
-
-        foreach (var node in nodes)
-        {
-            edges.AddRange(node.Outgoing);
-        }
-        edges = edges.Distinct().ToList();
-
-        return edges;
     }
 }

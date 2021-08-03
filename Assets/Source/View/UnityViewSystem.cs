@@ -3,13 +3,13 @@ using UnityEngine;
 using Entitas;
 using Entitas.Unity;
 
-public class AddViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
+public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
 {
     readonly GameObject parent;
     readonly Contexts contexts;
     readonly IGroup<GameEntity> destroyedEntities; 
 
-    public AddViewSystem(Contexts contexts) : base(contexts.game)
+    public UnityViewSystem(Contexts contexts) : base(contexts.game)
     {
         this.parent = new GameObject("Views");
         this.contexts = contexts;
@@ -30,17 +30,14 @@ public class AddViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
     {
         foreach (var e in entities)
         {
-            if (e.hasViewPrefab)
-            {
-                if (e.hasUnityView)
-                {
-                    destroyView(e);
-                }
-                loadViewFromPrefab(e, e.viewPrefab.prefabName);
-            }
-            else if(e.hasUnityView)
+            if (e.hasUnityView)
             {
                 destroyView(e);
+            }
+
+            if (e.hasViewPrefab)
+            {
+                loadViewFromPrefab(e, e.viewPrefab.prefabName);
             }
         }
     }

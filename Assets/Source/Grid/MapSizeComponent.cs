@@ -3,7 +3,7 @@ using Entitas;
 using Entitas.CodeGeneration.Attributes;
 
 [Unique]
-public class MapComponent : IComponent
+public class MapSizeComponent : IComponent
 {
-    public Vector2Int mapSize;
+    public Vector2Int value;
 }

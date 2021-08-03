@@ -15,4 +15,9 @@ public class GameController : MonoBehaviour
         this.systems.Execute();
         this.systems.Cleanup();
     }
+
+    private void OnDestroy()
+    {
+        this.systems.TearDown();
+    }
 }

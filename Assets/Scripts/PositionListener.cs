@@ -10,8 +10,8 @@ public class PositionListener : MonoBehaviour, IEventListener, IPositionListener
         this.entity = (GameEntity)entity;
         this.entity.AddPositionListener(this);
 
-        var pos = this.entity.position.value;
-        this.OnPosition(this.entity, new Vector2Int(pos.x, pos.y));
+        var position = this.entity.position.value;
+        this.OnPosition(this.entity, new Vector2Int(position.x, position.y));
     }
 
     public void UnregisterEventListeners()

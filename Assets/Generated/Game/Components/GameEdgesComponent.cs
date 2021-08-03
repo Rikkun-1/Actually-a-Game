@@ -12,7 +12,7 @@ public partial class GameContext {
     public EdgesComponent edges { get { return edgesEntity.edges; } }
     public bool hasEdges { get { return edgesEntity != null; } }
 
-    public GameEntity SetEdges(System.Collections.Generic.List<Roy_T.AStar.Graphs.IEdge> newValue) {
+    public GameEntity SetEdges(System.Collections.Generic.IReadOnlyList<Roy_T.AStar.Graphs.IEdge> newValue) {
         if (hasEdges) {
             throw new Entitas.EntitasException("Could not set Edges!\n" + this + " already has an entity with EdgesComponent!",
                 "You should check if the context already has a edgesEntity before setting it or use context.ReplaceEdges().");
@@ -22,7 +22,7 @@ public partial class GameContext {
         return entity;
     }
 
-    public void ReplaceEdges(System.Collections.Generic.List<Roy_T.AStar.Graphs.IEdge> newValue) {
+    public void ReplaceEdges(System.Collections.Generic.IReadOnlyList<Roy_T.AStar.Graphs.IEdge> newValue) {
         var entity = edgesEntity;
         if (entity == null) {
             entity = SetEdges(newValue);
@@ -49,14 +49,14 @@ public partial class GameEntity {
     public EdgesComponent edges { get { return (EdgesComponent)GetComponent(GameComponentsLookup.Edges); } }
     public bool hasEdges { get { return HasComponent(GameComponentsLookup.Edges); } }
 
-    public void AddEdges(System.Collections.Generic.List<Roy_T.AStar.Graphs.IEdge> newValue) {
+    public void AddEdges(System.Collections.Generic.IReadOnlyList<Roy_T.AStar.Graphs.IEdge> newValue) {
         var index = GameComponentsLookup.Edges;
         var component = (EdgesComponent)CreateComponent(index, typeof(EdgesComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceEdges(System.Collections.Generic.List<Roy_T.AStar.Graphs.IEdge> newValue) {
+    public void ReplaceEdges(System.Collections.Generic.IReadOnlyList<Roy_T.AStar.Graphs.IEdge> newValue) {
         var index = GameComponentsLookup.Edges;
         var component = (EdgesComponent)CreateComponent(index, typeof(EdgesComponent));
         component.value = newValue;
