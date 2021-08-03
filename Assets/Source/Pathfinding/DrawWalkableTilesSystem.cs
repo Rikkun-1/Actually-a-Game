@@ -19,6 +19,7 @@ public class DrawWalkableTilesSystem : IExecuteSystem
 
         if(edgesEntities.Count != 0)
         {
+        }
             var edges = edgesEntities.SingleEntity().edges.value;
 
             foreach (var edge in edges)
@@ -28,6 +29,5 @@ public class DrawWalkableTilesSystem : IExecuteSystem
 
                 Debug.DrawLine(start, end, new Color(255, 0, 0));
             }
-        }
     }
 }

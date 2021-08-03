@@ -9,15 +9,18 @@ using Grid = Roy_T.AStar.Grids.Grid;
 using Roy_T.AStar.Primitives;
 using Roy_T.AStar.Graphs;
 
-public class UpdatePathfindingMapSystem : ReactiveSystem<GameEntity>
+public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 {
     readonly Contexts contexts;
 
-    Grid grid;
+    GameEntity gridHolder;
+    GameEntity edgesHolder;
 
-    public UpdatePathfindingMapSystem(Contexts contexts) : base(contexts.game)
+    public ResizePathfindingMapSystem(Contexts contexts) : base(contexts.game)
     {
         this.contexts = contexts;
+        this.gridHolder = this.contexts.game.CreateEntity();
+        this.edgesHolder = this.contexts.game.CreateEntity();
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -33,13 +36,14 @@ public class UpdatePathfindingMapSystem : ReactiveSystem<GameEntity>
     protected override void Execute(List<GameEntity> entities)
     {
         var mapSize = entities.SingleEntity().map.mapSize;
-        createNewMap(mapSize.x, mapSize.y);
+        var grid = createNewMap(mapSize.x, mapSize.y);
+        var edges = getAllWalkableEdgesOnMap(grid);
 
-        var edges = getAllWalkableEdgesOnMap();
-        updateEntityHoldingEdges(edges);
+        this.gridHolder.ReplacePathfindingGrid(grid);
+        this.edgesHolder.ReplaceEdges(edges);
     }
 
-    void createNewMap(int columns, int rows)
+    Grid createNewMap(int columns, int rows)
     {
         var gridSize = new GridSize(columns: columns, rows: rows);
         var cellSize = new Size(Distance.FromMeters(1), Distance.FromMeters(1));
@@ -47,13 +51,14 @@ public class UpdatePathfindingMapSystem : ReactiveSystem<GameEntity>
         var lateralTraversalVelocity = Velocity.FromMetersPerSecond(2);
         var diagonalTraversalVelocity = lateralTraversalVelocity;
 
-        this.grid = Grid.CreateGridWithLateralAndDiagonalConnections(gridSize, cellSize, lateralTraversalVelocity, diagonalTraversalVelocity);
-        
+        var grid = Grid.CreateGridWithLateralAndDiagonalConnections(gridSize, cellSize, lateralTraversalVelocity, diagonalTraversalVelocity);
+       
+        return grid;
     }
 
-    List<IEdge> getAllWalkableEdgesOnMap()
+    List<IEdge> getAllWalkableEdgesOnMap(Grid grid)
     {
-        var nodes = this.grid.GetAllNodes();
+        var nodes = grid.GetAllNodes();
         var edges = new List<IEdge>();
 
         foreach (var node in nodes)
@@ -63,20 +68,5 @@ public class UpdatePathfindingMapSystem : ReactiveSystem<GameEntity>
         edges = edges.Distinct().ToList();
 
         return edges;
-    }
-
-    void updateEntityHoldingEdges(List<IEdge> edges)
-    {
-        var edgesEntities = contexts.game.GetEntities(GameMatcher.Edges).ToList();
-
-        if (edgesEntities.Count == 0)
-        {
-            var e = contexts.game.CreateEntity();
-            e.AddEdges(edges);
-        }
-        else
-        {
-            edgesEntities.SingleEntity().ReplaceEdges(edges);
-        }
     }
 }

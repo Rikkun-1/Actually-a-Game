@@ -9,32 +9,50 @@
 public static class GameComponentsLookup {
 
     public const int Destroyed = 0;
-    public const int Edges = 1;
-    public const int Map = 2;
-    public const int Position = 3;
-    public const int PositionListener = 4;
-    public const int UnityView = 5;
-    public const int ViewPrefab = 6;
+    public const int EastWall = 1;
+    public const int Edges = 2;
+    public const int Map = 3;
+    public const int NonWalkable = 4;
+    public const int NorthWall = 5;
+    public const int PathfindingGrid = 6;
+    public const int Position = 7;
+    public const int PositionListener = 8;
+    public const int SouthWall = 9;
+    public const int UnityView = 10;
+    public const int ViewPrefab = 11;
+    public const int WestWall = 12;
 
-    public const int TotalComponents = 7;
+    public const int TotalComponents = 13;
 
     public static readonly string[] componentNames = {
         "Destroyed",
+        "EastWall",
         "Edges",
         "Map",
+        "NonWalkable",
+        "NorthWall",
+        "PathfindingGrid",
         "Position",
         "PositionListener",
+        "SouthWall",
         "UnityView",
-        "ViewPrefab"
+        "ViewPrefab",
+        "WestWall"
     };
 
     public static readonly System.Type[] componentTypes = {
         typeof(DestroyedComponent),
+        typeof(EastWallComponent),
         typeof(EdgesComponent),
         typeof(MapComponent),
+        typeof(NonWalkableComponent),
+        typeof(NorthWallComponent),
+        typeof(PathfindingGridComponent),
         typeof(PositionComponent),
         typeof(PositionListenerComponent),
+        typeof(SouthWallComponent),
         typeof(UnityViewComponent),
-        typeof(ViewPrefabComponent)
+        typeof(ViewPrefabComponent),
+        typeof(WestWallComponent)
     };
 }

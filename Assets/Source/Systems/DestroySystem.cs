@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using Entitas;
-using Entitas.Unity;
+﻿using Entitas;
 
 public class DestroySystem : ICleanupSystem
 {
@@ -17,12 +15,6 @@ public class DestroySystem : ICleanupSystem
     {
         foreach (var e in this.entities.GetEntities())
         {
-            if (e.hasUnityView)
-            {
-                e.unityView.gameObject.gameObject.Unlink();
-                GameObject.Destroy(e.unityView.gameObject);
-            }
-
             e.Destroy();
         }
     }

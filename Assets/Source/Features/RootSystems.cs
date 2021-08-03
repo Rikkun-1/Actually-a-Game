@@ -7,16 +7,18 @@ public sealed class RootSystems : Feature
     {
         // Initialize
         Add(new CreateGridSystem(contexts));
-
+        
+        // Reactive
+        Add(new AddViewSystem(contexts));
+        Add(new ResizePathfindingMapSystem(contexts));
+        Add(new UpdateNonWalkableMapSystem(contexts));
+        
         // Execute
         Add(new DrawWalkableTilesSystem(contexts));
+        Add(new TestSystem(contexts));
 
         // Cleanup
         Add(new DestroySystem(contexts));
-
-        // Reactive
-        Add(new AddViewSystem(contexts));
-        Add(new UpdatePathfindingMapSystem(contexts));
 
         // Entitas generated
         Add(new GameEventSystems(contexts));
