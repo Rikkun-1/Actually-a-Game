@@ -33,13 +33,78 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        if(this.gridHolder == null)
+        bool isWalkable(Node node)
+        {
+            return node != null
+                    ? this.contexts.game.GetEntitiesWithPosition(node.Position.ToVector2Int()).All(e => !e.isNonWalkable)
+                    : false;
+        }
+        void reconectNode(int x, int y, Grid grid)
+        {
+            var node = grid.GetNode(x, y);
+            var velocity = Velocity.FromMetersPerSecond(2);
+
+            Node top         = grid.GetNode(x, y - 1);
+            Node bottom      = grid.GetNode(x, y + 1);
+            Node left        = grid.GetNode(x - 1, y);
+            Node right       = grid.GetNode(x + 1, y);
+            Node topLeft     = grid.GetNode(x - 1, y - 1);
+            Node topRight    = grid.GetNode(x + 1, y - 1);
+            Node bottomLeft  = grid.GetNode(x - 1, y + 1);
+            Node bottomRight = grid.GetNode(x + 1, y + 1);
+
+            if (isWalkable(top))
+                node.Connect(top, velocity);
+
+            if (isWalkable(bottom))
+                node.Connect(bottom, velocity);
+
+            if (isWalkable(left))
+                node.Connect(left, velocity);
+
+            if (isWalkable(right))
+                node.Connect(right, velocity);
+
+
+            if (isWalkable(topLeft) && isWalkable(top) && isWalkable(left))
+            {
+                node.Connect(topLeft, velocity);
+                top.Connect(left, velocity);
+            }
+
+            if (isWalkable(topRight) && isWalkable(top) && isWalkable(right))
+            {
+                node.Connect(topRight, velocity);
+                top.Connect(right, velocity);
+            }
+
+            if (isWalkable(bottomLeft) && isWalkable(bottom) && isWalkable(left))
+            {
+                node.Connect(bottomLeft, velocity);
+                bottom.Connect(left, velocity);
+            }
+
+            if (isWalkable(bottomRight) && isWalkable(bottom) && isWalkable(right))
+            {
+                node.Connect(bottomRight, velocity);
+                bottom.Connect(right, velocity);
+            }
+        }
+        void disconectNode(int x, int y, Grid grid)
+        {
+            var gridPosition = new GridPosition(x, y);
+
+            grid.DisconnectNode(gridPosition);
+            grid.RemoveDiagonalConnectionsIntersectingWithNode(gridPosition);
+        }
+
+
+        if (this.gridHolder == null)
         {
             this.gridHolder = this.contexts.game.GetEntities(GameMatcher.PathfindingGrid)
                                     .ToList()
                                     .SingleEntity();
         }
-
         if(this.edgesHolder == null)
         {
             this.edgesHolder = this.contexts.game.GetEntities(GameMatcher.Edges)
@@ -48,86 +113,25 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
         }
 
         var grid = this.gridHolder.pathfindingGrid.value;
-        
+
         foreach (var e in entities)
         {
-            if(e.isNonWalkable)
+            var x = e.position.value.x;
+            var y = e.position.value.y;
+
+            if (e.isNonWalkable)
             {
                 e.ReplaceViewPrefab("nonWalkable");
-
-                var position = e.position.value;
-                var gridPosition = new GridPosition(position.x, position.y);
-                grid.DisconnectNode(gridPosition);
-                grid.RemoveDiagonalConnectionsIntersectingWithNode(gridPosition);
+                disconectNode(x, y, grid);
             }
             else
             {
                 e.ReplaceViewPrefab("floor");
-                var x = e.position.value.x;
-                var y = e.position.value.y;
-                var gridPosition = new GridPosition(x, y);
-
-                var node = grid.GetNode(gridPosition);
-
-                var velocity = Velocity.FromMetersPerSecond(2);
-
-                Node top         = grid.GetNode(x, y - 1);
-                Node bottom      = grid.GetNode(x, y + 1);
-                Node left        = grid.GetNode(x - 1, y);
-                Node right       = grid.GetNode(x + 1, y);
-                Node topLeft     = grid.GetNode(x - 1, y - 1);
-                Node topRight    = grid.GetNode(x + 1, y - 1);
-                Node bottomLeft  = grid.GetNode(x - 1, y + 1);
-                Node bottomRight = grid.GetNode(x + 1, y + 1);
-
-                if (isWalkable(top))    
-                    node.Connect(top, velocity);
-
-                if (isWalkable(bottom)) 
-                    node.Connect(bottom, velocity);
-
-                if (isWalkable(left))   
-                    node.Connect(left, velocity);
-
-                if (isWalkable(right))  
-                    node.Connect(right, velocity);
-
-
-                if (isWalkable(topLeft) && isWalkable(top) && isWalkable(left))
-                {
-                    node.Connect(topLeft, velocity);
-                    top.Connect(left, velocity);
-                }
-
-                if (isWalkable(topRight) && isWalkable(top) && isWalkable(right))
-                {
-                    node.Connect(topRight, velocity);
-                    top.Connect(right, velocity);
-                }
-
-                if (isWalkable(bottomLeft) && isWalkable(bottom) && isWalkable(left))
-                {
-                    node.Connect(bottomLeft, velocity);
-                    bottom.Connect(left, velocity);
-                }
-
-                if (isWalkable(bottomRight) && isWalkable(bottom) && isWalkable(right))
-                {
-                    node.Connect(bottomRight, velocity);
-                    bottom.Connect(right, velocity);
-                }
-
+                reconectNode(x, y, grid);
             }
         }
         
         this.edgesHolder.ReplaceEdges(grid.GetAllEdges());
-
-        bool isWalkable(Node node)
-        {
-            return node != null 
-                    ? this.contexts.game.GetEntitiesWithPosition(node.Position.ToVector2Int()).All(e => ! e.isNonWalkable) 
-                    : false;
-        }
     }
 }
 
