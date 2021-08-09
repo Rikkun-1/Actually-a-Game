@@ -2,6 +2,7 @@
 using UnityEngine;
 using Entitas;
 using Entitas.Unity;
+using System.Linq;
 
 public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
 {
@@ -13,7 +14,7 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
     {
         this.parent = new GameObject("Views");
         this.contexts = contexts;
-        this.destroyedEntities = this.contexts.game.GetGroup(GameMatcher.Destroyed);
+        this.destroyedEntities = this.contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Destroyed, GameMatcher.UnityView));
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -52,14 +53,14 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
 
     void destroyView(GameEntity entity)
     {
-        entity.unityView.gameObject.gameObject.Unlink();
-        GameObject.Destroy(entity.unityView.gameObject);
-
         var eventListeners = entity.unityView.gameObject.gameObject.GetComponents<IEventListener>();
         foreach (var listener in eventListeners)
         {
             listener.UnregisterEventListeners();
         }
+
+        entity.unityView.gameObject.gameObject.Unlink();
+        GameObject.Destroy(entity.unityView.gameObject);
     }
 
     void loadViewFromPrefab(GameEntity entity, string prefabName)
