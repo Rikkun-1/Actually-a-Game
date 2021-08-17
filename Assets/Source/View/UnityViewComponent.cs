@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using Entitas;
+﻿using Entitas;
+
+using UnityEngine;
 
 [Game]
 public class UnityViewComponent : IComponent
 {
-    public GameObject gameObject;
+    public GameObject GameObject;
 }

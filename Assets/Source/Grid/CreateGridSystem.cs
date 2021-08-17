@@ -1,25 +1,27 @@
-using System.Collections.Generic;
-using UnityEngine;
 using Entitas;
+
+using System.Collections.Generic;
+
+using UnityEngine;
 
 public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
 {
-    readonly Contexts contexts;
+    private readonly Contexts _contexts;
 
-    readonly IGroup<GameEntity> entitiesOnMap;
+    private readonly IGroup<GameEntity> _entitiesOnMap;
 
-    Vector2Int defaultMapSize = new Vector2Int(5, 5);
+    private Vector2Int _defaultMapSize = new Vector2Int(8, 8);
 
     public CreateGridSystem(Contexts contexts) : base(contexts.game)
     {
-        this.contexts = contexts;
-        this.entitiesOnMap = this.contexts.game.GetGroup(GameMatcher.Position);
+        _contexts = contexts;
+        _entitiesOnMap = _contexts.game.GetGroup(GameMatcher.Position);
     }
 
     public void Initialize()
     {
-        var e = this.contexts.game.CreateEntity();
-        e.AddMapSize(this.defaultMapSize);
+        var e = _contexts.game.CreateEntity();
+        e.AddMapSize(_defaultMapSize);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -34,9 +36,9 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
 
     protected override void Execute(List<GameEntity> entities)
     {
-        this.destroyMap();
+        DestroyMap();
 
-        var mapSize = entities.SingleEntity().mapSize.value;
+        var mapSize = entities.SingleEntity().mapSize.Value;
         int sizeX = mapSize.x;
         int sizeY = mapSize.y;
 
@@ -44,16 +46,16 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
         {
             for (int y = 0; y < sizeY; y++)
             {
-                var e = this.contexts.game.CreateEntity();
+                var e = _contexts.game.CreateEntity();
                 e.AddPosition(new Vector2Int(x, y));
                 e.AddViewPrefab("floor");
             }
         }
     }
 
-    void destroyMap()
+    private void DestroyMap()
     {
-        foreach (var e in this.entitiesOnMap)
+        foreach (var e in _entitiesOnMap)
         {
             e.isDestroyed = true;
         }

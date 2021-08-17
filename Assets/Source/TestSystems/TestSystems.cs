@@ -1,12 +1,8 @@
-﻿using UnityEngine;
-using Entitas;
-
-public sealed class TestSystems : Feature
+﻿public sealed class TestSystems : Feature
 {
-
     public TestSystems(Contexts contexts)
     {
-        //Add(new TestGridNonWalkableSystem(contexts));
-        //Add(new TestGridWallsSystem(contexts));
+        Add(new TestGridNonWalkableSystem(contexts));
+        Add(new TestGridWallsSystem(contexts));
     }
 }

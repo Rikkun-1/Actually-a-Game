@@ -14,14 +14,14 @@ public partial class GameEntity {
     public void AddPathfindingGrid(Roy_T.AStar.Grids.Grid newValue) {
         var index = GameComponentsLookup.PathfindingGrid;
         var component = (PathfindingGridComponent)CreateComponent(index, typeof(PathfindingGridComponent));
-        component.value = newValue;
+        component.Value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplacePathfindingGrid(Roy_T.AStar.Grids.Grid newValue) {
         var index = GameComponentsLookup.PathfindingGrid;
         var component = (PathfindingGridComponent)CreateComponent(index, typeof(PathfindingGridComponent));
-        component.value = newValue;
+        component.Value = newValue;
         ReplaceComponent(index, component);
     }
 

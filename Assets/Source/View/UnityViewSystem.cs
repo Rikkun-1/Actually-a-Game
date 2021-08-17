@@ -1,20 +1,23 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using Entitas;
 using Entitas.Unity;
-using System.Linq;
+using UnityEngine;
 
 public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
 {
-    readonly GameObject parent;
-    readonly Contexts contexts;
-    readonly IGroup<GameEntity> destroyedEntities; 
+    private readonly IGroup<GameEntity> _destroyedEntities;
+    private readonly GameObject _parent;
 
     public UnityViewSystem(Contexts contexts) : base(contexts.game)
     {
-        this.parent = new GameObject("Views");
-        this.contexts = contexts;
-        this.destroyedEntities = this.contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Destroyed, GameMatcher.UnityView));
+        _parent = new GameObject("Views");
+        _destroyedEntities =
+            contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Destroyed, GameMatcher.UnityView));
+    }
+
+    public void Cleanup()
+    {
+        foreach (var e in _destroyedEntities) DestroyView(e);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -33,40 +36,29 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
         {
             if (e.hasUnityView)
             {
-                destroyView(e);
+                DestroyView(e);
             }
 
             if (e.hasViewPrefab)
             {
-                loadViewFromPrefab(e, e.viewPrefab.prefabName);
+                LoadViewFromPrefab(e, e.viewPrefab.PrefabName);
             }
         }
     }
 
-    public void Cleanup()
+    private void DestroyView(GameEntity entity)
     {
-        foreach(var e in destroyedEntities)
-        {
-            destroyView(e);
-        }
+        var eventListeners = entity.unityView.GameObject.gameObject.GetComponents<IEventListener>();
+        foreach (var listener in eventListeners) listener.UnregisterEventListeners();
+
+        entity.unityView.GameObject.gameObject.Unlink();
+        Object.Destroy(entity.unityView.GameObject);
     }
 
-    void destroyView(GameEntity entity)
-    {
-        var eventListeners = entity.unityView.gameObject.gameObject.GetComponents<IEventListener>();
-        foreach (var listener in eventListeners)
-        {
-            listener.UnregisterEventListeners();
-        }
-
-        entity.unityView.gameObject.gameObject.Unlink();
-        GameObject.Destroy(entity.unityView.gameObject);
-    }
-
-    void loadViewFromPrefab(GameEntity entity, string prefabName)
+    private void LoadViewFromPrefab(GameEntity entity, string prefabName)
     {
         var viewPrefab = Resources.Load<GameObject>("Prefabs/" + prefabName);
-        var viewGameObject = GameObject.Instantiate(viewPrefab, this.parent.transform);
+        var viewGameObject = Object.Instantiate(viewPrefab, _parent.transform);
 
         viewGameObject.Link(entity);
         entity.ReplaceUnityView(viewGameObject);
@@ -74,10 +66,7 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
         if (viewGameObject != null)
         {
             var eventListeners = viewGameObject.GetComponents<IEventListener>();
-            foreach (var listener in eventListeners)
-            {
-                listener.RegisterEventListeners(entity);
-            }
+            foreach (var listener in eventListeners) listener.RegisterEventListeners(entity);
         }
     }
 }

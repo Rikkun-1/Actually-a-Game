@@ -52,14 +52,14 @@ public partial class GameEntity {
     public void AddEdges(System.Collections.Generic.IReadOnlyList<Roy_T.AStar.Graphs.IEdge> newValue) {
         var index = GameComponentsLookup.Edges;
         var component = (EdgesComponent)CreateComponent(index, typeof(EdgesComponent));
-        component.value = newValue;
+        component.Value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceEdges(System.Collections.Generic.IReadOnlyList<Roy_T.AStar.Graphs.IEdge> newValue) {
         var index = GameComponentsLookup.Edges;
         var component = (EdgesComponent)CreateComponent(index, typeof(EdgesComponent));
-        component.value = newValue;
+        component.Value = newValue;
         ReplaceComponent(index, component);
     }
 

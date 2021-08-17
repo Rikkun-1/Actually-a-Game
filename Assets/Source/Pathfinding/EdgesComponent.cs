@@ -6,5 +6,5 @@ using Roy_T.AStar.Graphs;
 [Unique]
 public class EdgesComponent : IComponent
 {
-    public IReadOnlyList<IEdge> value;
+    public IReadOnlyList<IEdge> Value;
 }

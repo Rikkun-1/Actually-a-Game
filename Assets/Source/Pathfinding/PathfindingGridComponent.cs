@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using Entitas;
+﻿using Entitas;
 using Grid = Roy_T.AStar.Grids.Grid;
 
 [Game]
 public class PathfindingGridComponent : IComponent
 {
-    public Grid value;
+    public Grid Value;
 }

@@ -65,14 +65,14 @@ public partial class Contexts {
         game.AddEntityIndex(new Entitas.EntityIndex<GameEntity, UnityEngine.Vector2Int>(
             Position,
             game.GetGroup(GameMatcher.Position),
-            (e, c) => ((PositionComponent)c).value));
+            (e, c) => ((PositionComponent)c).Value));
     }
 }
 
 public static class ContextsExtensions {
 
-    public static System.Collections.Generic.HashSet<GameEntity> GetEntitiesWithPosition(this GameContext context, UnityEngine.Vector2Int value) {
-        return ((Entitas.EntityIndex<GameEntity, UnityEngine.Vector2Int>)context.GetEntityIndex(Contexts.Position)).GetEntities(value);
+    public static System.Collections.Generic.HashSet<GameEntity> GetEntitiesWithPosition(this GameContext context, UnityEngine.Vector2Int Value) {
+        return ((Entitas.EntityIndex<GameEntity, UnityEngine.Vector2Int>)context.GetEntityIndex(Contexts.Position)).GetEntities(Value);
     }
 }
 //------------------------------------------------------------------------------

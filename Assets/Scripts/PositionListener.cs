@@ -1,26 +1,27 @@
-﻿using UnityEngine;
-using Entitas;
+﻿using Entitas;
+
+using UnityEngine;
 
 public class PositionListener : MonoBehaviour, IEventListener, IPositionListener
 {
-    GameEntity entity;
+    private GameEntity _entity;
 
     public void RegisterEventListeners(IEntity entity)
     {
-        this.entity = (GameEntity)entity;
-        this.entity.AddPositionListener(this);
+        _entity = (GameEntity)entity;
+        _entity.AddPositionListener(this);
 
-        var position = this.entity.position.value;
-        this.OnPosition(this.entity, new Vector2Int(position.x, position.y));
+        var position = _entity.position.Value;
+        OnPosition(_entity, new Vector2Int(position.x, position.y));
     }
 
     public void UnregisterEventListeners()
     {
-        this.entity.RemovePositionListener(this, removeComponentWhenEmpty: false);
+        _entity.RemovePositionListener(this, removeComponentWhenEmpty: false);
     }
 
     public void OnPosition(GameEntity e, Vector2Int newPosition)
     {
-        this.transform.position = new Vector3(newPosition.x, newPosition.y);
+        transform.localPosition = new Vector3(newPosition.x, newPosition.y);
     }
 }

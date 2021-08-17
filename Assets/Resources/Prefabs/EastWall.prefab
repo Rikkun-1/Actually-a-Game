@@ -55,5 +55,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EastWall
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1304601346367738511, guid: 35ab54d49ce22774b9d6aa2f7f9f0569, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 35ab54d49ce22774b9d6aa2f7f9f0569, type: 3}

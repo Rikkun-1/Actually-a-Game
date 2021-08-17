@@ -2,18 +2,16 @@
 
 public class DestroySystem : ICleanupSystem
 {
-    readonly Contexts contexts;
-    readonly IGroup<GameEntity> entities;
+    private readonly IGroup<GameEntity> _entities;
 
     public DestroySystem(Contexts contexts)
     {
-        this.contexts = contexts;
-        this.entities = this.contexts.game.GetGroup(GameMatcher.Destroyed);
+        _entities = contexts.game.GetGroup(GameMatcher.Destroyed);
     }
 
     public void Cleanup()
     {
-        foreach (var e in this.entities.GetEntities())
+        foreach (var e in _entities.GetEntities())
         {
             e.Destroy();
         }

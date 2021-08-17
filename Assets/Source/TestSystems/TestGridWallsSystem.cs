@@ -1,58 +1,63 @@
-﻿using System.Linq;
-using UnityEngine;
-using Entitas;
+﻿using Entitas;
 
-public class TestGridWallsSystem: IExecuteSystem
+using System.Linq;
+
+using UnityEngine;
+
+public class TestGridWallsSystem : IExecuteSystem
 {
-    readonly GameContext game;
+    private readonly GameContext _game;
 
     public TestGridWallsSystem(Contexts contexts)
     {
-        this.game = contexts.game;
+        _game = contexts.game;
     }
 
     public void Execute()
     {
-        var mapSize = game.GetEntities(GameMatcher.MapSize).ToList().SingleEntity().mapSize.value;
+        var mapSize = _game.GetEntities(GameMatcher.MapSize).ToList().SingleEntity().mapSize.Value;
 
-        var x = UnityEngine.Random.Range(0, mapSize.x);
-        var y = UnityEngine.Random.Range(0, mapSize.y);
+        var x = Random.Range(0, mapSize.x);
+        var y = Random.Range(0, mapSize.y);
 
-        if (UnityEngine.Random.Range(0, 10) < 5)
+        if (Random.Range(0, 10) < 5)
         {
-            switch (UnityEngine.Random.Range(0, 4))
+            switch (Random.Range(0, 4))
             {
                 case 0:
-                    if (game.GetEntitiesWithPosition(new Vector2Int(x, y)).All(e => e.isNorthWall == false))
+                    if (_game.GetEntitiesWithPosition(new Vector2Int(x, y)).All(e => e.isNorthWall == false))
                     {
-                        var e = game.CreateEntity();
+                        var e = _game.CreateEntity();
                         e.AddPosition(new Vector2Int(x, y));
                         e.isNorthWall = true;
                         e.ReplaceViewPrefab("NorthWall");
                     }
                     break;
+
                 case 1:
-                    if (game.GetEntitiesWithPosition(new Vector2Int(x, y)).All(e => e.isSouthWall == false))
+                    if (_game.GetEntitiesWithPosition(new Vector2Int(x, y)).All(e => e.isSouthWall == false))
                     {
-                        var e = game.CreateEntity();
+                        var e = _game.CreateEntity();
                         e.AddPosition(new Vector2Int(x, y));
                         e.isSouthWall = true;
                         e.ReplaceViewPrefab("SouthWall");
                     }
                     break;
+
                 case 2:
-                    if (game.GetEntitiesWithPosition(new Vector2Int(x, y)).All(e => e.isEastWall == false))
+                    if (_game.GetEntitiesWithPosition(new Vector2Int(x, y)).All(e => e.isEastWall == false))
                     {
-                        var e = game.CreateEntity();
+                        var e = _game.CreateEntity();
                         e.AddPosition(new Vector2Int(x, y));
                         e.isEastWall = true;
                         e.ReplaceViewPrefab("EastWall");
                     }
                     break;
+
                 case 3:
-                    if (game.GetEntitiesWithPosition(new Vector2Int(x, y)).All(e => e.isWestWall == false))
+                    if (_game.GetEntitiesWithPosition(new Vector2Int(x, y)).All(e => e.isWestWall == false))
                     {
-                        var e = game.CreateEntity();
+                        var e = _game.CreateEntity();
                         e.AddPosition(new Vector2Int(x, y));
                         e.isWestWall = true;
                         e.ReplaceViewPrefab("WestWall");

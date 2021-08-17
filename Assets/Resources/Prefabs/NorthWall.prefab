@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 467684502342959728}
   - component: {fileID: 6658388807590937799}
+  - component: {fileID: 392205587841262257}
   m_Layer: 0
   m_Name: NorthWall
   m_TagString: Untagged
@@ -42,6 +43,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7023f88f9bd5be544bac40dcdba93fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &392205587841262257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3730963307467797286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e779c06e5b3d3ec4d958b03983f64a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4507507725469912528

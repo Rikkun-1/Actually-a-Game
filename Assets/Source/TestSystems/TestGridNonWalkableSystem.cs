@@ -1,24 +1,37 @@
 ﻿using Entitas;
 
+using System.Linq;
+
+using UnityEngine;
+
 public class TestGridNonWalkableSystem : IExecuteSystem
 {
-    readonly IGroup<GameEntity> entities;
+    private readonly IGroup<GameEntity> _nonWalkableEntities;
+    private readonly GameContext _game;
 
     public TestGridNonWalkableSystem(Contexts contexts)
     {
-        this.entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position)
-                                                          .NoneOf(GameMatcher.NorthWall, 
-                                                                  GameMatcher.SouthWall, 
-                                                                  GameMatcher.WestWall,
-                                                                  GameMatcher.EastWall));
+        _game = contexts.game;
+        _nonWalkableEntities = contexts.game.GetGroup(GameMatcher.NonWalkable);
     }
 
     public void Execute()
     {
-        var rand = UnityEngine.Random.Range(0, this.entities.count);
-        var e = this.entities.GetEntities()[rand];
+        var mapSize = _game.GetEntities(GameMatcher.MapSize).ToList().SingleEntity().mapSize.Value;
 
-        e.isNonWalkable = UnityEngine.Random.Range(0, 2) == 0;
-        e.ReplaceViewPrefab(e.isNonWalkable ? "nonWalkable" : "floor");
+        var x = Random.Range(0, mapSize.x);
+        var y = Random.Range(0, mapSize.y);
+
+        var e = _game.CreateEntity();
+        e.isNonWalkable = true;
+        e.AddPosition(new Vector2Int(x, y));
+        e.AddViewPrefab("nonWalkable");
+
+        if (_nonWalkableEntities.count >= mapSize.x * mapSize.y / 5)
+        {
+            var rand = Random.Range(0, _nonWalkableEntities.count);
+
+            _nonWalkableEntities.GetEntities()[rand].isDestroyed = true;
+        }
     }
 }

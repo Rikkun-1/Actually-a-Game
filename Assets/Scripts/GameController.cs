@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    RootSystems systems;
+    private RootSystems _systems;
 
-    void Start()
+    private void Start()
     {
-        this.systems = new RootSystems(Contexts.sharedInstance);
-        this.systems.Initialize();
+        _systems = new RootSystems(Contexts.sharedInstance);
+        _systems.Initialize();
     }
 
-    void Update()
+    private void Update()
     {
-        this.systems.Execute();
-        this.systems.Cleanup();
+        _systems.Execute();
+        _systems.Cleanup();
     }
 
     private void OnDestroy()
     {
-        this.systems.TearDown();
+        _systems.TearDown();
     }
 }
