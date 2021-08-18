@@ -18,11 +18,12 @@ public static class GameComponentsLookup {
     public const int Position = 7;
     public const int PositionListener = 8;
     public const int SouthWall = 9;
-    public const int UnityView = 10;
-    public const int ViewPrefab = 11;
-    public const int WestWall = 12;
+    public const int Undestructible = 10;
+    public const int UnityView = 11;
+    public const int ViewPrefab = 12;
+    public const int WestWall = 13;
 
-    public const int TotalComponents = 13;
+    public const int TotalComponents = 14;
 
     public static readonly string[] componentNames = {
         "Destroyed",
@@ -35,6 +36,7 @@ public static class GameComponentsLookup {
         "Position",
         "PositionListener",
         "SouthWall",
+        "Undestructible",
         "UnityView",
         "ViewPrefab",
         "WestWall"
@@ -51,6 +53,7 @@ public static class GameComponentsLookup {
         typeof(PositionComponent),
         typeof(PositionListenerComponent),
         typeof(SouthWallComponent),
+        typeof(Undestructible),
         typeof(UnityViewComponent),
         typeof(ViewPrefabComponent),
         typeof(WestWallComponent)

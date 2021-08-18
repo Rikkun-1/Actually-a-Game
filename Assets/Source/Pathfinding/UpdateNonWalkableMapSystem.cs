@@ -51,45 +51,57 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
             if (top != null && canGoDirection(Direction.Top))
             {
                 node.Connect(top, velocity);
+                top.Connect(node, velocity);
             }
 
             if (bottom != null && canGoDirection(Direction.Bottom))
             {
                 node.Connect(bottom, velocity);
+                bottom.Connect(node, velocity);
             }
 
             if (left != null && canGoDirection(Direction.Left))
             {
                 node.Connect(left, velocity);
+                left.Connect(node, velocity);
             }
 
             if (right != null && canGoDirection(Direction.Right))
             {
                 node.Connect(right, velocity);
+                right.Connect(node, velocity);
             }
 
             if (topLeft != null && canGoDirection(Direction.TopLeft))
             {
                 node.Connect(topLeft, velocity);
+                topLeft.Connect(node, velocity);
                 top?.Connect(left, velocity);
+                left?.Connect(top, velocity);
             }
 
             if (topRight != null && canGoDirection(Direction.TopRight))
             {
                 node.Connect(topRight, velocity);
+                topRight.Connect(node, velocity);
                 top?.Connect(right, velocity);
+                right?.Connect(top, velocity);
             }
 
             if (bottomLeft != null && canGoDirection(Direction.BottomLeft))
             {
                 node.Connect(bottomLeft, velocity);
+                bottomLeft.Connect(node, velocity);
                 bottom?.Connect(left, velocity);
+                left?.Connect(bottom, velocity);
             }
 
             if (bottomRight != null && canGoDirection(Direction.BottomRight))
             {
                 node.Connect(bottomRight, velocity);
+                bottomRight.Connect(node, velocity);
                 bottom?.Connect(right, velocity);
+                right?.Connect(bottom, velocity);
             }
         }
 
