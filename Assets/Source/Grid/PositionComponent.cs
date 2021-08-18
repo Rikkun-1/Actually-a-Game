@@ -1,9 +1,9 @@
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
-
 using UnityEngine;
 
-[Game, Event(EventTarget.Self)]
+[Game]
+[Event(EventTarget.Self)]
 public sealed class PositionComponent : IComponent
 {
     [EntityIndex]

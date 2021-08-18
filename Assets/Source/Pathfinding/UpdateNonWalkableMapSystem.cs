@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Entitas;
-using Roy_T.AStar.Graphs;
 using Roy_T.AStar.Primitives;
 using UnityEngine;
 using Grid = Roy_T.AStar.Grids.Grid;
@@ -10,9 +9,9 @@ using Grid = Roy_T.AStar.Grids.Grid;
 public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 {
     private readonly Contexts _contexts;
+    private GameEntity _edgesHolder;
 
     private GameEntity _gridHolder;
-    private GameEntity _edgesHolder;
 
     public UpdateNonWalkableMapSystem(Contexts contexts) : base(contexts.game) => _contexts = contexts;
 
@@ -32,7 +31,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        void reconectNode(int x, int y, Grid grid)
+        void reconnectNode(int x, int y, Grid grid)
         {
             var node = grid.GetNode(x, y);
             var velocity = Velocity.FromMetersPerSecond(2);
@@ -46,7 +45,8 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
             var bottomLeft = grid.GetNode(x - 1, y - 1);
             var bottomRight = grid.GetNode(x + 1, y - 1);
 
-            bool canGoDirection(Direction direction) => CanGoChecker.CanGoDirection(_contexts.game, node.Position.ToVector2Int(), direction);
+            bool canGoDirection(Direction direction) =>
+                CanGoChecker.CanGoDirection(_contexts.game, node.Position.ToVector2Int(), direction);
 
             if (top != null && canGoDirection(Direction.Top))
             {
@@ -92,7 +92,8 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
                 bottom?.Connect(right, velocity);
             }
         }
-        void disconectNode(int x, int y, Grid grid)
+
+        void disconnectNode(int x, int y, Grid grid)
         {
             var gridPosition = new GridPosition(x, y);
 
@@ -140,6 +141,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
                 bottomRight.Disconnect(node);
             }
         }
+
         void leftWallAdded(int x, int y, Grid grid)
         {
             var node = grid.GetNode(x, y);
@@ -180,6 +182,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
                 bottomLeft.Disconnect(node);
             }
         }
+
         void topWallAdded(int x, int y, Grid grid)
         {
             var node = grid.GetNode(x, y);
@@ -220,6 +223,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
                 topRight.Disconnect(node);
             }
         }
+
         void bottomWallAdded(int x, int y, Grid grid)
         {
             var node = grid.GetNode(x, y);
@@ -261,29 +265,24 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
             }
         }
 
-        if (_gridHolder == null)
-        {
-            _gridHolder = _contexts.game.GetEntities(GameMatcher.PathfindingGrid)
-                .ToList()
-                .SingleEntity();
-        }
-        if (_edgesHolder == null)
-        {
-            _edgesHolder = _contexts.game.GetEntities(GameMatcher.Edges)
-                .ToList()
-                .SingleEntity();
-        }
+        _gridHolder = _contexts.game.GetEntities(GameMatcher.PathfindingGrid)
+            .ToList()
+            .SingleEntity();
+
+        _edgesHolder = _contexts.game.GetEntities(GameMatcher.Edges)
+            .ToList()
+            .SingleEntity();
 
         var grid = _gridHolder.pathfindingGrid.Value;
 
-        foreach (var e in entities) 
+        foreach (var e in entities)
         {
             var x = e.position.Value.x;
             var y = e.position.Value.y;
 
             if (e.isNonWalkable)
             {
-                disconectNode(x, y, grid);
+                disconnectNode(x, y, grid);
             }
             else if (e.isEastWall)
             {
@@ -303,9 +302,8 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
             }
             else
             {
-                reconectNode(x, y, grid);
+                reconnectNode(x, y, grid);
             }
-        
         }
 
         _edgesHolder.ReplaceEdges(grid.GetAllEdges());
@@ -316,60 +314,63 @@ public static class CanGoChecker
 {
     public static bool CanGoDirection(GameContext context, Vector2Int from, Direction direction)
     {
-        bool NoTopWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isNorthWall);
-        bool NoRightWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isEastWall);
-        bool NoBottomWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isSouthWall);
-        bool NoLeftWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isWestWall);
+        bool noTopWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isNorthWall);
+        bool noRightWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isEastWall);
+        bool noBottomWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isSouthWall);
+        bool noLeftWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isWestWall);
 
-        bool NoWallsInCorner(Vector2Int position, Direction direction)
+        bool noWallsInCorner(Vector2Int position, Direction direction)
         {
             return direction switch
             {
-                Direction.TopRight => NoTopWall(position) && NoRightWall(position),
-                Direction.BottomRight => NoBottomWall(position) && NoRightWall(position),
-                Direction.BottomLeft => NoBottomWall(position) && NoLeftWall(position),
-                Direction.TopLeft => NoTopWall(position) && NoLeftWall(position),
+                Direction.TopRight => noTopWall(position) && noRightWall(position),
+                Direction.BottomRight => noBottomWall(position) && noRightWall(position),
+                Direction.BottomLeft => noBottomWall(position) && noLeftWall(position),
+                Direction.TopLeft => noTopWall(position) && noLeftWall(position),
                 _ => throw new ArgumentOutOfRangeException("Direction must be diagonal, but given direction is " +
                                                            direction)
             };
         }
-        bool WalkableInDirection(Direction direction)
+
+        bool walkableInDirection(Direction direction)
         {
             var x = from.x;
             var y = from.y;
 
-            Vector2Int top = new Vector2Int(x, y + 1);
-            Vector2Int bottom = new Vector2Int(x, y - 1);
-            Vector2Int left = new Vector2Int(x - 1, y);
-            Vector2Int right = new Vector2Int(x + 1, y);
-            Vector2Int topLeft = new Vector2Int(x - 1, y + 1);
-            Vector2Int topRight = new Vector2Int(x + 1, y + 1);
-            Vector2Int bottomLeft = new Vector2Int(x - 1, y - 1);
-            Vector2Int bottomRight = new Vector2Int(x + 1, y - 1);
+            var top = new Vector2Int(x, y + 1);
+            var bottom = new Vector2Int(x, y - 1);
+            var left = new Vector2Int(x - 1, y);
+            var right = new Vector2Int(x + 1, y);
+            var topLeft = new Vector2Int(x - 1, y + 1);
+            var topRight = new Vector2Int(x + 1, y + 1);
+            var bottomLeft = new Vector2Int(x - 1, y - 1);
+            var bottomRight = new Vector2Int(x + 1, y - 1);
 
-            bool IsWalkable(Vector2Int position)
+            bool isWalkable(Vector2Int position)
             {
                 return context.GetEntitiesWithPosition(position).All(e => !e.isNonWalkable);
             }
 
-            if (IsWalkable(from))
+            if (isWalkable(from))
             {
                 switch (direction)
                 {
-                    case Direction.Top: return IsWalkable(top);
-                    case Direction.Right: return IsWalkable(right);
-                    case Direction.Bottom: return IsWalkable(bottom);
-                    case Direction.Left: return IsWalkable(left);
-                    case Direction.TopRight: return IsWalkable(topRight) && IsWalkable(top) && IsWalkable(right);
-                    case Direction.BottomRight: return IsWalkable(bottomRight) && IsWalkable(bottom) && IsWalkable(right);
-                    case Direction.BottomLeft: return IsWalkable(bottomLeft) && IsWalkable(bottom) && IsWalkable(left);
-                    case Direction.TopLeft: return IsWalkable(topLeft) && IsWalkable(top) && IsWalkable(left);
+                    case Direction.Top: return isWalkable(top);
+                    case Direction.Right: return isWalkable(right);
+                    case Direction.Bottom: return isWalkable(bottom);
+                    case Direction.Left: return isWalkable(left);
+                    case Direction.TopRight: return isWalkable(topRight) && isWalkable(top) && isWalkable(right);
+                    case Direction.BottomRight:
+                        return isWalkable(bottomRight) && isWalkable(bottom) && isWalkable(right);
+                    case Direction.BottomLeft: return isWalkable(bottomLeft) && isWalkable(bottom) && isWalkable(left);
+                    case Direction.TopLeft: return isWalkable(topLeft) && isWalkable(top) && isWalkable(left);
                 }
             }
 
             return false;
         }
-        bool NoWallsInDirection(Direction direction)
+
+        bool noWallsInDirection(Direction direction)
         {
             var x = from.x;
             var y = from.y;
@@ -386,46 +387,46 @@ public static class CanGoChecker
             switch (direction)
             {
                 case Direction.Top:
-                    return NoTopWall(from) && NoBottomWall(top);
+                    return noTopWall(from) && noBottomWall(top);
 
                 case Direction.Right:
-                    return NoRightWall(from) && NoLeftWall(right);
+                    return noRightWall(from) && noLeftWall(right);
 
                 case Direction.Bottom:
-                    return NoBottomWall(from) && NoTopWall(bottom);
+                    return noBottomWall(from) && noTopWall(bottom);
 
                 case Direction.Left:
-                    return NoLeftWall(from) && NoRightWall(left);
+                    return noLeftWall(from) && noRightWall(left);
 
                 case Direction.TopRight:
-                    return NoWallsInCorner(from, Direction.TopRight) &&
-                           NoWallsInCorner(top, Direction.BottomRight) &&
-                           NoWallsInCorner(right, Direction.TopLeft) &&
-                           NoWallsInCorner(topRight, Direction.BottomLeft);
+                    return noWallsInCorner(from, Direction.TopRight) &&
+                           noWallsInCorner(top, Direction.BottomRight) &&
+                           noWallsInCorner(right, Direction.TopLeft) &&
+                           noWallsInCorner(topRight, Direction.BottomLeft);
 
                 case Direction.BottomRight:
-                    return NoWallsInCorner(from, Direction.BottomRight) &&
-                           NoWallsInCorner(bottom, Direction.TopRight) &&
-                           NoWallsInCorner(right, Direction.BottomLeft) &&
-                           NoWallsInCorner(bottomRight, Direction.TopLeft);
+                    return noWallsInCorner(from, Direction.BottomRight) &&
+                           noWallsInCorner(bottom, Direction.TopRight) &&
+                           noWallsInCorner(right, Direction.BottomLeft) &&
+                           noWallsInCorner(bottomRight, Direction.TopLeft);
 
                 case Direction.BottomLeft:
-                    return NoWallsInCorner(from, Direction.BottomLeft) &&
-                           NoWallsInCorner(bottom, Direction.TopLeft) &&
-                           NoWallsInCorner(left, Direction.BottomRight) &&
-                           NoWallsInCorner(bottomLeft, Direction.TopRight);
+                    return noWallsInCorner(from, Direction.BottomLeft) &&
+                           noWallsInCorner(bottom, Direction.TopLeft) &&
+                           noWallsInCorner(left, Direction.BottomRight) &&
+                           noWallsInCorner(bottomLeft, Direction.TopRight);
 
                 case Direction.TopLeft:
-                    return NoWallsInCorner(from, Direction.TopLeft) &&
-                           NoWallsInCorner(top, Direction.BottomLeft) &&
-                           NoWallsInCorner(left, Direction.TopRight) &&
-                           NoWallsInCorner(topLeft, Direction.BottomRight);
+                    return noWallsInCorner(from, Direction.TopLeft) &&
+                           noWallsInCorner(top, Direction.BottomLeft) &&
+                           noWallsInCorner(left, Direction.TopRight) &&
+                           noWallsInCorner(topLeft, Direction.BottomRight);
             }
 
             return false;
         }
 
-        return WalkableInDirection(direction) && NoWallsInDirection(direction);
+        return walkableInDirection(direction) && noWallsInDirection(direction);
     }
 }
 

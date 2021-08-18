@@ -1,16 +1,14 @@
-using Entitas;
-
 using System.Collections.Generic;
-
+using Entitas;
 using UnityEngine;
 
 public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
 {
     private readonly Contexts _contexts;
 
-    private readonly IGroup<GameEntity> _entitiesOnMap;
+    private readonly Vector2Int _defaultMapSize = new Vector2Int(8, 8);
 
-    private Vector2Int _defaultMapSize = new Vector2Int(8, 8);
+    private readonly IGroup<GameEntity> _entitiesOnMap;
 
     public CreateGridSystem(Contexts contexts) : base(contexts.game)
     {
@@ -39,12 +37,12 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
         DestroyMap();
 
         var mapSize = entities.SingleEntity().mapSize.Value;
-        int sizeX = mapSize.x;
-        int sizeY = mapSize.y;
+        var sizeX = mapSize.x;
+        var sizeY = mapSize.y;
 
-        for (int x = 0; x < sizeX; x++)
+        for (var x = 0; x < sizeX; x++)
         {
-            for (int y = 0; y < sizeY; y++)
+            for (var y = 0; y < sizeY; y++)
             {
                 var e = _contexts.game.CreateEntity();
                 e.AddPosition(new Vector2Int(x, y));

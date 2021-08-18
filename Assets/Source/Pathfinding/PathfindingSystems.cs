@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using Entitas;
-
-public sealed class PathfindingSystems : Feature
+﻿public sealed class PathfindingSystems : Feature
 {
     public PathfindingSystems(Contexts contexts)
     {

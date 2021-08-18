@@ -1,5 +1,4 @@
 ﻿using Entitas;
-
 using UnityEngine;
 
 public class PositionListener : MonoBehaviour, IEventListener, IPositionListener
@@ -17,7 +16,7 @@ public class PositionListener : MonoBehaviour, IEventListener, IPositionListener
 
     public void UnregisterEventListeners()
     {
-        _entity.RemovePositionListener(this, removeComponentWhenEmpty: false);
+        _entity.RemovePositionListener(this, false);
     }
 
     public void OnPosition(GameEntity e, Vector2Int newPosition)

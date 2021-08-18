@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Roy_T.AStar.Grids;
 using Roy_T.AStar.Primitives;
-using Grid = Roy_T.AStar.Grids.Grid;
 
 public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 {
-    private GameEntity _gridHolder;
-    private GameEntity _edgesHolder;
+    private readonly GameEntity _edgesHolder;
+    private readonly GameEntity _gridHolder;
 
     public ResizePathfindingMapSystem(Contexts contexts) : base(contexts.game)
     {
@@ -36,7 +36,7 @@ public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 
     private Grid CreateNewMap(int columns, int rows)
     {
-        var gridSize = new GridSize(columns: columns, rows: rows);
+        var gridSize = new GridSize(columns, rows);
         var cellSize = new Size(Distance.FromMeters(1), Distance.FromMeters(1));
 
         var traversalVelocity = Velocity.FromMetersPerSecond(2);

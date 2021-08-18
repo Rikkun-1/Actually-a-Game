@@ -1,5 +1,5 @@
 ﻿using Entitas;
-using Grid = Roy_T.AStar.Grids.Grid;
+using Roy_T.AStar.Grids;
 
 [Game]
 public class PathfindingGridComponent : IComponent

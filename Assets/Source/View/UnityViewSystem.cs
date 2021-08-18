@@ -17,7 +17,10 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
 
     public void Cleanup()
     {
-        foreach (var e in _destroyedEntities) DestroyView(e);
+        foreach (var e in _destroyedEntities)
+        {
+            DestroyView(e);
+        }
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -49,7 +52,10 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
     private void DestroyView(GameEntity entity)
     {
         var eventListeners = entity.unityView.GameObject.gameObject.GetComponents<IEventListener>();
-        foreach (var listener in eventListeners) listener.UnregisterEventListeners();
+        foreach (var listener in eventListeners)
+        {
+            listener.UnregisterEventListeners();
+        }
 
         entity.unityView.GameObject.gameObject.Unlink();
         Object.Destroy(entity.unityView.GameObject);
@@ -66,7 +72,10 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
         if (viewGameObject != null)
         {
             var eventListeners = viewGameObject.GetComponents<IEventListener>();
-            foreach (var listener in eventListeners) listener.RegisterEventListeners(entity);
+            foreach (var listener in eventListeners)
+            {
+                listener.RegisterEventListeners(entity);
+            }
         }
     }
 }

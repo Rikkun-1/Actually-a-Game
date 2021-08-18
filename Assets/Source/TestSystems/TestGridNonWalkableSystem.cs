@@ -1,13 +1,11 @@
-﻿using Entitas;
-
-using System.Linq;
-
+﻿using System.Linq;
+using Entitas;
 using UnityEngine;
 
 public class TestGridNonWalkableSystem : IExecuteSystem
 {
-    private readonly IGroup<GameEntity> _nonWalkableEntities;
     private readonly GameContext _game;
+    private readonly IGroup<GameEntity> _nonWalkableEntities;
 
     public TestGridNonWalkableSystem(Contexts contexts)
     {

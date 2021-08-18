@@ -1,7 +1,5 @@
-﻿using Entitas;
-
-using System.Linq;
-
+﻿using System.Linq;
+using Entitas;
 using UnityEngine;
 
 public class TestGridWallsSystem : IExecuteSystem
@@ -32,6 +30,7 @@ public class TestGridWallsSystem : IExecuteSystem
                         e.isNorthWall = true;
                         e.ReplaceViewPrefab("NorthWall");
                     }
+
                     break;
 
                 case 1:
@@ -42,6 +41,7 @@ public class TestGridWallsSystem : IExecuteSystem
                         e.isSouthWall = true;
                         e.ReplaceViewPrefab("SouthWall");
                     }
+
                     break;
 
                 case 2:
@@ -52,6 +52,7 @@ public class TestGridWallsSystem : IExecuteSystem
                         e.isEastWall = true;
                         e.ReplaceViewPrefab("EastWall");
                     }
+
                     break;
 
                 case 3:
@@ -62,6 +63,7 @@ public class TestGridWallsSystem : IExecuteSystem
                         e.isWestWall = true;
                         e.ReplaceViewPrefab("WestWall");
                     }
+
                     break;
             }
         }
