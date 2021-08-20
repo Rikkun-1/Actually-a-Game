@@ -9,10 +9,10 @@ namespace Source.TestSystems
     public class TestPathSystem : IInitializeSystem, IExecuteSystem
     {
         private readonly Contexts _contexts;
-        private readonly PathFinder pathFinder = new PathFinder();
+        private readonly PathFinder _pathFinder = new PathFinder();
 
-        private GameEntity EndPos;
-        private GameEntity StartPos;
+        private GameEntity _endPos;
+        private GameEntity _startPos;
 
         public TestPathSystem(Contexts contexts)
         {
@@ -21,16 +21,16 @@ namespace Source.TestSystems
 
         public void Execute()
         {
-            var _gridHolder = _contexts.game.GetEntities(GameMatcher.PathfindingGrid)
+            var gridHolder = _contexts.game.GetEntities(GameMatcher.PathfindingGrid)
                 .ToList()
                 .SingleEntity();
 
-            if (_gridHolder != null)
+            if (gridHolder != null)
             {
-                var startPos = StartPos.position.Value;
-                var endPos = EndPos.position.Value;
-                var path = pathFinder.FindPath(new GridPosition(startPos.x, startPos.y),
-                    new GridPosition(endPos.x, endPos.y), _gridHolder.pathfindingGrid.Value);
+                var startPos = _startPos.position.Value;
+                var endPos = _endPos.position.Value;
+                var path = _pathFinder.FindPath(new GridPosition(startPos.x, startPos.y),
+                    new GridPosition(endPos.x, endPos.y), gridHolder.pathfindingGrid.Value);
 
                 Debug.Log($"type: {path.Type}, distance: {path.Distance}, duration {path.Duration}");
 
@@ -45,12 +45,12 @@ namespace Source.TestSystems
 
         public void Initialize()
         {
-            StartPos = _contexts.game.CreateEntity();
-            EndPos = _contexts.game.CreateEntity();
-            StartPos.AddPosition(new Vector2Int(2, 2));
-            EndPos.AddPosition(new Vector2Int(5, 5));
-            StartPos.isUndestructible = true;
-            EndPos.isUndestructible = true;
+            _startPos = _contexts.game.CreateEntity();
+            _endPos = _contexts.game.CreateEntity();
+            _startPos.AddPosition(new Vector2Int(2, 2));
+            _endPos.AddPosition(new Vector2Int(5, 5));
+            _startPos.isUndestructible = true;
+            _endPos.isUndestructible = true;
         }
     }
 }
