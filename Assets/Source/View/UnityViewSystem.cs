@@ -6,7 +6,7 @@ using UnityEngine;
 public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
 {
     private readonly IGroup<GameEntity> _destroyedEntities;
-    private readonly GameObject _parent;
+    private readonly GameObject         _parent;
 
     public UnityViewSystem(Contexts contexts) : base(contexts.game)
     {
@@ -37,15 +37,9 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
     {
         foreach (var e in entities)
         {
-            if (e.hasUnityView)
-            {
-                DestroyView(e);
-            }
+            if (e.hasUnityView) DestroyView(e);
 
-            if (e.hasViewPrefab)
-            {
-                LoadViewFromPrefab(e, e.viewPrefab.PrefabName);
-            }
+            if (e.hasViewPrefab) LoadViewFromPrefab(e, e.viewPrefab.PrefabName);
         }
     }
 
@@ -63,7 +57,7 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
 
     private void LoadViewFromPrefab(GameEntity entity, string prefabName)
     {
-        var viewPrefab = Resources.Load<GameObject>("Prefabs/" + prefabName);
+        var viewPrefab     = Resources.Load<GameObject>("Prefabs/" + prefabName);
         var viewGameObject = Object.Instantiate(viewPrefab, _parent.transform);
 
         viewGameObject.Link(entity);

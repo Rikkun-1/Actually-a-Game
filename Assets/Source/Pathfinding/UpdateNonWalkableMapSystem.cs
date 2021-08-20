@@ -18,17 +18,17 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
         return context.CreateCollector(GameMatcher.NonWalkable.AddedOrRemoved(),
-            GameMatcher.NorthWall.AddedOrRemoved(),
-            GameMatcher.SouthWall.AddedOrRemoved(),
-            GameMatcher.EastWall.AddedOrRemoved(),
-            GameMatcher.WestWall.AddedOrRemoved());
+                                       GameMatcher.NorthWall.AddedOrRemoved(),
+                                       GameMatcher.SouthWall.AddedOrRemoved(),
+                                       GameMatcher.EastWall.AddedOrRemoved(),
+                                       GameMatcher.WestWall.AddedOrRemoved());
     }
 
     protected override bool Filter(GameEntity entity)
     {
         return entity.hasPosition;
     }
-    
+
     protected override void Execute(List<GameEntity> entities)
     {
         _gridHolder = _contexts.game.GetEntities(GameMatcher.PathfindingGrid)
@@ -36,8 +36,8 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
                                .SingleEntity();
 
         _edgesHolder = _contexts.game.GetEntities(GameMatcher.Edges)
-            .ToList()
-            .SingleEntity();
+                                .ToList()
+                                .SingleEntity();
 
         var grid = _gridHolder.pathfindingGrid.Value;
 
@@ -73,36 +73,36 @@ public static class GridChanger
         var topRight    = new GridPosition(x + 1, y + 1);
         var bottomLeft  = new GridPosition(x - 1, y - 1);
         var bottomRight = new GridPosition(x + 1, y - 1);
-        
+
         if (canGoDirection(Direction.Top))    grid.AddTwoWayEdge(from, top,    velocity);
         if (canGoDirection(Direction.Bottom)) grid.AddTwoWayEdge(from, bottom, velocity);
         if (canGoDirection(Direction.Left))   grid.AddTwoWayEdge(from, left,   velocity);
         if (canGoDirection(Direction.Right))  grid.AddTwoWayEdge(from, right,  velocity);
-        
+
         if (canGoDirection(Direction.TopLeft))
         {
             grid.AddTwoWayEdge(from, topLeft, velocity);
-            grid.AddTwoWayEdge(top, left, velocity);
+            grid.AddTwoWayEdge(top,  left,    velocity);
         }
 
         if (canGoDirection(Direction.TopRight))
         {
             grid.AddTwoWayEdge(from, topRight, velocity);
-            grid.AddTwoWayEdge(top, right, velocity);
+            grid.AddTwoWayEdge(top,  right,    velocity);
         }
 
         if (canGoDirection(Direction.BottomLeft))
         {
-            grid.AddTwoWayEdge(from, bottomLeft, velocity);
-            grid.AddTwoWayEdge(bottom, left, velocity);
+            grid.AddTwoWayEdge(from,   bottomLeft, velocity);
+            grid.AddTwoWayEdge(bottom, left,       velocity);
         }
 
         if (canGoDirection(Direction.BottomRight))
         {
-            grid.AddTwoWayEdge(from, bottomRight, velocity);
-            grid.AddTwoWayEdge(bottom, right, velocity);
+            grid.AddTwoWayEdge(from,   bottomRight, velocity);
+            grid.AddTwoWayEdge(bottom, right,       velocity);
         }
-        
+
         bool canGoDirection(Direction direction) =>
             CanGoChecker.CanGoDirection(context, grid, from, direction);
     }
@@ -178,7 +178,7 @@ public static class GridChanger
 public static class CanGoChecker
 {
     public static bool NoNonWalkableInDirection(GameContext context, GridPosition from,
-                                                Direction direction)
+                                                Direction   direction)
     {
         var x = from.X;
         var y = from.Y;
@@ -192,10 +192,7 @@ public static class CanGoChecker
         var bottomLeft  = new GridPosition(x - 1, y - 1);
         var bottomRight = new GridPosition(x + 1, y - 1);
 
-        if (!isWalkable(from))
-        {
-            return false;
-        }
+        if (!isWalkable(from)) return false;
 
         switch (direction)
         {
@@ -218,7 +215,7 @@ public static class CanGoChecker
             default:
                 throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
         }
-        
+
         bool isWalkable(GridPosition position)
         {
             return context.GetEntitiesWithPosition(position.ToVector2Int())
@@ -227,7 +224,7 @@ public static class CanGoChecker
     }
 
     private static bool _noWallsInLateralDirection(GameContext context, GridPosition from,
-                                                   Direction direction)
+                                                   Direction   direction)
     {
         var x = from.X;
         var y = from.Y;
@@ -243,7 +240,7 @@ public static class CanGoChecker
             Direction.Right  => noRightWall(from) && noLeftWall(right),
             Direction.Bottom => noBottomWall(from) && noTopWall(bottom),
             Direction.Left   => noLeftWall(from) && noRightWall(left),
-            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+            _                => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
 
         bool noTopWall(GridPosition position)
