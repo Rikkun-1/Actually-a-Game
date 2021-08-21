@@ -11,32 +11,38 @@ public static class GameComponentsLookup {
     public const int Destroyed = 0;
     public const int EastWall = 1;
     public const int Edges = 2;
-    public const int MapSize = 3;
-    public const int NonWalkable = 4;
-    public const int NorthWall = 5;
-    public const int PathfindingGrid = 6;
-    public const int Position = 7;
-    public const int PositionListener = 8;
-    public const int SouthWall = 9;
-    public const int Undestructible = 10;
-    public const int UnityView = 11;
-    public const int ViewPrefab = 12;
-    public const int WestWall = 13;
+    public const int GameTick = 3;
+    public const int Indestructible = 4;
+    public const int MapSize = 5;
+    public const int NonWalkable = 6;
+    public const int NorthWall = 7;
+    public const int Path = 8;
+    public const int PathfindingGrid = 9;
+    public const int PathRequest = 10;
+    public const int Position = 11;
+    public const int PositionListener = 12;
+    public const int SouthWall = 13;
+    public const int UnityView = 14;
+    public const int ViewPrefab = 15;
+    public const int WestWall = 16;
 
-    public const int TotalComponents = 14;
+    public const int TotalComponents = 17;
 
     public static readonly string[] componentNames = {
         "Destroyed",
         "EastWall",
         "Edges",
+        "GameTick",
+        "Indestructible",
         "MapSize",
         "NonWalkable",
         "NorthWall",
+        "Path",
         "PathfindingGrid",
+        "PathRequest",
         "Position",
         "PositionListener",
         "SouthWall",
-        "Undestructible",
         "UnityView",
         "ViewPrefab",
         "WestWall"
@@ -46,14 +52,17 @@ public static class GameComponentsLookup {
         typeof(DestroyedComponent),
         typeof(EastWallComponent),
         typeof(EdgesComponent),
+        typeof(GameTick),
+        typeof(IndestructibleComponent),
         typeof(MapSizeComponent),
         typeof(NonWalkableComponent),
         typeof(NorthWallComponent),
+        typeof(PathComponent),
         typeof(PathfindingGridComponent),
+        typeof(PathRequestComponent),
         typeof(PositionComponent),
         typeof(PositionListenerComponent),
         typeof(SouthWallComponent),
-        typeof(Undestructible),
         typeof(UnityViewComponent),
         typeof(ViewPrefabComponent),
         typeof(WestWallComponent)

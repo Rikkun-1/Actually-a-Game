@@ -52,8 +52,8 @@ namespace Source.TestSystems
             _startPos.AddPosition(new Vector2Int(2, 2));
             _endPos.AddPosition(new Vector2Int(5,   5));
 
-            _startPos.isUndestructible = true;
-            _endPos.isUndestructible   = true;
+            _startPos.isIndestructible = true;
+            _endPos.isIndestructible   = true;
         }
     }
 }

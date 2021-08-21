@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Entitas;
 using Roy_T.AStar.Primitives;
-using UnityEngine;
 using Grid = Roy_T.AStar.Grids.Grid;
 
 public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
@@ -24,8 +23,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
                                        GameMatcher.WestWall.AddedOrRemoved());
     }
 
-    protected override bool Filter(GameEntity entity)
-    {
+    protected override bool Filter(GameEntity entity) {
         return entity.hasPosition;
     }
 
@@ -45,7 +43,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
         {
             var x = e.position.Value.x;
             var y = e.position.Value.y;
-
+            
             if (e.isNonWalkable)    GridChanger.DisconnectNode(x, y, grid);
             else if (e.isEastWall)  GridChanger.WallAdded(grid, x, y, Direction.Right);
             else if (e.isWestWall)  GridChanger.WallAdded(grid, x, y, Direction.Left);
@@ -74,11 +72,11 @@ public static class GridChanger
         var bottomLeft  = new GridPosition(x - 1, y - 1);
         var bottomRight = new GridPosition(x + 1, y - 1);
 
-        if (canGoDirection(Direction.Top))    grid.AddTwoWayEdge(from, top,    velocity);
-        if (canGoDirection(Direction.Bottom)) grid.AddTwoWayEdge(from, bottom, velocity);
-        if (canGoDirection(Direction.Left))   grid.AddTwoWayEdge(from, left,   velocity);
-        if (canGoDirection(Direction.Right))  grid.AddTwoWayEdge(from, right,  velocity);
-
+        if (canGoDirection(Direction.Top))    grid.AddTwoWayEdge(from,  top,    velocity);
+        if (canGoDirection(Direction.Bottom)) grid.AddTwoWayEdge(from,  bottom, velocity);
+        if (canGoDirection(Direction.Left))   grid.AddTwoWayEdge(from,  left,   velocity);
+        if (canGoDirection(Direction.Right))  grid.AddTwoWayEdge(from,  right,  velocity);
+        
         if (canGoDirection(Direction.TopLeft))
         {
             grid.AddTwoWayEdge(from, topLeft, velocity);
@@ -347,12 +345,4 @@ public enum Direction
     BottomLeft,
     Left,
     TopLeft
-}
-
-public static class GridPositionExtension
-{
-    public static Vector2Int ToVector2Int(this GridPosition position)
-    {
-        return new Vector2Int(position.X, position.Y);
-    }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Roy_T.AStar.Primitives
 {
@@ -28,5 +29,13 @@ namespace Roy_T.AStar.Primitives
         public bool Equals(GridPosition other) => this.X == other.X && this.Y == other.Y;
 
         public override int GetHashCode() => -1609761766 + this.X + this.Y;
+    }
+    
+    public static class GridPositionExtension
+    {
+        public static Vector2Int ToVector2Int(this GridPosition position)
+        {
+            return new Vector2Int(position.X, position.Y);
+        }
     }
 }
