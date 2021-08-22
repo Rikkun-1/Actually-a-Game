@@ -12,7 +12,8 @@ public class UnityViewSystem : ReactiveSystem<GameEntity>, ICleanupSystem
     {
         _parent = new GameObject("Views");
         _destroyedEntities =
-            contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Destroyed, GameMatcher.UnityView));
+            contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Destroyed, GameMatcher.UnityView)
+                                              .NoneOf(GameMatcher.Indestructible));
     }
 
     public void Cleanup()
