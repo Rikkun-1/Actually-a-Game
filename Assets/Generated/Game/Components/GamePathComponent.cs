@@ -14,16 +14,16 @@ public partial class GameEntity {
     public void AddPath(Roy_T.AStar.Paths.Path newPath, int newCurrentIndex) {
         var index = GameComponentsLookup.Path;
         var component = (PathComponent)CreateComponent(index, typeof(PathComponent));
-        component.Path = newPath;
-        component.CurrentIndex = newCurrentIndex;
+        component.path = newPath;
+        component.currentIndex = newCurrentIndex;
         AddComponent(index, component);
     }
 
     public void ReplacePath(Roy_T.AStar.Paths.Path newPath, int newCurrentIndex) {
         var index = GameComponentsLookup.Path;
         var component = (PathComponent)CreateComponent(index, typeof(PathComponent));
-        component.Path = newPath;
-        component.CurrentIndex = newCurrentIndex;
+        component.path = newPath;
+        component.currentIndex = newCurrentIndex;
         ReplaceComponent(index, component);
     }
 

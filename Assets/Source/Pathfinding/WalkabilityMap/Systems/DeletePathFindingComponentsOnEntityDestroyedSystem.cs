@@ -11,7 +11,8 @@ public class DeletePathFindingComponentsOnEntityDestroyedSystem : IExecuteSystem
                                                              GameMatcher.NorthWall,
                                                              GameMatcher.SouthWall,
                                                              GameMatcher.WestWall,
-                                                             GameMatcher.EastWall));
+                                                             GameMatcher.EastWall)
+                                                      .NoneOf(GameMatcher.Indestructible));
     }
 
     public void Execute()

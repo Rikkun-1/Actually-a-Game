@@ -4,5 +4,5 @@ using UnityEngine;
 [Game]
 public class UnityViewComponent : IComponent
 {
-    public GameObject GameObject;
+    public GameObject gameObject;
 }

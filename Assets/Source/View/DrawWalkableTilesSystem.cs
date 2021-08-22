@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Entitas;
+﻿using Entitas;
+using Roy_T.AStar.Primitives;
 using UnityEngine;
 
 public class DrawWalkableTilesSystem : IExecuteSystem
@@ -13,14 +13,17 @@ public class DrawWalkableTilesSystem : IExecuteSystem
 
     public void Execute()
     {
-        var edges = _contexts.game.GetEntities(GameMatcher.Edges).ToList().SingleEntity().edges.Value;
-
-        foreach (var edge in edges)
+        if (_contexts.game.hasPathfindingGrid)
         {
-            var start = new Vector3(edge.Start.Position.X, edge.Start.Position.Y);
-            var end   = new Vector3(edge.End.Position.X,   edge.End.Position.Y);
+            var edges = _contexts.game.pathfindingGrid.value.GetAllEdges();
 
-            Debug.DrawLine(start, end, new Color(64, 0, 0));
+            foreach (var edge in edges)
+            {
+                var start = edge.Start.Position.ToVector3();
+                var end   = edge.End.Position.ToVector3();
+
+                Debug.DrawLine(start, end, new Color(255, 0, 0));
+            }
         }
     }
 }

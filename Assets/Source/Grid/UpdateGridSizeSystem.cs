@@ -2,24 +2,15 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
-public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
+public class UpdateGridSizeSystem : ReactiveSystem<GameEntity>
 {
-    private readonly Contexts _contexts;
-
-    private readonly Vector2Int _defaultMapSize = new Vector2Int(8, 8);
-
+    private readonly Contexts           _contexts;
     private readonly IGroup<GameEntity> _entitiesOnMap;
 
-    public CreateGridSystem(Contexts contexts) : base(contexts.game)
+    public UpdateGridSizeSystem(Contexts contexts) : base(contexts.game)
     {
         _contexts      = contexts;
         _entitiesOnMap = _contexts.game.GetGroup(GameMatcher.Position);
-    }
-
-    public void Initialize()
-    {
-        var e = _contexts.game.CreateEntity();
-        e.AddMapSize(_defaultMapSize);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -35,21 +26,7 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
     protected override void Execute(List<GameEntity> entities)
     {
         DestroyMap();
-
-        var mapSize = entities.SingleEntity().mapSize.Value;
-
-        var sizeX = mapSize.x;
-        var sizeY = mapSize.y;
-
-        for (var x = 0; x < sizeX; x++)
-        {
-            for (var y = 0; y < sizeY; y++)
-            {
-                var e = _contexts.game.CreateEntity();
-                e.AddPosition(new Vector2Int(x, y));
-                e.AddViewPrefab("floor");
-            }
-        }
+        PopulateMapWithFloor(entities.SingleEntity().mapSize.value);
     }
 
     private void DestroyMap()
@@ -57,6 +34,19 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
         foreach (var e in _entitiesOnMap)
         {
             e.isDestroyed = true;
+        }
+    }
+
+    private void PopulateMapWithFloor(Vector2Int size)
+    {
+        for (var x = 0; x < size.x; x++)
+        {
+            for (var y = 0; y < size.y; y++)
+            {
+                var e = _contexts.game.CreateEntity();
+                e.AddPosition(new Vector2Int(x, y));
+                e.AddViewPrefab("floor");
+            }
         }
     }
 }

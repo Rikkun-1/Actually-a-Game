@@ -14,16 +14,16 @@ public partial class GameEntity {
     public void AddPathRequest(UnityEngine.Vector2Int newFrom, UnityEngine.Vector2Int newTo) {
         var index = GameComponentsLookup.PathRequest;
         var component = (PathRequestComponent)CreateComponent(index, typeof(PathRequestComponent));
-        component.From = newFrom;
-        component.To = newTo;
+        component.@from = newFrom;
+        component.to = newTo;
         AddComponent(index, component);
     }
 
     public void ReplacePathRequest(UnityEngine.Vector2Int newFrom, UnityEngine.Vector2Int newTo) {
         var index = GameComponentsLookup.PathRequest;
         var component = (PathRequestComponent)CreateComponent(index, typeof(PathRequestComponent));
-        component.From = newFrom;
-        component.To = newTo;
+        component.@from = newFrom;
+        component.to = newTo;
         ReplaceComponent(index, component);
     }
 

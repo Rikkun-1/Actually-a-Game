@@ -10,13 +10,16 @@ namespace Entitas.VisualDebugging.Unity.Editor {
     public class EntityLinkInspector : UnityEditor.Editor {
 
         public override void OnInspectorGUI() {
-            if (targets.Length > 1) {
+            if (targets.Length > 1)
+            {
                 var entities = targets
                                 .Select(t => ((EntityLink)t).entity)
                                 .ToArray();
 
                 EntityDrawer.DrawMultipleEntities(entities);
-            } else {
+            }
+            else
+            {
                 var link = (EntityLink)target;
 
                 if (link.entity != null) {

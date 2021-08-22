@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-using Entitas;
+﻿using Entitas;
+using Roy_T.AStar.Primitives;
+using UnityEngine;
 
 public class DrawPathsSystem : IExecuteSystem
 {
-    readonly IGroup<GameEntity> _entities;
+    private readonly IGroup<GameEntity> _entities;
 
     public DrawPathsSystem(Contexts contexts)
     {
@@ -14,13 +15,13 @@ public class DrawPathsSystem : IExecuteSystem
     {
         foreach (var e in _entities)
         {
-            var path = e.path.Path;
+            var path = e.path.path;
 
             foreach (var edge in path.Edges)
             {
-                var start = new Vector3(edge.Start.Position.X, edge.Start.Position.Y);
-                var end   = new Vector3(edge.End.Position.X,   edge.End.Position.Y);
-                Debug.DrawLine(start, end, new Color(255, 0, 0));
+                var start = edge.Start.Position.ToVector3();
+                var end   = edge.End.Position.ToVector3();
+                Debug.DrawLine(start, end, new Color(0, 255, 0));
             }
         }
     }

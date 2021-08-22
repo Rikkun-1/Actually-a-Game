@@ -14,18 +14,18 @@ public partial class GameEntity {
     public void AddGameTick(double newTimeFromStart, double newDeltaTime, int newTickFromStart) {
         var index = GameComponentsLookup.GameTick;
         var component = (GameTick)CreateComponent(index, typeof(GameTick));
-        component.TimeFromStart = newTimeFromStart;
-        component.DeltaTime = newDeltaTime;
-        component.TickFromStart = newTickFromStart;
+        component.timeFromStart = newTimeFromStart;
+        component.deltaTime = newDeltaTime;
+        component.tickFromStart = newTickFromStart;
         AddComponent(index, component);
     }
 
     public void ReplaceGameTick(double newTimeFromStart, double newDeltaTime, int newTickFromStart) {
         var index = GameComponentsLookup.GameTick;
         var component = (GameTick)CreateComponent(index, typeof(GameTick));
-        component.TimeFromStart = newTimeFromStart;
-        component.DeltaTime = newDeltaTime;
-        component.TickFromStart = newTickFromStart;
+        component.timeFromStart = newTimeFromStart;
+        component.deltaTime = newDeltaTime;
+        component.tickFromStart = newTickFromStart;
         ReplaceComponent(index, component);
     }
 

@@ -3,50 +3,63 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private RootSystems _systems;
-    private Contexts    _contexts;
-    private GameEntity  _timeHolder;
-    
-    [SerializeField] private double      _timeAccumulated;
-    [SerializeField] private double      _tickDeltaTime = 0.05;
+    [SerializeField] private double                    _timeAccumulated;
+    [SerializeField] private double                    _tickDeltaTime  = 0.05;
+    [SerializeField] private Vector2Int                _defaultMapSize = new Vector2Int(10, 10);
+    private                  Contexts                  _contexts;
+    private                  RootSystems               _systems;
+    private                  EachFrameExecutionSystems _eachFrameExecutionSystems;
+    private                  GameEntity                _timeHolder;
 
     private void Start()
     {
-        _contexts = Contexts.sharedInstance;
-        
+        _contexts                  = Contexts.sharedInstance;
+        _systems                   = new RootSystems(_contexts);
+        _eachFrameExecutionSystems = new EachFrameExecutionSystems(_contexts);
+
         _timeHolder = _contexts.game.CreateEntity();
         _timeHolder.AddGameTick(0, 0, 0);
-        
-        _systems  = new RootSystems(_contexts);
+
+        _contexts.game.CreateEntity().AddMapSize(_defaultMapSize);
+
         _systems.Initialize();
+        _eachFrameExecutionSystems.Initialize();
     }
 
     private void Update()
     {
-        UpdateGameTick();
-
-        _systems.Execute();
-        _systems.Cleanup();
-    }
-
-    private void UpdateGameTick()
-    {
-        _timeAccumulated += Time.deltaTime;
-
-        if (_timeAccumulated >= _tickDeltaTime)
+        if (IsTimeForNewTick())
         {
-            var previous         = _timeHolder.gameTick;
-            var newTimeFromStart = Math.Round(previous.TimeFromStart + _tickDeltaTime, 2);
-
-            _timeHolder.ReplaceGameTick(newTimeFromStart,
-                                        _tickDeltaTime,
-                                        previous.TickFromStart + 1);
-            _timeAccumulated -= _tickDeltaTime;
+            UpdateGameTick();
+            _systems.Execute();
+            _systems.Cleanup();
         }
+
+        _eachFrameExecutionSystems.Execute();
+        _eachFrameExecutionSystems.Cleanup();
     }
 
     private void OnDestroy()
     {
         _systems.TearDown();
+        _eachFrameExecutionSystems.TearDown();
+    }
+
+    private bool IsTimeForNewTick()
+    {
+        _timeAccumulated += Time.deltaTime;
+
+        return _timeAccumulated >= _tickDeltaTime;
+    }
+
+    private void UpdateGameTick()
+    {
+        var previous         = _timeHolder.gameTick;
+        var newTimeFromStart = Math.Round(previous.timeFromStart + _tickDeltaTime, 2);
+
+        _timeHolder.ReplaceGameTick(newTimeFromStart,
+                                    _tickDeltaTime,
+                                    previous.tickFromStart + 1);
+        _timeAccumulated -= _tickDeltaTime;
     }
 }

@@ -7,5 +7,5 @@ using UnityEngine;
 public sealed class PositionComponent : IComponent
 {
     [EntityIndex]
-    public Vector2Int Value;
+    public Vector2Int value;
 }

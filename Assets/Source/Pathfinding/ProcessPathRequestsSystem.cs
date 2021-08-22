@@ -6,10 +6,10 @@ using Roy_T.AStar.Primitives;
 
 public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
 {
-    private Contexts _contexts;
+    private readonly Contexts   _contexts;
+    private          GameEntity _gridHolder;
 
-    private PathFinder pathfinder = new PathFinder();
-    private GameEntity _gridHolder;
+    private readonly PathFinder _pathfinder = new PathFinder();
 
     public ProcessPathRequestsSystem(Contexts contexts) : base(contexts.game)
     {
@@ -19,7 +19,7 @@ public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
         return context.CreateCollector(GameMatcher.PathRequest.Added());
-    }   
+    }
 
     protected override bool Filter(GameEntity entity)
     {
@@ -31,17 +31,17 @@ public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
         _gridHolder = _contexts.game.GetEntities(GameMatcher.PathfindingGrid)
                                .ToList()
                                .SingleEntity();
-        
+
         foreach (var e in entities)
         {
-            var from = e.pathRequest.From;
-            var to = e.pathRequest.To;
+            var from = e.pathRequest.from;
+            var to   = e.pathRequest.to;
 
             var start = new GridPosition(from.x, from.y);
-            var end = new GridPosition(to.x, to.y);
-            
-            var path = pathfinder.FindPath(start, end, _gridHolder.pathfindingGrid.Value);
-            
+            var end   = new GridPosition(to.x,   to.y);
+
+            var path = _pathfinder.FindPath(start, end, _gridHolder.pathfindingGrid.value);
+
             e.ReplacePath(path, 0);
         }
     }

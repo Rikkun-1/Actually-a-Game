@@ -10,8 +10,8 @@ public class PositionListener : MonoBehaviour, IEventListener, IPositionListener
         _entity = (GameEntity)entity;
         _entity.AddPositionListener(this);
 
-        var position = _entity.position.Value;
-        OnPosition(_entity, new Vector2Int(position.x, position.y));
+        var currentPosition = _entity.position.value;
+        OnPosition(_entity, new Vector2Int(currentPosition.x, currentPosition.y));
     }
 
     public void UnregisterEventListeners()

@@ -269,6 +269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32785ad2f4d33b449afd38b26c193f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeAccumulated: 0
+  _tickDeltaTime: 0.05
+  _defaultMapSize: {x: 20, y: 20}
 --- !u!4 &1168647769
 Transform:
   m_ObjectHideFlags: 0
@@ -372,7 +375,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0.00000010606999, z: 4.5904e-41, w: 0}
+  m_BoundingSphereOverride: {x: 1, y: 1, z: 0, w: NaN}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

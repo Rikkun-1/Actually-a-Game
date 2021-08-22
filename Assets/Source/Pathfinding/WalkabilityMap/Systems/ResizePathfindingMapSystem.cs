@@ -5,13 +5,11 @@ using Roy_T.AStar.Primitives;
 
 public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 {
-    private readonly GameEntity _edgesHolder;
-    private readonly GameEntity _gridHolder;
+    private readonly Contexts _contexts;
 
-    public ResizePathfindingMapSystem(Contexts contexts) : base(contexts.game)
+    public  ResizePathfindingMapSystem(Contexts contexts) : base(contexts.game)
     {
-        _gridHolder  = contexts.game.CreateEntity();
-        _edgesHolder = contexts.game.CreateEntity();
+        _contexts = contexts;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -26,12 +24,10 @@ public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var mapSize = entities.SingleEntity().mapSize.Value;
+        var mapSize = entities.SingleEntity().mapSize.value;
         var grid    = CreateNewMap(mapSize.x, mapSize.y);
-        var edges   = grid.GetAllEdges();
 
-        _gridHolder.ReplacePathfindingGrid(grid);
-        _edgesHolder.ReplaceEdges(edges);
+        _contexts.game.ReplacePathfindingGrid(grid);
     }
 
     private Grid CreateNewMap(int columns, int rows)
@@ -41,7 +37,8 @@ public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 
         var traversalVelocity = Velocity.FromMetersPerSecond(2);
 
-        var grid = Grid.CreateGridWithLateralAndDiagonalConnections(gridSize, cellSize, traversalVelocity);
+        var grid =
+            Grid.CreateGridWithLateralAndDiagonalConnections(gridSize, cellSize, traversalVelocity);
 
         return grid;
     }

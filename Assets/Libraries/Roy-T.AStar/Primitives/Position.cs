@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Roy_T.AStar.Primitives
 {
@@ -31,5 +32,11 @@ namespace Roy_T.AStar.Primitives
         public bool Equals(Position other) => this.X == other.X && this.Y == other.Y;
 
         public override int GetHashCode() => -1609761766 + this.X.GetHashCode() + this.Y.GetHashCode();
+    }
+
+    public static class PositionExtensions
+    {
+        public static Vector3 ToVector3(this Position value)
+            => new Vector3(value.X, value.Y);
     }
 }

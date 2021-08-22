@@ -65,7 +65,7 @@ public partial class Contexts {
         game.AddEntityIndex(new Entitas.EntityIndex<GameEntity, UnityEngine.Vector2Int>(
             Position,
             game.GetGroup(GameMatcher.Position),
-            (e, c) => ((PositionComponent)c).Value));
+            (e, c) => ((PositionComponent)c).value));
     }
 }
 

@@ -14,14 +14,14 @@ public partial class GameEntity {
     public void AddPosition(UnityEngine.Vector2Int newValue) {
         var index = GameComponentsLookup.Position;
         var component = (PositionComponent)CreateComponent(index, typeof(PositionComponent));
-        component.Value = newValue;
+        component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplacePosition(UnityEngine.Vector2Int newValue) {
         var index = GameComponentsLookup.Position;
         var component = (PositionComponent)CreateComponent(index, typeof(PositionComponent));
-        component.Value = newValue;
+        component.value = newValue;
         ReplaceComponent(index, component);
     }
 

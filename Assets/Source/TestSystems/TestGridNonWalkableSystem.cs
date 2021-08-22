@@ -15,14 +15,14 @@ public class TestGridNonWalkableSystem : IExecuteSystem
 
     public void Execute()
     {
-        var mapSize = _game.GetEntities(GameMatcher.MapSize).ToList().SingleEntity().mapSize.Value;
+        var mapSize = _game.GetEntities(GameMatcher.MapSize).ToList().SingleEntity().mapSize.value;
 
         var x = Random.Range(0, mapSize.x);
         var y = Random.Range(0, mapSize.y);
 
         var e = _game.CreateEntity();
-        e.isNonWalkable = true;
         e.AddPosition(new Vector2Int(x, y));
+        e.isNonWalkable = true;
         e.AddViewPrefab("nonWalkable");
 
         if (_nonWalkableEntities.count >= mapSize.x * mapSize.y / 5)

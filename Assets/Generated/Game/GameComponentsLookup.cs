@@ -10,28 +10,26 @@ public static class GameComponentsLookup {
 
     public const int Destroyed = 0;
     public const int EastWall = 1;
-    public const int Edges = 2;
-    public const int GameTick = 3;
-    public const int Indestructible = 4;
-    public const int MapSize = 5;
-    public const int NonWalkable = 6;
-    public const int NorthWall = 7;
-    public const int Path = 8;
-    public const int PathfindingGrid = 9;
-    public const int PathRequest = 10;
-    public const int Position = 11;
-    public const int PositionListener = 12;
-    public const int SouthWall = 13;
-    public const int UnityView = 14;
-    public const int ViewPrefab = 15;
-    public const int WestWall = 16;
+    public const int GameTick = 2;
+    public const int Indestructible = 3;
+    public const int MapSize = 4;
+    public const int NonWalkable = 5;
+    public const int NorthWall = 6;
+    public const int Path = 7;
+    public const int PathfindingGrid = 8;
+    public const int PathRequest = 9;
+    public const int Position = 10;
+    public const int PositionListener = 11;
+    public const int SouthWall = 12;
+    public const int UnityView = 13;
+    public const int ViewPrefab = 14;
+    public const int WestWall = 15;
 
-    public const int TotalComponents = 17;
+    public const int TotalComponents = 16;
 
     public static readonly string[] componentNames = {
         "Destroyed",
         "EastWall",
-        "Edges",
         "GameTick",
         "Indestructible",
         "MapSize",
@@ -51,7 +49,6 @@ public static class GameComponentsLookup {
     public static readonly System.Type[] componentTypes = {
         typeof(DestroyedComponent),
         typeof(EastWallComponent),
-        typeof(EdgesComponent),
         typeof(GameTick),
         typeof(IndestructibleComponent),
         typeof(MapSizeComponent),

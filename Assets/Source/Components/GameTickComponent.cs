@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using Entitas;
+﻿using Entitas;
 
 [Game]
 public class GameTick : IComponent
 {
-    public double TimeFromStart;
-    public double DeltaTime;
-    public int TickFromStart;
+    public double deltaTime;
+    public int    tickFromStart;
+    public double timeFromStart;
 }
