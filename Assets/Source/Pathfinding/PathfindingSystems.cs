@@ -7,6 +7,7 @@
         Add(new TestGridNonWalkableSystem(contexts));
         Add(new TestGridWallsSystem(contexts));
 
+        Add(new RecalculatePathSystem(contexts));
         Add(new ProcessPathRequestsSystem(contexts));
         Add(new TraversePathSystem(contexts));
         Add(new DeletePathFindingComponentsOnEntityDestroyedSystem(contexts));

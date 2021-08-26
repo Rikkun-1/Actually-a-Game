@@ -3,16 +3,16 @@ using System.Linq;
 using Entitas;
 using UnityEngine;
 
-public class TraversePathSystem : ReactiveSystem<GameEntity>
+public class TraversePathSystem : IExecuteSystem
 {
     private readonly Contexts           _contexts;
     private readonly IGroup<GameEntity> _entities;
 
-    public TraversePathSystem(Contexts contexts) : base(contexts.game)
+    public TraversePathSystem(Contexts contexts)
     {
         _contexts = contexts;
-        _entities =
-            contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position, GameMatcher.Path));
+        _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position, 
+                                                             GameMatcher.Path));
 
         //var e = _contexts.game.CreateEntity();
         //e.isIndestructible = true;
@@ -21,17 +21,7 @@ public class TraversePathSystem : ReactiveSystem<GameEntity>
         //e.AddPathRequest(e.position.Value, new Vector2Int(7, 7));   
     }
 
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
-    {
-        return context.CreateCollector(GameMatcher.GameTick.Added());
-    }
-
-    protected override bool Filter(GameEntity entity)
-    {
-        return true;
-    }
-    
-    protected override void Execute(List<GameEntity> entities)
+    public void Execute()
     {
         foreach (var e in _entities.GetEntities())
         {
@@ -41,7 +31,6 @@ public class TraversePathSystem : ReactiveSystem<GameEntity>
                 var newPosition  = new Vector2Int((int)nextPosition.X, (int)nextPosition.Y);
 
                 e.ReplacePosition(newPosition);
-
                 e.ReplacePath(e.path.path, e.path.currentIndex + 1);
             }
             else

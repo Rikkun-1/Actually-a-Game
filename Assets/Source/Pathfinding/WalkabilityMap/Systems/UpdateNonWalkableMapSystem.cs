@@ -40,5 +40,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
             else if (e.isSouthWall) GridChanger.WallAdded(pathfindingGrid, x, y, Direction.Bottom);
             else                    GridChanger.ReconnectNode(_contexts.game, pathfindingGrid, x, y);
         }
+        
+        _contexts.game.ReplacePathfindingGrid(pathfindingGrid);
     }
 }
