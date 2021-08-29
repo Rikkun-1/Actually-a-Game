@@ -14,11 +14,11 @@ public class TraversePathSystem : IExecuteSystem
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Position, 
                                                              GameMatcher.Path));
 
-        //var e = _contexts.game.CreateEntity();
-        //e.isIndestructible = true;
-        //e.AddPosition(new Vector2Int(1, 1));
-        //e.AddViewPrefab("Cube");
-        //e.AddPathRequest(e.position.Value, new Vector2Int(7, 7));   
+        var e = _contexts.game.CreateEntity();
+        e.isIndestructible = true;
+        e.AddPosition(new Vector2Int(1, 1));
+        e.AddViewPrefab("Cube");
+        e.AddPathRequest(e.position.value, new Vector2Int(7, 7));   
     }
 
     public void Execute()

@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeAccumulated: 0
-  _tickDeltaTime: 0.05
+  _tickDeltaTime: 0.02
   _defaultMapSize: {x: 20, y: 20}
 --- !u!4 &1168647769
 Transform:
