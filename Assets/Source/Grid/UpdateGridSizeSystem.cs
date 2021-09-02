@@ -10,7 +10,7 @@ public class UpdateGridSizeSystem : ReactiveSystem<GameEntity>
     public UpdateGridSizeSystem(Contexts contexts) : base(contexts.game)
     {
         _contexts      = contexts;
-        _entitiesOnMap = _contexts.game.GetGroup(GameMatcher.Position);
+        _entitiesOnMap = _contexts.game.GetGroup(GameMatcher.GridPosition);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -26,7 +26,7 @@ public class UpdateGridSizeSystem : ReactiveSystem<GameEntity>
     protected override void Execute(List<GameEntity> entities)
     {
         DestroyMap();
-        PopulateMapWithFloor(entities.SingleEntity().mapSize.value);
+        PopulateMapWithFloor(_contexts.game.mapSize.value);
     }
 
     private void DestroyMap()
@@ -44,7 +44,7 @@ public class UpdateGridSizeSystem : ReactiveSystem<GameEntity>
             for (var y = 0; y < size.y; y++)
             {
                 var e = _contexts.game.CreateEntity();
-                e.AddPosition(new Vector2Int(x, y));
+                e.AddGridPosition(new Vector2Int(x, y));
                 e.AddViewPrefab("floor");
             }
         }

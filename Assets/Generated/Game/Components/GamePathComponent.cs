@@ -11,19 +11,19 @@ public partial class GameEntity {
     public PathComponent path { get { return (PathComponent)GetComponent(GameComponentsLookup.Path); } }
     public bool hasPath { get { return HasComponent(GameComponentsLookup.Path); } }
 
-    public void AddPath(Roy_T.AStar.Paths.Path newPath, int newCurrentIndex) {
+    public void AddPath(int newCurrentIndex, System.Collections.Generic.List<UnityEngine.Vector2Int> newWaypoints) {
         var index = GameComponentsLookup.Path;
         var component = (PathComponent)CreateComponent(index, typeof(PathComponent));
-        component.path = newPath;
         component.currentIndex = newCurrentIndex;
+        component.waypoints = newWaypoints;
         AddComponent(index, component);
     }
 
-    public void ReplacePath(Roy_T.AStar.Paths.Path newPath, int newCurrentIndex) {
+    public void ReplacePath(int newCurrentIndex, System.Collections.Generic.List<UnityEngine.Vector2Int> newWaypoints) {
         var index = GameComponentsLookup.Path;
         var component = (PathComponent)CreateComponent(index, typeof(PathComponent));
-        component.path = newPath;
         component.currentIndex = newCurrentIndex;
+        component.waypoints = newWaypoints;
         ReplaceComponent(index, component);
     }
 

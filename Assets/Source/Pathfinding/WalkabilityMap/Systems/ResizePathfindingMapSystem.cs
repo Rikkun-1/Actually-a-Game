@@ -24,7 +24,7 @@ public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var mapSize = entities.SingleEntity().mapSize.value;
+        var mapSize = _contexts.game.mapSize.value;
         var grid    = CreateNewMap(mapSize.x, mapSize.y);
 
         _contexts.game.ReplacePathfindingGrid(grid);
@@ -37,8 +37,7 @@ public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 
         var traversalVelocity = Velocity.FromMetersPerSecond(2);
 
-        var grid =
-            Grid.CreateGridWithLateralAndDiagonalConnections(gridSize, cellSize, traversalVelocity);
+        var grid = Grid.CreateGridWithLateralAndDiagonalConnections(gridSize, cellSize, traversalVelocity);
 
         return grid;
     }

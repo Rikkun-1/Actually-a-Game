@@ -4,10 +4,12 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Entitas.VisualDebugging.Unity.Editor {
-
+    
     [CustomEditor(typeof(EntityLink))]
     [CanEditMultipleObjects]
     public class EntityLinkInspector : UnityEditor.Editor {
+        
+        public override bool RequiresConstantRepaint() => true;
 
         public override void OnInspectorGUI() {
             if (targets.Length > 1)

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Game]
-public class UnityViewComponent : IComponent
+public sealed class UnityViewComponent : IComponent
 {
     public GameObject gameObject;
 }

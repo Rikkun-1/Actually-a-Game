@@ -119,6 +119,6 @@ namespace Roy_T.AStar.Paths
         }
 
         public static Duration ExpectedDuration(INode a, INode b, Velocity maximumVelocity)
-            => Distance.BeweenPositions(a.Position, b.Position) / maximumVelocity;
+            => Distance.BetweenPositions(a.Position, b.Position) / maximumVelocity;
     }
 }

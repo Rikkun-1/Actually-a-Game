@@ -51,7 +51,7 @@ public static class GridChanger
             CanGoChecker.CanGoDirection(context, grid, from, direction);
     }
 
-    public static void DisconnectNode(int x, int y, Grid grid)
+    public static void DisconnectNode(Grid grid, int x, int y)
     {
         var gridPosition = new GridPosition(x, y);
 
@@ -91,7 +91,7 @@ public static class GridChanger
         {
             if (grid.IsInsideGrid(left))       grid.RemoveTwoWayEdge(center, left);
             if (grid.IsInsideGrid(topLeft))    grid.RemoveTwoWayEdge(center, topLeft);
-            if (grid.IsInsideGrid(bottomLeft)) grid.RemoveTwoWayEdge(center, bottomLeft);
+                                                          if (grid.IsInsideGrid(bottomLeft)) grid.RemoveTwoWayEdge(center, bottomLeft);
 
             if (grid.IsInsideGrid(left) && grid.IsInsideGrid(top))    grid.RemoveTwoWayEdge(left,    top);
             if (grid.IsInsideGrid(left) && grid.IsInsideGrid(bottom)) grid.RemoveTwoWayEdge(left, bottom);

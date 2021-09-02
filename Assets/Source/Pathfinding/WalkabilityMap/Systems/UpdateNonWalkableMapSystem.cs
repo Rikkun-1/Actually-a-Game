@@ -21,7 +21,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasPosition;
+        return entity.hasGridPosition;
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -30,10 +30,10 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 
         foreach (var e in entities)
         {
-            var x = e.position.value.x;
-            var y = e.position.value.y;
+            var x = e.gridPosition.value.x;
+            var y = e.gridPosition.value.y;
 
-            if (e.isNonWalkable)    GridChanger.DisconnectNode(x, y, pathfindingGrid);
+            if (e.isNonWalkable)    GridChanger.DisconnectNode(pathfindingGrid, x, y);
             else if (e.isEastWall)  GridChanger.WallAdded(pathfindingGrid, x, y, Direction.Right);
             else if (e.isWestWall)  GridChanger.WallAdded(pathfindingGrid, x, y, Direction.Left);
             else if (e.isNorthWall) GridChanger.WallAdded(pathfindingGrid, x, y, Direction.Top);

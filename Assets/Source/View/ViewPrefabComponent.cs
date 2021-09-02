@@ -1,7 +1,7 @@
 ﻿using Entitas;
 
 [Game]
-public class ViewPrefabComponent : IComponent
+public sealed class ViewPrefabComponent : IComponent
 {
     public string prefabName;
 }

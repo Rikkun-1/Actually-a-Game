@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
 [Game]
-public class SouthWallComponent : IComponent
+public sealed class SouthWallComponent : IComponent
 {
 }

@@ -47,7 +47,7 @@ public static class CanGoChecker
 
         bool isWalkable(GridPosition position)
         {
-            return context.GetEntitiesWithPosition(position.ToVector2Int())
+            return context.GetEntitiesWithGridPosition(position.ToVector2Int())
                           .All(e => !e.isNonWalkable);
         }
     }
@@ -73,16 +73,16 @@ public static class CanGoChecker
         };
 
         bool noTopWall(GridPosition position)
-            => context.GetEntitiesWithPosition(position.ToVector2Int()).All(e => !e.isNorthWall);
+            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isNorthWall);
 
         bool noRightWall(GridPosition position)
-            => context.GetEntitiesWithPosition(position.ToVector2Int()).All(e => !e.isEastWall);
+            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isEastWall);
 
         bool noBottomWall(GridPosition position)
-            => context.GetEntitiesWithPosition(position.ToVector2Int()).All(e => !e.isSouthWall);
+            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isSouthWall);
 
         bool noLeftWall(GridPosition position)
-            => context.GetEntitiesWithPosition(position.ToVector2Int()).All(e => !e.isWestWall);
+            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isWestWall);
     }
 
     public static bool NoWallsInDirection(GameContext context, GridPosition from,

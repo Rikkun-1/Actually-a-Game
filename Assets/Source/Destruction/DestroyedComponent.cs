@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
 [Game]
-public class DestroyedComponent : IComponent
+public sealed class DestroyedComponent : IComponent
 {
 }

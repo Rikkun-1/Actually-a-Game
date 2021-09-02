@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
 [Game]
-public class NonWalkableComponent : IComponent
+public sealed class NonWalkableComponent : IComponent
 {
 }

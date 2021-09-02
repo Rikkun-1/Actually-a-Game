@@ -1,7 +1,8 @@
 ﻿using Entitas;
+using Entitas.CodeGeneration.Attributes;
 
-[Game]
-public class GameTick : IComponent
+[Game, Unique]
+public sealed class GameTickComponent : IComponent
 {
     public double deltaTime;
     public int    tickFromStart;

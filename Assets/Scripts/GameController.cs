@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     private                  RootSystems               _systems;
     private                  EachFrameExecutionSystems _eachFrameExecutionSystems;
     private                  GameEntity                _timeHolder;
-
+    
     private void Start()
     {
         _contexts                  = Contexts.sharedInstance;
@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
         _timeHolder = _contexts.game.CreateEntity();
         _timeHolder.AddGameTick(0, 0, 0);
 
-        _contexts.game.CreateEntity().AddMapSize(_defaultMapSize);
+        _contexts.game.SetMapSize(_defaultMapSize);
 
         _systems.Initialize();
         _eachFrameExecutionSystems.Initialize();
@@ -55,11 +55,11 @@ public class GameController : MonoBehaviour
     private void UpdateGameTick()
     {
         var previous         = _timeHolder.gameTick;
-        var newTimeFromStart = Math.Round(previous.timeFromStart + _tickDeltaTime, 2);
+        var newTimeFromStart = Math.Round(previous.timeFromStart + _tickDeltaTime, 3);
 
-        _timeHolder.ReplaceGameTick(newTimeFromStart,
-                                    _tickDeltaTime,
-                                    previous.tickFromStart + 1);
+        _timeHolder.ReplaceGameTick(_tickDeltaTime,
+                                    previous.tickFromStart + 1,
+                                    newTimeFromStart);
         _timeAccumulated -= _tickDeltaTime;
     }
 }
