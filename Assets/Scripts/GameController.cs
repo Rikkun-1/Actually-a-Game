@@ -11,6 +11,15 @@ public class GameController : MonoBehaviour
     private                  EachFrameExecutionSystems _eachFrameExecutionSystems;
     private                  GameEntity                _timeHolder;
     
+    private void Initialize()
+    {
+        var e = _contexts.game.CreateEntity();
+        e.AddWorldPosition(new Vector2(1, 1));
+        e.AddVision(new Vision(0, 30, 5));
+        e.AddViewPrefab("Cube");
+    }
+
+    
     private void Start()
     {
         _contexts                  = Contexts.sharedInstance;
@@ -24,6 +33,8 @@ public class GameController : MonoBehaviour
 
         _systems.Initialize();
         _eachFrameExecutionSystems.Initialize();
+
+        Initialize();
     }
 
     private void Update()

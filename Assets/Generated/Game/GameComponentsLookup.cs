@@ -23,11 +23,13 @@ public static class GameComponentsLookup {
     public const int TraversalSpeed = 12;
     public const int UnityView = 13;
     public const int ViewPrefab = 14;
-    public const int WestWall = 15;
-    public const int WorldPosition = 16;
-    public const int WorldPositionListener = 17;
+    public const int Vision = 15;
+    public const int VisionListener = 16;
+    public const int WestWall = 17;
+    public const int WorldPosition = 18;
+    public const int WorldPositionListener = 19;
 
-    public const int TotalComponents = 18;
+    public const int TotalComponents = 20;
 
     public static readonly string[] componentNames = {
         "Destroyed",
@@ -45,6 +47,8 @@ public static class GameComponentsLookup {
         "TraversalSpeed",
         "UnityView",
         "ViewPrefab",
+        "Vision",
+        "VisionListener",
         "WestWall",
         "WorldPosition",
         "WorldPositionListener"
@@ -66,6 +70,8 @@ public static class GameComponentsLookup {
         typeof(TraversalSpeedComponent),
         typeof(UnityViewComponent),
         typeof(ViewPrefabComponent),
+        typeof(VisionComponent),
+        typeof(VisionListenerComponent),
         typeof(WestWallComponent),
         typeof(WorldPositionComponent),
         typeof(WorldPositionListenerComponent)

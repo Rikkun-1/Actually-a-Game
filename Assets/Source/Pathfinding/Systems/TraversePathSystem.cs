@@ -3,7 +3,7 @@ using Entitas;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class TraversePathSystem : IInitializeSystem, IExecuteSystem
+public class TraversePathSystem : IExecuteSystem
 {
     private readonly Contexts           _contexts;
     private readonly IGroup<GameEntity> _entities;
@@ -15,28 +15,7 @@ public class TraversePathSystem : IInitializeSystem, IExecuteSystem
                                                              GameMatcher.TraversalSpeed,
                                                              GameMatcher.Path));
     }
-
-    public void Initialize()
-    {
-        var e = _contexts.game.CreateEntity();
-        e.isIndestructible = true;
-        e.AddWorldPosition(new Vector2(1, 1));
-        e.AddViewPrefab("Cube");
-        e.AddTraversalSpeed(10);
-        e.AddPathRequest(e.worldPosition.value.ToVector2Int(), new Vector2Int(7, 7));
-
-
-        // for (int i = 0; i < 50; i++)
-        // {
-        //     e                  = _contexts.game.CreateEntity();
-        //     e.isIndestructible = true;
-        //     e.AddWorldPosition(new Vector2(2, 2));
-        //     e.AddViewPrefab("Cube");       
-        //     e.AddTraversalSpeed(10);
-        //     e.AddPathRequest(e.worldPosition.value.ToVector2Int(), new Vector2Int(7, 7));
-        // }
-    }
-
+    
     public void Execute()
     {
         var deltaTime = _contexts.game.gameTick.deltaTime;

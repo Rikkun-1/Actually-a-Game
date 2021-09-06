@@ -44,7 +44,7 @@ public class UpdateGridSizeSystem : ReactiveSystem<GameEntity>
             for (var y = 0; y < size.y; y++)
             {
                 var e = _contexts.game.CreateEntity();
-                e.AddGridPosition(new Vector2Int(x, y));
+                e.AddWorldPosition(new Vector2(x, y));
                 e.AddViewPrefab("floor");
             }
         }

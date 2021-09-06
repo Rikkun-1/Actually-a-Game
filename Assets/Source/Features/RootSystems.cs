@@ -6,7 +6,7 @@ public sealed class RootSystems : Feature
         
         Add(new UpdateGridSizeSystem(contexts));
         
-        Add(new PathfindingSystems(contexts));
+        // Add(new PathfindingSystems(contexts));
         Add(new ViewSystems(contexts));
 
         Add(new DestroySystem(contexts));
