@@ -23,7 +23,7 @@ public class TestGridWallsSystem : IExecuteSystem
 
         if (Random.Range(0, 10) < 5)
         {
-            var e = EntityCreator.createGameEntity();
+            var e = EntityCreator.CreateGameEntity();
             e.AddWorldPosition(position);
             switch (Random.Range(0, 4))
             {

@@ -15,25 +15,26 @@ public static class GameComponentsLookup {
     public const int ID = 4;
     public const int Indestructible = 5;
     public const int LookAtDirectionOrder = 6;
-    public const int LookAtPositionOrder = 7;
-    public const int MapSize = 8;
-    public const int NonWalkable = 9;
-    public const int NorthWall = 10;
-    public const int OrderSequence = 11;
-    public const int Path = 12;
-    public const int PathfindingGrid = 13;
-    public const int PathRequest = 14;
-    public const int SouthWall = 15;
-    public const int TraversalSpeed = 16;
-    public const int UnityView = 17;
-    public const int ViewPrefab = 18;
-    public const int Vision = 19;
-    public const int VisionListener = 20;
-    public const int WestWall = 21;
-    public const int WorldPosition = 22;
-    public const int WorldPositionListener = 23;
+    public const int LookAtEntityOrder = 7;
+    public const int LookAtPositionOrder = 8;
+    public const int MapSize = 9;
+    public const int NonWalkable = 10;
+    public const int NorthWall = 11;
+    public const int OrderSequence = 12;
+    public const int Path = 13;
+    public const int PathfindingGrid = 14;
+    public const int PathRequest = 15;
+    public const int SouthWall = 16;
+    public const int TraversalSpeed = 17;
+    public const int UnityView = 18;
+    public const int ViewPrefab = 19;
+    public const int Vision = 20;
+    public const int VisionListener = 21;
+    public const int WestWall = 22;
+    public const int WorldPosition = 23;
+    public const int WorldPositionListener = 24;
 
-    public const int TotalComponents = 24;
+    public const int TotalComponents = 25;
 
     public static readonly string[] componentNames = {
         "Destroyed",
@@ -43,6 +44,7 @@ public static class GameComponentsLookup {
         "ID",
         "Indestructible",
         "LookAtDirectionOrder",
+        "LookAtEntityOrder",
         "LookAtPositionOrder",
         "MapSize",
         "NonWalkable",
@@ -70,6 +72,7 @@ public static class GameComponentsLookup {
         typeof(IDComponent),
         typeof(IndestructibleComponent),
         typeof(LookAtDirectionOrderComponent),
+        typeof(LookAtEntityOrderComponent),
         typeof(LookAtPositionOrderComponent),
         typeof(MapSizeComponent),
         typeof(NonWalkableComponent),

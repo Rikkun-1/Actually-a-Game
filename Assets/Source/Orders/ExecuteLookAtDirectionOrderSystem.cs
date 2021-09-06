@@ -23,16 +23,13 @@ public class ExecuteLookDirectionOrderSystem : IExecuteSystem
             var vision       = e.vision.value;
             var orderedAngle = e.lookAtDirectionOrder.angle;
             
+            var rotated = vision.turningSpeed * deltaTime;
+
             if (Math.Abs(vision.directionAngle - orderedAngle) > 0.01)
             {
-                var current = Quaternion.Euler(0, vision.directionAngle, 0);
-                var ordered = Quaternion.Euler(0, orderedAngle,          0);
+                vision.directionAngle = 
+                    RotationHelper.RotateAngleTowards(vision.directionAngle, orderedAngle, (float)rotated);
 
-                float degrees = vision.turningSpeed * (float)deltaTime;
-                
-                var newAngle = Quaternion.RotateTowards(current, ordered, degrees).eulerAngles.y;
-
-                vision.directionAngle = newAngle;
                 e.ReplaceVision(vision);
             }
         }

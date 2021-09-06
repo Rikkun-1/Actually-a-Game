@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     
     private void Initialize()
     {
-        var e = EntityCreator.createGameEntity();
+        var e = EntityCreator.CreateGameEntity();
         e.AddWorldPosition(new Vector2(1, 1));
         e.AddVision(new Vision(0, 30, 5, 100));
         e.AddViewPrefab("Cube");

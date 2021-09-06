@@ -25,22 +25,31 @@ public class ExecuteLootAtPositionOrderSystem : IExecuteSystem
             var targetPosition  = e.lookAtPositionOrder.position;
             var targetDirection = targetPosition - currentPosition;
 
-            var vision = e.vision.value;
+            var vision  = e.vision.value;
+            var rotated = vision.turningSpeed * deltaTime;
 
-            float desiredAngle = Mathf.Atan2( targetDirection.x, targetDirection.y )  * Mathf.Rad2Deg; // Assuming you want degrees not radians?
+            float desiredAngle = targetDirection.ToAngle();
             
             if (Math.Abs(vision.directionAngle - desiredAngle) > 0.01)
             {
-                var current = Quaternion.Euler(0, vision.directionAngle, 0);
-                var ordered = Quaternion.Euler(0, desiredAngle,          0);
-
-                float degrees = vision.turningSpeed * (float)deltaTime;
+                vision.directionAngle = 
+                    RotationHelper.RotateAngleTowards(vision.directionAngle, desiredAngle, (float)rotated);
                 
-                var newAngle = Quaternion.RotateTowards(current, ordered, degrees).eulerAngles.y;
-
-                vision.directionAngle = newAngle;
                 e.ReplaceVision(vision);
             }
         }
+    }
+}
+
+public static class RotationHelper
+{
+    public static float RotateAngleTowards(float from, float to, float maxAngleDelta)
+    {
+        var current = Quaternion.Euler(0, from, 0);
+        var ordered = Quaternion.Euler(0, to,          0);
+        
+        var newAngle = Quaternion.RotateTowards(current, ordered, maxAngleDelta).eulerAngles.y;
+
+        return newAngle;
     }
 }

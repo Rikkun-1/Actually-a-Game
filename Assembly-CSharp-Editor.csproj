@@ -155,6 +155,8 @@
      <Compile Include="Assets\Libraries\Entitas\Editor\Plugins\Entitas.CodeGeneration.Plugins\Entitas.CodeGeneration.Plugins\Entity\CodeGenerators\EntityGenerator.cs" />
      <Compile Include="Assets\Libraries\Entitas\Editor\Plugins\Entitas.CodeGeneration.Plugins\Entitas.CodeGeneration.Plugins\Data\MethodData.cs" />
      <Compile Include="Assets\Libraries\Entitas\Editor\Entitas.VisualDebugging.Unity.Editor\Entitas.VisualDebugging.Unity.Editor\Entity\TypeDrawer\ListTypeDrawer.cs" />
+     <Compile Include="Assets\Editor\GameControllerEditor.cs" />
+     <Compile Include="Assets\Libraries\Entitas\Editor\Entitas.VisualDebugging.Unity.Editor\Entitas.VisualDebugging.Unity.Editor\Entity\TypeDrawer\LongTypeDrawer.cs" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Programms/Unity Editor/2020.3.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
