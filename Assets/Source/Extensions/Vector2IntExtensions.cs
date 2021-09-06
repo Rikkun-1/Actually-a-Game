@@ -13,5 +13,10 @@ namespace UnityEngine
         {
             return new Vector3(value.x, value.y);
         }
+        
+        public static Vector3 ToVector3XZ(this Vector2Int value)
+        {
+            return new Vector3(value.x, 0, value.y);
+        }
     }
 }

@@ -11,20 +11,20 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
         if (_entity.hasVision)
         {
             var vision         = _entity.vision.value;
-            var directionAngle = -vision.directionAngle;
+            var directionAngle = vision.directionAngle;
             var viewingAngle   = vision.viewingAngle;
             var distance       = vision.distance;
 
-            var direction      = transform.rotation * Vector2.up * distance;
-            var directionLeft  = Quaternion.Euler(0, 0, directionAngle - viewingAngle / 2) * Vector2.up * distance;
-            var directionRight = Quaternion.Euler(0, 0, directionAngle + viewingAngle / 2) * Vector2.up * distance;
+            var direction      = transform.rotation * Vector3.forward * distance;
+            var directionLeft  = Quaternion.Euler(0, directionAngle - viewingAngle / 2, 0) * Vector3.forward * distance;
+            var directionRight = Quaternion.Euler(0, directionAngle + viewingAngle / 2, 0) * Vector3.forward * distance;
 
             Debug.DrawRay(transform.position, direction,      Color.red);
             Debug.DrawRay(transform.position, directionLeft,  Color.red);
             Debug.DrawRay(transform.position, directionRight, Color.red);
         
-            DebugE.DrawWireArcXY(transform.position, Quaternion.identity, distance, -directionAngle - viewingAngle / 2, 
-                                 -directionAngle + viewingAngle / 2, Color.red);
+            DebugE.DrawWireArcXZ(transform.position, Quaternion.identity, distance, directionAngle - viewingAngle / 2, 
+                                 directionAngle + viewingAngle / 2, Color.red);
         
             //Handles.DrawWireArc(center, normal, from, angle, radius);
             //GizmosE.DrawWireArc(Draw.pointOnCircleXY, transform.position, transform.rotation, 2, -25, 25);
@@ -56,6 +56,6 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
 
     public void OnVision(GameEntity entity, Vision value)
     {
-        transform.rotation = Quaternion.Euler(0, 0, -value.directionAngle);
+        transform.rotation = Quaternion.Euler(0, value.directionAngle, 0);
     }
 }

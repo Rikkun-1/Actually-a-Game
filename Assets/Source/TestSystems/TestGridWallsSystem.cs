@@ -18,13 +18,13 @@ public class TestGridWallsSystem : IExecuteSystem
         var x = Random.Range(0, mapSize.x);
         var y = Random.Range(0, mapSize.y);
 
-        var position           = new Vector2Int(x, y);
-        var entitiesOnPosition =  _game.GetEntitiesWithGridPosition(position);
+        var position           = new Vector2(x, y);
+        var entitiesOnPosition =  _game.GetEntitiesWithGridPosition(position.ToVector2Int());
 
         if (Random.Range(0, 10) < 5)
         {
             var e = _game.CreateEntity();
-            e.AddGridPosition(position);
+            e.AddWorldPosition(position);
             switch (Random.Range(0, 4))
             {
                 case 0
