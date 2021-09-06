@@ -25,9 +25,12 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
         
             DebugE.DrawWireArcXZ(transform.position, Quaternion.identity, distance, directionAngle - viewingAngle / 2, 
                                  directionAngle + viewingAngle / 2, Color.red);
-        
-            //Handles.DrawWireArc(center, normal, from, angle, radius);
-            //GizmosE.DrawWireArc(Draw.pointOnCircleXY, transform.position, transform.rotation, 2, -25, 25);
+            
+            if (_entity.hasLookDirectionOrder)
+            {            
+                direction = Quaternion.Euler(0, _entity.lookDirectionOrder.angle, 0) * Vector3.forward * distance;
+                Debug.DrawRay(transform.position, direction, Color.red);
+            }    
         }
     }
 
