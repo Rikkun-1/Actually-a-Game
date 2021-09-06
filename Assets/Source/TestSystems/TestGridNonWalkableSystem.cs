@@ -19,7 +19,7 @@ public class TestGridNonWalkableSystem : IExecuteSystem
         var x       = Random.Range(0, mapSize.x);
         var y       = Random.Range(0, mapSize.y);
 
-        var e = _game.CreateEntity();
+        var e = EntityCreator.createGameEntity();
         e.AddWorldPosition(new Vector2(x, y));
         e.isNonWalkable = true;
         e.AddViewPrefab("nonWalkable");

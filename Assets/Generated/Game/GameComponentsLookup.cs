@@ -12,33 +12,35 @@ public static class GameComponentsLookup {
     public const int EastWall = 1;
     public const int GameTick = 2;
     public const int GridPosition = 3;
-    public const int Indestructible = 4;
-    public const int LookAtDirectionOrder = 5;
-    public const int LookAtPositionOrder = 6;
-    public const int MapSize = 7;
-    public const int NonWalkable = 8;
-    public const int NorthWall = 9;
-    public const int OrderSequence = 10;
-    public const int Path = 11;
-    public const int PathfindingGrid = 12;
-    public const int PathRequest = 13;
-    public const int SouthWall = 14;
-    public const int TraversalSpeed = 15;
-    public const int UnityView = 16;
-    public const int ViewPrefab = 17;
-    public const int Vision = 18;
-    public const int VisionListener = 19;
-    public const int WestWall = 20;
-    public const int WorldPosition = 21;
-    public const int WorldPositionListener = 22;
+    public const int ID = 4;
+    public const int Indestructible = 5;
+    public const int LookAtDirectionOrder = 6;
+    public const int LookAtPositionOrder = 7;
+    public const int MapSize = 8;
+    public const int NonWalkable = 9;
+    public const int NorthWall = 10;
+    public const int OrderSequence = 11;
+    public const int Path = 12;
+    public const int PathfindingGrid = 13;
+    public const int PathRequest = 14;
+    public const int SouthWall = 15;
+    public const int TraversalSpeed = 16;
+    public const int UnityView = 17;
+    public const int ViewPrefab = 18;
+    public const int Vision = 19;
+    public const int VisionListener = 20;
+    public const int WestWall = 21;
+    public const int WorldPosition = 22;
+    public const int WorldPositionListener = 23;
 
-    public const int TotalComponents = 23;
+    public const int TotalComponents = 24;
 
     public static readonly string[] componentNames = {
         "Destroyed",
         "EastWall",
         "GameTick",
         "GridPosition",
+        "ID",
         "Indestructible",
         "LookAtDirectionOrder",
         "LookAtPositionOrder",
@@ -65,6 +67,7 @@ public static class GameComponentsLookup {
         typeof(EastWallComponent),
         typeof(GameTickComponent),
         typeof(GridPositionComponent),
+        typeof(IDComponent),
         typeof(IndestructibleComponent),
         typeof(LookAtDirectionOrderComponent),
         typeof(LookAtPositionOrderComponent),
