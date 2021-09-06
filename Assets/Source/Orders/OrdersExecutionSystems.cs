@@ -3,5 +3,6 @@
     public OrdersExecutionSystems(Contexts contexts)
     {
         Add(new ExecuteLookDirectionOrderSystem(contexts));
+        Add(new ExecuteLootAtPositionOrderSystem(contexts));
     }
 }

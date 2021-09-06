@@ -1,7 +1,7 @@
 ﻿using Entitas;
 
 [Game]
-public class LookDirectionOrderComponent : IComponent
+public class LookAtDirectionOrderComponent : IComponent
 {
     private int _angle;
 

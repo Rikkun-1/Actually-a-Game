@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ExecuteLookDirectionOrderSystem : IExecuteSystem
 {
-    readonly         IGroup<GameEntity> _entities;
+    private readonly IGroup<GameEntity> _entities;
     private readonly Contexts           _contexts;
 
     public ExecuteLookDirectionOrderSystem(Contexts contexts)
     {
         _contexts = contexts;
-        _entities = _contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.LookDirectionOrder,
-                                                              GameMatcher.Vision));
+        _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.LookAtDirectionOrder,
+                                                             GameMatcher.Vision));
     }
 
     public void Execute()
@@ -21,9 +21,9 @@ public class ExecuteLookDirectionOrderSystem : IExecuteSystem
         foreach (var e in _entities)
         {
             var vision       = e.vision.value;
-            var orderedAngle = e.lookDirectionOrder.angle;
+            var orderedAngle = e.lookAtDirectionOrder.angle;
             
-            if (Math.Abs(vision.directionAngle - orderedAngle) > 0.1)
+            if (Math.Abs(vision.directionAngle - orderedAngle) > 0.01)
             {
                 var current = Quaternion.Euler(0, vision.directionAngle, 0);
                 var ordered = Quaternion.Euler(0, orderedAngle,          0);

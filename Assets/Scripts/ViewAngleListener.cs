@@ -1,6 +1,6 @@
 ﻿using Entitas;
-using UnityEngine;
 using ProceduralToolkit;
+using UnityEngine;
 
 public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
 {
@@ -16,21 +16,26 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
             var distance       = vision.distance;
 
             var direction      = transform.rotation * Vector3.forward * distance;
-            var directionLeft  = Quaternion.Euler(0, directionAngle - viewingAngle / 2, 0) * Vector3.forward * distance;
-            var directionRight = Quaternion.Euler(0, directionAngle + viewingAngle / 2, 0) * Vector3.forward * distance;
+            var directionLeft  = Quaternion.Euler(0, directionAngle - viewingAngle / 2f, 0) * Vector3.forward * distance;
+            var directionRight = Quaternion.Euler(0, directionAngle + viewingAngle / 2f, 0) * Vector3.forward * distance;
 
-            Debug.DrawRay(transform.position, direction,      Color.red);
-            Debug.DrawRay(transform.position, directionLeft,  Color.red);
-            Debug.DrawRay(transform.position, directionRight, Color.red);
-        
-            DebugE.DrawWireArcXZ(transform.position, Quaternion.identity, distance, directionAngle - viewingAngle / 2, 
-                                 directionAngle + viewingAngle / 2, Color.red);
-            
-            if (_entity.hasLookDirectionOrder)
-            {            
-                direction = Quaternion.Euler(0, _entity.lookDirectionOrder.angle, 0) * Vector3.forward * distance;
-                Debug.DrawRay(transform.position, direction, Color.red);
-            }    
+            var position = transform.position;
+            Debug.DrawRay(position, direction,      Color.red);
+            Debug.DrawRay(position, directionLeft,  Color.red);
+            Debug.DrawRay(position, directionRight, Color.red);
+
+            DebugE.DrawWireArcXZ(position,
+                                 Quaternion.identity,
+                                 distance,
+                                 directionAngle - viewingAngle / 2f,
+                                 directionAngle + viewingAngle / 2f,
+                                 Color.red);
+
+            if (_entity.hasLookAtDirectionOrder)
+            {
+                direction = Quaternion.Euler(0, _entity.lookAtDirectionOrder.angle, 0) * Vector3.forward * distance;
+                Debug.DrawRay(position, direction, Color.red);
+            }
         }
     }
 

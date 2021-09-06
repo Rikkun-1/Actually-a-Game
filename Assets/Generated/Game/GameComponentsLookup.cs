@@ -13,25 +13,26 @@ public static class GameComponentsLookup {
     public const int GameTick = 2;
     public const int GridPosition = 3;
     public const int Indestructible = 4;
-    public const int LookDirectionOrder = 5;
-    public const int MapSize = 6;
-    public const int NonWalkable = 7;
-    public const int NorthWall = 8;
-    public const int OrderSequence = 9;
-    public const int Path = 10;
-    public const int PathfindingGrid = 11;
-    public const int PathRequest = 12;
-    public const int SouthWall = 13;
-    public const int TraversalSpeed = 14;
-    public const int UnityView = 15;
-    public const int ViewPrefab = 16;
-    public const int Vision = 17;
-    public const int VisionListener = 18;
-    public const int WestWall = 19;
-    public const int WorldPosition = 20;
-    public const int WorldPositionListener = 21;
+    public const int LookAtDirectionOrder = 5;
+    public const int LookAtPositionOrder = 6;
+    public const int MapSize = 7;
+    public const int NonWalkable = 8;
+    public const int NorthWall = 9;
+    public const int OrderSequence = 10;
+    public const int Path = 11;
+    public const int PathfindingGrid = 12;
+    public const int PathRequest = 13;
+    public const int SouthWall = 14;
+    public const int TraversalSpeed = 15;
+    public const int UnityView = 16;
+    public const int ViewPrefab = 17;
+    public const int Vision = 18;
+    public const int VisionListener = 19;
+    public const int WestWall = 20;
+    public const int WorldPosition = 21;
+    public const int WorldPositionListener = 22;
 
-    public const int TotalComponents = 22;
+    public const int TotalComponents = 23;
 
     public static readonly string[] componentNames = {
         "Destroyed",
@@ -39,7 +40,8 @@ public static class GameComponentsLookup {
         "GameTick",
         "GridPosition",
         "Indestructible",
-        "LookDirectionOrder",
+        "LookAtDirectionOrder",
+        "LookAtPositionOrder",
         "MapSize",
         "NonWalkable",
         "NorthWall",
@@ -64,7 +66,8 @@ public static class GameComponentsLookup {
         typeof(GameTickComponent),
         typeof(GridPositionComponent),
         typeof(IndestructibleComponent),
-        typeof(LookDirectionOrderComponent),
+        typeof(LookAtDirectionOrderComponent),
+        typeof(LookAtPositionOrderComponent),
         typeof(MapSizeComponent),
         typeof(NonWalkableComponent),
         typeof(NorthWallComponent),
