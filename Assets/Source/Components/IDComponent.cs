@@ -2,7 +2,7 @@
 using Entitas.CodeGeneration.Attributes;
 
 [Game]
-public class IDComponent : IComponent
+public sealed class IDComponent : IComponent
 {
     [PrimaryEntityIndex]
     public long value;

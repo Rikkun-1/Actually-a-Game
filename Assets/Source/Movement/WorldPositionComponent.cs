@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using Entitas;
+﻿using Entitas;
 using Entitas.CodeGeneration.Attributes;
+using UnityEngine;
 
 [Game]
 [Event(EventTarget.Self)]
-public class WorldPositionComponent : IComponent
+public sealed class WorldPositionComponent : IComponent
 {
     public Vector2 value;
 }

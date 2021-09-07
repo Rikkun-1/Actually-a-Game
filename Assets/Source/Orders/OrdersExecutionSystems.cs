@@ -2,10 +2,7 @@
 {
     public OrdersExecutionSystems(Contexts contexts)
     {
-        Add(new DeleteOldLookOrdersWhenNewAdded(contexts));
-        
-        Add(new ExecuteLookDirectionOrderSystem(contexts));
-        Add(new ExecuteLootAtPositionOrderSystem(contexts));
-        Add(new ExecuteLookAtEntityOrderSystem(contexts));
+        Add(new ExecuteLookAtOrdersSystems(contexts));
+        Add(new ExecuteShootAtOrdersSystems(contexts));
     }
 }

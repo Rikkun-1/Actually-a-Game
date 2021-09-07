@@ -11,14 +11,14 @@ public partial class GameEntity {
     public TraversalSpeedComponent traversalSpeed { get { return (TraversalSpeedComponent)GetComponent(GameComponentsLookup.TraversalSpeed); } }
     public bool hasTraversalSpeed { get { return HasComponent(GameComponentsLookup.TraversalSpeed); } }
 
-    public void AddTraversalSpeed(double newValue) {
+    public void AddTraversalSpeed(float newValue) {
         var index = GameComponentsLookup.TraversalSpeed;
         var component = (TraversalSpeedComponent)CreateComponent(index, typeof(TraversalSpeedComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceTraversalSpeed(double newValue) {
+    public void ReplaceTraversalSpeed(float newValue) {
         var index = GameComponentsLookup.TraversalSpeed;
         var component = (TraversalSpeedComponent)CreateComponent(index, typeof(TraversalSpeedComponent));
         component.value = newValue;

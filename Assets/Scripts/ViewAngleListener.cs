@@ -16,7 +16,8 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
             var distance       = vision.distance;
 
             var direction      = transform.rotation * Vector3.forward * distance;
-            var directionLeft  = Quaternion.Euler(0, directionAngle - viewingAngle / 2f, 0) * Vector3.forward * distance;
+            var directionLeft  = 
+                Quaternion.Euler(0, directionAngle - viewingAngle / 2f, 0) * Vector3.forward * distance;
             var directionRight = Quaternion.Euler(0, directionAngle + viewingAngle / 2f, 0) * Vector3.forward * distance;
 
             var position = transform.position;
@@ -33,7 +34,8 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
 
             if (_entity.hasLookAtDirectionOrder)
             {
-                direction = Quaternion.Euler(0, _entity.lookAtDirectionOrder.angle, 0) * Vector3.forward * distance;
+                direction = 
+                    Quaternion.Euler(0, _entity.lookAtDirectionOrder.angle, 0) * Vector3.forward * distance;
                 Debug.DrawRay(position, direction, Color.red);
             }
 
@@ -42,7 +44,6 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
                 var targetPosition = _entity.lookAtPositionOrder.position;
                 var dir            = targetPosition - _entity.worldPosition.value;
                 
-                Gizmos.DrawWireCube(targetPosition, new Vector3(1, 0, 1));
                 Debug.DrawRay(_entity.worldPosition.value.ToVector3XZ(), dir.ToVector3XZ(), Color.red);
             }
         }

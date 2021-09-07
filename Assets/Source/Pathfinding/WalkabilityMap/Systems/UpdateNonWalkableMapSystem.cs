@@ -9,7 +9,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
     {
         _contexts = contexts;
     }
-    
+
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
         return context.CreateCollector(GameMatcher.NonWalkable.AddedOrRemoved(),
@@ -40,7 +40,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
             else if (e.isSouthWall) GridChanger.WallAdded(pathfindingGrid, x, y, Direction.Bottom);
             else                    GridChanger.ReconnectNode(_contexts.game, pathfindingGrid, x, y);
         }
-        
+
         _contexts.game.ReplacePathfindingGrid(pathfindingGrid);
     }
 }

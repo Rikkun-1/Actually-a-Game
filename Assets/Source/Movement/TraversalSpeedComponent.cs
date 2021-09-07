@@ -1,7 +1,7 @@
 ﻿using Entitas;
 
 [Game]
-public class TraversalSpeedComponent : IComponent
+public sealed class TraversalSpeedComponent : IComponent
 {
-    public double value;
+    public float value;
 }

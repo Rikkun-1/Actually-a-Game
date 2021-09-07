@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class UpdateUnityViewSystem : ReactiveSystem<GameEntity>
 {
-    private readonly GameObject                     _parent;
     private readonly Dictionary<string, GameObject> _categories = new Dictionary<string, GameObject>();
+    private readonly GameObject                     _parent;
 
     public UpdateUnityViewSystem(Contexts contexts) : base(contexts.game)
     {
@@ -31,7 +31,7 @@ public class UpdateUnityViewSystem : ReactiveSystem<GameEntity>
                 UnityViewHelper.DestroyView(e);
             }
 
-            if (e.hasViewPrefab && 
+            if (e.hasViewPrefab &&
                 !string.IsNullOrEmpty(e.viewPrefab.prefabName))
             {
                 var prefabName = e.viewPrefab.prefabName;
@@ -40,10 +40,10 @@ public class UpdateUnityViewSystem : ReactiveSystem<GameEntity>
                 {
                     var newCategory = new GameObject(prefabName);
                     newCategory.transform.SetParent(_parent.transform);
-                    
+
                     _categories.Add(prefabName, newCategory);
                 }
-                
+
                 UnityViewHelper.LoadViewFromPrefab(e, prefabName, _categories[prefabName]);
             }
         }

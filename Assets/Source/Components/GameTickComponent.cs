@@ -1,10 +1,10 @@
 ﻿using Entitas;
 using Entitas.CodeGeneration.Attributes;
 
-[Game, Unique]
+[Game] [Unique]
 public sealed class GameTickComponent : IComponent
 {
-    public double deltaTime;
-    public int    tickFromStart;
-    public double timeFromStart;
+    public float deltaTime;
+    public int   tickFromStart;
+    public float timeFromStart;
 }

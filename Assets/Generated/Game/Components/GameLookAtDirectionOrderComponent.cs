@@ -11,14 +11,14 @@ public partial class GameEntity {
     public LookAtDirectionOrderComponent lookAtDirectionOrder { get { return (LookAtDirectionOrderComponent)GetComponent(GameComponentsLookup.LookAtDirectionOrder); } }
     public bool hasLookAtDirectionOrder { get { return HasComponent(GameComponentsLookup.LookAtDirectionOrder); } }
 
-    public void AddLookAtDirectionOrder(int newAngle) {
+    public void AddLookAtDirectionOrder(float newAngle) {
         var index = GameComponentsLookup.LookAtDirectionOrder;
         var component = (LookAtDirectionOrderComponent)CreateComponent(index, typeof(LookAtDirectionOrderComponent));
         component.angle = newAngle;
         AddComponent(index, component);
     }
 
-    public void ReplaceLookAtDirectionOrder(int newAngle) {
+    public void ReplaceLookAtDirectionOrder(float newAngle) {
         var index = GameComponentsLookup.LookAtDirectionOrder;
         var component = (LookAtDirectionOrderComponent)CreateComponent(index, typeof(LookAtDirectionOrderComponent));
         component.angle = newAngle;
