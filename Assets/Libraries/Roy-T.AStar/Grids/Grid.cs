@@ -301,6 +301,18 @@ namespace Roy_T.AStar.Grids
             fromNode.Disconnect(toNode);
         }
 
+        public void RemoveTwoWayEdge(GridPosition from, GridPosition to)
+        {
+            this.RemoveEdge(from, to);
+            this.RemoveEdge(to, from);
+        }
+        
+        public void AddTwoWayEdge(GridPosition from, GridPosition to, Velocity traversalVelocity)
+        {
+            this.AddEdge(from, to, traversalVelocity);
+            this.AddEdge(to, from, traversalVelocity);
+        }
+
         public void AddEdge(GridPosition from, GridPosition to, Velocity traversalVelocity)
         {
             var fromNode = this.Nodes[from.X, from.Y];

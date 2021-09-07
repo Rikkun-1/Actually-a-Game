@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TestGridNonWalkableSystem : IExecuteSystem
 {
-    private readonly GameContext _game;
+    private readonly GameContext        _game;
     private readonly IGroup<GameEntity> _nonWalkableEntities;
 
     public TestGridNonWalkableSystem(Contexts contexts)
     {
-        _game = contexts.game;
+        _game                = contexts.game;
         _nonWalkableEntities = contexts.game.GetGroup(GameMatcher.NonWalkable);
     }
 

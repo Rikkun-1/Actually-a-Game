@@ -6,7 +6,7 @@ public class DestroySystem : ICleanupSystem
 
     public DestroySystem(Contexts contexts)
     {
-        _entities = contexts.game.GetGroup(GameMatcher.Destroyed);
+        _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Destroyed).NoneOf(GameMatcher.Undestructible));
     }
 
     public void Cleanup()

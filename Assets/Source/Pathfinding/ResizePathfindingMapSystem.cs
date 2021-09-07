@@ -10,7 +10,7 @@ public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 
     public ResizePathfindingMapSystem(Contexts contexts) : base(contexts.game)
     {
-        _gridHolder = contexts.game.CreateEntity();
+        _gridHolder  = contexts.game.CreateEntity();
         _edgesHolder = contexts.game.CreateEntity();
     }
 
@@ -27,8 +27,8 @@ public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
     protected override void Execute(List<GameEntity> entities)
     {
         var mapSize = entities.SingleEntity().mapSize.Value;
-        var grid = CreateNewMap(mapSize.x, mapSize.y);
-        var edges = grid.GetAllEdges();
+        var grid    = CreateNewMap(mapSize.x, mapSize.y);
+        var edges   = grid.GetAllEdges();
 
         _gridHolder.ReplacePathfindingGrid(grid);
         _edgesHolder.ReplaceEdges(edges);

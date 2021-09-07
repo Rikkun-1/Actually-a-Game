@@ -12,7 +12,7 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
 
     public CreateGridSystem(Contexts contexts) : base(contexts.game)
     {
-        _contexts = contexts;
+        _contexts      = contexts;
         _entitiesOnMap = _contexts.game.GetGroup(GameMatcher.Position);
     }
 
@@ -37,6 +37,7 @@ public class CreateGridSystem : ReactiveSystem<GameEntity>, IInitializeSystem
         DestroyMap();
 
         var mapSize = entities.SingleEntity().mapSize.Value;
+
         var sizeX = mapSize.x;
         var sizeY = mapSize.y;
 

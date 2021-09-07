@@ -18,9 +18,9 @@ public class DrawWalkableTilesSystem : IExecuteSystem
         foreach (var edge in edges)
         {
             var start = new Vector3(edge.Start.Position.X, edge.Start.Position.Y);
-            var end = new Vector3(edge.End.Position.X, edge.End.Position.Y);
+            var end   = new Vector3(edge.End.Position.X,   edge.End.Position.Y);
 
-            Debug.DrawLine(start, end, new Color(255, 0, 0));
+            Debug.DrawLine(start, end, new Color(64, 0, 0));
         }
     }
 }

@@ -9,8 +9,8 @@ using Grid = Roy_T.AStar.Grids.Grid;
 public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 {
     private readonly Contexts _contexts;
-    private GameEntity _edgesHolder;
 
+    private GameEntity _edgesHolder;
     private GameEntity _gridHolder;
 
     public UpdateNonWalkableMapSystem(Contexts contexts) : base(contexts.game) => _contexts = contexts;
@@ -18,10 +18,10 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
         return context.CreateCollector(GameMatcher.NonWalkable.AddedOrRemoved(),
-            GameMatcher.NorthWall.AddedOrRemoved(),
-            GameMatcher.SouthWall.AddedOrRemoved(),
-            GameMatcher.EastWall.AddedOrRemoved(),
-            GameMatcher.WestWall.AddedOrRemoved());
+                                       GameMatcher.NorthWall.AddedOrRemoved(),
+                                       GameMatcher.SouthWall.AddedOrRemoved(),
+                                       GameMatcher.EastWall.AddedOrRemoved(),
+                                       GameMatcher.WestWall.AddedOrRemoved());
     }
 
     protected override bool Filter(GameEntity entity)
@@ -31,247 +31,13 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        void reconnectNode(int x, int y, Grid grid)
-        {
-            var node = grid.GetNode(x, y);
-            var velocity = Velocity.FromMetersPerSecond(2);
-
-            var top = grid.GetNode(x, y + 1);
-            var bottom = grid.GetNode(x, y - 1);
-            var left = grid.GetNode(x - 1, y);
-            var right = grid.GetNode(x + 1, y);
-            var topLeft = grid.GetNode(x - 1, y + 1);
-            var topRight = grid.GetNode(x + 1, y + 1);
-            var bottomLeft = grid.GetNode(x - 1, y - 1);
-            var bottomRight = grid.GetNode(x + 1, y - 1);
-
-            bool canGoDirection(Direction direction) =>
-                CanGoChecker.CanGoDirection(_contexts.game, node.Position.ToVector2Int(), direction);
-
-            if (top != null && canGoDirection(Direction.Top))
-            {
-                node.Connect(top, velocity);
-            }
-
-            if (bottom != null && canGoDirection(Direction.Bottom))
-            {
-                node.Connect(bottom, velocity);
-            }
-
-            if (left != null && canGoDirection(Direction.Left))
-            {
-                node.Connect(left, velocity);
-            }
-
-            if (right != null && canGoDirection(Direction.Right))
-            {
-                node.Connect(right, velocity);
-            }
-
-            if (topLeft != null && canGoDirection(Direction.TopLeft))
-            {
-                node.Connect(topLeft, velocity);
-                top?.Connect(left, velocity);
-            }
-
-            if (topRight != null && canGoDirection(Direction.TopRight))
-            {
-                node.Connect(topRight, velocity);
-                top?.Connect(right, velocity);
-            }
-
-            if (bottomLeft != null && canGoDirection(Direction.BottomLeft))
-            {
-                node.Connect(bottomLeft, velocity);
-                bottom?.Connect(left, velocity);
-            }
-
-            if (bottomRight != null && canGoDirection(Direction.BottomRight))
-            {
-                node.Connect(bottomRight, velocity);
-                bottom?.Connect(right, velocity);
-            }
-        }
-
-        void disconnectNode(int x, int y, Grid grid)
-        {
-            var gridPosition = new GridPosition(x, y);
-
-            grid.DisconnectNode(gridPosition);
-            grid.RemoveDiagonalConnectionsIntersectingWithNode(gridPosition);
-        }
-
-        void rightWallAdded(int x, int y, Grid grid)
-        {
-            var node = grid.GetNode(x, y);
-
-            var top = grid.GetNode(x, y + 1);
-            var bottom = grid.GetNode(x, y - 1);
-            var right = grid.GetNode(x + 1, y);
-            var topRight = grid.GetNode(x + 1, y + 1);
-            var bottomRight = grid.GetNode(x + 1, y - 1);
-
-            if (right != null)
-            {
-                node.Disconnect(right);
-                right.Disconnect(node);
-
-                if (top != null)
-                {
-                    right.Disconnect(top);
-                    top.Disconnect(right);
-                }
-
-                if (bottom != null)
-                {
-                    right.Disconnect(bottom);
-                    bottom.Disconnect(right);
-                }
-            }
-
-            if (topRight != null)
-            {
-                node.Disconnect(topRight);
-                topRight.Disconnect(node);
-            }
-
-            if (bottomRight != null)
-            {
-                node.Disconnect(bottomRight);
-                bottomRight.Disconnect(node);
-            }
-        }
-
-        void leftWallAdded(int x, int y, Grid grid)
-        {
-            var node = grid.GetNode(x, y);
-
-            var top = grid.GetNode(x, y + 1);
-            var bottom = grid.GetNode(x, y - 1);
-            var left = grid.GetNode(x - 1, y);
-            var topLeft = grid.GetNode(x - 1, y + 1);
-            var bottomLeft = grid.GetNode(x - 1, y - 1);
-
-            if (left != null)
-            {
-                node.Disconnect(left);
-                left.Disconnect(node);
-
-                if (top != null)
-                {
-                    left.Disconnect(top);
-                    top.Disconnect(left);
-                }
-
-                if (bottom != null)
-                {
-                    left.Disconnect(bottom);
-                    bottom.Disconnect(left);
-                }
-            }
-
-            if (topLeft != null)
-            {
-                node.Disconnect(topLeft);
-                topLeft.Disconnect(node);
-            }
-
-            if (bottomLeft != null)
-            {
-                node.Disconnect(bottomLeft);
-                bottomLeft.Disconnect(node);
-            }
-        }
-
-        void topWallAdded(int x, int y, Grid grid)
-        {
-            var node = grid.GetNode(x, y);
-
-            var top = grid.GetNode(x, y + 1);
-            var left = grid.GetNode(x - 1, y);
-            var right = grid.GetNode(x + 1, y);
-            var topLeft = grid.GetNode(x - 1, y + 1);
-            var topRight = grid.GetNode(x + 1, y + 1);
-
-            if (top != null)
-            {
-                node.Disconnect(top);
-                top.Disconnect(node);
-
-                if (left != null)
-                {
-                    top.Disconnect(left);
-                    left.Disconnect(top);
-                }
-
-                if (right != null)
-                {
-                    top.Disconnect(right);
-                    right.Disconnect(top);
-                }
-            }
-
-            if (topLeft != null)
-            {
-                node.Disconnect(topLeft);
-                topLeft.Disconnect(node);
-            }
-
-            if (topRight != null)
-            {
-                node.Disconnect(topRight);
-                topRight.Disconnect(node);
-            }
-        }
-
-        void bottomWallAdded(int x, int y, Grid grid)
-        {
-            var node = grid.GetNode(x, y);
-
-            var bottom = grid.GetNode(x, y - 1);
-            var left = grid.GetNode(x - 1, y);
-            var right = grid.GetNode(x + 1, y);
-            var bottomLeft = grid.GetNode(x - 1, y - 1);
-            var bottomRight = grid.GetNode(x + 1, y - 1);
-
-            if (bottom != null)
-            {
-                node.Disconnect(bottom);
-                bottom.Disconnect(node);
-
-                if (left != null)
-                {
-                    bottom.Disconnect(left);
-                    left.Disconnect(bottom);
-                }
-
-                if (right != null)
-                {
-                    bottom.Disconnect(right);
-                    right.Disconnect(bottom);
-                }
-            }
-
-            if (bottomLeft != null)
-            {
-                node.Disconnect(bottomLeft);
-                bottomLeft.Disconnect(node);
-            }
-
-            if (bottomRight != null)
-            {
-                node.Disconnect(bottomRight);
-                bottomRight.Disconnect(node);
-            }
-        }
-
         _gridHolder = _contexts.game.GetEntities(GameMatcher.PathfindingGrid)
-            .ToList()
-            .SingleEntity();
+                               .ToList()
+                               .SingleEntity();
 
         _edgesHolder = _contexts.game.GetEntities(GameMatcher.Edges)
-            .ToList()
-            .SingleEntity();
+                                .ToList()
+                                .SingleEntity();
 
         var grid = _gridHolder.pathfindingGrid.Value;
 
@@ -280,154 +46,295 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
             var x = e.position.Value.x;
             var y = e.position.Value.y;
 
-            if (e.isNonWalkable)
-            {
-                disconnectNode(x, y, grid);
-            }
-            else if (e.isEastWall)
-            {
-                rightWallAdded(x, y, grid);
-            }
-            else if (e.isWestWall)
-            {
-                leftWallAdded(x, y, grid);
-            }
-            else if (e.isNorthWall)
-            {
-                topWallAdded(x, y, grid);
-            }
-            else if (e.isSouthWall)
-            {
-                bottomWallAdded(x, y, grid);
-            }
-            else
-            {
-                reconnectNode(x, y, grid);
-            }
+            if (e.isNonWalkable)    GridChanger.DisconnectNode(x, y, grid);
+            else if (e.isEastWall)  GridChanger.WallAdded(grid, x, y, Direction.Right);
+            else if (e.isWestWall)  GridChanger.WallAdded(grid, x, y, Direction.Left);
+            else if (e.isNorthWall) GridChanger.WallAdded(grid, x, y, Direction.Top);
+            else if (e.isSouthWall) GridChanger.WallAdded(grid, x, y, Direction.Bottom);
+            else                    GridChanger.ReconnectNode(_contexts.game, grid, x, y);
         }
 
         _edgesHolder.ReplaceEdges(grid.GetAllEdges());
     }
 }
 
+public static class GridChanger
+{
+    public static void ReconnectNode(GameContext context, Grid grid, int x, int y)
+    {
+        var velocity = Velocity.FromMetersPerSecond(2);
+
+        var from        = new GridPosition(x,     y);
+        var top         = new GridPosition(x,     y + 1);
+        var bottom      = new GridPosition(x,     y - 1);
+        var left        = new GridPosition(x - 1, y);
+        var right       = new GridPosition(x + 1, y);
+        var topLeft     = new GridPosition(x - 1, y + 1);
+        var topRight    = new GridPosition(x + 1, y + 1);
+        var bottomLeft  = new GridPosition(x - 1, y - 1);
+        var bottomRight = new GridPosition(x + 1, y - 1);
+
+        if (canGoDirection(Direction.Top))    grid.AddTwoWayEdge(from, top,    velocity);
+        if (canGoDirection(Direction.Bottom)) grid.AddTwoWayEdge(from, bottom, velocity);
+        if (canGoDirection(Direction.Left))   grid.AddTwoWayEdge(from, left,   velocity);
+        if (canGoDirection(Direction.Right))  grid.AddTwoWayEdge(from, right,  velocity);
+
+        if (canGoDirection(Direction.TopLeft))
+        {
+            grid.AddTwoWayEdge(from, topLeft, velocity);
+            grid.AddTwoWayEdge(top,  left,    velocity);
+        }
+
+        if (canGoDirection(Direction.TopRight))
+        {
+            grid.AddTwoWayEdge(from, topRight, velocity);
+            grid.AddTwoWayEdge(top,  right,    velocity);
+        }
+
+        if (canGoDirection(Direction.BottomLeft))
+        {
+            grid.AddTwoWayEdge(from,   bottomLeft, velocity);
+            grid.AddTwoWayEdge(bottom, left,       velocity);
+        }
+
+        if (canGoDirection(Direction.BottomRight))
+        {
+            grid.AddTwoWayEdge(from,   bottomRight, velocity);
+            grid.AddTwoWayEdge(bottom, right,       velocity);
+        }
+
+        bool canGoDirection(Direction direction) =>
+            CanGoChecker.CanGoDirection(context, grid, from, direction);
+    }
+
+    public static void DisconnectNode(int x, int y, Grid grid)
+    {
+        var gridPosition = new GridPosition(x, y);
+
+        grid.DisconnectNode(gridPosition);
+        grid.RemoveDiagonalConnectionsIntersectingWithNode(gridPosition);
+    }
+
+    public static void WallAdded(Grid grid, int x, int y, Direction direction)
+    {
+        var center      = new GridPosition(x,     y);
+        var top         = new GridPosition(x,     y + 1);
+        var bottom      = new GridPosition(x,     y - 1);
+        var left        = new GridPosition(x - 1, y);
+        var right       = new GridPosition(x + 1, y);
+        var topLeft     = new GridPosition(x - 1, y + 1);
+        var topRight    = new GridPosition(x + 1, y + 1);
+        var bottomLeft  = new GridPosition(x - 1, y - 1);
+        var bottomRight = new GridPosition(x + 1, y - 1);
+
+        if      (direction == Direction.Top)    topWallAdded();
+        else if (direction == Direction.Right)  rightWallAdded();
+        else if (direction == Direction.Bottom) bottomWallAdded();
+        else if (direction == Direction.Left)   leftWallAdded();
+        else throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+
+        void rightWallAdded()
+        {
+            if (grid.IsInsideGrid(right))       grid.RemoveTwoWayEdge(center, right);
+            if (grid.IsInsideGrid(topRight))    grid.RemoveTwoWayEdge(center, topRight);
+            if (grid.IsInsideGrid(bottomRight)) grid.RemoveTwoWayEdge(center, bottomRight);
+
+            if (grid.IsInsideGrid(right) && grid.IsInsideGrid(top))    grid.RemoveTwoWayEdge(right, top);
+            if (grid.IsInsideGrid(right) && grid.IsInsideGrid(bottom)) grid.RemoveTwoWayEdge(right, bottom);
+        }
+
+        void leftWallAdded()
+        {
+            if (grid.IsInsideGrid(left))       grid.RemoveTwoWayEdge(center, left);
+            if (grid.IsInsideGrid(topLeft))    grid.RemoveTwoWayEdge(center, topLeft);
+            if (grid.IsInsideGrid(bottomLeft)) grid.RemoveTwoWayEdge(center, bottomLeft);
+
+            if (grid.IsInsideGrid(left) && grid.IsInsideGrid(top))    grid.RemoveTwoWayEdge(left, top);
+            if (grid.IsInsideGrid(left) && grid.IsInsideGrid(bottom)) grid.RemoveTwoWayEdge(left, bottom);
+        }
+
+        void topWallAdded()
+        {
+            if (grid.IsInsideGrid(top))      grid.RemoveTwoWayEdge(center, top);
+            if (grid.IsInsideGrid(topLeft))  grid.RemoveTwoWayEdge(center, topLeft);
+            if (grid.IsInsideGrid(topRight)) grid.RemoveTwoWayEdge(center, topRight);
+
+            if (grid.IsInsideGrid(top) && grid.IsInsideGrid(left))  grid.RemoveTwoWayEdge(top, left);
+            if (grid.IsInsideGrid(top) && grid.IsInsideGrid(right)) grid.RemoveTwoWayEdge(top, right);
+        }
+
+        void bottomWallAdded()
+        {
+            if (grid.IsInsideGrid(bottom))      grid.RemoveTwoWayEdge(center, bottom);
+            if (grid.IsInsideGrid(bottomLeft))  grid.RemoveTwoWayEdge(center, bottomLeft);
+            if (grid.IsInsideGrid(bottomRight)) grid.RemoveTwoWayEdge(center, bottomRight);
+
+            if (grid.IsInsideGrid(bottom) && grid.IsInsideGrid(left)) grid.RemoveTwoWayEdge(bottom,  left);
+            if (grid.IsInsideGrid(bottom) && grid.IsInsideGrid(right)) grid.RemoveTwoWayEdge(bottom, right);
+        }
+    }
+}
+
 public static class CanGoChecker
 {
-    public static bool CanGoDirection(GameContext context, Vector2Int from, Direction direction)
+    public static bool NoNonWalkableInDirection(GameContext context, GridPosition from,
+                                                Direction   direction)
     {
-        bool noTopWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isNorthWall);
-        bool noRightWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isEastWall);
-        bool noBottomWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isSouthWall);
-        bool noLeftWall(Vector2Int position) => context.GetEntitiesWithPosition(position).All(e => !e.isWestWall);
+        var x = from.X;
+        var y = from.Y;
 
-        bool noWallsInCorner(Vector2Int position, Direction direction)
+        var top         = new GridPosition(x,     y + 1);
+        var bottom      = new GridPosition(x,     y - 1);
+        var left        = new GridPosition(x - 1, y);
+        var right       = new GridPosition(x + 1, y);
+        var topLeft     = new GridPosition(x - 1, y + 1);
+        var topRight    = new GridPosition(x + 1, y + 1);
+        var bottomLeft  = new GridPosition(x - 1, y - 1);
+        var bottomRight = new GridPosition(x + 1, y - 1);
+
+        if (!isWalkable(from)) return false;
+
+        switch (direction)
         {
-            return direction switch
-            {
-                Direction.TopRight => noTopWall(position) && noRightWall(position),
-                Direction.BottomRight => noBottomWall(position) && noRightWall(position),
-                Direction.BottomLeft => noBottomWall(position) && noLeftWall(position),
-                Direction.TopLeft => noTopWall(position) && noLeftWall(position),
-                _ => throw new ArgumentOutOfRangeException("Direction must be diagonal, but given direction is " +
-                                                           direction)
-            };
+            case Direction.Top:    return isWalkable(top);
+            case Direction.Right:  return isWalkable(right);
+            case Direction.Bottom: return isWalkable(bottom);
+            case Direction.Left:   return isWalkable(left);
+            case Direction.TopRight:
+                return isWalkable(topRight) && isWalkable(top) &&
+                       isWalkable(right);
+            case Direction.BottomRight:
+                return isWalkable(bottomRight) && isWalkable(bottom) &&
+                       isWalkable(right);
+            case Direction.BottomLeft:
+                return isWalkable(bottomLeft) && isWalkable(bottom) &&
+                       isWalkable(left);
+            case Direction.TopLeft:
+                return isWalkable(topLeft) && isWalkable(top) &&
+                       isWalkable(left);
+            default:
+                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
         }
 
-        bool walkableInDirection(Direction direction)
+        bool isWalkable(GridPosition position)
         {
-            var x = from.x;
-            var y = from.y;
-
-            var top = new Vector2Int(x, y + 1);
-            var bottom = new Vector2Int(x, y - 1);
-            var left = new Vector2Int(x - 1, y);
-            var right = new Vector2Int(x + 1, y);
-            var topLeft = new Vector2Int(x - 1, y + 1);
-            var topRight = new Vector2Int(x + 1, y + 1);
-            var bottomLeft = new Vector2Int(x - 1, y - 1);
-            var bottomRight = new Vector2Int(x + 1, y - 1);
-
-            bool isWalkable(Vector2Int position)
-            {
-                return context.GetEntitiesWithPosition(position).All(e => !e.isNonWalkable);
-            }
-
-            if (isWalkable(from))
-            {
-                switch (direction)
-                {
-                    case Direction.Top: return isWalkable(top);
-                    case Direction.Right: return isWalkable(right);
-                    case Direction.Bottom: return isWalkable(bottom);
-                    case Direction.Left: return isWalkable(left);
-                    case Direction.TopRight: return isWalkable(topRight) && isWalkable(top) && isWalkable(right);
-                    case Direction.BottomRight:
-                        return isWalkable(bottomRight) && isWalkable(bottom) && isWalkable(right);
-                    case Direction.BottomLeft: return isWalkable(bottomLeft) && isWalkable(bottom) && isWalkable(left);
-                    case Direction.TopLeft: return isWalkable(topLeft) && isWalkable(top) && isWalkable(left);
-                }
-            }
-
-            return false;
+            return context.GetEntitiesWithPosition(position.ToVector2Int())
+                          .All(e => !e.isNonWalkable);
         }
-
-        bool noWallsInDirection(Direction direction)
-        {
-            var x = from.x;
-            var y = from.y;
-
-            var top = new Vector2Int(x, y + 1);
-            var bottom = new Vector2Int(x, y - 1);
-            var left = new Vector2Int(x - 1, y);
-            var right = new Vector2Int(x + 1, y);
-            var topLeft = new Vector2Int(x - 1, y + 1);
-            var topRight = new Vector2Int(x + 1, y + 1);
-            var bottomLeft = new Vector2Int(x - 1, y - 1);
-            var bottomRight = new Vector2Int(x + 1, y - 1);
-
-            switch (direction)
-            {
-                case Direction.Top:
-                    return noTopWall(from) && noBottomWall(top);
-
-                case Direction.Right:
-                    return noRightWall(from) && noLeftWall(right);
-
-                case Direction.Bottom:
-                    return noBottomWall(from) && noTopWall(bottom);
-
-                case Direction.Left:
-                    return noLeftWall(from) && noRightWall(left);
-
-                case Direction.TopRight:
-                    return noWallsInCorner(from, Direction.TopRight) &&
-                           noWallsInCorner(top, Direction.BottomRight) &&
-                           noWallsInCorner(right, Direction.TopLeft) &&
-                           noWallsInCorner(topRight, Direction.BottomLeft);
-
-                case Direction.BottomRight:
-                    return noWallsInCorner(from, Direction.BottomRight) &&
-                           noWallsInCorner(bottom, Direction.TopRight) &&
-                           noWallsInCorner(right, Direction.BottomLeft) &&
-                           noWallsInCorner(bottomRight, Direction.TopLeft);
-
-                case Direction.BottomLeft:
-                    return noWallsInCorner(from, Direction.BottomLeft) &&
-                           noWallsInCorner(bottom, Direction.TopLeft) &&
-                           noWallsInCorner(left, Direction.BottomRight) &&
-                           noWallsInCorner(bottomLeft, Direction.TopRight);
-
-                case Direction.TopLeft:
-                    return noWallsInCorner(from, Direction.TopLeft) &&
-                           noWallsInCorner(top, Direction.BottomLeft) &&
-                           noWallsInCorner(left, Direction.TopRight) &&
-                           noWallsInCorner(topLeft, Direction.BottomRight);
-            }
-
-            return false;
-        }
-
-        return walkableInDirection(direction) && noWallsInDirection(direction);
     }
+
+    private static bool _noWallsInLateralDirection(GameContext context, GridPosition from,
+                                                   Direction   direction)
+    {
+        var x = from.X;
+        var y = from.Y;
+
+        var top    = new GridPosition(x,     y + 1);
+        var bottom = new GridPosition(x,     y - 1);
+        var left   = new GridPosition(x - 1, y);
+        var right  = new GridPosition(x + 1, y);
+
+        return direction switch
+        {
+            Direction.Top    => noTopWall(from) && noBottomWall(top),
+            Direction.Right  => noRightWall(from) && noLeftWall(right),
+            Direction.Bottom => noBottomWall(from) && noTopWall(bottom),
+            Direction.Left   => noLeftWall(from) && noRightWall(left),
+            _                => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
+
+        bool noTopWall(GridPosition position)
+            => context.GetEntitiesWithPosition(position.ToVector2Int()).All(e => !e.isNorthWall);
+
+        bool noRightWall(GridPosition position)
+            => context.GetEntitiesWithPosition(position.ToVector2Int()).All(e => !e.isEastWall);
+
+        bool noBottomWall(GridPosition position)
+            => context.GetEntitiesWithPosition(position.ToVector2Int()).All(e => !e.isSouthWall);
+
+        bool noLeftWall(GridPosition position)
+            => context.GetEntitiesWithPosition(position.ToVector2Int()).All(e => !e.isWestWall);
+    }
+
+    public static bool NoWallsInDirection(GameContext context, GridPosition from, Direction direction)
+    {
+        var x = from.X;
+        var y = from.Y;
+
+        var top    = new GridPosition(x,     y + 1);
+        var bottom = new GridPosition(x,     y - 1);
+        var left   = new GridPosition(x - 1, y);
+        var right  = new GridPosition(x + 1, y);
+
+        switch (direction)
+        {
+            case Direction.Top:
+            case Direction.Bottom:
+            case Direction.Right:
+            case Direction.Left:
+                return _noWallsInLateralDirection(context, from, direction);
+
+            case Direction.TopRight:
+                return _noWallsInLateralDirection(context, from,  Direction.Top) &&
+                       _noWallsInLateralDirection(context, from,  Direction.Right) &&
+                       _noWallsInLateralDirection(context, top,   Direction.Right) &&
+                       _noWallsInLateralDirection(context, right, Direction.Top);
+
+            case Direction.TopLeft:
+                return _noWallsInLateralDirection(context, from, Direction.Top) &&
+                       _noWallsInLateralDirection(context, from, Direction.Left) &&
+                       _noWallsInLateralDirection(context, top,  Direction.Left) &&
+                       _noWallsInLateralDirection(context, left, Direction.Top);
+
+            case Direction.BottomRight:
+                return _noWallsInLateralDirection(context, from,   Direction.Bottom) &&
+                       _noWallsInLateralDirection(context, from,   Direction.Right) &&
+                       _noWallsInLateralDirection(context, bottom, Direction.Right) &&
+                       _noWallsInLateralDirection(context, right,  Direction.Bottom);
+
+            case Direction.BottomLeft:
+                return _noWallsInLateralDirection(context, from,   Direction.Bottom) &&
+                       _noWallsInLateralDirection(context, from,   Direction.Left) &&
+                       _noWallsInLateralDirection(context, bottom, Direction.Left) &&
+                       _noWallsInLateralDirection(context, left,   Direction.Bottom);
+
+            default:
+                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+        }
+    }
+
+    public static bool DirectionIsInGrid(Grid grid, GridPosition from, Direction direction)
+    {
+        var x = from.X;
+        var y = from.Y;
+
+        var top         = new GridPosition(x,     y + 1);
+        var bottom      = new GridPosition(x,     y - 1);
+        var left        = new GridPosition(x - 1, y);
+        var right       = new GridPosition(x + 1, y);
+        var topLeft     = new GridPosition(x - 1, y + 1);
+        var topRight    = new GridPosition(x + 1, y + 1);
+        var bottomLeft  = new GridPosition(x - 1, y - 1);
+        var bottomRight = new GridPosition(x + 1, y - 1);
+
+        return direction switch
+        {
+            Direction.Top         => grid.IsInsideGrid(top),
+            Direction.TopRight    => grid.IsInsideGrid(topRight),
+            Direction.Right       => grid.IsInsideGrid(right),
+            Direction.BottomRight => grid.IsInsideGrid(bottomRight),
+            Direction.Bottom      => grid.IsInsideGrid(bottom),
+            Direction.BottomLeft  => grid.IsInsideGrid(bottomLeft),
+            Direction.Left        => grid.IsInsideGrid(left),
+            Direction.TopLeft     => grid.IsInsideGrid(topLeft),
+            _                     => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
+    }
+
+    public static bool CanGoDirection(GameContext context, Grid grid, GridPosition from, Direction direction)
+        => DirectionIsInGrid(grid, from, direction) &&
+           NoNonWalkableInDirection(context, from, direction) &&
+           NoWallsInDirection(context, from, direction);
 }
 
 public enum Direction
@@ -442,10 +349,10 @@ public enum Direction
     TopLeft
 }
 
-public static class PositionExtension
+public static class GridPositionExtension
 {
-    public static Vector2Int ToVector2Int(this Position position)
+    public static Vector2Int ToVector2Int(this GridPosition position)
     {
-        return new Vector2Int((int)position.X, (int)position.Y);
+        return new Vector2Int(position.X, position.Y);
     }
 }
