@@ -36,6 +36,15 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
                 direction = Quaternion.Euler(0, _entity.lookAtDirectionOrder.angle, 0) * Vector3.forward * distance;
                 Debug.DrawRay(position, direction, Color.red);
             }
+
+            if (_entity.hasLookAtPositionOrder)
+            {
+                var targetPosition = _entity.lookAtPositionOrder.position;
+                var dir            = targetPosition - _entity.worldPosition.value;
+                
+                Gizmos.DrawWireCube(targetPosition, new Vector3(1, 0, 1));
+                Debug.DrawRay(_entity.worldPosition.value.ToVector3XZ(), dir.ToVector3XZ(), Color.red);
+            }
         }
     }
 
