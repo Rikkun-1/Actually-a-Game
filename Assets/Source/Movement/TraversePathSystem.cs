@@ -41,7 +41,7 @@ public class TraversePathSystem : IExecuteSystem
 
             worldPosition = Vector2.MoveTowards(worldPosition,
                                                 nextWaypoint,
-                                                (float)distanceTraveled);
+                                                distanceTraveled);
 
             e.ReplaceWorldPosition(worldPosition);
 

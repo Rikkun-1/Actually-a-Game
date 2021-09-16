@@ -8,12 +8,14 @@ public sealed class RootSystems : Feature
 
         Add(new MoveSystem(contexts));
         Add(new OrdersExecutionSystems(contexts));
-
+        Add(new HealthAndDamageSystems(contexts));
+        
         Add(new PathfindingSystems(contexts));
         Add(new ViewSystems(contexts));
 
         Add(new DeleteEntitiesOutsideMapSystem(contexts));
 
+        Add(new DeleteCollisionsSystem(contexts));
         Add(new DestroySystem(contexts));
 
         Add(new GameEventSystems(contexts));

@@ -5,8 +5,11 @@
 
 .editorconfig
 Assembly-CSharp.csproj
-Assembly-CSharp-Editor.csproj.csproj
+Assembly-CSharp-Editor.csproj
 *.bat
+*ProceduralToolkit*
+!Tests.csproj
+
 
 # Solution
 

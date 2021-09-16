@@ -25,11 +25,13 @@ public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
 
             var targetEntityID = e.lookAtEntityOrder.targetID;
             var targetEntity   = _contexts.game.GetEntityWithID(targetEntityID);
-            var targetPosition = targetEntity.worldPosition.value;
+            if (targetEntity == null) continue;
             
+            var targetPosition = targetEntity.worldPosition.value;
+
             var targetDirection = targetPosition - currentPosition;
 
-            var vision  = e.vision.value;
+            var vision      = e.vision.value;
             var angleChange = vision.turningSpeed * deltaTime;
 
             var desiredAngle = targetDirection.ToAngle();

@@ -9,46 +9,52 @@
 public static class GameComponentsLookup {
 
     public const int Bullet = 0;
-    public const int Destroyed = 1;
-    public const int EastWall = 2;
-    public const int GameTick = 3;
-    public const int GridPosition = 4;
-    public const int ID = 5;
-    public const int Indestructible = 6;
-    public const int LookAtDirectionOrder = 7;
-    public const int LookAtEntityOrder = 8;
-    public const int LookAtPositionOrder = 9;
-    public const int MapSize = 10;
-    public const int NonWalkable = 11;
-    public const int NorthWall = 12;
-    public const int OrderSequence = 13;
-    public const int Path = 14;
-    public const int PathfindingGrid = 15;
-    public const int PathRequest = 16;
-    public const int ShootAtDirectionOrder = 17;
-    public const int ShootAtEntityOrder = 18;
-    public const int ShootAtPositionOrder = 19;
-    public const int SouthWall = 20;
-    public const int TraversalSpeed = 21;
-    public const int UnityView = 22;
-    public const int Velocity = 23;
-    public const int VelocityListener = 24;
-    public const int ViewPrefab = 25;
-    public const int Vision = 26;
-    public const int VisionListener = 27;
-    public const int Weapon = 28;
-    public const int WestWall = 29;
-    public const int WorldPosition = 30;
-    public const int WorldPositionListener = 31;
+    public const int Collision = 1;
+    public const int Damage = 2;
+    public const int Destroyed = 3;
+    public const int EastWall = 4;
+    public const int GameTick = 5;
+    public const int GridPosition = 6;
+    public const int Health = 7;
+    public const int ID = 8;
+    public const int Indestructible = 9;
+    public const int LookAtDirectionOrder = 10;
+    public const int LookAtEntityOrder = 11;
+    public const int LookAtPositionOrder = 12;
+    public const int MapSize = 13;
+    public const int NonWalkable = 14;
+    public const int NorthWall = 15;
+    public const int OrderSequence = 16;
+    public const int Path = 17;
+    public const int PathfindingGrid = 18;
+    public const int PathRequest = 19;
+    public const int ShootAtDirectionOrder = 20;
+    public const int ShootAtEntityOrder = 21;
+    public const int ShootAtPositionOrder = 22;
+    public const int SouthWall = 23;
+    public const int TraversalSpeed = 24;
+    public const int UnityView = 25;
+    public const int Velocity = 26;
+    public const int VelocityListener = 27;
+    public const int ViewPrefab = 28;
+    public const int Vision = 29;
+    public const int VisionListener = 30;
+    public const int Weapon = 31;
+    public const int WestWall = 32;
+    public const int WorldPosition = 33;
+    public const int WorldPositionListener = 34;
 
-    public const int TotalComponents = 32;
+    public const int TotalComponents = 35;
 
     public static readonly string[] componentNames = {
         "Bullet",
+        "Collision",
+        "Damage",
         "Destroyed",
         "EastWall",
         "GameTick",
         "GridPosition",
+        "Health",
         "ID",
         "Indestructible",
         "LookAtDirectionOrder",
@@ -80,10 +86,13 @@ public static class GameComponentsLookup {
 
     public static readonly System.Type[] componentTypes = {
         typeof(BulletComponent),
+        typeof(CollisionComponent),
+        typeof(DamageComponent),
         typeof(DestroyedComponent),
         typeof(EastWallComponent),
         typeof(GameTickComponent),
         typeof(GridPositionComponent),
+        typeof(HealthComponent),
         typeof(IDComponent),
         typeof(IndestructibleComponent),
         typeof(LookAtDirectionOrderComponent),

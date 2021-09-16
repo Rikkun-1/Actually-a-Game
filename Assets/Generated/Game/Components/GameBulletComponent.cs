@@ -11,16 +11,18 @@ public partial class GameEntity {
     public BulletComponent bullet { get { return (BulletComponent)GetComponent(GameComponentsLookup.Bullet); } }
     public bool hasBullet { get { return HasComponent(GameComponentsLookup.Bullet); } }
 
-    public void AddBullet(int newDamage) {
+    public void AddBullet(long newShooterID, int newDamage) {
         var index = GameComponentsLookup.Bullet;
         var component = (BulletComponent)CreateComponent(index, typeof(BulletComponent));
+        component.shooterID = newShooterID;
         component.damage = newDamage;
         AddComponent(index, component);
     }
 
-    public void ReplaceBullet(int newDamage) {
+    public void ReplaceBullet(long newShooterID, int newDamage) {
         var index = GameComponentsLookup.Bullet;
         var component = (BulletComponent)CreateComponent(index, typeof(BulletComponent));
+        component.shooterID = newShooterID;
         component.damage = newDamage;
         ReplaceComponent(index, component);
     }

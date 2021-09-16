@@ -300,13 +300,13 @@ namespace Entitas.VisualDebugging.Unity.Editor
                     var shouldDraw = !targetType.ImplementsInterface<IComponent>() || !Attribute.IsDefined(targetType, typeof(DontDrawComponentAttribute));
                     if (shouldDraw)
                     {
-                        EditorGUILayout.LabelField(memberName, value.ToString());
-
                         var indent = EditorGUI.indentLevel;
                         EditorGUI.indentLevel += 1;
 
                         EditorGUILayout.BeginVertical();
                         {
+                            EditorGUILayout.LabelField(memberName, value.ToString());
+
                             foreach (var info in memberType.GetPublicMemberInfos())
                             {
                                 var mValue = info.GetValue(value);

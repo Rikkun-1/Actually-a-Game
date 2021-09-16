@@ -30,7 +30,8 @@ public class GameController : MonoBehaviour
         e.AddViewPrefab("Cube");
         e.AddTraversalSpeed(5);
         e.AddWorldPosition(new Vector2(1, 1));
-        e.AddPathRequest(e.worldPosition.value.ToVector2Int(), new Vector2Int(8, 8));
+        e.AddPathRequest(e.worldPosition.value.ToVector2Int(), e.worldPosition.value.ToVector2Int());
+        e.AddHealth(100);
         
         e = EntityCreator.CreateGameEntity();
         e.AddVision(new Vision(0, 30, 5, 100));
@@ -39,7 +40,8 @@ public class GameController : MonoBehaviour
         e.AddViewPrefab("Cube");
         e.AddTraversalSpeed(5);
         e.AddWorldPosition(new Vector2(19, 19));
-        e.AddPathRequest(e.worldPosition.value.ToVector2Int(), new Vector2Int(8, 8));
+        e.AddPathRequest(e.worldPosition.value.ToVector2Int(), e.worldPosition.value.ToVector2Int());
+        e.AddHealth(100);
     }
     
     private void Start()

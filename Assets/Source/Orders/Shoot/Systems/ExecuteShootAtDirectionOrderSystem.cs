@@ -1,7 +1,5 @@
 ﻿using System;
 using Entitas;
-using ProceduralToolkit;
-using UnityEngine;
 
 public class ExecuteShootAtDirectionOrderSystem : IExecuteSystem
 {
@@ -39,10 +37,8 @@ public class ExecuteShootAtDirectionOrderSystem : IExecuteSystem
             var direction = e.shootAtDirectionOrder.angle;
             if (AimHelper.IsAimingAtTargetDirection(e, direction))
             {
-                ShootHelper.Shoot(e.worldPosition.value, e.vision.value.directionAngle, e.weapon.value);
+                ShootHelper.Shoot(e.worldPosition.value, e.vision.value.directionAngle, e.weapon.value, e.iD.value);
             }
         }
     }
-
-
 }
