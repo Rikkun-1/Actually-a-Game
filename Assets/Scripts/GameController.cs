@@ -24,9 +24,9 @@ public class GameController : MonoBehaviour
         // }
         
         var e = EntityCreator.CreateGameEntity();
-        e.AddVision(new Vision(0, 30, 5, 100));
+        e.AddVision(0, 30, 5, 100);
         e.AddShootAtEntityOrder(1);
-        e.AddWeapon(new Weapon(15, 10, "bullet"));
+        e.AddWeapon(15, 10, "bullet");
         e.AddViewPrefab("Cube");
         e.AddTraversalSpeed(5);
         e.AddWorldPosition(new Vector2(1, 1));
@@ -34,9 +34,9 @@ public class GameController : MonoBehaviour
         e.AddHealth(100);
         
         e = EntityCreator.CreateGameEntity();
-        e.AddVision(new Vision(0, 30, 5, 100));
+        e.AddVision(0, 30, 5, 100);
         e.AddShootAtEntityOrder(0);
-        e.AddWeapon(new Weapon(15, 10, "bullet"));
+        e.AddWeapon(15, 10, "bullet");
         e.AddViewPrefab("Cube");
         e.AddTraversalSpeed(5);
         e.AddWorldPosition(new Vector2(19, 19));

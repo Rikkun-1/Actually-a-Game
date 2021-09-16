@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class ShootHelper
 {
-    public static void Shoot(Vector2 shootingPosition, float shootingAngle, Weapon weapon, long shooterID)
+    public static void Shoot(Vector2 shootingPosition, float shootingAngle, WeaponComponent weapon, long shooterID)
     {
         var bulletSpeed = weapon.bulletSpeed;
         var velocity    = Quaternion.Euler(0, shootingAngle, 0) * Vector3.forward * bulletSpeed;

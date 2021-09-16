@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IVisionListener {
-    void OnVision(GameEntity entity, Vision value);
+    void OnVision(GameEntity entity, float directionAngle, int viewingAngle, int distance, int turningSpeed);
 }

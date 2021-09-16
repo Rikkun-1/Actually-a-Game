@@ -30,7 +30,7 @@ public sealed class VisionEventSystem : Entitas.ReactiveSystem<GameEntity> {
             _listenerBuffer.Clear();
             _listenerBuffer.AddRange(e.visionListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnVision(e, component.value);
+                listener.OnVision(e, component.directionAngle, component.viewingAngle, component.distance, component.turningSpeed);
             }
         }
     }

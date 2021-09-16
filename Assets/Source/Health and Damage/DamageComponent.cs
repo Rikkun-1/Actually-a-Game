@@ -12,7 +12,7 @@ public class Damage
     public long damageDealerID;
     public int  damage;
 
-    Damage()
+    public Damage()
     {
     }
     

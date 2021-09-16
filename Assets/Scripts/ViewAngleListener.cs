@@ -10,7 +10,7 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
     {
         if (_entity.hasVision)
         {
-            var vision         = _entity.vision.value;
+            var vision         = _entity.vision;
             var directionAngle = vision.directionAngle;
             var viewingAngle   = vision.viewingAngle;
             var distance       = vision.distance;
@@ -56,8 +56,8 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
 
         if (_entity.hasVision)
         {
-            var vision = _entity.vision.value;
-            OnVision(_entity, vision);
+            var vision = _entity.vision;
+            OnVision(_entity, vision.directionAngle, vision.viewingAngle, vision.distance, vision.turningSpeed);
         }
     }
 
@@ -65,9 +65,9 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
     {
         _entity.RemoveVisionListener(this, false);
     }
-
-    public void OnVision(GameEntity entity, Vision value)
+    
+    public void OnVision(GameEntity entity, float directionAngle, int viewingAngle, int distance, int turningSpeed)
     {
-        transform.rotation = Quaternion.Euler(0, value.directionAngle, 0);
+        transform.rotation = Quaternion.Euler(0, directionAngle, 0);
     }
 }

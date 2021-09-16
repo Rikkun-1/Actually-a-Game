@@ -39,7 +39,7 @@ public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
 
             if (AimHelper.IsAimingAtTargetEntity(e, targetEntity))
             {
-                ShootHelper.Shoot(e.worldPosition.value, e.vision.value.directionAngle, e.weapon.value, e.iD.value);
+                ShootHelper.Shoot(e.worldPosition.value, e.vision.directionAngle, e.weapon, e.iD.value);
             }
         }
     }

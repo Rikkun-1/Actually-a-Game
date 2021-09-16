@@ -5,7 +5,7 @@ public static class AimHelper
 {
     public static bool IsAimingAtTargetDirection(GameEntity e, float targetDirection)
     {
-        return Math.Abs(e.vision.value.directionAngle - targetDirection) < 0.01;
+        return Math.Abs(e.vision.directionAngle - targetDirection) < 0.01;
     }
 
     public static bool IsAimingAtTargetPosition(GameEntity e, Vector2 targetPosition)

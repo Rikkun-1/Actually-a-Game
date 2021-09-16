@@ -11,17 +11,23 @@ public partial class GameEntity {
     public VisionComponent vision { get { return (VisionComponent)GetComponent(GameComponentsLookup.Vision); } }
     public bool hasVision { get { return HasComponent(GameComponentsLookup.Vision); } }
 
-    public void AddVision(Vision newValue) {
+    public void AddVision(float newDirectionAngle, int newViewingAngle, int newDistance, int newTurningSpeed) {
         var index = GameComponentsLookup.Vision;
         var component = (VisionComponent)CreateComponent(index, typeof(VisionComponent));
-        component.value = newValue;
+        component.directionAngle = newDirectionAngle;
+        component.viewingAngle = newViewingAngle;
+        component.distance = newDistance;
+        component.turningSpeed = newTurningSpeed;
         AddComponent(index, component);
     }
 
-    public void ReplaceVision(Vision newValue) {
+    public void ReplaceVision(float newDirectionAngle, int newViewingAngle, int newDistance, int newTurningSpeed) {
         var index = GameComponentsLookup.Vision;
         var component = (VisionComponent)CreateComponent(index, typeof(VisionComponent));
-        component.value = newValue;
+        component.directionAngle = newDirectionAngle;
+        component.viewingAngle = newViewingAngle;
+        component.distance = newDistance;
+        component.turningSpeed = newTurningSpeed;
         ReplaceComponent(index, component);
     }
 

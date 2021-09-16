@@ -3,5 +3,7 @@
 [Game]
 public sealed class WeaponComponent : IComponent
 {
-    public Weapon value;
+    public int    bulletSpeed;
+    public int    bulletDamage;
+    public string bulletPrefab;
 }

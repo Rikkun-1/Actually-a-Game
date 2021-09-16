@@ -25,7 +25,7 @@ public class ExecuteLootAtPositionOrderSystem : IExecuteSystem
             var targetPosition  = e.lookAtPositionOrder.position;
             var targetDirection = targetPosition - currentPosition;
 
-            var vision      = e.vision.value;
+            var vision      = e.vision;
             var angleChange = vision.turningSpeed * deltaTime;
 
             var desiredAngle = targetDirection.ToAngle();
@@ -35,7 +35,7 @@ public class ExecuteLootAtPositionOrderSystem : IExecuteSystem
                 vision.directionAngle =
                     AngleHelper.RotateAngleTowards(vision.directionAngle, desiredAngle, angleChange);
 
-                e.ReplaceVision(vision);
+                e.ReplaceVision(vision.directionAngle, vision.viewingAngle, vision.distance, vision.turningSpeed);
             }
         }
     }
