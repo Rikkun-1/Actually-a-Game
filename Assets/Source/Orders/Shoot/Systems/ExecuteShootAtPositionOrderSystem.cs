@@ -2,13 +2,11 @@
 
 public class ExecuteShootAtPositionOrderSystem : IExecuteSystem
 {
-    private readonly Contexts           _contexts;
     private readonly IGroup<GameEntity> _entities;
     private readonly IGroup<GameEntity> _entitiesThatDontLookAtProperPosition;
 
     public ExecuteShootAtPositionOrderSystem(Contexts contexts)
     {
-        _contexts = contexts;
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.ShootAtPositionOrder,
                                                              GameMatcher.Vision,
                                                              GameMatcher.WorldPosition));
@@ -37,7 +35,7 @@ public class ExecuteShootAtPositionOrderSystem : IExecuteSystem
 
             if (AimHelper.IsAimingAtTargetPosition(e, targetPosition))
             {
-                ShootHelper.Shoot(e.worldPosition.value, e.vision.directionAngle, e.weapon, e.iD.value);
+                ShootHelper.Shoot(e.worldPosition.value, e.vision.directionAngle, e.weapon, e.id.value);
             }
         }
     }

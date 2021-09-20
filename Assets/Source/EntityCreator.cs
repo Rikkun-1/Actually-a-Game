@@ -5,7 +5,7 @@
     public static GameEntity CreateGameEntity()
     {
         var e = Contexts.sharedInstance.game.CreateEntity();
-        e.AddID(currentID++);
+        e.AddId(currentID++);
 
         return e;
     }

@@ -15,7 +15,7 @@ public sealed class VisionComponent : IComponent
     {
         _directionAngle = new Angle();
     }
-    
+
     public VisionComponent(float directionAngle, int viewingAngle, int distance, int turningSpeed) : this()
     {
         this.directionAngle = directionAngle;

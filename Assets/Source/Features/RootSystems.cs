@@ -9,9 +9,11 @@ public sealed class RootSystems : Feature
         Add(new MoveSystem(contexts));
         Add(new OrdersExecutionSystems(contexts));
         Add(new HealthAndDamageSystems(contexts));
-        
+
         Add(new PathfindingSystems(contexts));
         Add(new ViewSystems(contexts));
+        Add(new TargetVisibleSystem(contexts));
+        Add(new TargetNotVisibleSystem(contexts));
 
         Add(new DeleteEntitiesOutsideMapSystem(contexts));
 

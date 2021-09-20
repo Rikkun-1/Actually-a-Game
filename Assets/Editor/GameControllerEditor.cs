@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Entitas.VisualDebugging.Unity;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(GameController))]
 public class GameControllerEditor : Editor

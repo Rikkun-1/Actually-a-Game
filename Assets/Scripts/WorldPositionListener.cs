@@ -24,6 +24,6 @@ public class WorldPositionListener : MonoBehaviour, IEventListener, IWorldPositi
 
     public void OnWorldPosition(GameEntity e, Vector2 newPosition)
     {
-        transform.position   = new Vector3(newPosition.x, 0, newPosition.y);
+        transform.position = new Vector3(newPosition.x, 0, newPosition.y);
     }
 }

@@ -15,8 +15,8 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
             var viewingAngle   = vision.viewingAngle;
             var distance       = vision.distance;
 
-            var direction      = transform.rotation * Vector3.forward * distance;
-            var directionLeft  = 
+            var direction = transform.rotation * Vector3.forward * distance;
+            var directionLeft =
                 Quaternion.Euler(0, directionAngle - viewingAngle / 2f, 0) * Vector3.forward * distance;
             var directionRight = Quaternion.Euler(0, directionAngle + viewingAngle / 2f, 0) * Vector3.forward * distance;
 
@@ -34,7 +34,7 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
 
             if (_entity.hasLookAtDirectionOrder)
             {
-                direction = 
+                direction =
                     Quaternion.Euler(0, _entity.lookAtDirectionOrder.angle, 0) * Vector3.forward * distance;
                 Debug.DrawRay(position, direction, Color.red);
             }
@@ -43,7 +43,7 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
             {
                 var targetPosition = _entity.lookAtPositionOrder.position;
                 var dir            = targetPosition - _entity.worldPosition.value;
-                
+
                 Debug.DrawRay(_entity.worldPosition.value.ToVector3XZ(), dir.ToVector3XZ(), Color.red);
             }
         }
@@ -65,7 +65,7 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
     {
         _entity.RemoveVisionListener(this, false);
     }
-    
+
     public void OnVision(GameEntity entity, float directionAngle, int viewingAngle, int distance, int turningSpeed)
     {
         transform.rotation = Quaternion.Euler(0, directionAngle, 0);

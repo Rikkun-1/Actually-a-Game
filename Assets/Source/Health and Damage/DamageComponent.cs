@@ -9,13 +9,13 @@ public sealed class DamageComponent : IComponent
 
 public class Damage
 {
-    public long damageDealerID;
     public int  damage;
+    public long damageDealerID;
 
     public Damage()
     {
     }
-    
+
     public Damage(long damageDealerID, int damage)
     {
         this.damageDealerID = damageDealerID;

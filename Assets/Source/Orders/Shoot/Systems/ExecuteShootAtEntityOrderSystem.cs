@@ -34,12 +34,12 @@ public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
             }
 
             var targetEntityID = e.shootAtEntityOrder.targetID;
-            var targetEntity   = _contexts.game.GetEntityWithID(targetEntityID);
+            var targetEntity   = _contexts.game.GetEntityWithId(targetEntityID);
             if (targetEntity == null) continue;
 
             if (AimHelper.IsAimingAtTargetEntity(e, targetEntity))
             {
-                ShootHelper.Shoot(e.worldPosition.value, e.vision.directionAngle, e.weapon, e.iD.value);
+                ShootHelper.Shoot(e.worldPosition.value, e.vision.directionAngle, e.weapon, e.id.value);
             }
         }
     }

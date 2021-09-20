@@ -24,9 +24,9 @@ public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
             var currentPosition = e.worldPosition.value;
 
             var targetEntityID = e.lookAtEntityOrder.targetID;
-            var targetEntity   = _contexts.game.GetEntityWithID(targetEntityID);
+            var targetEntity   = _contexts.game.GetEntityWithId(targetEntityID);
             if (targetEntity == null) continue;
-            
+
             var targetPosition = targetEntity.worldPosition.value;
 
             var targetDirection = targetPosition - currentPosition;
