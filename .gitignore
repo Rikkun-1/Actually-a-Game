@@ -9,7 +9,7 @@ Assembly-CSharp-Editor.csproj
 *.bat
 *ProceduralToolkit*
 !Tests.csproj
-
+*Assets/Generated/*
 
 # Solution
 
