@@ -3,8 +3,8 @@
 public class DeleteOldLookOrdersWhenNewAddedSystem : IExecuteSystem
 {
     private readonly ICollector<GameEntity> _newLookAtDirection;
-    private readonly ICollector<GameEntity> _newLookAtEntity;
     private readonly ICollector<GameEntity> _newLookAtPosition;
+    private readonly ICollector<GameEntity> _newLookAtEntity;
 
     public DeleteOldLookOrdersWhenNewAddedSystem(Contexts contexts)
     {

@@ -15,14 +15,16 @@ public class ApplyDamageToHealthSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasDamage && entity.hasHealth && !entity.isIndestructible;
+        return entity.hasDamage &&
+               entity.hasHealth &&
+               !entity.isIndestructible;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in entities)
         {
-            var damageSum = e.damage.damageList.Sum(e => e.damage);
+            var damageSum = e.damage.damageList.Sum(elem => elem.damage);
 
             e.ReplaceHealth(e.health.value - damageSum);
         }

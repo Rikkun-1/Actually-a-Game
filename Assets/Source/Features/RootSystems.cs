@@ -2,9 +2,7 @@ public sealed class RootSystems : Feature
 {
     public RootSystems(Contexts contexts)
     {
-        Add(new RemoveDestroyedForIndestructibleSystem(contexts));
-
-        Add(new UpdateGridSizeSystem(contexts));
+        Add(new GridSystems(contexts));
 
         Add(new MoveSystem(contexts));
         Add(new OrdersExecutionSystems(contexts));
@@ -15,10 +13,8 @@ public sealed class RootSystems : Feature
         Add(new TargetVisibleSystem(contexts));
         Add(new TargetNotVisibleSystem(contexts));
 
-        Add(new DeleteEntitiesOutsideMapSystem(contexts));
-
         Add(new DeleteCollisionsSystem(contexts));
-        Add(new DestroySystem(contexts));
+        Add(new DestructionSystems(contexts));
 
         Add(new GameEventSystems(contexts));
     }

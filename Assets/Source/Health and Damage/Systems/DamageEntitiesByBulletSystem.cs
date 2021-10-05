@@ -46,8 +46,7 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
     private static bool CollisionIsCorrect(GameEntity firstEntity, GameEntity secondEntity)
     {
         if (firstEntity == null || secondEntity == null)       return false;
-        if (firstEntity.hasBullet && secondEntity.hasBullet)   return false;
-        if (!firstEntity.hasBullet && !secondEntity.hasBullet) return false;
+        if (firstEntity.hasBullet == secondEntity.hasBullet)   return false;
         
         return true;
     }

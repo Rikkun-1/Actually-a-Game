@@ -3,8 +3,8 @@
 public class DeleteOldShootOrdersWhenNewAddedSystem : IExecuteSystem
 {
     private readonly ICollector<GameEntity> _newShootAtDirection;
-    private readonly ICollector<GameEntity> _newShootAtEntity;
     private readonly ICollector<GameEntity> _newShootAtPosition;
+    private readonly ICollector<GameEntity> _newShootAtEntity;
 
     public DeleteOldShootOrdersWhenNewAddedSystem(Contexts contexts)
     {
