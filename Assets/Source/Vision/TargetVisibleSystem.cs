@@ -28,6 +28,7 @@ public class TargetVisibleSystem : IExecuteSystem
             foreach (var targetEntity in possibleTargets)
             {
                 if (!targetEntity.hasUnityView) continue;
+                if (e.teamID.value == targetEntity.teamID.value) continue;
 
                 var raycastOrigin = e.worldPosition.value.ToVector3XZ();
                 raycastOrigin.y = 0.25f;
@@ -39,13 +40,13 @@ public class TargetVisibleSystem : IExecuteSystem
 
                 //var maxDistance = Mathf.Min(Vector3.Distance(raycastOrigin, targetPosition), e.vision.distance);
                 var maxDistance = Vector3.Distance(raycastOrigin, targetPosition);
-                Debug.DrawRay(raycastOrigin, raycastDirection, Color.magenta);
+                //Debug.DrawRay(raycastOrigin, raycastDirection, Color.magenta);
 
                 var raycastHits = Physics.RaycastAll(raycastOrigin, raycastDirection, maxDistance);
 
                 if (raycastHits.Length == 1)
                 {
-                    e.AddShootAtEntityOrder(targetEntity.id.value);
+                    e.ReplaceShootAtEntityOrder(targetEntity.id.value);
                 }
             }
         }

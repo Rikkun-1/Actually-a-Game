@@ -39,7 +39,7 @@ public class TargetNotVisibleSystem : IExecuteSystem
 
             //var maxDistance = Mathf.Min(Vector3.Distance(raycastOrigin, targetPosition), e.vision.distance);
             var maxDistance = Vector3.Distance(raycastOrigin, targetPosition);
-            Debug.DrawRay(raycastOrigin, raycastDirection, Color.magenta);
+            //Debug.DrawRay(raycastOrigin, raycastDirection, Color.magenta);
 
             var raycastHits = Physics.RaycastAll(raycastOrigin, raycastDirection, maxDistance);
 
