@@ -4,6 +4,6 @@
 public sealed class WeaponComponent : IComponent
 {
     public int    bulletDamage;
-    public string bulletPrefab;
     public int    bulletSpeed;
+    public string bulletPrefab;
 }

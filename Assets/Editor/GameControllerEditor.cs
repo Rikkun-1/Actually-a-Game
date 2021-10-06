@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Entitas.VisualDebugging.Unity;
 using UnityEditor;
 using UnityEngine;
@@ -6,6 +7,13 @@ using UnityEngine;
 [CustomEditor(typeof(GameController))]
 public class GameControllerEditor : Editor
 {
+    private GameController _gameController;
+
+    private void OnEnable()
+    {
+        _gameController = (GameController)target;
+    }
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -16,6 +24,12 @@ public class GameControllerEditor : Editor
             var entity = EntityCreator.CreateGameEntity();
             Selection.activeGameObject = FindObjectsOfType<EntityBehaviour>()
                                          .Single(e => e.entity == entity).gameObject;
+        }
+
+        if (GUILayout.Button("Play simulation phase"))
+        {
+            var simulationController = _gameController.simulationController;
+            simulationController.timeUntilPhaseEnd += simulationController.timeForOnePhaseCycle;
         }
     }
 }

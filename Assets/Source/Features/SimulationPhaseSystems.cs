@@ -1,6 +1,6 @@
-public sealed class RootSystems : Feature
+public sealed class SimulationPhaseSystems : Feature
 {
-    public RootSystems(Contexts contexts)
+    public SimulationPhaseSystems(Contexts contexts)
     {
         Add(new GridSystems(contexts));
 

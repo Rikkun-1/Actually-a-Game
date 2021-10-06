@@ -3,6 +3,6 @@
 [Game]
 public class BulletComponent : IComponent
 {
-    public int  damage;
     public long shooterID;
+    public int  damage;
 }

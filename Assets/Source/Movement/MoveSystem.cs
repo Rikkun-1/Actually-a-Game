@@ -14,7 +14,7 @@ public class MoveSystem : IExecuteSystem
 
     public void Execute()
     {
-        var deltaTime = _contexts.game.gameTick.deltaTime;
+        var deltaTime = _contexts.game.simulationTick.deltaTime;
 
         foreach (var e in _entities)
         {
