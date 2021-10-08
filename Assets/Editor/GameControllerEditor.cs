@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Entitas.VisualDebugging.Unity;
 using UnityEditor;
 using UnityEngine;
@@ -7,9 +6,11 @@ using UnityEngine;
 [CustomEditor(typeof(GameController))]
 public class GameControllerEditor : Editor
 {
-    private GameController _gameController;
+    private        GameController _gameController;
     private static WorldDebugGrid _worldDebugGrid;
-    
+    private static int            _teamID;
+    private static Vector2Int     _position;
+
     private void OnEnable()
     {
         _gameController = (GameController)target;
@@ -24,7 +25,7 @@ public class GameControllerEditor : Editor
         {
             var entity = EntityCreator.CreateGameEntity();
             Selection.activeGameObject = FindObjectsOfType<EntityBehaviour>()
-                                         .Single(e => e.entity == entity).gameObject;
+                                        .Single(e => e.entity == entity).gameObject;
         }
 
         if (GUILayout.Button("Play simulation phase"))

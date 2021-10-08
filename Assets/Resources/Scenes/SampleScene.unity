@@ -271,10 +271,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultMapSize: {x: 20, y: 20}
   simulationController:
-    timeAccumulated: 0
+    timeForOnePhaseCycle: 2.5
+    timeUntilPhaseEnd: 2.5
     tickDeltaTime: 0
-    timeUntilPhaseEnd: 0
-    timeForOnePhaseCycle: 0
+    timeAccumulated: 0
 --- !u!4 &1168647769
 Transform:
   m_ObjectHideFlags: 0
