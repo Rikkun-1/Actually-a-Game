@@ -4,7 +4,7 @@ public sealed class SimulationPhaseSystems : Feature
     {
         Add(new GridSystems(contexts));
 
-        Add(new MoveSystem(contexts));
+        Add(new MovementSystems(contexts));
         Add(new OrdersExecutionSystems(contexts));
         Add(new HealthAndDamageSystems(contexts));
 
@@ -13,7 +13,7 @@ public sealed class SimulationPhaseSystems : Feature
         Add(new TargetVisibleSystem(contexts));
         Add(new TargetNotVisibleSystem(contexts));
 
-        Add(new DeleteCollisionsSystem(contexts));
+        Add(new CollisionSystems(contexts));
         Add(new DestructionSystems(contexts));
 
         Add(new GameEventSystems(contexts));

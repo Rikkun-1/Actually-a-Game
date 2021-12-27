@@ -1,7 +1,10 @@
-﻿public sealed class AISystems : Feature
+﻿namespace Source.AI
 {
-    public AISystems(Contexts contexts)
+    public sealed class AISystems : Feature
     {
-        Add(new ProcessAISystem(contexts));
+        public AISystems(Contexts contexts)
+        {
+            Add(new ProcessAISystem(contexts));
+        }
     }
 }

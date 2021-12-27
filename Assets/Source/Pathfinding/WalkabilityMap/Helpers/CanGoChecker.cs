@@ -2,11 +2,12 @@
 using System.Linq;
 using Roy_T.AStar.Grids;
 using Roy_T.AStar.Primitives;
+using Source.Pathfinding.WalkabilityMap.Helpers;
 
 public static class CanGoChecker
 {
-    public static bool NoNonWalkableInDirection(GameContext context, GridPosition from,
-                                                Direction   direction)
+    private static bool NoNonWalkableInDirection(GameContext context, GridPosition from,
+                                                 Direction   direction)
     {
         var x = from.X;
         var y = from.Y;
@@ -85,8 +86,8 @@ public static class CanGoChecker
             => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isWestWall);
     }
 
-    public static bool NoWallsInDirection(GameContext context, GridPosition from,
-                                          Direction   direction)
+    private static bool NoWallsInDirection(GameContext context, GridPosition from,
+                                           Direction   direction)
     {
         var x = from.X;
         var y = from.Y;
@@ -133,7 +134,7 @@ public static class CanGoChecker
         }
     }
 
-    public static bool DirectionIsInsideGrid(Grid grid, GridPosition from, Direction direction)
+    private static bool DirectionIsInsideGrid(Grid grid, GridPosition from, Direction direction)
     {
         var x = from.X;
         var y = from.Y;
@@ -161,9 +162,10 @@ public static class CanGoChecker
         };
     }
 
-    public static bool CanGoDirection(GameContext context, Grid grid, GridPosition from,
-                                      Direction   direction)
-        => DirectionIsInsideGrid(grid, from, direction) &&
-           NoNonWalkableInDirection(context, from, direction) &&
-           NoWallsInDirection(context, from, direction);
+    public static bool CanGoDirection(GameContext context, Grid grid, GridPosition from, Direction direction)
+    {
+        return DirectionIsInsideGrid(grid, from, direction) &&
+               NoNonWalkableInDirection(context, from, direction) &&
+               NoWallsInDirection(context, from, direction);
+    }
 }

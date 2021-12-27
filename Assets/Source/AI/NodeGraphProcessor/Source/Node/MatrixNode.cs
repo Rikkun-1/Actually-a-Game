@@ -1,0 +1,14 @@
+﻿using System;
+using GraphProcessor;
+
+[Serializable] [NodeMenuItem("Matrix/MatrixNode")]
+public class MatrixNode : BaseMatrixNode
+{
+    [NodeInput("In")]
+    public Matrix input;
+
+    protected override void Process()
+    {
+        output = input;
+    }
+}

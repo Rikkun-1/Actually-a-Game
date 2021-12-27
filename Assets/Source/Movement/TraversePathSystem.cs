@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TraversePathSystem : IExecuteSystem
 {
-    private readonly Contexts           _contexts;
     private readonly IGroup<GameEntity> _entities;
+    private readonly GameContext        _game;
 
     public TraversePathSystem(Contexts contexts)
     {
-        _contexts = contexts;
+        _game = contexts.game;
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.WorldPosition,
                                                              GameMatcher.TraversalSpeed,
                                                              GameMatcher.Path));
@@ -17,7 +17,7 @@ public class TraversePathSystem : IExecuteSystem
 
     public void Execute()
     {
-        var deltaTime = _contexts.game.simulationTick.deltaTime;
+        var deltaTime = _game.simulationTick.deltaTime;
 
         foreach (var e in _entities.GetEntities())
         {
@@ -58,20 +58,7 @@ public class TraversePathSystem : IExecuteSystem
             if (worldPosition == waypoints.Last())
             {
                 e.RemovePath();
-                CreateNewPathRequest(e);
             }
         }
-    }
-
-    private void CreateNewPathRequest(GameEntity e)
-    {
-        var mapSize = _contexts.game.mapSize.value;
-
-        var x = Random.Range(0, mapSize.x);
-        var y = Random.Range(0, mapSize.y);
-
-        var end = new Vector2Int(x, y);
-
-        e.ReplacePathRequest(e.worldPosition.value.ToVector2Int(), end);
     }
 }

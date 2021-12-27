@@ -2,13 +2,13 @@
 
 public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
 {
-    private readonly Contexts           _contexts;
     private readonly IGroup<GameEntity> _entities;
     private readonly IGroup<GameEntity> _entitiesThatDontLookAtProperEntity;
+    private readonly GameContext        _game;
 
     public ExecuteShootAtEntityOrderSystem(Contexts contexts)
     {
-        _contexts = contexts;
+        _game = contexts.game;
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.ShootAtEntityOrder,
                                                              GameMatcher.Vision,
                                                              GameMatcher.WorldPosition));
@@ -34,7 +34,7 @@ public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
             }
 
             var targetEntityID = e.shootAtEntityOrder.targetID;
-            var targetEntity   = _contexts.game.GetEntityWithId(targetEntityID);
+            var targetEntity   = _game.GetEntityWithId(targetEntityID);
             if (targetEntity == null) continue;
 
             if (AimHelper.IsAimingAtTargetEntity(e, targetEntity))

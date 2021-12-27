@@ -164,6 +164,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -237,7 +238,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1168647767
 GameObject:
@@ -269,7 +270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32785ad2f4d33b449afd38b26c193f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultMapSize: {x: 20, y: 20}
+  _systemDisablingSettings: {fileID: 11400000, guid: 71b2a86698152ab48b9b6549a7cc4ae6, type: 2}
+  _defaultGridSize: {x: 20, y: 20}
   simulationController:
     timeForOnePhaseCycle: 2.5
     timeUntilPhaseEnd: 2.5
@@ -283,11 +285,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168647767}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.024878502, y: 0, z: -0.024801254}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1168647770
 MonoBehaviour:

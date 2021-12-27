@@ -1,15 +1,14 @@
 ﻿using System;
 using Entitas;
-using UnityEngine;
 
 public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
 {
-    private readonly Contexts           _contexts;
     private readonly IGroup<GameEntity> _entities;
+    private readonly GameContext        _game;
 
     public ExecuteLookAtEntityOrderSystem(Contexts contexts)
     {
-        _contexts = contexts;
+        _game = contexts.game;
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.LookAtEntityOrder,
                                                              GameMatcher.Vision,
                                                              GameMatcher.WorldPosition));
@@ -17,14 +16,14 @@ public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
 
     public void Execute()
     {
-        var deltaTime = _contexts.game.simulationTick.deltaTime;
+        var deltaTime = _game.simulationTick.deltaTime;
 
         foreach (var e in _entities)
         {
             var currentPosition = e.worldPosition.value;
 
             var targetEntityID = e.lookAtEntityOrder.targetID;
-            var targetEntity   = _contexts.game.GetEntityWithId(targetEntityID);
+            var targetEntity   = _game.GetEntityWithId(targetEntityID);
             if (targetEntity == null) continue;
 
             var targetPosition = targetEntity.worldPosition.value;

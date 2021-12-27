@@ -3,11 +3,12 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+*Example[s]*
+*.csproj
 .editorconfig
 Assembly-CSharp.csproj
 Assembly-CSharp-Editor.csproj
 *.bat
-*ProceduralToolkit*
 !Tests.csproj
 *Assets/Generated/*
 *Tests/coverage_output/*

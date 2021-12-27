@@ -3,11 +3,11 @@ using Entitas;
 
 public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
 {
-    private readonly Contexts _contexts;
+    private readonly GameContext _game;
 
     public DamageEntitiesByBulletSystem(Contexts contexts) : base(contexts.game)
     {
-        _contexts = contexts;
+        _game = contexts.game;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -27,8 +27,8 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
             var firstID  = collisionEntity.collision.firstID;
             var secondID = collisionEntity.collision.secondID;
 
-            var firstEntity  = _contexts.game.GetEntityWithId(firstID);
-            var secondEntity = _contexts.game.GetEntityWithId(secondID);
+            var firstEntity  = _game.GetEntityWithId(firstID);
+            var secondEntity = _game.GetEntityWithId(secondID);
 
             if (!CollisionIsCorrect(firstEntity, secondEntity)) continue;
 
@@ -36,6 +36,7 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
             var hittedEntity = !firstEntity.hasBullet ? firstEntity : secondEntity;
 
             if (IsSelfHit(hittedEntity, bulletEntity)) continue;
+            if (IsHitByTeamMate(hittedEntity, bulletEntity)) continue;
 
             AddDamageToEntity(hittedEntity, bulletEntity);
 
@@ -43,11 +44,20 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
         }
     }
 
+    private bool IsHitByTeamMate(GameEntity hitted, GameEntity bullet)
+    {
+        var shooter = _game.GetEntityWithId(bullet.bullet.shooterID);
+
+        if (shooter is { hasTeamID: false } || !hitted.hasTeamID) return false;
+
+        return shooter != null && shooter.teamID.value == hitted.teamID.value;
+    }
+
     private static bool CollisionIsCorrect(GameEntity firstEntity, GameEntity secondEntity)
     {
         if (firstEntity == null || secondEntity == null)       return false;
         if (firstEntity.hasBullet == secondEntity.hasBullet)   return false;
-        
+
         return true;
     }
 
@@ -66,7 +76,7 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
         else
         {
             hittedEntity.AddDamage(new List<Damage> { damage });
-        }   
+        }
     }
 
     private static bool IsSelfHit(GameEntity shooterEntity, GameEntity bulletEntity)

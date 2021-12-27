@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TargetNotVisibleSystem : IExecuteSystem
 {
-    private readonly Contexts           _contexts;
     private readonly IGroup<GameEntity> _entities;
+    private readonly GameContext        _game;
 
     public TargetNotVisibleSystem(Contexts contexts)
     {
-        _contexts = contexts;
+        _game = contexts.game;
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.ShootAtEntityOrder,
                                                              GameMatcher.Vision));
     }
@@ -19,7 +19,7 @@ public class TargetNotVisibleSystem : IExecuteSystem
         foreach (var e in _entities.GetEntities())
         {
             var targetEntityID = e.shootAtEntityOrder.targetID;
-            var targetEntity   = _contexts.game.GetEntityWithId(targetEntityID);
+            var targetEntity   = _game.GetEntityWithId(targetEntityID);
 
             if (targetEntity == null)
             {
@@ -50,7 +50,7 @@ public class TargetNotVisibleSystem : IExecuteSystem
         }
     }
 
-    private void TargetLost(GameEntity e)
+    private static void TargetLost(GameEntity e)
     {
         e.RemoveShootAtEntityOrder();
         e.RemoveLookAtEntityOrder();

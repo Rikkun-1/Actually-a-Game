@@ -1,6 +1,7 @@
 ﻿using System;
 using Roy_T.AStar.Grids;
 using Roy_T.AStar.Primitives;
+using Source.Pathfinding.WalkabilityMap.Helpers;
 
 public static class GridChanger
 {
@@ -47,8 +48,7 @@ public static class GridChanger
             grid.AddTwoWayEdge(bottom, right,       velocity);
         }
 
-        bool canGoDirection(Direction direction) =>
-            CanGoChecker.CanGoDirection(context, grid, from, direction);
+        bool canGoDirection(Direction direction) => CanGoChecker.CanGoDirection(context, grid, from, direction);
     }
 
     public static void DisconnectNode(Grid grid, int x, int y)

@@ -31,21 +31,28 @@ public class UpdateUnityViewSystem : ReactiveSystem<GameEntity>
                 UnityViewHelper.DestroyView(e);
             }
 
-            if (e.hasViewPrefab &&
-                !string.IsNullOrEmpty(e.viewPrefab.prefabName))
+            if (HasViewPrefabName(e))
             {
                 var prefabName = e.viewPrefab.prefabName;
-
-                if (!_categories.ContainsKey(prefabName))
-                {
-                    var newCategory = new GameObject(prefabName);
-                    newCategory.transform.SetParent(_parent.transform);
-
-                    _categories.Add(prefabName, newCategory);
-                }
-
+                AddNewCategoryIfNotExist(prefabName);
                 UnityViewHelper.LoadViewFromPrefab(e, prefabName, _categories[prefabName]);
             }
         }
+    }
+
+    private void AddNewCategoryIfNotExist(string newCategoryName)
+    {
+        if (!_categories.ContainsKey(newCategoryName))
+        {
+            var newCategory = new GameObject(newCategoryName);
+            newCategory.transform.SetParent(_parent.transform);
+
+            _categories.Add(newCategoryName, newCategory);
+        }
+    }
+
+    private static bool HasViewPrefabName(GameEntity e)
+    {
+        return e.hasViewPrefab && !string.IsNullOrEmpty(e.viewPrefab.prefabName);
     }
 }

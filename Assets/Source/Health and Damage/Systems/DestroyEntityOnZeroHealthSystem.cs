@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Entitas;
 
 public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>

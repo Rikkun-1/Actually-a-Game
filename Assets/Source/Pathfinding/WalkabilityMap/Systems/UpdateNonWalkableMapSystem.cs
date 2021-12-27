@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Source.Pathfinding.WalkabilityMap.Helpers;
 
 public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 {
-    private readonly Contexts _contexts;
+    private readonly GameContext _game;
 
     public UpdateNonWalkableMapSystem(Contexts contexts) : base(contexts.game)
     {
-        _contexts = contexts;
+        _game = contexts.game;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -26,7 +27,7 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var pathfindingGrid = _contexts.game.pathfindingGrid.value;
+        var pathfindingGrid = _game.pathfindingGrid.value;
 
         foreach (var e in entities)
         {
@@ -38,9 +39,9 @@ public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
             else if (e.isWestWall)  GridChanger.WallAdded(pathfindingGrid, x, y, Direction.Left);
             else if (e.isNorthWall) GridChanger.WallAdded(pathfindingGrid, x, y, Direction.Top);
             else if (e.isSouthWall) GridChanger.WallAdded(pathfindingGrid, x, y, Direction.Bottom);
-            else                    GridChanger.ReconnectNode(_contexts.game, pathfindingGrid, x, y);
+            else                    GridChanger.ReconnectNode(_game, pathfindingGrid, x, y);
         }
 
-        _contexts.game.ReplacePathfindingGrid(pathfindingGrid);
+        _game.ReplacePathfindingGrid(pathfindingGrid);
     }
 }

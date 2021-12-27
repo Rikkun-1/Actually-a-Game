@@ -1,11 +1,14 @@
-﻿public enum Direction
+﻿namespace Source.Pathfinding.WalkabilityMap.Helpers
 {
-    Top,
-    TopRight,
-    Right,
-    BottomRight,
-    Bottom,
-    BottomLeft,
-    Left,
-    TopLeft
+    public enum Direction
+    {
+        Top,
+        TopRight,
+        Right,
+        BottomRight,
+        Bottom,
+        BottomLeft,
+        Left,
+        TopLeft
+    }
 }

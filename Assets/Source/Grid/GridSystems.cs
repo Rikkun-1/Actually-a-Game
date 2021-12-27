@@ -3,6 +3,6 @@
     public GridSystems(Contexts contexts)
     {
         Add(new UpdateGridSizeSystem(contexts));
-        Add(new DeleteEntitiesOutsideMapSystem(contexts));
+        Add(new DeleteEntitiesOutsideGridSystem(contexts));
     }
 }

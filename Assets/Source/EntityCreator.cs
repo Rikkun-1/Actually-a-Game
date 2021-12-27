@@ -1,17 +1,20 @@
-﻿public static class EntityCreator
+﻿namespace Source
 {
-    public static long currentID { get; private set; }
-
-    public static GameEntity CreateGameEntity(Contexts contexts)
+    public static class EntityCreator
     {
-        var e = contexts.game.CreateEntity();
-        e.AddId(currentID++);
+        public static long currentID { get; private set; }
 
-        return e;
-    }
-    
-    public static GameEntity CreateGameEntity()
-    {
-        return CreateGameEntity(Contexts.sharedInstance);
+        public static GameEntity CreateGameEntity(Contexts contexts)
+        {
+            var e = contexts.game.CreateEntity();
+            e.AddId(currentID++);
+
+            return e;
+        }
+
+        public static GameEntity CreateGameEntity()
+        {
+            return CreateGameEntity(Contexts.sharedInstance);
+        }
     }
 }

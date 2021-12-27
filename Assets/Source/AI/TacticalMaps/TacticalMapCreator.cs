@@ -1,44 +1,42 @@
 ﻿using Entitas.Unity;
 using ProceduralToolkit;
 using UnityEngine;
-using MathExtended.Matrices;
 
 public static class TacticalMapCreator
 {
-    public static Matrix CreateTeamPlayersPositionMap(Contexts contexts, int teamID)
+    public static TacticalMap CreateTeamPlayersPositionMap(GameContext game, int teamID)
     {
-        var mapSize     = contexts.game.mapSize.value;
-        var tacticalMap = new Matrix(mapSize.x, mapSize.y);
+        var gridSize    = game.gridSize.value;
+        var tacticalMap = new TacticalMap(gridSize.x, gridSize.y);
 
-        var players = contexts.game.GetEntitiesWithTeamID(teamID);
-        
+        var players = game.GetEntitiesWithTeamID(teamID);
+
         foreach (var player in players)
         {
             var pos = player.gridPosition.value;
-            
+
             tacticalMap[pos.x, pos.y]++;
         }
 
         return tacticalMap;
     }
-    
-    public static Matrix CreateAmountOfTeamPlayersThatCanBeSeenFromThisPositionMap(Contexts contexts, int teamID)
+
+    public static TacticalMap CreateAmountOfTeamPlayersThatCanBeSeenFromThisPositionMap(GameContext game, int teamID)
     {
-        var mapSize     = contexts.game.mapSize.value;
-        var tacticalMap = new Matrix(mapSize.x, mapSize.y);
+        var gridSize    = game.gridSize.value;
+        var tacticalMap = new TacticalMap(gridSize.x, gridSize.y);
 
-        var players = contexts.game.GetEntitiesWithTeamID(teamID);
+        var players = game.GetEntitiesWithTeamID(teamID);
 
-        for (int x = 0; x < tacticalMap.Rows; x++)
+        for (var x = 0; x < tacticalMap.width; x++)
         {
-            for (int y = 0; y < tacticalMap.Columns; y++)
+            for (var y = 0; y < tacticalMap.height; y++)
             {
                 foreach (var player in players)
                 {
                     if (!player.hasUnityView) continue;
 
-                    var raycastOrigin = new Vector3(x, 0, y);
-                    raycastOrigin.y = 0.25f;
+                    var raycastOrigin = new Vector3(x, 0.25f, y);
 
                     var targetPosition = player.worldPosition.value.ToVector3XZ();
                     targetPosition.y = 0.25f;
@@ -50,15 +48,27 @@ public static class TacticalMapCreator
 
                     var raycastHits = Physics.RaycastAll(raycastOrigin, raycastDirection, maxDistance);
 
-                    if (raycastHits.Length == 1)
+                    var clearVision = false;
+                    foreach (var hit in raycastHits)
                     {
-                        var entity = (GameEntity)raycastHits[0].collider.gameObject.GetComponentInParent<EntityLink>()?.entity;
+                        var entity = (GameEntity)hit.collider.gameObject.GetComponentInParent<EntityLink>()?.entity;
 
-                        if (entity != null && entity.hasTeamID && entity.teamID.value == teamID)
+                        if (entity == null || !entity.isPlayer)
                         {
-                            tacticalMap[x, y]++;
-                            Debug.DrawRay(raycastOrigin, raycastDirection, Color.magenta, 5f);
+                            clearVision = false;
+                            break;
                         }
+
+                        if (player.id == entity.id)
+                        {
+                            clearVision = true;
+                        }
+                    }
+
+                    if (clearVision)
+                    {
+                        tacticalMap[x, y]++;
+                        Debug.DrawRay(raycastOrigin, raycastDirection, Color.magenta, 5f);
                     }
                 }
             }
@@ -67,16 +77,17 @@ public static class TacticalMapCreator
         return tacticalMap;
     }
 
-    public static Matrix CreateDistanceFromThisPositionToAllPositionsMap(Contexts contexts, Vector2Int from)
+    public static TacticalMap CreateDistanceFromThisPositionToAllPositionsMap(GameContext game, Vector2Int from)
     {
-        var mapSize     = contexts.game.mapSize.value;
-        var tacticalMap = new Matrix(mapSize.x, mapSize.y);
+        var gridSize    = game.gridSize.value;
+        var tacticalMap = new TacticalMap(gridSize.x, gridSize.y);
 
-        for (int x = 0; x < tacticalMap.Rows; x++)
+        for (var x = 0; x < tacticalMap.width; x++)
         {
-            for (int y = 0; y < tacticalMap.Columns; y++)
+            for (var y = 0; y < tacticalMap.height; y++)
             {
-                tacticalMap[x, y] = Vector2.Distance(from, new Vector2(x, y));
+                var distance = Vector2.Distance(from, new Vector2(x, y));
+                tacticalMap[x, y] = Mathf.RoundToInt(distance);
             }
         }
 

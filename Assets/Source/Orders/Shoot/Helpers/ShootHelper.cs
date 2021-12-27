@@ -1,4 +1,5 @@
 ﻿using ProceduralToolkit;
+using Source;
 using UnityEngine;
 
 public static class ShootHelper
@@ -9,7 +10,7 @@ public static class ShootHelper
         var velocity    = Quaternion.Euler(0, shootingAngle, 0) * Vector3.forward * bulletSpeed;
 
         var e = EntityCreator.CreateGameEntity();
-        e.AddBullet(shooterID, weapon.bulletDamage);
+        e.AddBullet(weapon.bulletDamage, shooterID);
         e.AddViewPrefab(weapon.bulletPrefab);
         e.AddWorldPosition(shootingPosition);
         e.AddVelocity(velocity.ToVector2XZ());

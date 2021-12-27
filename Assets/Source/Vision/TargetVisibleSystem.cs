@@ -10,10 +10,12 @@ public class TargetVisibleSystem : IExecuteSystem
 
     public TargetVisibleSystem(Contexts contexts)
     {
-        _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Vision)
+        _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.TeamID,
+                                                             GameMatcher.Vision)
                                                       .NoneOf(GameMatcher.ShootAtEntityOrder));
 
-        _possibleTargets = contexts.game.GetGroup(GameMatcher.Health);
+        _possibleTargets = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.TeamID,
+                                                                    GameMatcher.Health));
     }
 
     public void Execute()
@@ -23,7 +25,7 @@ public class TargetVisibleSystem : IExecuteSystem
             var myPosition = e.worldPosition.value;
             var possibleTargets =
                 _possibleTargets.GetEntities()
-                                .OrderBy(e => Vector2.Distance(myPosition, e.worldPosition.value));
+                                .OrderBy(entity => Vector2.Distance(myPosition, entity.worldPosition.value));
 
             foreach (var targetEntity in possibleTargets)
             {
