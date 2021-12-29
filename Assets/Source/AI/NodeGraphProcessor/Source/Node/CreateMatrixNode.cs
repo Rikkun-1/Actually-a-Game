@@ -1,7 +1,7 @@
 ﻿using System;
 using GraphProcessor;
 
-[Serializable] [NodeMenuItem("Matrix/CreateMatrixNode")]
+[Serializable] [NodeMenuItem("Matrix/CreateMatrix")]
 public class CreateMatrixNode : BaseMatrixNode
 {
     [NodeInput("Width")] [ShowAsDrawer]

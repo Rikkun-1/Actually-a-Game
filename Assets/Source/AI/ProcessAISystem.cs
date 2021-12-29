@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DesperateDevs.Utils;
 using Entitas;
+using GraphProcessor;
 using UnityEngine;
 
-public class ProcessAISystem : IExecuteSystem
+public class ProcessAISystem : IInitializeSystem, IExecuteSystem
 {
-    private readonly IGroup<GameEntity> _entities;
-    private readonly GameContext        _game;
+    private readonly IGroup<GameEntity>    _entities;
+    private readonly GameContext           _game;
+    private          BaseGraph             _baseGraph;
+    private          ProcessGraphProcessor _processor;
 
     public ProcessAISystem(Contexts contexts)
     {
@@ -14,29 +18,24 @@ public class ProcessAISystem : IExecuteSystem
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.TeamID, GameMatcher.AI));
     }
 
+    public void Initialize()
+    {
+        _baseGraph = _game.aIGraph.graph;
+        _processor = new ProcessGraphProcessor(_baseGraph);
+    }
+    
     public void Execute()
     {
-        var teamIDs = new List<int>();
-        teamIDs.AddRange(_entities.GetEntities().Select(e => e.teamID.value).Distinct());
-
         foreach (var e in _entities)
         {
-            var enemyTeamIDs = new List<int>();
-            enemyTeamIDs.AddRange(teamIDs.FindAll(id => id != e.teamID.value));
-
-            var amountOfPossibleEnemiesMap =
-                TacticalMapCreator.CreateAmountOfTeamPlayersThatCanBeSeenFromThisPositionMap(_game, enemyTeamIDs[0]);
-
-            var distanceToPositionsMap =
-                TacticalMapCreator.CreateDistanceFromThisPositionToAllPositionsMap(_game, e.worldPosition.value.ToVector2Int());
-
-            var positionsWhereICanShootSomebody = amountOfPossibleEnemiesMap >= 1;
-
-            var distanceToPositionsWhereICanShootSomebody = positionsWhereICanShootSomebody * distanceToPositionsMap;
-
-            var solution = distanceToPositionsWhereICanShootSomebody.Min(x => x > 0);
-
-            var pos = new Vector2Int(solution.x, solution.y);
+            _baseGraph.SetParameterValue("Entity ID", e.id.value);
+            _processor.Run();
+            
+            var x     = _baseGraph.GetParameterValue<int>("SolutionX");
+            var y     = _baseGraph.GetParameterValue<int>("SolutionY");
+            var value = _baseGraph.GetParameterValue<int>("SolutionValue");
+            
+            var pos = new Vector2Int(x, y);
             e.ReplaceMoveToPositionOrder(pos);
         }
     }

@@ -2,7 +2,7 @@
 using GraphProcessor;
 using UnityEngine.Rendering;
 
-[Serializable] [NodeMenuItem("Matrix/MatrixCompareFunctionNode")]
+[Serializable] [NodeMenuItem("Matrix/MatrixCompareFunction")]
 public class MatrixCompareFunctionNode : MatrixBinaryFunctionNodeBase
 {
     public CompareFunction compareFunction = CompareFunction.LessEqual;

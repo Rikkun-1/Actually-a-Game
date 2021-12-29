@@ -1,7 +1,7 @@
 ﻿using System;
 using GraphProcessor;
 
-[Serializable] [NodeMenuItem("Matrix/MatrixNode")]
+[Serializable] [NodeMenuItem("Matrix/Matrix")]
 public class MatrixNode : BaseMatrixNode
 {
     [NodeInput("In")]

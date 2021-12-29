@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using Data;
+using GraphProcessor;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public BaseGraph AIGraph;
+    
     public SystemDisablingSettings _systemDisablingSettings;
-
+    
     public  Vector2Int                _defaultGridSize = new Vector2Int(10, 10);
     public  SimulationController      simulationController;
     private Contexts                  _contexts;
@@ -21,6 +24,7 @@ public class GameController : MonoBehaviour
 
         DeactivateSystems(_systemDisablingSettings.deactivatedSystems);
 
+        _contexts.game.SetAIGraph(AIGraph);
         _contexts.game.SetSimulationTick(0, 0, 0);
         _contexts.game.SetGridSize(_defaultGridSize);
 

@@ -1,13 +1,20 @@
-﻿using Entitas.Unity;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Entitas.Unity;
 using ProceduralToolkit;
 using UnityEngine;
 
 public static class TacticalMapCreator
 {
-    public static TacticalMap CreateTeamPlayersPositionMap(GameContext game, int teamID)
+    private static Matrix CreateMatrixWithSizeOfGameGrid(GameContext game)
     {
-        var gridSize    = game.gridSize.value;
-        var tacticalMap = new TacticalMap(gridSize.x, gridSize.y);
+        var gridSize = game.gridSize.value;
+        return new Matrix(gridSize.x, gridSize.y);;
+    }
+    
+    public static Matrix CreateTeamPlayersPositionMap(GameContext game, int teamID)
+    {
+        var tacticalMap = CreateMatrixWithSizeOfGameGrid(game);
 
         var players = game.GetEntitiesWithTeamID(teamID);
 
@@ -21,10 +28,9 @@ public static class TacticalMapCreator
         return tacticalMap;
     }
 
-    public static TacticalMap CreateAmountOfTeamPlayersThatCanBeSeenFromThisPositionMap(GameContext game, int teamID)
+    public static Matrix CreateAmountOfTeamPlayersThatCanBeSeenFromThisPositionMap(GameContext game, int teamID)
     {
-        var gridSize    = game.gridSize.value;
-        var tacticalMap = new TacticalMap(gridSize.x, gridSize.y);
+        var tacticalMap = CreateMatrixWithSizeOfGameGrid(game);
 
         var players = game.GetEntitiesWithTeamID(teamID);
 
@@ -68,7 +74,6 @@ public static class TacticalMapCreator
                     if (clearVision)
                     {
                         tacticalMap[x, y]++;
-                        Debug.DrawRay(raycastOrigin, raycastDirection, Color.magenta, 5f);
                     }
                 }
             }
@@ -77,10 +82,28 @@ public static class TacticalMapCreator
         return tacticalMap;
     }
 
-    public static TacticalMap CreateDistanceFromThisPositionToAllPositionsMap(GameContext game, Vector2Int from)
+    private static List<int> GetPossibleTeamIDs(GameContext game)
     {
-        var gridSize    = game.gridSize.value;
-        var tacticalMap = new TacticalMap(gridSize.x, gridSize.y);
+        var entitiesWithTeam = game.GetGroup(GameMatcher.TeamID);
+
+        return entitiesWithTeam.GetEntities()
+                               .ToList()
+                               .Select(e => e.teamID.value)
+                               .Distinct()
+                               .ToList();
+    }
+    
+    public static Matrix CreateAmountOfEnemiesThatCanBeSeenFromThisPositionMap(GameContext game, int entityTeamID)
+    {
+        var enemyTeamIDs = new List<int>();
+        enemyTeamIDs.AddRange(GetPossibleTeamIDs(game).FindAll(id => id != entityTeamID));
+        
+        return CreateAmountOfTeamPlayersThatCanBeSeenFromThisPositionMap(game, enemyTeamIDs[0]);
+    }
+    
+    public static Matrix CreateDistanceFromThisPositionToAllPositionsMap(GameContext game, Vector2Int from)
+    {
+        var tacticalMap = CreateMatrixWithSizeOfGameGrid(game);
 
         for (var x = 0; x < tacticalMap.width; x++)
         {

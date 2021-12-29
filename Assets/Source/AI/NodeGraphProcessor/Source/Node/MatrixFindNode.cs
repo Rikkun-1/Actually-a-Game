@@ -1,9 +1,15 @@
 ﻿using System;
 using GraphProcessor;
 
-[Serializable] [NodeMenuItem("Matrix/MatrixFindNode")]
+[Serializable] [NodeMenuItem("Matrix/MatrixFind")]
 public class MatrixFindNode : BaseMatrixNode
 {
+    public enum Find
+    {
+        MIN,
+        MAX
+    }
+    
     [NodeOutput("X")]
     public int x;
 
@@ -16,11 +22,18 @@ public class MatrixFindNode : BaseMatrixNode
     [NodeInput("In")]
     public Matrix input;
 
+    public Find find;
+
     protected override void Process()
     {
         if (input is null) return;
 
-        (x, y, value) = input.Max();
+        switch (find)
+        {
+            case Find.MIN: (x, y, value) = input.Min((val) => val > 0); break;
+            case Find.MAX: (x, y, value) = input.Max((val) => val > 0); break;
+            default:             throw new ArgumentOutOfRangeException();
+        }
         output        = input;
     }
 }

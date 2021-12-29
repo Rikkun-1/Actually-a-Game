@@ -72,6 +72,8 @@ namespace GraphProcessor
 
         void UpdateExposedParameters()
         {
+            if (parameterContainer is null) return;
+            
             parameterContainer.Clear();
             FillExposedParameters(parameterContainer);
         }

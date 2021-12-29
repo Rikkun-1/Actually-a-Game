@@ -11,6 +11,7 @@
  */
 
 using System;
+using System.Linq;
 using CodeMonkey.Utils;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -100,34 +101,40 @@ public class WorldDebugGrid
 
     public void SetValues(int[,] values)
     {
+        var casted   = values.Cast<int>();
+        var filtered = casted.Where(elem => elem > 0 && elem < 100);
+        var min      = filtered.Min();
+        var max      = filtered.Max();
+        
         for (var i = 0; i < values.GetLength(0); i++)
         {
             for (var j = 0; j < values.GetLength(1); j++)
             {
-                SetValue(i, j, values[i, j]);
+                SetValue(i, j, values[i, j], min, max);
             }
         }
     }
 
-    public void SetValue(int x, int y, int value)
+    public void SetValue(int x, int y, int value, float min, float max)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
             _gridArray[x, y] = value;
             if (OnGridValueChanged != null) OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });
 
-            _textMeshes[x, y].color = value == 0
-                                          ? Color.black
-                                          : new Color(2.0f * (1 - value / 100f), 2.0f * (1 - (1 - value / 100f)), 0);
+            _textMeshes[x, y].color =
+                value == 0
+                    ? Color.black
+                    : new Color(2.0f * (1 - value / (max - min)), 2.0f * (1 - (1 - value / (max - min))), 0);
         }
     }
 
-    public void SetValue(Vector3 worldPosition, int value)
-    {
-        int x, y;
-        GetXY(worldPosition, out x, out y);
-        SetValue(x, y, value);
-    }
+    // public void SetValue(Vector3 worldPosition, int value)
+    // {
+    //     int x, y;
+    //     GetXY(worldPosition, out x, out y);
+    //     SetValue(x, y, value);
+    // }
 
     public int GetValue(int x, int y)
     {

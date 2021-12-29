@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,7 +65,17 @@ public class Matrix
         return result;
     }
 
-    public (int x, int y, int value) Min()
+    public(int x, int y, int value) Min()
+    {
+        return Min((value) => true);
+    }
+    
+    public(int x, int y, int value) Max()
+    {
+        return Max((value) => true);
+    }
+
+    public (int x, int y, int value) Min(Func<int, bool> filter)
     {
         var minX = 0;
         var minY = 0;
@@ -75,7 +86,7 @@ public class Matrix
             for (var y = 0; y < height; y++)
             {
                 var elem = _matrix[x, y];
-                if (elem < min)
+                if (elem < min && filter(elem))
                 {
                     minX = x;
                     minY = y;
@@ -87,7 +98,7 @@ public class Matrix
         return (minX, minY, min);
     }
 
-    public (int x, int y, int value) Max()
+    public (int x, int y, int value) Max(Func<int, bool> filter)
     {
         var minX = 0;
         var minY = 0;
@@ -98,7 +109,7 @@ public class Matrix
             for (var y = 0; y < height; y++)
             {
                 var elem = _matrix[x, y];
-                if (elem > max)
+                if (elem > max && filter(elem))
                 {
                     minX = x;
                     minY = y;

@@ -1,7 +1,7 @@
 ﻿using System;
 using GraphProcessor;
 
-[Serializable] [NodeMenuItem("Matrix/GetMatrixSizeNode")]
+[Serializable] [NodeMenuItem("Matrix/GetMatrixSize")]
 public class GetMatrixSizeNode : BaseNode
 {
     [NodeOutput("Width")] [ShowAsDrawer]

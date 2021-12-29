@@ -1,7 +1,7 @@
 ﻿using System;
 using GraphProcessor;
 
-[Serializable] [NodeMenuItem("Matrix/MatrixArithmeticFunctionNode")]
+[Serializable] [NodeMenuItem("Matrix/MatrixArithmeticFunction")]
 public class MatrixArithmeticFunctionNode : MatrixBinaryFunctionNodeBase
 {
     public ArithmeticFunction arithmeticFunction = ArithmeticFunction.Add;

@@ -162,8 +162,8 @@ MonoBehaviour:
   pinnedElements:
   - position:
       serializedVersion: 2
-      x: 1
-      y: 19.599987
+      x: 30
+      y: 28.599987
       width: 220
       height: 200
     opened: 1
@@ -182,8 +182,8 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   - position:
       serializedVersion: 2
-      x: 3
-      y: 217
+      x: 536
+      y: 108
       width: 150
       height: 200
     opened: 1
@@ -197,8 +197,8 @@ MonoBehaviour:
   serializedParameterList: []
   stickyNotes: []
   nodeInspectorReference: {fileID: 0}
-  position: {x: 314.4, y: 172, z: 0}
-  scale: {x: 0.57175326, y: 0.57175326, z: 1}
+  position: {x: 204, y: 176.8, z: 0}
+  scale: {x: 0.32690176, y: 0.32690176, z: 1}
   references:
     version: 1
     00000000:
