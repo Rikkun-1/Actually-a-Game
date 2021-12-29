@@ -10,7 +10,7 @@ public sealed class SimulationPhaseSystems : Feature
 
         Add(new PathfindingSystems(contexts));
         Add(new ViewSystems(contexts));
-        Add(new TargetVisibilitySystems(contexts));
+        Add(new ShootAtEnemiesInSightSystems(contexts));
 
         Add(new CollisionSystems(contexts));
         Add(new DestructionSystems(contexts));

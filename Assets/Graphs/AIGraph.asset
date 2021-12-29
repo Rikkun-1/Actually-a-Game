@@ -24,15 +24,10 @@ MonoBehaviour:
   - id: 7
   - id: 8
   - id: 9
+  - id: 10
+  - id: 11
+  - id: 12
   edges:
-  - GUID: 3d898459-1151-438d-a6d2-9e20fa3cf6a0
-    owner: {fileID: 11400000}
-    inputNodeGUID: 7e9e4496-4094-4ba7-847e-5ec5c0f5b16d
-    outputNodeGUID: e7d62f47-6a1d-4f2c-9eb6-60367cca126e
-    inputFieldName: inputA
-    outputFieldName: output
-    inputPortIdentifier: 
-    outputPortIdentifier: output
   - GUID: d6614f9f-9abd-465a-9c74-41dae8a0bc94
     owner: {fileID: 11400000}
     inputNodeGUID: acd2c60a-b98e-4437-97c5-d7d3befcd692
@@ -49,14 +44,6 @@ MonoBehaviour:
     outputFieldName: height
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: b5bb1dd4-3d10-45d0-8b35-4ef4697491dd
-    owner: {fileID: 11400000}
-    inputNodeGUID: ee8efb25-b5c4-4f4b-a66b-422535a9cfe0
-    outputNodeGUID: e7d62f47-6a1d-4f2c-9eb6-60367cca126e
-    inputFieldName: inputMatrix
-    outputFieldName: output
-    inputPortIdentifier: 
-    outputPortIdentifier: output
   - GUID: 756a9930-8827-4a9c-82fc-be6195e67daf
     owner: {fileID: 11400000}
     inputNodeGUID: 7e9e4496-4094-4ba7-847e-5ec5c0f5b16d
@@ -65,22 +52,6 @@ MonoBehaviour:
     outputFieldName: output
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: 6d743199-f8db-41eb-b96e-5333c5cf4471
-    owner: {fileID: 11400000}
-    inputNodeGUID: 1782eb0a-f8ca-4cf1-9979-a11584e36ff8
-    outputNodeGUID: 7e9e4496-4094-4ba7-847e-5ec5c0f5b16d
-    inputFieldName: inputA
-    outputFieldName: output
-    inputPortIdentifier: 
-    outputPortIdentifier: 
-  - GUID: a6688522-153f-4f8c-9482-1fcbc5ed8f50
-    owner: {fileID: 11400000}
-    inputNodeGUID: 1782eb0a-f8ca-4cf1-9979-a11584e36ff8
-    outputNodeGUID: 185624b1-372f-4c8d-9768-a4c7e273b067
-    inputFieldName: inputB
-    outputFieldName: output
-    inputPortIdentifier: 
-    outputPortIdentifier: output
   - GUID: 02efa430-20b8-4cfe-9eb3-afa3432ccbe9
     owner: {fileID: 11400000}
     inputNodeGUID: b7dc7c58-494f-4146-9876-9dc373c077af
@@ -113,77 +84,100 @@ MonoBehaviour:
     outputFieldName: y
     inputPortIdentifier: input
     outputPortIdentifier: 
+  - GUID: fee0fa24-e0a9-4333-b488-add9239ede08
+    owner: {fileID: 11400000}
+    inputNodeGUID: 1782eb0a-f8ca-4cf1-9979-a11584e36ff8
+    outputNodeGUID: 7e9e4496-4094-4ba7-847e-5ec5c0f5b16d
+    inputFieldName: inputB
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: ed092061-1277-4aee-925b-f548cd19540c
+    owner: {fileID: 11400000}
+    inputNodeGUID: ee8efb25-b5c4-4f4b-a66b-422535a9cfe0
+    outputNodeGUID: 5bbf51f0-5855-4589-ad37-612055c20f3e
+    inputFieldName: inputMatrix
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 937ecc6e-4460-4683-9ce5-79a44b5d4bdb
+    owner: {fileID: 11400000}
+    inputNodeGUID: 1782eb0a-f8ca-4cf1-9979-a11584e36ff8
+    outputNodeGUID: c11bd980-13d4-4c9b-9398-df44cc0976b4
+    inputFieldName: inputA
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 7de549fc-7811-4fa3-8be5-8f7a58042c81
+    owner: {fileID: 11400000}
+    inputNodeGUID: 5bbf51f0-5855-4589-ad37-612055c20f3e
+    outputNodeGUID: 2e238887-303a-4e0e-948e-e00fb1884274
+    inputFieldName: entityID
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: output
+  - GUID: 927bf86d-b44f-4bb2-a68a-c07c71d55b6f
+    owner: {fileID: 11400000}
+    inputNodeGUID: 9a2c4ab3-17d6-4f7a-8980-b8963aaadc35
+    outputNodeGUID: 2e238887-303a-4e0e-948e-e00fb1884274
+    inputFieldName: obj
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: output
+  - GUID: 78d35b44-28c0-4673-9609-bdbdd10cc9a0
+    owner: {fileID: 11400000}
+    inputNodeGUID: c11bd980-13d4-4c9b-9398-df44cc0976b4
+    outputNodeGUID: fddb1657-e490-4e66-8d0a-e11d1425e79c
+    inputFieldName: entityID
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: output
   groups: []
   stackNodes: []
   pinnedElements:
   - position:
       serializedVersion: 2
-      x: 12
-      y: 122
-      width: 150
-      height: 200
-    opened: 0
+      x: 0
+      y: 25.999996
+      width: 135
+      height: 100
+    opened: 1
     editorType:
       serializedType: GraphProcessor.ProcessorView, com.alelievr.NodeGraphProcessor.Editor,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - position:
       serializedVersion: 2
-      x: 0
-      y: 26
-      width: 296
-      height: 266
+      x: 1
+      y: 362.39996
+      width: 232.99998
+      height: 262
     opened: 1
     editorType:
       serializedType: GraphProcessor.ExposedParameterView, com.alelievr.NodeGraphProcessor.Editor,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 150
+      height: 200
+    opened: 0
+    editorType:
+      serializedType: ConditionalProcessorView, Assembly-CSharp-Editor, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
   exposedParameters:
-  - id: 10
-  - id: 11
-  - id: 12
   - id: 13
   - id: 14
+  - id: 15
+  - id: 16
   serializedParameterList: []
   stickyNotes: []
   nodeInspectorReference: {fileID: 0}
-  position: {x: -3096, y: -351.2, z: 0}
-  scale: {x: 1.7490063, y: 1.7490063, z: 1}
+  position: {x: 11.2, y: 420.8, z: 0}
+  scale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 1
     00000000:
-      type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
-      data:
-        nodeCustomName: 
-        GUID: e7d62f47-6a1d-4f2c-9eb6-60367cca126e
-        computeOrder: 0
-        position:
-          serializedVersion: 2
-          x: -276.44568
-          y: 276.20392
-          width: 179.19998
-          height: 36.799988
-        expanded: 0
-        debug: 0
-        nodeLock: 0
-        parameterGUID: 9b64ccc9-c828-4250-8395-85deefca3e23
-        accessor: 0
-    00000001:
-      type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
-      data:
-        nodeCustomName: 
-        GUID: 185624b1-372f-4c8d-9768-a4c7e273b067
-        computeOrder: 1
-        position:
-          serializedVersion: 2
-          x: 915.2502
-          y: 406.40005
-          width: 175.20007
-          height: 36.799988
-        expanded: 0
-        debug: 0
-        nodeLock: 0
-        parameterGUID: c54056dd-cb13-4eb1-8152-8b10ebe4b19d
-        accessor: 0
-    00000002:
       type: {class: MatrixCompareFunctionNode, ns: , asm: Assembly-CSharp}
       data:
         nodeCustomName: Positions Where I Can Shoot Somebody
@@ -191,15 +185,15 @@ MonoBehaviour:
         computeOrder: 4
         position:
           serializedVersion: 2
-          x: 484.78406
-          y: 312.79993
-          width: 311.2
-          height: 436
+          x: 484.79993
+          y: 316.79993
+          width: 369.6
+          height: 497.59998
         expanded: 0
         debug: 0
         nodeLock: 0
         compareFunction: 7
-    00000003:
+    00000001:
       type: {class: CreateMatrixNode, ns: , asm: Assembly-CSharp}
       data:
         nodeCustomName: 
@@ -214,10 +208,10 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        width: 0
-        height: 0
+        width: 20
+        height: 20
         initialValue: 1
-    00000004:
+    00000002:
       type: {class: GetMatrixSizeNode, ns: , asm: Assembly-CSharp}
       data:
         nodeCustomName: 
@@ -232,111 +226,182 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        width: 0
-        height: 0
-    00000005:
+        width: 20
+        height: 20
+    00000003:
       type: {class: MatrixArithmeticFunctionNode, ns: , asm: Assembly-CSharp}
       data:
         nodeCustomName: Distance To Positions Where I Can Shoot Somebody
         GUID: 1782eb0a-f8ca-4cf1-9979-a11584e36ff8
-        computeOrder: 5
+        computeOrder: 7
         position:
           serializedVersion: 2
-          x: 1128.4218
-          y: 329.19998
-          width: 317.6001
-          height: 436.8
+          x: 893.60016
+          y: 312.8
+          width: 442.40002
+          height: 504
         expanded: 0
         debug: 0
         nodeLock: 0
-        arithmeticFunction: 0
-    00000006:
+        arithmeticFunction: 2
+    00000004:
       type: {class: MatrixFindNode, ns: , asm: Assembly-CSharp}
       data:
         nodeCustomName: 
         GUID: b7dc7c58-494f-4146-9876-9dc373c077af
-        computeOrder: 6
+        computeOrder: 8
         position:
           serializedVersion: 2
-          x: 1657.6802
-          y: 328.8
-          width: 254.40002
-          height: 428.8
+          x: 1422.3998
+          y: 312.8
+          width: 266.40002
+          height: 440.8
         expanded: 0
         debug: 0
         nodeLock: 0
-        x: 0
-        y: 0
-        value: 0
-    00000007:
+        x: 10
+        y: 10
+        value: 10
+        find: 0
+    00000005:
       type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         nodeCustomName: 
         GUID: 29460121-9104-4676-9fda-66eef5d5c356
-        computeOrder: 7
+        computeOrder: 9
         position:
           serializedVersion: 2
-          x: 1969.6549
-          y: 383.37515
-          width: 91.19995
-          height: 36.799988
+          x: 1734.271
+          y: 359.0637
+          width: 90.400024
+          height: 36.80002
         expanded: 0
         debug: 0
         nodeLock: 0
         parameterGUID: 699496e3-4161-4ff4-ad93-772157a35f06
         accessor: 1
-    00000008:
+    00000006:
       type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         nodeCustomName: 
         GUID: 6da57507-84a2-4237-96ad-59e283375776
-        computeOrder: 8
+        computeOrder: 10
         position:
           serializedVersion: 2
-          x: 1969.6549
-          y: 456.97516
-          width: 113.6001
-          height: 36.80002
+          x: 1734.271
+          y: 432.66367
+          width: 112.80005
+          height: 36.799988
         expanded: 0
         debug: 0
         nodeLock: 0
         parameterGUID: fea0fc7a-b1cb-483b-bb4f-9bb41978a48d
         accessor: 1
-    00000009:
+    00000007:
       type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         nodeCustomName: 
         GUID: 9e386bb5-d999-481c-8c2b-537d083ecc2c
-        computeOrder: 9
+        computeOrder: 11
         position:
           serializedVersion: 2
-          x: 1969.6002
-          y: 420.00003
-          width: 91.20007
+          x: 1734.271
+          y: 395.8637
+          width: 90.400024
           height: 36.799988
         expanded: 0
         debug: 0
         nodeLock: 0
         parameterGUID: cc98a8f9-acb8-4353-8501-d28f0a50311e
         accessor: 1
+    00000008:
+      type: {class: TacticalMapCreatorNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: 5bbf51f0-5855-4589-ad37-612055c20f3e
+        computeOrder: 1
+        position:
+          serializedVersion: 2
+          x: -738.268
+          y: 406.39996
+          width: 626.4
+          height: 677.6
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        entityID: 5
+        map: 1
+    00000009:
+      type: {class: TacticalMapCreatorNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: c11bd980-13d4-4c9b-9398-df44cc0976b4
+        computeOrder: 6
+        position:
+          serializedVersion: 2
+          x: 302.4
+          y: -417.47684
+          width: 556
+          height: 677.6
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        entityID: 5
+        map: 0
     0000000A:
-      type: {class: MatrixParameter, ns: , asm: Assembly-CSharp}
+      type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
-        guid: 9b64ccc9-c828-4250-8395-85deefca3e23
-        name: AmountOfPosibleEnemies
-        type: 
-        serializedValue:
-          serializedType: 
-          serializedName: 
-          serializedValue: 
-        input: 1
-        settings:
-          id: 15
+        nodeCustomName: 
+        GUID: 2e238887-303a-4e0e-948e-e00fb1884274
+        computeOrder: 0
+        position:
+          serializedVersion: 2
+          x: -1129.088
+          y: 455.19998
+          width: 84.79993
+          height: 36.80002
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        parameterGUID: 0331ef5c-18a9-4d84-92c0-cd401e753da2
+        accessor: 0
     0000000B:
-      type: {class: MatrixParameter, ns: , asm: Assembly-CSharp}
+      type: {class: PrintNode, ns: , asm: Assembly-CSharp}
       data:
-        guid: c54056dd-cb13-4eb1-8152-8b10ebe4b19d
-        name: DistanceToPositionsMap
+        nodeCustomName: 
+        GUID: 9a2c4ab3-17d6-4f7a-8980-b8963aaadc35
+        computeOrder: 12
+        position:
+          serializedVersion: 2
+          x: -823.55756
+          y: 349.98502
+          width: 68.80005
+          height: 88.80002
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+    0000000C:
+      type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
+      data:
+        nodeCustomName: 
+        GUID: fddb1657-e490-4e66-8d0a-e11d1425e79c
+        computeOrder: 5
+        position:
+          serializedVersion: 2
+          x: 177.39998
+          y: -375.2
+          width: 84.79999
+          height: 37.600006
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        parameterGUID: 0331ef5c-18a9-4d84-92c0-cd401e753da2
+        accessor: 0
+    0000000D:
+      type: {class: LongParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
+      data:
+        guid: 0331ef5c-18a9-4d84-92c0-cd401e753da2
+        name: Entity ID
         type: 
         serializedValue:
           serializedType: 
@@ -344,8 +409,9 @@ MonoBehaviour:
           serializedValue: 
         input: 1
         settings:
-          id: 16
-    0000000C:
+          id: 17
+        val: 5
+    0000000E:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         guid: 699496e3-4161-4ff4-ad93-772157a35f06
@@ -357,9 +423,9 @@ MonoBehaviour:
           serializedValue: 
         input: 1
         settings:
-          id: 17
-        val: 0
-    0000000D:
+          id: 18
+        val: 10
+    0000000F:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         guid: cc98a8f9-acb8-4353-8501-d28f0a50311e
@@ -371,9 +437,9 @@ MonoBehaviour:
           serializedValue: 
         input: 1
         settings:
-          id: 18
-        val: 0
-    0000000E:
+          id: 19
+        val: 10
+    00000010:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         guid: fea0fc7a-b1cb-483b-bb4f-9bb41978a48d
@@ -385,21 +451,15 @@ MonoBehaviour:
           serializedValue: 
         input: 1
         settings:
-          id: 19
-        val: 0
-    0000000F:
-      type: {class: ExposedParameter/Settings, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
-      data:
-        isHidden: 0
-        expanded: 0
-        guid: 9b64ccc9-c828-4250-8395-85deefca3e23
-    00000010:
-      type: {class: ExposedParameter/Settings, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
-      data:
-        isHidden: 0
-        expanded: 0
-        guid: c54056dd-cb13-4eb1-8152-8b10ebe4b19d
+          id: 20
+        val: 10
     00000011:
+      type: {class: ExposedParameter/Settings, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
+      data:
+        isHidden: 0
+        expanded: 1
+        guid: 0331ef5c-18a9-4d84-92c0-cd401e753da2
+    00000012:
       type: {class: IntParameter/IntSettings, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         isHidden: 0
@@ -408,7 +468,7 @@ MonoBehaviour:
         mode: 0
         min: 0
         max: 10
-    00000012:
+    00000013:
       type: {class: IntParameter/IntSettings, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         isHidden: 0
@@ -417,7 +477,7 @@ MonoBehaviour:
         mode: 0
         min: 0
         max: 10
-    00000013:
+    00000014:
       type: {class: IntParameter/IntSettings, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         isHidden: 0

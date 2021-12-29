@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32785ad2f4d33b449afd38b26c193f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AIGraph: {fileID: 11400000, guid: dfde93d8e1707834e8ef5528b33c0edf, type: 2}
   _systemDisablingSettings: {fileID: 11400000, guid: 71b2a86698152ab48b9b6549a7cc4ae6, type: 2}
   _defaultGridSize: {x: 20, y: 20}
   simulationController:
