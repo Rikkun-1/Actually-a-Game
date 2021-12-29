@@ -7,11 +7,8 @@ public static class RaycastHelper
     {
         if(!targetEntity.hasUnityView) return false;
         
-        var raycastOrigin = e.worldPosition.value.ToVector3XZ();
-        raycastOrigin.y = 0.25f;
-
-        var targetPosition = targetEntity.worldPosition.value.ToVector3XZ();
-        targetPosition.y = 0.25f;
+        var raycastOrigin  = e.worldPosition.value.ToVector3XZ().WithY(0.8f);
+        var targetPosition = targetEntity.worldPosition.value.ToVector3XZ().WithY(0.8f);
 
         var raycastDirection = targetPosition - raycastOrigin;
         var maxDistance      = Vector3.Distance(raycastOrigin, targetPosition);
