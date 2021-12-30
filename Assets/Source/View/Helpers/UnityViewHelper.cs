@@ -15,14 +15,14 @@ public static class UnityViewHelper
 
     public static void LoadViewFromPrefab(GameEntity entity, string prefabName, GameObject parent)
     {
-        var viewPrefab     = Resources.Load<GameObject>("Prefabs/" + prefabName);
+        var viewPrefab = Resources.Load<GameObject>("Prefabs/" + prefabName);
 
         if (viewPrefab == null)
         {
             Debug.LogWarning($"prefab {prefabName} doesn't exist");
             return;
         }
-        
+
         CreateNewView(entity, parent, viewPrefab);
     }
 
@@ -41,7 +41,7 @@ public static class UnityViewHelper
             listener.UnregisterEventListeners();
         }
     }
-    
+
     private static void RegisterEventListeners(IEntity entity, GameObject view)
     {
         foreach (var listener in GetEventListeners(view))

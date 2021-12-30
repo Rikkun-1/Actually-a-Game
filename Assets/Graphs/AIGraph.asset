@@ -132,13 +132,21 @@ MonoBehaviour:
     outputFieldName: output
     inputPortIdentifier: 
     outputPortIdentifier: output
+  - GUID: 059b98dd-e715-409f-b7db-74e4abb706d1
+    owner: {fileID: 11400000}
+    inputNodeGUID: 7e9e4496-4094-4ba7-847e-5ec5c0f5b16d
+    outputNodeGUID: 5bbf51f0-5855-4589-ad37-612055c20f3e
+    inputFieldName: inputA
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: 
   groups: []
   stackNodes: []
   pinnedElements:
   - position:
       serializedVersion: 2
-      x: 0
-      y: 25.999996
+      x: 4
+      y: 20.999996
       width: 135
       height: 100
     opened: 1
@@ -173,8 +181,8 @@ MonoBehaviour:
   serializedParameterList: []
   stickyNotes: []
   nodeInspectorReference: {fileID: 0}
-  position: {x: 11.2, y: 420.8, z: 0}
-  scale: {x: 0.65751624, y: 0.65751624, z: 1}
+  position: {x: 761.6, y: 30.4, z: 0}
+  scale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 1
     00000000:
@@ -259,9 +267,9 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        x: 10
-        y: 10
-        value: 10
+        x: 12
+        y: 11
+        value: 5
         find: 0
     00000005:
       type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
@@ -322,10 +330,10 @@ MonoBehaviour:
         computeOrder: 1
         position:
           serializedVersion: 2
-          x: -738.268
-          y: 406.39996
-          width: 626.4
-          height: 677.6
+          x: -734.753
+          y: 316.8
+          width: 630.4
+          height: 752
         expanded: 0
         debug: 0
         nodeLock: 0
@@ -356,10 +364,10 @@ MonoBehaviour:
         computeOrder: 0
         position:
           serializedVersion: 2
-          x: -1129.088
-          y: 455.19998
-          width: 84.79993
-          height: 36.80002
+          x: -923.8119
+          y: 316.8
+          width: 84.79999
+          height: 36.799988
         expanded: 0
         debug: 0
         nodeLock: 0
@@ -373,10 +381,10 @@ MonoBehaviour:
         computeOrder: 12
         position:
           serializedVersion: 2
-          x: -823.55756
-          y: 349.98502
-          width: 68.80005
-          height: 88.80002
+          x: -734.39996
+          y: 183.59999
+          width: 69.599976
+          height: 88.000015
         expanded: 0
         debug: 0
         nodeLock: 0
@@ -424,7 +432,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 18
-        val: 10
+        val: 12
     0000000F:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
@@ -438,7 +446,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 19
-        val: 10
+        val: 11
     00000010:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
@@ -452,7 +460,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 20
-        val: 10
+        val: 5
     00000011:
       type: {class: ExposedParameter/Settings, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:

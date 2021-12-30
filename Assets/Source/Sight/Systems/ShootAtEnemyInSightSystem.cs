@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Entitas;
-using ProceduralToolkit;
 using UnityEngine;
 
 public class ShootAtEnemyInSightSystem : IExecuteSystem
@@ -22,7 +21,8 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
     {
         foreach (var e in _entities.GetEntities())
         {
-            foreach (var targetEntity in GetPossibleTargetsByDistance(e))
+            var possibleTargetsByDistance = GetPossibleTargetsByDistance(e);
+            foreach (var targetEntity in possibleTargetsByDistance)
             {
                 if (RaycastHelper.IsInClearVision(e, targetEntity))
                 {

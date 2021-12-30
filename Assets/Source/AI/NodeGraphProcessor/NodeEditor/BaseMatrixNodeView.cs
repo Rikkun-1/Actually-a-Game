@@ -7,11 +7,10 @@ using Object = UnityEngine.Object;
 [NodeCustomEditor(typeof(BaseMatrixNode))]
 public class BaseMatrixNodeView : BaseNodeView
 {
-    protected BaseMatrixNode target;
-    protected bool           normalize;
-
     private   Image          _preview;
     private   Label          _processingTimeLabel;
+    protected bool           normalize;
+    protected BaseMatrixNode target;
 
     public override void Enable()
     {
@@ -52,7 +51,7 @@ public class BaseMatrixNodeView : BaseNodeView
             UpdateProcessingTime();
         };
     }
-    
+
     private void SetupNormalizeToggle()
     {
         var toggleNormalize = new Toggle("Normalize");
@@ -65,7 +64,7 @@ public class BaseMatrixNodeView : BaseNodeView
         _processingTimeLabel = new Label(processingTimeLabelText);
         contentContainer.Add(_processingTimeLabel);
     }
-    
+
     private void SetupTitleButton(string text, Action clickEvent)
     {
         var titleButton = new Button(clickEvent);

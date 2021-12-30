@@ -1,11 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class AimHelper
 {
     public static bool IsAimingAtTargetDirection(GameEntity e, float targetDirection)
     {
-        return Math.Abs(e.vision.directionAngle - targetDirection) < 0.01;
+        return e.vision.directionAngle.Equals(targetDirection, 0.01f);
     }
 
     public static bool IsAimingAtTargetPosition(GameEntity e, Vector2 targetPosition)

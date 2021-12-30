@@ -1,7 +1,7 @@
 ﻿using GraphProcessor;
 
 [NodeCustomEditor(typeof(MatrixCompareFunctionNode))]
-internal class MatrixCompareFunctionNodeView : MatrixBinaryFunctionNodeViewBase
+internal class MatrixCompareFunctionNodeView : BaseMatrixBinaryFunctionNodeView
 {
     protected override float GetColorDivider()
     {

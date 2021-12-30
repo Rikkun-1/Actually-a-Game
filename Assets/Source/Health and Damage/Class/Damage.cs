@@ -1,6 +1,6 @@
 ﻿public class Damage
 {
-    public int  damage;     
+    public int  damage;
     public long damageDealerID;
 
     public Damage()

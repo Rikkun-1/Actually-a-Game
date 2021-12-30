@@ -1,5 +1,4 @@
-﻿using System;
-using Entitas;
+﻿using Entitas;
 
 public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
 {
@@ -16,32 +15,22 @@ public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
 
     public void Execute()
     {
-        var deltaTime = _game.simulationTick.deltaTime;
-
-        foreach (var e in _entities)
+        foreach (var e in _entities.GetEntities())
         {
-            var currentPosition = e.worldPosition.value;
-
-            var targetEntityID = e.lookAtEntityOrder.targetID;
-            var targetEntity   = _game.GetEntityWithId(targetEntityID);
-            if (targetEntity == null) continue;
-
-            var targetPosition = targetEntity.worldPosition.value;
-
-            var targetDirection = targetPosition - currentPosition;
-
-            var vision      = e.vision;
-            var angleChange = vision.turningSpeed * deltaTime;
-
-            var desiredAngle = targetDirection.ToAngle();
-
-            if (Math.Abs(vision.directionAngle - desiredAngle) > 0.01)
+            var targetEntity = _game.GetEntityWithId(e.lookAtEntityOrder.targetID);
+            if (targetEntity == null)
             {
-                vision.directionAngle =
-                    AngleHelper.RotateAngleTowards(vision.directionAngle, desiredAngle, angleChange);
+                e.RemoveLookAtEntityOrder();
+                continue;
+            };
+            
+            var currentPosition = e.worldPosition.value;
+            var targetPosition  = targetEntity.worldPosition.value;
+            var targetDirection = targetPosition - currentPosition;
+            
+            var angleDelta      = e.vision.turningSpeed * GameTime.deltaTime;
 
-                e.ReplaceVision(vision.directionAngle, vision.viewingAngle, vision.distance, vision.turningSpeed);
-            }
+            VisionHelper.RotateEntityVisionTowards(e, targetDirection.ToAngle(), angleDelta);
         }
     }
 }

@@ -28,7 +28,7 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
 
             if (!BulletCollisionHelper.IsCollisionBetweenBulletAndOtherEntity(firstEntity, secondEntity)) continue;
 
-            
+
             var (bulletEntity, suffererEntity) = BulletCollisionHelper.SplitToBulletAndSufferer(firstEntity, secondEntity);
 
             if (BulletHelper.IsSelfHit(suffererEntity, bulletEntity)) continue;
@@ -47,10 +47,10 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
 
         var firstEntity  = _game.GetEntityWithId(firstID);
         var secondEntity = _game.GetEntityWithId(secondID);
-        
+
         return (firstEntity, secondEntity);
     }
-    
+
     private static void AddDamageToEntity(GameEntity suffererEntity, GameEntity bulletEntity)
     {
         if (!suffererEntity.hasHealth) return;

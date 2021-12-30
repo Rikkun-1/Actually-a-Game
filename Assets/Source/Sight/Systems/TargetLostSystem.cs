@@ -1,6 +1,4 @@
 ﻿using Entitas;
-using ProceduralToolkit;
-using UnityEngine;
 
 public class TargetLostSystem : IExecuteSystem
 {

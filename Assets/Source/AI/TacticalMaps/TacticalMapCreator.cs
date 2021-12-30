@@ -9,9 +9,9 @@ public static class TacticalMapCreator
     private static Matrix CreateMatrixWithSizeOfGameGrid(GameContext game)
     {
         var gridSize = game.gridSize.value;
-        return new Matrix(gridSize.x, gridSize.y);;
+        return new Matrix(gridSize.x, gridSize.y);
     }
-    
+
     public static Matrix CreateTeamPlayersPositionMap(GameContext game, int teamID)
     {
         var tacticalMap = CreateMatrixWithSizeOfGameGrid(game);
@@ -92,15 +92,15 @@ public static class TacticalMapCreator
                                .Distinct()
                                .ToList();
     }
-    
+
     public static Matrix CreateAmountOfEnemiesThatCanBeSeenFromThisPositionMap(GameContext game, int entityTeamID)
     {
         var enemyTeamIDs = new List<int>();
         enemyTeamIDs.AddRange(GetPossibleTeamIDs(game).FindAll(id => id != entityTeamID));
-        
+
         return CreateAmountOfTeamPlayersThatCanBeSeenFromThisPositionMap(game, enemyTeamIDs[0]);
     }
-    
+
     public static Matrix CreateDistanceFromThisPositionToAllPositionsMap(GameContext game, Vector2Int from)
     {
         var tacticalMap = CreateMatrixWithSizeOfGameGrid(game);
