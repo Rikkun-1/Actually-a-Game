@@ -14,7 +14,7 @@ public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasHealth;
+        return entity.hasHealth && !entity.isIndestructible;
     }
 
     protected override void Execute(List<GameEntity> entities)

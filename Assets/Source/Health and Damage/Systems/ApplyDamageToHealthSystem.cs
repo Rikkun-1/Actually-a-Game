@@ -10,7 +10,7 @@ public class ApplyDamageToHealthSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.Damage);
+        return context.CreateCollector(GameMatcher.Damage.Added());
     }
 
     protected override bool Filter(GameEntity entity)

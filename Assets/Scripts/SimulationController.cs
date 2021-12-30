@@ -35,7 +35,7 @@ public class SimulationController
             e.AddTraversalSpeed(5);
             e.AddViewPrefab(teamNumber == 0 ? "team 1 player" : "team 2 player");
             e.AddWorldPosition(new Vector2(i * 3, teamNumber == 0 ? 1 : 19));
-            e.AddTeamID(teamNumber);
+            e.ReplaceTeamID(teamNumber);
             e.hasAI    = true;
             e.isPlayer = true;
         }

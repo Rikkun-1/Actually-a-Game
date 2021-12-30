@@ -24,63 +24,48 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
     {
         foreach (var collisionEntity in collisionEntities)
         {
-            var firstID  = collisionEntity.collision.firstID;
-            var secondID = collisionEntity.collision.secondID;
+            var (firstEntity, secondEntity) = GetCollidedEntities(collisionEntity);
 
-            var firstEntity  = _game.GetEntityWithId(firstID);
-            var secondEntity = _game.GetEntityWithId(secondID);
+            if (!BulletCollisionHelper.IsCollisionBetweenBulletAndOtherEntity(firstEntity, secondEntity)) continue;
 
-            if (!CollisionIsCorrect(firstEntity, secondEntity)) continue;
+            
+            var (bulletEntity, suffererEntity) = BulletCollisionHelper.SplitToBulletAndSufferer(firstEntity, secondEntity);
 
-            var bulletEntity =  firstEntity.hasBullet ? firstEntity : secondEntity;
-            var hittedEntity = !firstEntity.hasBullet ? firstEntity : secondEntity;
+            if (BulletHelper.IsSelfHit(suffererEntity, bulletEntity)) continue;
+            if (BulletHelper.IsHitByTeammate(suffererEntity, bulletEntity)) continue;
 
-            if (IsSelfHit(hittedEntity, bulletEntity)) continue;
-            if (IsHitByTeamMate(hittedEntity, bulletEntity)) continue;
-
-            AddDamageToEntity(hittedEntity, bulletEntity);
+            AddDamageToEntity(suffererEntity, bulletEntity);
 
             bulletEntity.isDestroyed = true;
         }
     }
 
-    private bool IsHitByTeamMate(GameEntity hitted, GameEntity bullet)
+    private (GameEntity firstEntity, GameEntity secondEntity) GetCollidedEntities(GameEntity collisionEntity)
     {
-        var shooter = _game.GetEntityWithId(bullet.bullet.shooterID);
+        var firstID  = collisionEntity.collision.firstID;
+        var secondID = collisionEntity.collision.secondID;
 
-        if (shooter is { hasTeamID: false } || !hitted.hasTeamID) return false;
-
-        return shooter != null && shooter.teamID.value == hitted.teamID.value;
+        var firstEntity  = _game.GetEntityWithId(firstID);
+        var secondEntity = _game.GetEntityWithId(secondID);
+        
+        return (firstEntity, secondEntity);
     }
-
-    private static bool CollisionIsCorrect(GameEntity firstEntity, GameEntity secondEntity)
+    
+    private static void AddDamageToEntity(GameEntity suffererEntity, GameEntity bulletEntity)
     {
-        if (firstEntity == null || secondEntity == null)       return false;
-        if (firstEntity.hasBullet == secondEntity.hasBullet)   return false;
-
-        return true;
-    }
-
-    private static void AddDamageToEntity(GameEntity hittedEntity, GameEntity bulletEntity)
-    {
-        if (!hittedEntity.hasHealth) return;
+        if (!suffererEntity.hasHealth) return;
 
         var damage = new Damage(bulletEntity.bullet.shooterID, bulletEntity.bullet.damage);
 
-        if (hittedEntity.hasDamage)
+        if (suffererEntity.hasDamage)
         {
-            var damageList = hittedEntity.damage.damageList;
+            var damageList = suffererEntity.damage.damageList;
             damageList.Add(damage);
-            hittedEntity.ReplaceDamage(damageList);
+            suffererEntity.ReplaceDamage(damageList);
         }
         else
         {
-            hittedEntity.AddDamage(new List<Damage> { damage });
+            suffererEntity.AddDamage(new List<Damage> { damage });
         }
-    }
-
-    private static bool IsSelfHit(GameEntity shooterEntity, GameEntity bulletEntity)
-    {
-        return bulletEntity.bullet.shooterID == shooterEntity.id.value;
     }
 }

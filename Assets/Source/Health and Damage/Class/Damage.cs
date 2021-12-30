@@ -1,15 +1,6 @@
-﻿using System.Collections.Generic;
-using Entitas;
-
-[Game]
-public sealed class DamageComponent : IComponent
+﻿public class Damage
 {
-    public List<Damage> damageList;
-}
-
-public class Damage
-{
-    public int  damage;
+    public int  damage;     
     public long damageDealerID;
 
     public Damage()

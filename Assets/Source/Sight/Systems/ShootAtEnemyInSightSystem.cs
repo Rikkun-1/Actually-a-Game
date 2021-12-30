@@ -35,7 +35,9 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
 
     private static bool IsInSameTeam(GameEntity e, GameEntity targetEntity)
     {
-        return e.teamID.value == targetEntity.teamID.value;
+        return e.hasTeamID &&
+               targetEntity.hasTeamID &&
+               e.teamID.value == targetEntity.teamID.value;
     }
 
     private IEnumerable<GameEntity> GetPossibleTargetsByDistance(GameEntity e)
