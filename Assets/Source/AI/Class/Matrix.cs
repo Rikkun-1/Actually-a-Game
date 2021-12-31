@@ -34,6 +34,17 @@ public class Matrix
         set => _matrix[x, y] = value;
     }
 
+    public void Loop(Action<int, int> act)
+    {
+        for (var x = 0; x < width; x++)
+        {
+            for (var y = 0; y < height; y++)
+            {
+                act(x, y);
+            }
+        }
+    }
+
     public Matrix ForEach(Func<int, int> func)
     {
         return new Matrix(_matrix.Select(func));
@@ -43,7 +54,7 @@ public class Matrix
     {
         return new Matrix(_matrix.Select(func));
     }
-
+    
     public Matrix ForEachPair(Matrix second, Func<int, int, int> func)
     {
         if (width != second.width || height != second.height)
