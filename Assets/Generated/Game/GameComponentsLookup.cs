@@ -8,21 +8,66 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int Health = 0;
-    public const int Name = 1;
-    public const int Position = 2;
+    public const int Destroyed = 0;
+    public const int EastWall = 1;
+    public const int GameTick = 2;
+    public const int GridPosition = 3;
+    public const int Indestructible = 4;
+    public const int MapSize = 5;
+    public const int NonWalkable = 6;
+    public const int NorthWall = 7;
+    public const int Path = 8;
+    public const int PathfindingGrid = 9;
+    public const int PathRequest = 10;
+    public const int SouthWall = 11;
+    public const int TraversalSpeed = 12;
+    public const int UnityView = 13;
+    public const int ViewPrefab = 14;
+    public const int WestWall = 15;
+    public const int WorldPosition = 16;
+    public const int WorldPositionListener = 17;
 
-    public const int TotalComponents = 3;
+    public const int TotalComponents = 18;
 
     public static readonly string[] componentNames = {
-        "Health",
-        "Name",
-        "Position"
+        "Destroyed",
+        "EastWall",
+        "GameTick",
+        "GridPosition",
+        "Indestructible",
+        "MapSize",
+        "NonWalkable",
+        "NorthWall",
+        "Path",
+        "PathfindingGrid",
+        "PathRequest",
+        "SouthWall",
+        "TraversalSpeed",
+        "UnityView",
+        "ViewPrefab",
+        "WestWall",
+        "WorldPosition",
+        "WorldPositionListener"
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(HealthComponent),
-        typeof(NameComponent),
-        typeof(PositionComponent)
+        typeof(DestroyedComponent),
+        typeof(EastWallComponent),
+        typeof(GameTickComponent),
+        typeof(GridPositionComponent),
+        typeof(IndestructibleComponent),
+        typeof(MapSizeComponent),
+        typeof(NonWalkableComponent),
+        typeof(NorthWallComponent),
+        typeof(PathComponent),
+        typeof(PathfindingGridComponent),
+        typeof(PathRequestComponent),
+        typeof(SouthWallComponent),
+        typeof(TraversalSpeedComponent),
+        typeof(UnityViewComponent),
+        typeof(ViewPrefabComponent),
+        typeof(WestWallComponent),
+        typeof(WorldPositionComponent),
+        typeof(WorldPositionListenerComponent)
     };
 }
