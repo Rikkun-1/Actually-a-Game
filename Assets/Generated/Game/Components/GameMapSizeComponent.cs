@@ -52,14 +52,14 @@ public partial class GameEntity {
     public void AddMapSize(UnityEngine.Vector2Int newValue) {
         var index = GameComponentsLookup.MapSize;
         var component = (MapSizeComponent)CreateComponent(index, typeof(MapSizeComponent));
-        component.Value = newValue;
+        component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceMapSize(UnityEngine.Vector2Int newValue) {
         var index = GameComponentsLookup.MapSize;
         var component = (MapSizeComponent)CreateComponent(index, typeof(MapSizeComponent));
-        component.Value = newValue;
+        component.value = newValue;
         ReplaceComponent(index, component);
     }
 

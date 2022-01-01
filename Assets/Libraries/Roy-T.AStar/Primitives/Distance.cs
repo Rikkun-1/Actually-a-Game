@@ -15,7 +15,7 @@ namespace Roy_T.AStar.Primitives
 
         public static Distance FromMeters(float meters) => new Distance(meters);
 
-        public static Distance BeweenPositions(Position a, Position b)
+        public static Distance BetweenPositions(Position a, Position b)
         {
             var sX = a.X;
             var sY = a.Y;

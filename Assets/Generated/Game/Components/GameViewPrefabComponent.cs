@@ -14,14 +14,14 @@ public partial class GameEntity {
     public void AddViewPrefab(string newPrefabName) {
         var index = GameComponentsLookup.ViewPrefab;
         var component = (ViewPrefabComponent)CreateComponent(index, typeof(ViewPrefabComponent));
-        component.PrefabName = newPrefabName;
+        component.prefabName = newPrefabName;
         AddComponent(index, component);
     }
 
     public void ReplaceViewPrefab(string newPrefabName) {
         var index = GameComponentsLookup.ViewPrefab;
         var component = (ViewPrefabComponent)CreateComponent(index, typeof(ViewPrefabComponent));
-        component.PrefabName = newPrefabName;
+        component.prefabName = newPrefabName;
         ReplaceComponent(index, component);
     }
 

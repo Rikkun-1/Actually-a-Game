@@ -10,52 +10,64 @@ public static class GameComponentsLookup {
 
     public const int Destroyed = 0;
     public const int EastWall = 1;
-    public const int Edges = 2;
-    public const int MapSize = 3;
-    public const int NonWalkable = 4;
-    public const int NorthWall = 5;
-    public const int PathfindingGrid = 6;
-    public const int Position = 7;
-    public const int PositionListener = 8;
-    public const int SouthWall = 9;
-    public const int Undestructible = 10;
-    public const int UnityView = 11;
-    public const int ViewPrefab = 12;
-    public const int WestWall = 13;
+    public const int GameTick = 2;
+    public const int GridPosition = 3;
+    public const int Indestructible = 4;
+    public const int MapSize = 5;
+    public const int NonWalkable = 6;
+    public const int NorthWall = 7;
+    public const int Path = 8;
+    public const int PathfindingGrid = 9;
+    public const int PathRequest = 10;
+    public const int SouthWall = 11;
+    public const int TraversalSpeed = 12;
+    public const int UnityView = 13;
+    public const int ViewPrefab = 14;
+    public const int WestWall = 15;
+    public const int WorldPosition = 16;
+    public const int WorldPositionListener = 17;
 
-    public const int TotalComponents = 14;
+    public const int TotalComponents = 18;
 
     public static readonly string[] componentNames = {
         "Destroyed",
         "EastWall",
-        "Edges",
+        "GameTick",
+        "GridPosition",
+        "Indestructible",
         "MapSize",
         "NonWalkable",
         "NorthWall",
+        "Path",
         "PathfindingGrid",
-        "Position",
-        "PositionListener",
+        "PathRequest",
         "SouthWall",
-        "Undestructible",
+        "TraversalSpeed",
         "UnityView",
         "ViewPrefab",
-        "WestWall"
+        "WestWall",
+        "WorldPosition",
+        "WorldPositionListener"
     };
 
     public static readonly System.Type[] componentTypes = {
         typeof(DestroyedComponent),
         typeof(EastWallComponent),
-        typeof(EdgesComponent),
+        typeof(GameTickComponent),
+        typeof(GridPositionComponent),
+        typeof(IndestructibleComponent),
         typeof(MapSizeComponent),
         typeof(NonWalkableComponent),
         typeof(NorthWallComponent),
+        typeof(PathComponent),
         typeof(PathfindingGridComponent),
-        typeof(PositionComponent),
-        typeof(PositionListenerComponent),
+        typeof(PathRequestComponent),
         typeof(SouthWallComponent),
-        typeof(Undestructible),
+        typeof(TraversalSpeedComponent),
         typeof(UnityViewComponent),
         typeof(ViewPrefabComponent),
-        typeof(WestWallComponent)
+        typeof(WestWallComponent),
+        typeof(WorldPositionComponent),
+        typeof(WorldPositionListenerComponent)
     };
 }

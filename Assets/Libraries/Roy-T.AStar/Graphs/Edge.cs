@@ -11,7 +11,7 @@ namespace Roy_T.AStar.Graphs
             this.Start = start;
             this.End = end;
 
-            this.Distance = Distance.BeweenPositions(start.Position, end.Position);
+            this.Distance = Distance.BetweenPositions(start.Position, end.Position);
             this.TraversalVelocity = traversalVelocity;
         }
 

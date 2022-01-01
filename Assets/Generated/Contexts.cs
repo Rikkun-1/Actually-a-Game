@@ -58,21 +58,21 @@ public partial class Contexts : Entitas.IContexts {
 //------------------------------------------------------------------------------
 public partial class Contexts {
 
-    public const string Position = "Position";
+    public const string GridPosition = "GridPosition";
 
     [Entitas.CodeGeneration.Attributes.PostConstructor]
     public void InitializeEntityIndices() {
         game.AddEntityIndex(new Entitas.EntityIndex<GameEntity, UnityEngine.Vector2Int>(
-            Position,
-            game.GetGroup(GameMatcher.Position),
-            (e, c) => ((PositionComponent)c).Value));
+            GridPosition,
+            game.GetGroup(GameMatcher.GridPosition),
+            (e, c) => ((GridPositionComponent)c).value));
     }
 }
 
 public static class ContextsExtensions {
 
-    public static System.Collections.Generic.HashSet<GameEntity> GetEntitiesWithPosition(this GameContext context, UnityEngine.Vector2Int Value) {
-        return ((Entitas.EntityIndex<GameEntity, UnityEngine.Vector2Int>)context.GetEntityIndex(Contexts.Position)).GetEntities(Value);
+    public static System.Collections.Generic.HashSet<GameEntity> GetEntitiesWithGridPosition(this GameContext context, UnityEngine.Vector2Int value) {
+        return ((Entitas.EntityIndex<GameEntity, UnityEngine.Vector2Int>)context.GetEntityIndex(Contexts.GridPosition)).GetEntities(value);
     }
 }
 //------------------------------------------------------------------------------

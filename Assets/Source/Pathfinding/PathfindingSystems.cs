@@ -2,10 +2,12 @@
 {
     public PathfindingSystems(Contexts contexts)
     {
-        Add(new ResizePathfindingMapSystem(contexts));
-        Add(new DrawWalkableTilesSystem(contexts));
-        Add(new TestSystems(contexts));
-        Add(new DeletePathFindingComponentsOnEntityDestroyedSystem(contexts));
-        Add(new UpdateNonWalkableMapSystem(contexts));
+        Add(new WalkabilityMapSystems(contexts));
+
+        Add(new UpdateGridPositionRelyingOnWorldPositionSystem(contexts));
+        
+        Add(new RecalculatePathSystem(contexts));
+        Add(new ProcessPathRequestsSystem(contexts));
+        Add(new TraversePathSystem(contexts));
     }
 }
