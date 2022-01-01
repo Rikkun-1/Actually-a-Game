@@ -277,7 +277,7 @@ MonoBehaviour:
     tickDeltaTime: 0
     timeAccumulated: 0
   systemDisablingSettings: {fileID: 11400000, guid: 71b2a86698152ab48b9b6549a7cc4ae6, type: 2}
-  defaultGridSize: {x: 20, y: 20}
+  defaultGridSize: {x: 40, y: 40}
 --- !u!4 &1168647769
 Transform:
   m_ObjectHideFlags: 0

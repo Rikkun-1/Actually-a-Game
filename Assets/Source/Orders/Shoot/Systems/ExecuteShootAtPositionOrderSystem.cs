@@ -9,7 +9,8 @@ public class ExecuteShootAtPositionOrderSystem : IExecuteSystem
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.ShootAtPositionOrder,
                                                              GameMatcher.Vision,
                                                              GameMatcher.WorldPosition,
-                                                             GameMatcher.TeamID));
+                                                             GameMatcher.TeamID,
+                                                             GameMatcher.Weapon));
     }
 
     public void Execute()
