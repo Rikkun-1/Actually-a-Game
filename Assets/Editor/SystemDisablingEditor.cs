@@ -11,13 +11,13 @@ using UnityEngine;
     [CustomEditor(typeof(SystemDisablingSettings))]
     public class SystemDisablingEditor : Editor
     {
-        private static SystemDisablingSettings _systemDisablingSettings;
+        private SystemDisablingSettings _systemDisablingSettings;
 
-        private static bool         _foldout;
-        private static List<string> _systemsToDeactivate;
-        private static List<string> _deactivatedSystems;
+        private bool         _foldout;
+        private List<string> _systemsToDeactivate;
+        private List<string> _deactivatedSystems;
 
-        private static string[] _cachedOptions;
+        private string[] _cachedOptions;
 
         private void OnEnable()
         {
@@ -63,7 +63,7 @@ using UnityEngine;
             }
         }
 
-        private static void DrawSystemWithStatus(int index)
+        private void DrawSystemWithStatus(int index)
         {
             var status    = !_deactivatedSystems.Contains(_systemsToDeactivate[index]);
             var newStatus = EditorGUILayout.ToggleLeft(_systemsToDeactivate[index], status);
@@ -80,19 +80,19 @@ using UnityEngine;
             }
         }
 
-        private static void DeleteSystem(int index)
+        private void DeleteSystem(int index)
         {
             _deactivatedSystems.Remove(_systemsToDeactivate[index]);
             _systemsToDeactivate.Remove(_systemsToDeactivate[index]);
         }
 
-        private static void SaveSettings()
+        private void SaveSettings()
         {
             _systemDisablingSettings.systemsToDeactivate = _systemsToDeactivate;
             _systemDisablingSettings.deactivatedSystems  = _deactivatedSystems;
         }
 
-        private static void DrawAddNewSystem()
+        private void DrawAddNewSystem()
         {
             var systemToAdd =
                 AutoCompleteTextField.EditorGUILayout.AutoCompleteTextField("Add system", "", _cachedOptions);

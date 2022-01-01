@@ -37,9 +37,11 @@ public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
                                              .GetWaypointsFromPath()
                                 : new List<Vector2Int> { end.ToVector2Int() };
 
-            e.ReplacePath(0, waypoints);
-
-            e.RemovePathRequest();
+            if (waypoints.Count != 0)
+            {
+                e.ReplacePath(0, waypoints);
+                e.RemovePathRequest();
+            }
         }
     }
 }

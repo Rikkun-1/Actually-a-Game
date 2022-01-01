@@ -4,5 +4,6 @@
     {
         Add(new MoveSystem(contexts));
         Add(new TraversePathSystem(contexts));
+        Add(new UpdateGridPositionRelyingOnWorldPositionSystem(contexts));
     }
 }

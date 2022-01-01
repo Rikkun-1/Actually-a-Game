@@ -12,11 +12,9 @@ public class MoveSystem : IExecuteSystem
 
     public void Execute()
     {
-        var deltaTime = GameTime.deltaTime;
-
         foreach (var e in _entities)
         {
-            e.ReplaceWorldPosition(e.worldPosition.value + e.velocity.value * deltaTime);
+            e.ReplaceWorldPosition(e.worldPosition.value + e.velocity.value * GameTime.deltaTime);
         }
     }
 }

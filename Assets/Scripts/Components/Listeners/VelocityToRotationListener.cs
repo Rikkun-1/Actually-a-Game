@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using UnityEngine;
 
-public class VelocityListener : MonoBehaviour, IEventListener, IVelocityListener
+public class VelocityToRotationListener : MonoBehaviour, IEventListener, IVelocityListener
 {
     private GameEntity _entity;
 

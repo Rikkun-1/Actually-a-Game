@@ -1,11 +1,8 @@
-﻿namespace Source.View.Debug
+﻿public sealed class DrawDebugSystems : Feature
 {
-    public sealed class DrawDebugSystems : Feature
+    public DrawDebugSystems(Contexts contexts)
     {
-        public DrawDebugSystems(Contexts contexts)
-        {
-            Add(new DrawPathsSystem(contexts));
-            Add(new DrawWalkableTilesSystem(contexts));
-        }
+        Add(new DrawPathsSystem(contexts));
+        Add(new DrawWalkableTilesSystem(contexts));
     }
 }

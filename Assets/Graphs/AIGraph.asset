@@ -181,8 +181,8 @@ MonoBehaviour:
   serializedParameterList: []
   stickyNotes: []
   nodeInspectorReference: {fileID: 0}
-  position: {x: 761.6, y: 30.4, z: 0}
-  scale: {x: 0.57175326, y: 0.57175326, z: 1}
+  position: {x: 560, y: -51.2, z: 0}
+  scale: {x: 0.49717674, y: 0.49717674, z: 1}
   references:
     version: 1
     00000000:
@@ -267,9 +267,9 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        x: 12
-        y: 11
-        value: 5
+        x: 0
+        y: 0
+        value: 2147483647
         find: 0
     00000005:
       type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
@@ -330,10 +330,10 @@ MonoBehaviour:
         computeOrder: 1
         position:
           serializedVersion: 2
-          x: -734.753
-          y: 316.8
-          width: 630.4
-          height: 752
+          x: -762.38385
+          y: 332.54105
+          width: 634.39996
+          height: 756
         expanded: 0
         debug: 0
         nodeLock: 0
@@ -432,7 +432,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 18
-        val: 12
+        val: 0
     0000000F:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
@@ -446,7 +446,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 19
-        val: 11
+        val: 0
     00000010:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
@@ -460,7 +460,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 20
-        val: 5
+        val: 2147483647
     00000011:
       type: {class: ExposedParameter/Settings, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:

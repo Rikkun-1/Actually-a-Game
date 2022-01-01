@@ -271,13 +271,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AIGraph: {fileID: 11400000, guid: dfde93d8e1707834e8ef5528b33c0edf, type: 2}
-  _systemDisablingSettings: {fileID: 11400000, guid: 71b2a86698152ab48b9b6549a7cc4ae6, type: 2}
-  _defaultGridSize: {x: 20, y: 20}
   simulationController:
     timeForOnePhaseCycle: 2.5
     timeUntilPhaseEnd: 2.5
     tickDeltaTime: 0
     timeAccumulated: 0
+  systemDisablingSettings: {fileID: 11400000, guid: 71b2a86698152ab48b9b6549a7cc4ae6, type: 2}
+  defaultGridSize: {x: 20, y: 20}
 --- !u!4 &1168647769
 Transform:
   m_ObjectHideFlags: 0

@@ -26,6 +26,7 @@ public class TestGridWallsSystem : IExecuteSystem
         {
             var e = EntityCreator.CreateGameEntity();
             e.AddWorldPosition(position);
+            e.AddHealth(50);
             switch (Random.Range(0, 4))
             {
                 case 0

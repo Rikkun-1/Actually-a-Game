@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public BaseGraph AIGraph;
-    
-    public SystemDisablingSettings _systemDisablingSettings;
-    
-    public  Vector2Int                _defaultGridSize = new Vector2Int(10, 10);
+    public  BaseGraph                 AIGraph;
     public  SimulationController      simulationController;
+    public  SystemDisablingSettings   systemDisablingSettings;
+    public  Vector2Int                defaultGridSize = new Vector2Int(10, 10);
+    
     private Contexts                  _contexts;
     private EachFrameExecutionSystems _eachFrameExecutionSystems;
     private PlanningPhaseSystems      _planningPhaseSystems;
@@ -22,11 +21,11 @@ public class GameController : MonoBehaviour
         simulationController       = new SimulationController(_contexts);
         _planningPhaseSystems      = new PlanningPhaseSystems(_contexts);
 
-        DeactivateSystems(_systemDisablingSettings.deactivatedSystems);
+        DeactivateSystems(systemDisablingSettings.deactivatedSystems);
 
         _contexts.game.SetAIGraph(AIGraph);
         _contexts.game.SetSimulationTick(0, 0, 0);
-        _contexts.game.SetGridSize(_defaultGridSize);
+        _contexts.game.SetGridSize(defaultGridSize);
 
         simulationController.Initialize();
         _eachFrameExecutionSystems.Initialize();

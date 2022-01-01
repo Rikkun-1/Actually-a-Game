@@ -6,8 +6,8 @@ public class TacticalMapCreatorNode : BaseMatrixNode
 {
     public enum Maps
     {
-        DISTANCE_FROM_THIS_POSITION_TO_ALL_POSITIONS,
-        AMOUNT_OF_ENEMIES_THAT_CAN_BE_SEEN_FROM_THIS_POSITION
+        DistanceFromThisPositionToAllPositions,
+        AmountOfEnemiesThatCanBeSeenFromThisPosition
     }
 
     [NodeInput("Entity ID")] [ShowAsDrawer]
@@ -22,10 +22,10 @@ public class TacticalMapCreatorNode : BaseMatrixNode
 
         output = map switch
         {
-            Maps.DISTANCE_FROM_THIS_POSITION_TO_ALL_POSITIONS
+            Maps.DistanceFromThisPositionToAllPositions
                 => TacticalMapCreator.DistanceFromThisToAllPositions(game, entity.gridPosition.value),
 
-            Maps.AMOUNT_OF_ENEMIES_THAT_CAN_BE_SEEN_FROM_THIS_POSITION
+            Maps.AmountOfEnemiesThatCanBeSeenFromThisPosition
                 => TacticalMapCreator.AmountOfEnemiesThatCanBeSeenFromThisPosition(game, entity.teamID.value),
 
             _ => throw new ArgumentOutOfRangeException()

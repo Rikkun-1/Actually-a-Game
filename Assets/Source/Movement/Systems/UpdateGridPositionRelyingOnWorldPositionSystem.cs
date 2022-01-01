@@ -21,20 +21,11 @@ public class UpdateGridPositionRelyingOnWorldPositionSystem : ReactiveSystem<Gam
     {
         foreach (var e in entities)
         {
-            var newGridPosition = e.worldPosition.value.ToVector2Int();
-
-            if (!e.hasGridPosition)
+            var newGridPosition      = e.worldPosition.value.ToVector2Int();
+            
+            if (!e.hasGridPosition || e.gridPosition.value != newGridPosition)
             {
-                e.AddGridPosition(newGridPosition);
-            }
-            else
-            {
-                var previousGridPosition = e.gridPosition.value;
-
-                if (previousGridPosition != newGridPosition)
-                {
-                    e.ReplaceGridPosition(newGridPosition);
-                }
+                e.ReplaceGridPosition(newGridPosition);
             }
         }
     }

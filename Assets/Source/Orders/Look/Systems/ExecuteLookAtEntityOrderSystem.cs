@@ -22,7 +22,7 @@ public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
             {
                 e.RemoveLookAtEntityOrder();
                 continue;
-            };
+            }
             
             var currentPosition = e.worldPosition.value;
             var targetPosition  = targetEntity.worldPosition.value;

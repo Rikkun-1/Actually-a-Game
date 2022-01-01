@@ -1,6 +1,7 @@
 ﻿using System;
 using Source;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public class SimulationController
@@ -8,10 +9,10 @@ public class SimulationController
     public float timeForOnePhaseCycle = 2.5f;
     public float timeUntilPhaseEnd;
 
-    public  float                  tickDeltaTime = 0.05f;
+    public  float                  tickDeltaTime = 0.02f;
     public  float                  timeAccumulated;
-    private Contexts               _contexts;
     public  SimulationPhaseSystems simulationPhaseSystems;
+    private Contexts               _contexts;
 
     public SimulationController(Contexts contexts)
     {
@@ -23,7 +24,7 @@ public class SimulationController
     {
         simulationPhaseSystems.Initialize();
 
-        var amount = 6;
+        var amount = 40;
         for (var i = 0; i < amount; i++)
         {
             var teamNumber = i % 2;
@@ -34,21 +35,15 @@ public class SimulationController
             e.AddHealth(100);
             e.AddTraversalSpeed(5);
             e.AddViewPrefab(teamNumber == 0 ? "team 1 player" : "team 2 player");
-            e.AddWorldPosition(new Vector2(i * 3, teamNumber == 0 ? 1 : 19));
+            //e.AddWorldPosition(new Vector2(i * 3, teamNumber == 0 ? 1 : 19));
+            e.AddWorldPosition(new Vector2(Random.Range(0, _contexts.game.gridSize.value.x), Random.Range(0, _contexts.game.gridSize.value.y)));
             e.ReplaceTeamID(teamNumber);
             e.hasAI    = true;
             e.isPlayer = true;
         }
 
-        // var e = EntityCreator.CreateGameEntity();
-        // e.AddVision(0, 30, 500, 200);
-        // e.AddHealth(100);
-        // e.AddTraversalSpeed(5);
-        // e.AddViewPrefab("team 1 player");
-        // e.AddWorldPosition(Vector2.zero);
-
         var testWallsSystem = new TestGridWallsSystem(_contexts);
-        for (var i = 0; i < 400; i++)
+        for (var i = 0; i < 3000; i++)
         {
             testWallsSystem.Execute();
         }
