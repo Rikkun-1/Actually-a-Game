@@ -44,7 +44,7 @@ public class BaseMatrixBinaryFunctionNodeView : BaseMatrixNodeView
                 g = _showA ? g : 0;
                 b = _showB ? b : 0;
 
-                texture.SetPixel(x, y, new Color(r, g, b).gamma);
+                texture.SetPixel(x, y, new Color(r, g, b).linear);
             }
         }
     }

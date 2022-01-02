@@ -112,7 +112,7 @@ public class BaseMatrixNodeView : BaseNodeView
         {
             for (var y = 0; y < matrix.height; y++)
             {
-                texture.SetPixel(x, y, new Color(0, matrix[x, y] / divider, 0).gamma);
+                texture.SetPixel(x, y, new Color(0, matrix[x, y] / divider, 0).linear);
             }
         }
     }

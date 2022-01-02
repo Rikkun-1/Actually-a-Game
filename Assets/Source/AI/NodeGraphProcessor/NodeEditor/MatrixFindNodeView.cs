@@ -17,7 +17,7 @@ public class MatrixFindNodeView : BaseMatrixNodeView
             for (var y = 0; y < output.height; y++)
             {
                 var r = x == funcX && y == funcY ? value : 0;
-                texture.SetPixel(x, y, new Color(r, output[x, y] / divider, 0).gamma);
+                texture.SetPixel(x, y, new Color(r, output[x, y] / divider, 0).linear);
             }
         }
     }
