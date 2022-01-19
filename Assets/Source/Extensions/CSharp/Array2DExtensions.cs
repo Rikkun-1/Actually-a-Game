@@ -19,8 +19,8 @@ public static class Array2DExtensions
 
     public static T[,] Select<T>(this T[,] array, Func<int, int, T, T> func)
     {
-        var height = array.GetLength(0);
-        var width  = array.GetLength(1);
+        var width  = array.GetLength(0);
+        var height = array.GetLength(1);
 
         var result = new T[width, height];
 

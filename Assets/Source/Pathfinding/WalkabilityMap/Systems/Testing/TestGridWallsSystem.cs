@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Entitas;
-using Source;
+using ProceduralToolkit;
 using UnityEngine;
 
 public class TestGridWallsSystem : IExecuteSystem
@@ -25,7 +25,7 @@ public class TestGridWallsSystem : IExecuteSystem
         if (Random.Range(0, 10) < 5)
         {
             var e = EntityCreator.CreateGameEntity();
-            e.AddWorldPosition(position);
+            e.AddWorldPosition(position.ToVector3XZ());
             e.AddHealth(50);
             switch (Random.Range(0, 4))
             {
@@ -33,28 +33,28 @@ public class TestGridWallsSystem : IExecuteSystem
                     when entitiesOnPosition.All(entity => entity.isNorthWall == false):
                     {
                         e.isNorthWall = true;
-                        e.ReplaceViewPrefab("NorthWall");
+                        e.ReplaceViewPrefab("Prefabs/NorthWall");
                     }
                     break;
                 case 1
                     when entitiesOnPosition.All(entity => entity.isSouthWall == false):
                     {
                         e.isSouthWall = true;
-                        e.ReplaceViewPrefab("SouthWall");
+                        e.ReplaceViewPrefab("Prefabs/SouthWall");
                     }
                     break;
                 case 2
                     when entitiesOnPosition.All(entity => entity.isEastWall == false):
                     {
                         e.isEastWall = true;
-                        e.ReplaceViewPrefab("EastWall");
+                        e.ReplaceViewPrefab("Prefabs/EastWall");
                     }
                     break;
                 case 3
                     when entitiesOnPosition.All(entity => entity.isWestWall == false):
                     {
                         e.isWestWall = true;
-                        e.ReplaceViewPrefab("WestWall");
+                        e.ReplaceViewPrefab("Prefabs/WestWall");
                     }
                     break;
                 default:

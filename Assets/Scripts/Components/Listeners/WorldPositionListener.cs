@@ -10,11 +10,7 @@ public class WorldPositionListener : MonoBehaviour, IEventListener, IWorldPositi
         _entity = (GameEntity)entity;
         _entity.AddWorldPositionListener(this);
 
-        if (_entity.hasWorldPosition)
-        {
-            var currentPosition = _entity.worldPosition.value;
-            OnWorldPosition(_entity, currentPosition.ToVector2Int());
-        }
+        if (_entity.hasWorldPosition) OnWorldPosition(_entity, _entity.worldPosition.value);
     }
 
     public void UnregisterEventListeners()
@@ -22,8 +18,8 @@ public class WorldPositionListener : MonoBehaviour, IEventListener, IWorldPositi
         _entity.RemoveWorldPositionListener(this, false);
     }
 
-    public void OnWorldPosition(GameEntity e, Vector2 newPosition)
+    public void OnWorldPosition(GameEntity e, Vector3 newPosition)
     {
-        transform.position = new Vector3(newPosition.x, 0, newPosition.y);
+        transform.position = newPosition;
     }
 }

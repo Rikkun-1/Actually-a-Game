@@ -10,6 +10,7 @@ public static class Vector2Extensions
     public static float ToAngle(this Vector2 value)
     {
         var angle = Mathf.Atan2(value.x, value.y)  * Mathf.Rad2Deg;
-        return  Mathf.Repeat(angle, 360);;
+        return  Mathf.Repeat(angle, 360);
+        ;
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ProceduralToolkit;
+using UnityEngine;
 
 public static class AimHelper
 {
@@ -9,7 +10,7 @@ public static class AimHelper
 
     public static bool IsAimingAtTargetPosition(GameEntity e, Vector2 targetPosition)
     {
-        var shooterPosition = e.worldPosition.value;
+        var shooterPosition = e.worldPosition.value.ToVector2XZ();
         var targetDirection = targetPosition - shooterPosition;
         var angleToTarget   = targetDirection.ToAngle();
 
@@ -18,7 +19,7 @@ public static class AimHelper
 
     public static bool IsAimingAtTargetEntity(GameEntity e, GameEntity targetEntity)
     {
-        var targetPosition = targetEntity.worldPosition.value;
+        var targetPosition = targetEntity.worldPosition.value.ToVector2XZ();
 
         return IsAimingAtTargetPosition(e, targetPosition);
     }

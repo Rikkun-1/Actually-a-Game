@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Entitas;
-using Source.Pathfinding.WalkabilityMap.Helpers;
 
 public class UpdateNonWalkableMapSystem : ReactiveSystem<GameEntity>
 {

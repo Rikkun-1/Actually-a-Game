@@ -2,8 +2,8 @@
 
 public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
 {
-    private readonly GameContext        _game;
     private readonly IGroup<GameEntity> _entities;
+    private readonly GameContext        _game;
 
     public ExecuteShootAtEntityOrderSystem(Contexts contexts)
     {
@@ -26,10 +26,10 @@ public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
                 e.RemoveShootAtEntityOrder();
                 continue;
             }
-    
+
             if (AimHelper.IsAimingAtTargetEntity(e, targetEntity))
             {
-                ShootHelper.Shoot(e.worldPosition.value, e.vision.directionAngle, e.weapon, e.id.value, e.teamID.value);
+                ShootHelper.Shoot(e, e.weapon);
             }
         }
     }

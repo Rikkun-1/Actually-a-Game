@@ -7,7 +7,8 @@ public class MoveSystem : IExecuteSystem
     public MoveSystem(Contexts contexts)
     {
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.WorldPosition,
-                                                             GameMatcher.Velocity));
+                                                             GameMatcher.Velocity)
+                                                      .NoneOf(GameMatcher.IgnoredByMoveSystem));
     }
 
     public void Execute()

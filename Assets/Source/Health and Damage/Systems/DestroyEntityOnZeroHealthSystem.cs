@@ -14,7 +14,7 @@ public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasHealth && !entity.isIndestructible;
+        return entity.hasHealth && !entity.isIndestructible && !entity.isDead;
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -23,7 +23,18 @@ public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
         {
             if (e.health.value <= 0)
             {
-                e.isDestroyed = true;
+                if (e.unityView.gameObject.GetComponent<RagdollControl>())
+                {
+                    e.unityView.gameObject.GetComponent<RagdollControl>().MakePhysical();
+                    e.RemoveVision();
+                    e.RemoveTraversalSpeed();
+                    e.hasAI  = false;
+                    e.isDead = true;
+                }
+                else
+                {
+                    e.isDestroyed = true;
+                }
             }
         }
     }

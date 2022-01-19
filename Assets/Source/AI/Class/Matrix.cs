@@ -54,7 +54,7 @@ public class Matrix
     {
         return new Matrix(_matrix.Select(func));
     }
-    
+
     public Matrix ForEachPair(Matrix second, Func<int, int, int> func)
     {
         if (width != second.width || height != second.height)

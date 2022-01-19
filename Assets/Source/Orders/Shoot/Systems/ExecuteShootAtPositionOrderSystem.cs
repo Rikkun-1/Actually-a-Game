@@ -20,7 +20,7 @@ public class ExecuteShootAtPositionOrderSystem : IExecuteSystem
             var targetPosition = e.shootAtPositionOrder.position;
             if (AimHelper.IsAimingAtTargetPosition(e, targetPosition))
             {
-                ShootHelper.Shoot(e.worldPosition.value, e.vision.directionAngle, e.weapon, e.id.value, e.teamID.value);
+                ShootHelper.Shoot(e, e.weapon);
             }
         }
     }

@@ -2,7 +2,6 @@
 using System.Linq;
 using Roy_T.AStar.Grids;
 using Roy_T.AStar.Primitives;
-using Source.Pathfinding.WalkabilityMap.Helpers;
 
 public static class CanGoChecker
 {

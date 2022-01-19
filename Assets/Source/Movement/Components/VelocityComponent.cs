@@ -6,5 +6,5 @@ using UnityEngine;
 [Event(EventTarget.Self)]
 public sealed class VelocityComponent : IComponent
 {
-    public Vector2 value;
+    public Vector3 value;
 }

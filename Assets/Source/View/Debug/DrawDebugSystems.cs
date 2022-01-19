@@ -2,7 +2,7 @@
 {
     public DrawDebugSystems(Contexts contexts)
     {
-        Add(new DrawPathsSystem(contexts));
-        Add(new DrawWalkableTilesSystem(contexts));
+        // Add(new DrawPathsSystem(contexts));
+        // Add(new DrawWalkableTilesSystem(contexts));
     }
 }

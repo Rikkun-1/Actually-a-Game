@@ -1,29 +1,36 @@
-﻿using ProceduralToolkit;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class RaycastHelper
 {
-    public static bool IsInClearVision(Vector3 origin, Vector3 target)  
+    private static readonly LayerMask _layerMask;
+
+    static RaycastHelper()
+    {
+        _layerMask.value = LayerMask.GetMask("Default", "VisionCheck");
+    }
+
+    public static bool IsInClearVision(Vector3 origin, Vector3 target)
     {
         var raycastDirection = target - origin;
-        var raycastHits      = Physics.RaycastAll(origin, raycastDirection, Vector3.Distance(origin, target));
-        return raycastHits.Length == 0;
+        return Physics.Raycast(origin, raycastDirection, Vector3.Distance(origin, target)) == false;
     }
-    
+
     public static bool IsInClearVision(Vector3 origin, GameEntity targetEntity)
     {
         if (!targetEntity.hasUnityView) return false;
 
-        var targetPosition = targetEntity.worldPosition.value.ToVector3XZ().WithY(0.4f);
-
+        var targetPosition   = targetEntity.worldPosition.value.WithY(1.4f);
         var raycastDirection = targetPosition - origin;
-        var raycastHits      = Physics.RaycastAll(origin, raycastDirection, Vector3.Distance(origin, targetPosition));
-        return raycastHits.Length == 1;
+
+        if (!Physics.Raycast(origin, raycastDirection, out var hitInfo, Vector3.Distance(origin, targetPosition), _layerMask)) return false;
+
+        var entity = hitInfo.collider.GetGameEntity();
+        return entity.id.value == targetEntity.id.value;
     }
 
     public static bool IsInClearVision(GameEntity e, GameEntity targetEntity)
     {
-        var raycastOrigin  = e.worldPosition.value.ToVector3XZ().WithY(0.4f);
+        var raycastOrigin = e.worldPosition.value.WithY(1.4f);
 
         return IsInClearVision(raycastOrigin, targetEntity);
     }

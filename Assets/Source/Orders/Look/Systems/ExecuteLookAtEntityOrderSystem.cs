@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using ProceduralToolkit;
 
 public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
 {
@@ -23,14 +24,14 @@ public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
                 e.RemoveLookAtEntityOrder();
                 continue;
             }
-            
+
             var currentPosition = e.worldPosition.value;
             var targetPosition  = targetEntity.worldPosition.value;
             var targetDirection = targetPosition - currentPosition;
-            
-            var angleDelta      = e.vision.turningSpeed * GameTime.deltaTime;
 
-            VisionHelper.RotateEntityVisionTowards(e, targetDirection.ToAngle(), angleDelta);
+            var angleDelta = e.vision.turningSpeed * GameTime.deltaTime;
+
+            VisionHelper.RotateEntityVisionTowards(e, targetDirection.ToVector2XZ().ToAngle(), angleDelta);
         }
     }
 }

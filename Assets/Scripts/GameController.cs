@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public  BaseGraph                 AIGraph;
-    public  SimulationController      simulationController;
-    public  SystemDisablingSettings   systemDisablingSettings;
-    public  Vector2Int                defaultGridSize = new Vector2Int(10, 10);
-    
+    public BaseGraph               AIGraph;
+    public SimulationController    simulationController;
+    public SystemDisablingSettings systemDisablingSettings;
+    public Vector2Int              defaultGridSize = new Vector2Int(10, 10);
+    public int                     wallsCount;
+    public int                     playersCount;
+
     private Contexts                  _contexts;
     private EachFrameExecutionSystems _eachFrameExecutionSystems;
     private PlanningPhaseSystems      _planningPhaseSystems;
 
     private void Start()
     {
+        Contexts.sharedInstance    = new Contexts();
         _contexts                  = Contexts.sharedInstance;
         _eachFrameExecutionSystems = new EachFrameExecutionSystems(_contexts);
         simulationController       = new SimulationController(_contexts);
@@ -27,7 +30,7 @@ public class GameController : MonoBehaviour
         _contexts.game.SetSimulationTick(0, 0, 0);
         _contexts.game.SetGridSize(defaultGridSize);
 
-        simulationController.Initialize();
+        simulationController.Initialize(wallsCount, playersCount);
         _eachFrameExecutionSystems.Initialize();
 
         _planningPhaseSystems.Initialize();
@@ -35,10 +38,14 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        simulationController.UpdateSimulation(Time.deltaTime);
-
+        Time.timeScale = simulationController.timeUntilPhaseEnd > 0  ? 1 : 0;
         _eachFrameExecutionSystems.Execute();
         _eachFrameExecutionSystems.Cleanup();
+    }
+
+    private void FixedUpdate()
+    {
+        simulationController.UpdateSimulation();
     }
 
     private void OnDestroy()

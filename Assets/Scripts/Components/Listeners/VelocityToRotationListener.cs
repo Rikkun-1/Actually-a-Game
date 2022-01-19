@@ -9,12 +9,9 @@ public class VelocityToRotationListener : MonoBehaviour, IEventListener, IVeloci
     {
         _entity = (GameEntity)entity;
         _entity.AddVelocityListener(this);
+        //sdf
 
-        if (_entity.hasVelocity)
-        {
-            var velocity = _entity.velocity.value;
-            OnVelocity(_entity, velocity);
-        }
+        if (_entity.hasVelocity) OnVelocity(_entity, _entity.velocity.value);
     }
 
     public void UnregisterEventListeners()
@@ -22,8 +19,8 @@ public class VelocityToRotationListener : MonoBehaviour, IEventListener, IVeloci
         _entity.RemoveVelocityListener(this, false);
     }
 
-    public void OnVelocity(GameEntity entity, Vector2 value)
+    public void OnVelocity(GameEntity entity, Vector3 value)
     {
-        transform.rotation = Quaternion.Euler(0, value.ToAngle(), 0);
+        transform.rotation = Quaternion.LookRotation(value);
     }
 }

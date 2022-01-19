@@ -1,6 +1,4 @@
-﻿using Source.AI;
-
-public sealed class PlanningPhaseSystems : Feature
+﻿public sealed class PlanningPhaseSystems : Feature
 {
     public PlanningPhaseSystems(Contexts contexts)
     {

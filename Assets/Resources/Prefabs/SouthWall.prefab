@@ -51,18 +51,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1442734668505192315, guid: 35ab54d49ce22774b9d6aa2f7f9f0569, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442734668505192315, guid: 35ab54d49ce22774b9d6aa2f7f9f0569, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442734668505192315, guid: 35ab54d49ce22774b9d6aa2f7f9f0569, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3730963307467797286, guid: 35ab54d49ce22774b9d6aa2f7f9f0569, type: 3}
       propertyPath: m_Name
       value: SouthWall

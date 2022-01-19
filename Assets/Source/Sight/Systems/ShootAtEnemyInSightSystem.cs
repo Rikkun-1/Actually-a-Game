@@ -43,7 +43,7 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
     private IEnumerable<GameEntity> GetPossibleTargetsByDistance(GameEntity e)
     {
         return _possibleTargets.GetEntities()
-                               .Where(targetEntity => !IsInSameTeam(e, targetEntity))
-                               .OrderBy(entity => Vector2.Distance(e.worldPosition.value, entity.worldPosition.value));
+                               .Where(targetEntity => !IsInSameTeam(e, targetEntity) && !targetEntity.isDead)
+                               .OrderBy(entity => Vector2.Distance(e.gridPosition.value, entity.gridPosition.value));
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using ProceduralToolkit;
 
 public class ExecuteLootAtPositionOrderSystem : IExecuteSystem
 {
@@ -16,12 +17,12 @@ public class ExecuteLootAtPositionOrderSystem : IExecuteSystem
         foreach (var e in _entities)
         {
             var currentPosition = e.worldPosition.value;
-            var targetPosition  = e.lookAtPositionOrder.position;
+            var targetPosition  = e.lookAtPositionOrder.position.ToVector3XZ();
             var targetDirection = targetPosition - currentPosition;
-            
-            var angleDelta      = e.vision.turningSpeed * GameTime.deltaTime;
 
-            VisionHelper.RotateEntityVisionTowards(e, targetDirection.ToAngle(), angleDelta);
+            var angleDelta = e.vision.turningSpeed * GameTime.deltaTime;
+
+            VisionHelper.RotateEntityVisionTowards(e, targetDirection.ToVector2XZ().ToAngle(), angleDelta);
         }
     }
 }

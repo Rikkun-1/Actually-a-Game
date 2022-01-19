@@ -10,4 +10,5 @@ public sealed class WeaponComponent : IComponent
     public int    bulletSpeed;
     public int    bulletsPerShot;
     public string bulletPrefab;
+    public Weapon weaponView;
 }

@@ -1,6 +1,4 @@
-﻿using Source.Pathfinding.WalkabilityMap.Systems.Testing;
-
-public sealed class WalkabilityMapSystems : Feature
+﻿public sealed class WalkabilityMapSystems : Feature
 {
     public WalkabilityMapSystems(Contexts contexts)
     {

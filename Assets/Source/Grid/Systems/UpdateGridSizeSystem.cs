@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Entitas;
-using Source;
 using UnityEngine;
 
 public class UpdateGridSizeSystem : ReactiveSystem<GameEntity>
@@ -42,11 +41,11 @@ public class UpdateGridSizeSystem : ReactiveSystem<GameEntity>
     {
         for (var x = 0; x < size.x; x++)
         {
-            for (var y = 0; y < size.y; y++)
+            for (var z = 0; z < size.y; z++)
             {
                 var e = EntityCreator.CreateGameEntity();
-                e.AddWorldPosition(new Vector2(x, y));
-                e.AddViewPrefab("floor");
+                e.AddWorldPosition(new Vector3(x, 0, z));
+                e.AddViewPrefab("Prefabs/floor");
             }
         }
     }

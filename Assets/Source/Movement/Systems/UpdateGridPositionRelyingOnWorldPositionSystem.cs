@@ -21,8 +21,8 @@ public class UpdateGridPositionRelyingOnWorldPositionSystem : ReactiveSystem<Gam
     {
         foreach (var e in entities)
         {
-            var newGridPosition      = e.worldPosition.value.ToVector2Int();
-            
+            var newGridPosition = e.worldPosition.value.ToVector2XZInt();
+
             if (!e.hasGridPosition || e.gridPosition.value != newGridPosition)
             {
                 e.ReplaceGridPosition(newGridPosition);

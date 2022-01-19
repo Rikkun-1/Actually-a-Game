@@ -11,7 +11,7 @@ public class MatrixArithmeticFunctionNode : BaseMatrixBinaryFunctionNode
         Mul,
         Div
     }
-    
+
     public ArithmeticFunction arithmeticFunction = ArithmeticFunction.Add;
 
     protected override void Process()

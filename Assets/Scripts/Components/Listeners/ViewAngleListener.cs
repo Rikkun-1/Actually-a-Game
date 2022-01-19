@@ -32,20 +32,20 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
                                  directionAngle + viewingAngle / 2f,
                                  Color.red);
 
-            if (_entity.hasLookAtDirectionOrder)
-            {
-                direction =
-                    Quaternion.Euler(0, _entity.lookAtDirectionOrder.angle, 0) * Vector3.forward * distance;
-                Debug.DrawRay(position, direction, Color.red);
-            }
-
-            if (_entity.hasLookAtPositionOrder)
-            {
-                var targetPosition = _entity.lookAtPositionOrder.position;
-                var dir            = targetPosition - _entity.worldPosition.value;
-
-                Debug.DrawRay(_entity.worldPosition.value.ToVector3XZ(), dir.ToVector3XZ(), Color.red);
-            }
+            // if (_entity.hasLookAtDirectionOrder)
+            // {
+            //     direction =
+            //         Quaternion.Euler(0, _entity.lookAtDirectionOrder.angle, 0) * Vector3.forward * distance;
+            //     Debug.DrawRay(position, direction, Color.red);
+            // }
+            //
+            // if (_entity.hasLookAtPositionOrder)
+            // {
+            //     var targetPosition = _entity.lookAtPositionOrder.position;
+            //     var dir            = targetPosition - _entity.worldPosition.value;
+            //
+            //     Debug.DrawRay(_entity.worldPosition.value.ToVector3XZ(), dir.ToVector3XZ(), Color.red);
+            // }
         }
     }
 

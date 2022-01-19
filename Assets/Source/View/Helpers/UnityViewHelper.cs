@@ -15,7 +15,7 @@ public static class UnityViewHelper
 
     public static void LoadViewFromPrefab(GameEntity entity, string prefabName, GameObject parent)
     {
-        var viewPrefab = Resources.Load<GameObject>("Prefabs/" + prefabName);
+        var viewPrefab = Resources.Load<GameObject>(prefabName);
 
         if (viewPrefab == null)
         {

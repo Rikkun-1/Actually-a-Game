@@ -21,7 +21,7 @@ public class ExecuteMoveToPositionOrderSystem : ReactiveSystem<GameEntity>
     {
         foreach (var e in entities)
         {
-            var start = e.worldPosition.value.ToVector2Int();
+            var start = e.worldPosition.value.ToVector2XZInt();
             var end   = e.moveToPositionOrder.position;
             e.ReplacePathRequest(start, end);
         }

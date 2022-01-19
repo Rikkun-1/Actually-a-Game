@@ -20,7 +20,7 @@ public class ExecuteShootAtDirectionOrderSystem : IExecuteSystem
             var direction = e.shootAtDirectionOrder.angle;
             if (AimHelper.IsAimingAtTargetDirection(e, direction))
             {
-                ShootHelper.Shoot(e.worldPosition.value, e.vision.directionAngle, e.weapon, e.id.value, e.teamID.value);
+                ShootHelper.Shoot(e, e.weapon);
             }
         }
     }

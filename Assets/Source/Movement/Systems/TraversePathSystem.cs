@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Entitas;
+using ProceduralToolkit;
 using UnityEngine;
 
 public class TraversePathSystem : IExecuteSystem
 {
-    private readonly GameContext        _game;
     private readonly IGroup<GameEntity> _entities;
+    private readonly GameContext        _game;
 
     public TraversePathSystem(Contexts contexts)
     {
@@ -30,13 +30,13 @@ public class TraversePathSystem : IExecuteSystem
         var nextWaypoint         = e.path.waypoints[e.path.currentIndex];
 
         if (IsOccupiedByAnotherPlayer(e, nextWaypoint)) return;
-        
-        var newWorldPosition = Vector2.MoveTowards(e.worldPosition.value,
+
+        var newWorldPosition = Vector2.MoveTowards(e.worldPosition.value.ToVector2XZ(),
                                                    nextWaypoint,
                                                    distanceTraveledLeft);
 
-        e.ReplaceWorldPosition(newWorldPosition);
-        
+        e.ReplaceWorldPosition(newWorldPosition.ToVector3XZ());
+
         CheckIfStoppedAtWaypoint(e, nextWaypoint);
         RemovePathIfOnLastCheckpoint(e);
     }
@@ -44,7 +44,7 @@ public class TraversePathSystem : IExecuteSystem
     private bool IsOccupiedByAnotherPlayer(GameEntity e, Vector2Int nextWaypoint)
     {
         return _game.GetEntitiesWithGridPosition(nextWaypoint)
-                    .Any((entity) => entity.isPlayer && entity.id.value != e.id.value);
+                    .Any(entity => entity.isPlayer && entity.id.value != e.id.value);
     }
 
     private static float SkipWaypoints(GameEntity e)
@@ -53,8 +53,8 @@ public class TraversePathSystem : IExecuteSystem
         var currentIndex     = e.path.currentIndex;
         var waypoints        = e.path.waypoints;
 
-        var worldPosition = e.worldPosition.value;
-        var nextWaypoint  = waypoints[currentIndex];
+        var worldPosition          = e.worldPosition.value.ToVector2XZ();
+        var nextWaypoint           = waypoints[currentIndex];
         var distanceToNextWaypoint = Vector2.Distance(worldPosition, nextWaypoint);
 
         while (currentIndex + 1 < waypoints.Count && distanceToNextWaypoint < distanceTraveled)
@@ -65,15 +65,15 @@ public class TraversePathSystem : IExecuteSystem
             nextWaypoint           =  waypoints[currentIndex];
             distanceToNextWaypoint =  Vector2.Distance(worldPosition, nextWaypoint);
         }
-        
-        e.ReplaceWorldPosition(worldPosition);
+
+        e.ReplaceWorldPosition(worldPosition.ToVector3XZ());
         UpdateCurrentWaypointIndex(e, currentIndex);
         return distanceTraveled;
     }
 
     private static void CheckIfStoppedAtWaypoint(GameEntity e, Vector2Int nextWaypoint)
     {
-        if(e.worldPosition.value == nextWaypoint)
+        if (e.worldPosition.value.ToVector2XZ() == nextWaypoint)
         {
             UpdateCurrentWaypointIndex(e, e.path.currentIndex + 1);
         }
@@ -81,13 +81,13 @@ public class TraversePathSystem : IExecuteSystem
 
     private static void RemovePathIfOnLastCheckpoint(GameEntity e)
     {
-        var waypoints = e.path.waypoints; 
-        if (waypoints.Count == 0 || e.worldPosition.value == waypoints.Last())
+        var waypoints = e.path.waypoints;
+        if (waypoints.Count == 0 || e.worldPosition.value.ToVector2XZ() == waypoints.Last())
         {
             e.RemovePath();
         }
     }
-    
+
     private static void UpdateCurrentWaypointIndex(GameEntity e, int currentIndex)
     {
         if (currentIndex != e.path.currentIndex)

@@ -1,18 +1,16 @@
 ﻿using System;
-using Source;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
 public class SimulationController
 {
-    public float timeForOnePhaseCycle = 2.5f;
+    public float timeForOnePhaseCycle = 5f;
     public float timeUntilPhaseEnd;
 
     public  float                  tickDeltaTime = 0.02f;
-    public  float                  timeAccumulated;
-    public  SimulationPhaseSystems simulationPhaseSystems;
     private Contexts               _contexts;
+    public  SimulationPhaseSystems simulationPhaseSystems;
 
     public SimulationController(Contexts contexts)
     {
@@ -20,11 +18,11 @@ public class SimulationController
         simulationPhaseSystems = new SimulationPhaseSystems(_contexts);
     }
 
-    public void Initialize()
+    public void Initialize(int wallsCount, int playersCount)
     {
         simulationPhaseSystems.Initialize();
 
-        var amount = 10;
+        var amount = playersCount;
         for (var i = 0; i < amount; i++)
         {
             var teamNumber = i % 2;
@@ -34,53 +32,50 @@ public class SimulationController
             {
                 case 0:
                     e.AddVision(teamNumber == 0 ? 0 : 180, 30, 500, 400);
-                    e.AddViewPrefab(teamNumber == 0 ? "team 1 player shotgun" : "team 2 player shotgun");
-                    e.AddTraversalSpeed(9);
+                    e.AddViewPrefab("SwatModel/SwatShotgun");
+                    e.AddTraversalSpeed(1.8f);
                     WeaponProvider.GiveShotgun(e);
                     break;
                 case 1:
                     e.AddVision(teamNumber == 0 ? 0 : 180, 30, 500, 200);
-                    e.AddViewPrefab(teamNumber == 0 ? "team 1 player riffle" : "team 2 player riffle");
-                    e.AddTraversalSpeed(7);
+                    e.AddViewPrefab("SwatModel/SwatRifle");
+                    e.AddTraversalSpeed(1.8f);
                     WeaponProvider.GiveRiffle(e);
                     break;
                 case 2:
                     e.AddVision(teamNumber == 0 ? 0 : 180, 30, 500, 70);
-                    e.AddViewPrefab(teamNumber == 0 ? "team 1 player sniper" : "team 2 player sniper");
-                    e.AddTraversalSpeed(5);
+                    e.AddViewPrefab("SwatModel/SwatSniper");
+                    e.AddTraversalSpeed(1.8f);
                     WeaponProvider.GiveSniper(e);
                     break;
             }
+
             e.AddHealth(100);
-            e.AddWorldPosition(new Vector2((i % amount / 2) * 6, teamNumber == 0 ? 1 : 28));
-            //e.AddWorldPosition(new Vector2(Random.Range(0, _contexts.game.gridSize.value.x), Random.Range(0, _contexts.game.gridSize.value.y)));
+            e.AddWorldPosition(new Vector3(10 + i % amount / 2 * 6, 0, teamNumber == 0 ? 1 : 28));
             e.ReplaceTeamID(teamNumber);
-            e.hasAI    = true;
-            e.isPlayer = true;
+            e.hasAI                                    = true;
+            e.isPlayer                                 = true;
+            e.enableCalculateVelocityByPositionChanges = true;
         }
 
         var testWallsSystem = new TestGridWallsSystem(_contexts);
-        for (var i = 0; i < 1000; i++)
+        for (var i = 0; i < wallsCount; i++)
         {
             testWallsSystem.Execute();
         }
     }
-    
-    public bool UpdateSimulation(float dt)
+
+    public void UpdateSimulation()
     {
-        if (timeUntilPhaseEnd > tickDeltaTime * 0.9 && IsTimeForNewTick(dt))
+        if (timeUntilPhaseEnd >= tickDeltaTime)
         {
-            timeUntilPhaseEnd = timeUntilPhaseEnd < tickDeltaTime
-                                    ? 0
-                                    : timeUntilPhaseEnd - tickDeltaTime;
+            timeUntilPhaseEnd -= tickDeltaTime;
+            if (timeUntilPhaseEnd < tickDeltaTime) timeUntilPhaseEnd = 0;
+
             UpdateSimulationTickComponent();
             simulationPhaseSystems.Execute();
             simulationPhaseSystems.Cleanup();
-
-            return true;
         }
-
-        return false;
     }
 
     public void TearDown()
@@ -88,12 +83,6 @@ public class SimulationController
         simulationPhaseSystems.TearDown();
     }
 
-    private bool IsTimeForNewTick(float dt)
-    {
-        timeAccumulated += dt;
-
-        return timeAccumulated >= tickDeltaTime;
-    }
 
     private void UpdateSimulationTickComponent()
     {
@@ -103,7 +92,5 @@ public class SimulationController
         _contexts.game.ReplaceSimulationTick(tickDeltaTime,
                                              previous.tickFromStart + 1,
                                              newTimeFromStart);
-
-        timeAccumulated -= tickDeltaTime;
     }
 }

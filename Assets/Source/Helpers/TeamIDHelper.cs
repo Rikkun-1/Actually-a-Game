@@ -16,8 +16,8 @@ public static class TeamIDHelper
     public static List<int> GetEnemyTeamIDs(GameContext game, int entityTeamID)
     {
         var enemyTeamIDs = new List<int>();
-        enemyTeamIDs.AddRange(TeamIDHelper.GetPossibleTeamIDs(game)
-                                          .Where(id => id != entityTeamID));
+        enemyTeamIDs.AddRange(GetPossibleTeamIDs(game)
+                                 .Where(id => id != entityTeamID));
         return enemyTeamIDs;
     }
 }
