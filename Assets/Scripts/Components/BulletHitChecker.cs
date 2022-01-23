@@ -3,9 +3,9 @@
 public class BulletHitChecker : MonoBehaviour
 {
     public delegate void HitAction(RaycastHit hitInfo);
+    public event HitAction OnHit;
 
     private Vector3 _currentPosition;
-
     private Vector3 _previousPosition;
 
     private void Start()
@@ -23,7 +23,6 @@ public class BulletHitChecker : MonoBehaviour
         _previousPosition = _currentPosition;
     }
 
-    public event HitAction OnHit;
 
     private void CheckCollision(Vector3 previousPosition, Vector3 currentPosition)
     {

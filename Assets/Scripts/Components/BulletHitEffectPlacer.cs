@@ -1,9 +1,27 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
+#if UNITY_EDITOR 
+[InitializeOnLoad] 
+#endif
 public class BulletHitEffectPlacer : MonoBehaviour
 {
     private static ParticleSystem _hitEffectCachedInstance;
     public         ParticleSystem hitEffectPrefab;
+    
+#if UNITY_EDITOR 
+    static BulletHitEffectPlacer() 
+    {
+        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+    }
+
+    private static void OnPlayModeStateChanged(PlayModeStateChange state) {
+        if (state == PlayModeStateChange.ExitingPlayMode)
+        {
+            _hitEffectCachedInstance = null;
+        }
+    }
+#endif
 
     private void Start()
     {

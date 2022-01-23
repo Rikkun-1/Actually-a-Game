@@ -1,6 +1,7 @@
 ﻿using Entitas.Unity;
 using UnityEngine;
 
+[RequireComponent(typeof(EntityLink))]
 [RequireComponent(typeof(CharacterLocomotion))]
 public class AnimationUpdater : MonoBehaviour
 {

@@ -5,6 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class HealthListener : MonoBehaviour, IEventListener, IHealthListener
 {
+    public delegate void HealthChangedAction(int newHealth);
+
+    public event HealthChangedAction OnHealthChanged;
+    
     private TextMeshProUGUI _healthTextField;
     private GameEntity      _entity;
     
@@ -26,5 +30,7 @@ public class HealthListener : MonoBehaviour, IEventListener, IHealthListener
     public void OnHealth(GameEntity entity, int value)
     {
         _healthTextField.text = value.ToString();
+
+        OnHealthChanged?.Invoke(value);
     }
 }
