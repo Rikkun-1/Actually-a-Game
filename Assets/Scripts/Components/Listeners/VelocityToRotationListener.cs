@@ -9,7 +9,6 @@ public class VelocityToRotationListener : MonoBehaviour, IEventListener, IVeloci
     {
         _entity = (GameEntity)entity;
         _entity.AddVelocityListener(this);
-        //sdf
 
         if (_entity.hasVelocity) OnVelocity(_entity, _entity.velocity.value);
     }

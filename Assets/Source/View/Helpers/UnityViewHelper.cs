@@ -52,6 +52,6 @@ public static class UnityViewHelper
 
     private static IEnumerable<IEventListener> GetEventListeners(GameObject view)
     {
-        return view.GetComponents<IEventListener>();
+        return view.GetComponentsInChildren<IEventListener>();
     }
 }

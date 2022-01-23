@@ -6,11 +6,12 @@ public class LookAtEntityOrderListener : MonoBehaviour, IEventListener, ILookAtE
 {
     private Aiming     _aiming;
     private GameEntity _entity;
-
+    
+    
     public void RegisterEventListeners(IEntity entity)
     {
         _aiming = GetComponent<Aiming>();
-
+        
         _entity = (GameEntity)entity;
         _entity.AddLookAtEntityOrderListener(this);
 
