@@ -7,8 +7,6 @@ public class FreeCamera : MonoBehaviour
 
     public float moveSpeed = 10.0f;
 
-    public float moveSpeedIncrement = 2.5f;
-
     public float turbo = 10.0f;
 
     private float _inputRotateAxisX, _inputRotateAxisY;

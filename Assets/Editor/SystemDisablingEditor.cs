@@ -8,99 +8,99 @@ using UnityEditor;
 using UnityEngine;
 
 
-    [CustomEditor(typeof(SystemDisablingSettings))]
-    public class SystemDisablingEditor : Editor
+[CustomEditor(typeof(SystemDisablingSettings))]
+public class SystemDisablingEditor : Editor
+{
+    private SystemDisablingSettings _systemDisablingSettings;
+
+    private bool         _foldout;
+    private List<string> _systemsToDeactivate;
+    private List<string> _deactivatedSystems;
+
+    private string[] _cachedOptions;
+
+    private void OnEnable()
     {
-        private SystemDisablingSettings _systemDisablingSettings;
+        _systemDisablingSettings = (SystemDisablingSettings)target;
+        _deactivatedSystems      = _systemDisablingSettings.deactivatedSystems;
+        _systemsToDeactivate     = _systemDisablingSettings.systemsToDeactivate;
+        _foldout                 = _systemDisablingSettings.foldout;
 
-        private bool         _foldout;
-        private List<string> _systemsToDeactivate;
-        private List<string> _deactivatedSystems;
+        _cachedOptions = GameUtils.GetInterfaceImplementers<ISystem>()
+                                  .Select(option => option.EndsWith("Systems")
+                                                        ? option.Humanize(LetterCasing.Title)
+                                                        : option.RemoveSystemSuffix())
+                                  .ToArray();
+    }
 
-        private string[] _cachedOptions;
+    private void OnDisable()
+    {
+        _systemDisablingSettings.foldout = _foldout;
+    }
 
-        private void OnEnable()
+    public override void OnInspectorGUI()
+    {
+        _foldout = EditorGUILayout.Foldout(_foldout, "System disabling");
+        if (_foldout)
         {
-            _systemDisablingSettings = (SystemDisablingSettings)target;
-            _deactivatedSystems      = _systemDisablingSettings.deactivatedSystems;
-            _systemsToDeactivate     = _systemDisablingSettings.systemsToDeactivate;
-            _foldout                 = _systemDisablingSettings.foldout;
-
-            _cachedOptions = GameUtils.GetInterfaceImplementers<ISystem>()
-                                      .Select(option => option.EndsWith("Systems")
-                                                            ? option.Humanize(LetterCasing.Title)
-                                                            : option.RemoveSystemSuffix())
-                                      .ToArray();
-        }
-
-        private void OnDisable()
-        {
-            _systemDisablingSettings.foldout = _foldout;
-        }
-
-        public override void OnInspectorGUI()
-        {
-            _foldout = EditorGUILayout.Foldout(_foldout, "System disabling");
-            if (_foldout)
+            EditorGUI.indentLevel++;
+            for (var i = 0; i < _systemsToDeactivate.Count; i++)
             {
-                EditorGUI.indentLevel++;
-                for (var i = 0; i < _systemsToDeactivate.Count; i++)
+                EditorGUILayout.BeginHorizontal();
+                DrawSystemWithStatus(i);
+
+                if (GUILayout.Button("X", GUILayout.Width(20)))
                 {
-                    EditorGUILayout.BeginHorizontal();
-                    DrawSystemWithStatus(i);
-
-                    if (GUILayout.Button("X", GUILayout.Width(20)))
-                    {
-                        DeleteSystem(i);
-                    }
-
-                    EditorGUILayout.EndHorizontal();
+                    DeleteSystem(i);
                 }
 
-                DrawAddNewSystem();
-                SaveSettings();
-                EditorGUI.indentLevel--;
+                EditorGUILayout.EndHorizontal();
             }
-        }
 
-        private void DrawSystemWithStatus(int index)
+            DrawAddNewSystem();
+            SaveSettings();
+            EditorGUI.indentLevel--;
+        }
+    }
+
+    private void DrawSystemWithStatus(int index)
+    {
+        var status    = !_deactivatedSystems.Contains(_systemsToDeactivate[index]);
+        var newStatus = EditorGUILayout.ToggleLeft(_systemsToDeactivate[index], status);
+        if (newStatus != status)
         {
-            var status    = !_deactivatedSystems.Contains(_systemsToDeactivate[index]);
-            var newStatus = EditorGUILayout.ToggleLeft(_systemsToDeactivate[index], status);
-            if (newStatus != status)
+            if (newStatus)
             {
-                if (newStatus)
-                {
-                    _deactivatedSystems.Remove(_systemsToDeactivate[index]);
-                }
-                else
-                {
-                    _deactivatedSystems.AddIfNotPresented(_systemsToDeactivate[index]);
-                }
+                _deactivatedSystems.Remove(_systemsToDeactivate[index]);
             }
-        }
-
-        private void DeleteSystem(int index)
-        {
-            _deactivatedSystems.Remove(_systemsToDeactivate[index]);
-            _systemsToDeactivate.Remove(_systemsToDeactivate[index]);
-        }
-
-        private void SaveSettings()
-        {
-            _systemDisablingSettings.systemsToDeactivate = _systemsToDeactivate;
-            _systemDisablingSettings.deactivatedSystems  = _deactivatedSystems;
-        }
-
-        private void DrawAddNewSystem()
-        {
-            var systemToAdd =
-                AutoCompleteTextField.EditorGUILayout.AutoCompleteTextField("Add system", "", _cachedOptions);
-
-            if (systemToAdd != "")
+            else
             {
-                _systemsToDeactivate.AddIfNotPresented(systemToAdd);
-                _deactivatedSystems.AddIfNotPresented(systemToAdd);
+                _deactivatedSystems.AddIfNotPresented(_systemsToDeactivate[index]);
             }
         }
     }
+
+    private void DeleteSystem(int index)
+    {
+        _deactivatedSystems.Remove(_systemsToDeactivate[index]);
+        _systemsToDeactivate.Remove(_systemsToDeactivate[index]);
+    }
+
+    private void SaveSettings()
+    {
+        _systemDisablingSettings.systemsToDeactivate = _systemsToDeactivate;
+        _systemDisablingSettings.deactivatedSystems  = _deactivatedSystems;
+    }
+
+    private void DrawAddNewSystem()
+    {
+        var systemToAdd =
+            AutoCompleteTextField.EditorGUILayout.AutoCompleteTextField("Add system", "", _cachedOptions);
+
+        if (systemToAdd != "")
+        {
+            _systemsToDeactivate.AddIfNotPresented(systemToAdd);
+            _deactivatedSystems.AddIfNotPresented(systemToAdd);
+        }
+    }
+}

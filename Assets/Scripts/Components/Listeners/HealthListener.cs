@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class HealthListener : MonoBehaviour, IEventListener, IHealthListener
 {
-    public delegate void HealthChangedAction(int newHealth, int newMaxHealth);
+    public delegate void HealthChanged(int newHealth, int newMaxHealth);
 
-    public event HealthChangedAction OnHealthChanged;
+    public event HealthChanged OnHealthChanged;
     
     private GameEntity      _entity;
     

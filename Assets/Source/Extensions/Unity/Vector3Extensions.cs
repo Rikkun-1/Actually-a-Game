@@ -12,4 +12,13 @@ public static class Vector3Extensions
     {
         return value.ToVector2XZ().ToVector2Int();
     }
+    
+    public static Vector3 Randomize(this Vector3 value, float min, float max)
+    {
+        value.x = Random.Range(-min, max);
+        value.y = Random.Range(-min, max);
+        value.z = Random.Range(-min, max);
+        
+        return value;
+    }
 }

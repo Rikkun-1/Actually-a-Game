@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class WeaponVFX : MonoBehaviour
 {
     public Transform      barrelEnd;
     public ParticleSystem muzzleFlash;
