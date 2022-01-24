@@ -50,7 +50,7 @@ public class SimulationController
                     break;
             }
 
-            e.AddHealth(100);
+            e.AddHealth(250, 250);
             e.AddWorldPosition(new Vector3(10 + i % amount / 2 * 6, 0, teamNumber == 0 ? 1 : 28));
             e.ReplaceTeamID(teamNumber);
             e.hasAI                                    = true;

@@ -21,7 +21,7 @@ public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
     {
         foreach (var e in entities)
         {
-            if (e.health.value <= 0)
+            if (e.health.currentHealth <= 0)
             {
                 if (e.unityView.gameObject.GetComponent<RagdollControl>())
                 {

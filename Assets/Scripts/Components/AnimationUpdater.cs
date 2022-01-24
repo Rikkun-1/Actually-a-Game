@@ -16,7 +16,7 @@ public class AnimationUpdater : MonoBehaviour
 
     private void Update()
     {
-        if (_entity.hasVelocity)
+        if (_entity is { hasVelocity: true })
         {
             _characterLocomotion.CalculateAnimationVelocity(_entity.velocity.value);
         }

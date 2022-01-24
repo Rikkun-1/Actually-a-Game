@@ -1,3 +1,4 @@
+using ProceduralToolkit;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -18,7 +19,7 @@ public class Aiming : MonoBehaviour
         aimTargetIK.position = target.position;
 
         var targetDirection = aimTargetIK.position - transform.position;
-        var angleToTarget   = Vector3.Angle(transform.forward, targetDirection);
+        var angleToTarget   = Vector2.Angle(transform.forward.ToVector2XZ(), targetDirection.ToVector2XZ());
 
         if (angleToTarget > maxAimingAngle)
         {

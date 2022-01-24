@@ -7,10 +7,14 @@ public static class Vector2Extensions
         return Vector2Int.RoundToInt(value);
     }
 
+    public static Vector2 WithYDecreasedBy(this Vector2 value, float decrement)
+    {
+        return new Vector2(value.x, value.y - decrement);
+    }
+
     public static float ToAngle(this Vector2 value)
     {
         var angle = Mathf.Atan2(value.x, value.y)  * Mathf.Rad2Deg;
         return  Mathf.Repeat(angle, 360);
-        ;
     }
 }

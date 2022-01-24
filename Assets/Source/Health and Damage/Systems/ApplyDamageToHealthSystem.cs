@@ -26,7 +26,7 @@ public class ApplyDamageToHealthSystem : ReactiveSystem<GameEntity>
         {
             var damageSum = e.damage.damageList.Sum(elem => elem.damage);
 
-            e.ReplaceHealth(e.health.value - damageSum);
+            e.ReplaceHealth(e.health.currentHealth - damageSum, e.health.maxHealth);
         }
     }
 }

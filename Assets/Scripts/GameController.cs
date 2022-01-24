@@ -46,7 +46,6 @@ public class GameController : MonoBehaviour
     private void FixedUpdate()
     {
         simulationController.UpdateSimulation();
-        Debug.Log("FixedUpdate");
     }
 
     private void OnDestroy()
