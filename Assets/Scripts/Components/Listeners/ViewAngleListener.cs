@@ -49,16 +49,19 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
         }
     }
 
-    public void RegisterEventListeners(IEntity entity)
+    private void Start()
     {
-        _entity = (GameEntity)entity;
-        _entity.AddVisionListener(this);
-
         if (_entity.hasVision)
         {
             var vision = _entity.vision;
             OnVision(_entity, vision.directionAngle, vision.viewingAngle, vision.distance, vision.turningSpeed);
         }
+    }
+    
+    public void RegisterEventListeners(IEntity entity)
+    {
+        _entity = (GameEntity)entity;
+        _entity.AddVisionListener(this);
     }
 
     public void UnregisterEventListeners()

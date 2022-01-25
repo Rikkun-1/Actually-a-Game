@@ -181,8 +181,8 @@ MonoBehaviour:
   serializedParameterList: []
   stickyNotes: []
   nodeInspectorReference: {fileID: 0}
-  position: {x: 757.6, y: -156, z: 0}
-  scale: {x: 0.8695652, y: 0.8695652, z: 1}
+  position: {x: 412, y: 338.4, z: 0}
+  scale: {x: 0.14132865, y: 0.14132865, z: 1}
   references:
     version: 1
     00000000:
@@ -267,9 +267,9 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        x: 12
-        y: 10
-        value: 9
+        x: 31
+        y: 16
+        value: 1
         find: 0
     00000005:
       type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
@@ -337,7 +337,7 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        entityID: 7722
+        entityID: 9
         map: 1
     00000009:
       type: {class: TacticalMapCreatorNode, ns: , asm: Assembly-CSharp}
@@ -354,7 +354,7 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        entityID: 7722
+        entityID: 9
         map: 0
     0000000A:
       type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
@@ -418,7 +418,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 17
-        val: 7722
+        val: 9
     0000000E:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
@@ -432,7 +432,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 18
-        val: 12
+        val: 31
     0000000F:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
@@ -446,7 +446,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 19
-        val: 10
+        val: 16
     00000010:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
@@ -460,7 +460,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 20
-        val: 9
+        val: 1
     00000011:
       type: {class: ExposedParameter/Settings, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:

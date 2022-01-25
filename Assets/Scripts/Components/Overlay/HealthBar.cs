@@ -18,6 +18,11 @@ public class HealthBar : MonoBehaviour
 
         GetComponent<HealthListener>().OnHealthChanged += UpdateHealthBar;
     }
+
+    private void OnDestroy()
+    {
+        GetComponent<HealthListener>().OnHealthChanged -= UpdateHealthBar;
+    }
     
     private void UpdateHealthBar(int newHealth, int newMaxHealth)
     {

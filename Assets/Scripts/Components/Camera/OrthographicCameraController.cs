@@ -37,7 +37,8 @@ public class OrthographicCameraController: MonoBehaviour
 
         transform.position = position;
 
-        _camera.orthographicSize += Input.mouseScrollDelta.y * sizeChangeSpeed * Time.unscaledDeltaTime;
-        _camera.orthographicSize =  Mathf.Clamp(_camera.orthographicSize, 1, float.MaxValue);
+        var orthographicSize = _camera.orthographicSize;
+        orthographicSize         += Input.mouseScrollDelta.y * sizeChangeSpeed * Time.unscaledDeltaTime;
+        _camera.orthographicSize =  Mathf.Clamp(orthographicSize, 1, float.MaxValue);
     }
 }

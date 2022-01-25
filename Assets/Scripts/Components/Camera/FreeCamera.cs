@@ -24,8 +24,9 @@ public class FreeCamera : MonoBehaviour
         var moved = _inputRotateAxisX != 0.0f || _inputRotateAxisY != 0.0f || _inputVertical != 0.0f || _inputHorizontal != 0.0f || _inputYAxis != 0.0f;
         if (moved)
         {
-            var rotationX    = transform.localEulerAngles.x;
-            var newRotationY = transform.localEulerAngles.y + _inputRotateAxisX;
+            var localEulerAngles = transform.localEulerAngles;
+            var rotationX        = localEulerAngles.x;
+            var newRotationY     = localEulerAngles.y + _inputRotateAxisX;
 
             // Weird clamping code due to weird Euler angle mapping...
             var newRotationX = rotationX - _inputRotateAxisY;
@@ -36,12 +37,12 @@ public class FreeCamera : MonoBehaviour
 
             transform.localRotation = Quaternion.Euler(newRotationX, newRotationY, transform.localEulerAngles.z);
 
-            var moveSpeed = Time.unscaledDeltaTime * this.moveSpeed;
+            var move = Time.unscaledDeltaTime * this.moveSpeed;
             if (_fire1 || _leftShiftBoost && _leftShift)
-                moveSpeed *= turbo;
-            transform.position += transform.forward * moveSpeed * _inputVertical;
-            transform.position += transform.right * moveSpeed * _inputHorizontal;
-            transform.position += Vector3.up * moveSpeed * _inputYAxis;
+                move *= turbo;
+            transform.position += transform.forward * move * _inputVertical;
+            transform.position += transform.right * move * _inputHorizontal;
+            transform.position += Vector3.up * move * _inputYAxis;
         }
     }
 

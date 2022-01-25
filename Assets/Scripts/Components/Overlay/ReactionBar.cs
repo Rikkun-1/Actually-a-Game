@@ -1,40 +1,42 @@
-﻿using Entitas;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ReactionBar : MonoBehaviour, IEventListener, IReactionStartTimeListener
+[RequireComponent(typeof(ReactionStartTimeListener))]
+[RequireComponent(typeof(ReactionDelayListener))]
+public class ReactionBar : MonoBehaviour
 {
-    public Image reactionBarImage;
+    public Image reloadingBarImage;
 
     private float _reactionStartTime;
     private float _reactionDelay;
 
-    private GameEntity _entity;
+    private void Start()
+    {
+        GetComponent<ReactionStartTimeListener>().OnReactionStartTimeChanged += UpdateReactionStartTime;
+        GetComponent<ReactionDelayListener>().OnReactionDelayChanged         += UpdateReactionDelay;
+    }
+
+    private void OnDestroy()
+    {
+        GetComponent<ReactionStartTimeListener>().OnReactionStartTimeChanged -= UpdateReactionStartTime;
+        GetComponent<ReactionDelayListener>().OnReactionDelayChanged         -= UpdateReactionDelay;
+    }
+
+    private void UpdateReactionDelay(float newReactionDelay)
+    {
+        _reactionDelay = newReactionDelay;
+    }
+
+    private void UpdateReactionStartTime(float newReactionStartTime)
+    {
+        _reactionStartTime = newReactionStartTime;
+    }
 
     private void Update()
     {
         var timePassed = GameTime.timeFromStart - _reactionStartTime;
         var percent    = timePassed / _reactionDelay;
-        
-        reactionBarImage.fillAmount = 1 - percent;
-    }
 
-    public void RegisterEventListeners(IEntity entity)
-    {
-        _entity = (GameEntity)entity;
-        _entity.AddReactionStartTimeListener(this);
-
-        if (_entity.hasReactionStartTime) OnReactionStartTime(_entity, _entity.reactionStartTime.value);
-    }
-
-    public void UnregisterEventListeners()
-    {
-        _entity.RemoveReactionStartTimeListener(this, false);
-    }
-
-    public void OnReactionStartTime(GameEntity entity, float reactionStartTime)
-    {
-        _reactionDelay     = entity.reactionDelay.value;
-        _reactionStartTime = reactionStartTime;
+        reloadingBarImage.fillAmount = 1 - percent;
     }
 }

@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
 
         simulationController.Initialize(wallsCount, playersCount);
         _eachFrameExecutionSystems.Initialize();
+        simulationController.UpdateSimulation();
 
         _planningPhaseSystems.Initialize();
     }

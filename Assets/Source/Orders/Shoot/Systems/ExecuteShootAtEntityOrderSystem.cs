@@ -34,7 +34,7 @@ public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
                 {
                     e.AddReactionStartTime(GameTime.timeFromStart);
                 }
-
+                
                 var reactionIsPassed = GameTime.timeFromStart - e.reactionStartTime.value > e.reactionDelay.value;
                 if (reactionIsPassed)
                 {

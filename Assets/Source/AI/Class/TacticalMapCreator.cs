@@ -10,27 +10,22 @@ public static class TacticalMapCreator
 
     public static Matrix AmountOfTeamPlayersThatCanBeSeenFromThisPosition(GameContext game, int teamID)
     {
-        var players = game.GetEntitiesWithTeamID(teamID).Where(e => !e.isDead);
+        var players = game.GetEntitiesWithTeamID(teamID).Where(e => !e.isDead).ToArray();
 
         var tacticalMap = CreateMatrix(game.gridSize.value);
 
-        // tacticalMap.Loop((x, y) =>
-        // {
-        for (var x = 0; x < tacticalMap.width; x++)
+        tacticalMap.Loop((x, y) =>
         {
-            for (var y = 0; y < tacticalMap.height; y++)
+            foreach (var player in players)
             {
-                foreach (var player in players)
-                {
-                    var raycastOrigin = new Vector3(x, 0.4f, y);
+                var raycastOrigin = new Vector3(x, 0.4f, y);
 
-                    if (RaycastHelper.IsInClearVision(raycastOrigin, player))
-                    {
-                        tacticalMap[x, y]++;
-                    }
+                if (RaycastHelper.IsInClearVision(raycastOrigin, player))
+                {
+                    tacticalMap[x, y]++;
                 }
             }
-        }
+        });
 
         return tacticalMap;
     }

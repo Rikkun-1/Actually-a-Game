@@ -7,14 +7,17 @@ public class LookAtEntityOrderListener : MonoBehaviour, IEventListener, ILookAtE
     private Aiming     _aiming;
     private GameEntity _entity;
 
+    private void Start()
+    {
+        if (_entity.hasLookAtEntityOrder) OnLookAtEntityOrder(_entity, _entity.lookAtEntityOrder.targetID);
+    }
+    
     public void RegisterEventListeners(IEntity entity)
     {
         _aiming = GetComponent<Aiming>();
         
         _entity = (GameEntity)entity;
         _entity.AddLookAtEntityOrderListener(this);
-
-        if (_entity.hasLookAtEntityOrder) OnLookAtEntityOrder(_entity, _entity.lookAtEntityOrder.targetID);
     }
 
     public void UnregisterEventListeners()

@@ -14,6 +14,11 @@ public class ReloadingBar : MonoBehaviour
         GetComponent<WeaponListener>().OnWeaponChanged += UpdateReloadingBar;
     }
 
+    private void OnDestroy()
+    {
+        GetComponent<WeaponListener>().OnWeaponChanged -= UpdateReloadingBar;
+    }
+    
     private void UpdateReloadingBar(Weapon weapon, WeaponVFX weaponView)
     {
         _timeOfLastShot    = weapon.timeOfLastShot;
