@@ -49,7 +49,7 @@ public class SimulationController
                     WeaponProvider.GiveSniper(e);
                     break;
             }
-
+            e.AddReactionDelay(2);
             e.AddHealth(250, 250);
             e.AddWorldPosition(new Vector3(10 + i % amount / 2 * 6, 0, teamNumber == 0 ? 1 : 28));
             e.ReplaceTeamID(teamNumber);

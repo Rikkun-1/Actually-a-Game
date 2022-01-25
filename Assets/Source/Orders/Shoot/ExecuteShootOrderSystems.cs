@@ -4,6 +4,7 @@
     {
         Add(new AddProperLookOrderToShootOrderSystem(contexts));
         Add(new DeleteOldShootOrdersWhenNewAddedSystem(contexts));
+        Add(new RemoveReactionStartTimeWhenShootAtEntityOrderRemovedSystem(contexts));
 
         Add(new ExecuteShootAtDirectionOrderSystem(contexts));
         Add(new ExecuteShootAtPositionOrderSystem(contexts));

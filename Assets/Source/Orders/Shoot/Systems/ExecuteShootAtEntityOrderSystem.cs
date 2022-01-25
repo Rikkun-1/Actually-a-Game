@@ -12,7 +12,8 @@ public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
                                                              GameMatcher.Vision,
                                                              GameMatcher.WorldPosition,
                                                              GameMatcher.TeamID,
-                                                             GameMatcher.Weapon));
+                                                             GameMatcher.Weapon,
+                                                             GameMatcher.ReactionDelay));
     }
 
     public void Execute()
@@ -29,7 +30,16 @@ public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
 
             if (AimHelper.IsAimingAtTargetEntity(e, targetEntity))
             {
-                ShootHelper.Shoot(e, e.weapon);
+                if (!e.hasReactionStartTime)
+                {
+                    e.AddReactionStartTime(GameTime.timeFromStart);
+                }
+
+                var reactionIsPassed = GameTime.timeFromStart - e.reactionStartTime.value > e.reactionDelay.value;
+                if (reactionIsPassed)
+                {
+                    ShootHelper.Shoot(e, e.weapon);
+                }
             }
         }
     }
