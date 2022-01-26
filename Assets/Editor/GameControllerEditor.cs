@@ -24,9 +24,9 @@ public class GameControllerEditor : Editor
 
         LabelField("ID for next created entity", EntityCreator.currentID.ToString());
 
-        if (Button("Create game entity"))    CreateGameEntity();
-        if (Button("Play simulation phase")) PlaySimulationPhase();
-        if (Button("Play planning phase"))   PlayPlaningPhase();
+        if (Button("Create game entity"))  CreateGameEntity();
+        if (Button("Play"))                Play();
+        if (Button("Play planning phase")) PlayPlaningPhase();
     }
 
     private void PlayPlaningPhase()
@@ -34,7 +34,7 @@ public class GameControllerEditor : Editor
         _gameController.UpdatePlanningPhaseSystems();
     }
 
-    private void PlaySimulationPhase()
+    private void Play()
     {
         var simulationController = _gameController.simulationController;
         if (simulationController.timeUntilPhaseEnd < 0.0001)

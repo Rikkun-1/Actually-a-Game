@@ -18,12 +18,13 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        Contexts.sharedInstance    = new Contexts();
-        _contexts                  = Contexts.sharedInstance;
-        _eachFrameExecutionSystems = new EachFrameExecutionSystems(_contexts);
-        simulationController       = new SimulationController(_contexts);
-        _planningPhaseSystems      = new PlanningPhaseSystems(_contexts);
-
+        Contexts.sharedInstance                   =  new Contexts();
+        _contexts                                 =  Contexts.sharedInstance;
+        _eachFrameExecutionSystems                =  new EachFrameExecutionSystems(_contexts);
+        simulationController                      =  new SimulationController(_contexts);
+        _planningPhaseSystems                     =  new PlanningPhaseSystems(_contexts);
+        simulationController.OnSimulationPhaseEnd += UpdatePlanningPhaseSystems;
+        
         DeactivateSystems(systemDisablingSettings.deactivatedSystems);
 
         _contexts.game.SetAIGraph(AIGraph);

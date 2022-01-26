@@ -70,13 +70,19 @@ public class SimulationController
         if (timeUntilPhaseEnd >= tickDeltaTime)
         {
             timeUntilPhaseEnd -= tickDeltaTime;
-            if (timeUntilPhaseEnd < tickDeltaTime) timeUntilPhaseEnd = 0;
+            if (timeUntilPhaseEnd < tickDeltaTime)
+            {
+                timeUntilPhaseEnd = 0;
+                OnSimulationPhaseEnd?.Invoke();
+            }
 
             UpdateSimulationTickComponent();
             simulationPhaseSystems.Execute();
             simulationPhaseSystems.Cleanup();
         }
     }
+
+    public event Action OnSimulationPhaseEnd;
 
     public void TearDown()
     {
