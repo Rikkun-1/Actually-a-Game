@@ -1,12 +1,15 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(HealthListener))]
 public class HealthBar : MonoBehaviour
 {
-    public  Image      healthBarImage;
-    public  GameObject takenPrefab;
+    public Image           healthBarImage;
+    public TextMeshProUGUI healthBarText;
+    
+    public GameObject      takenPrefab;
     
     private int   _previousHealth;
     private float _parentWidth;
@@ -27,12 +30,18 @@ public class HealthBar : MonoBehaviour
     private void UpdateHealthBar(int newHealth, int newMaxHealth)
     {
         newHealth = Mathf.Clamp(newHealth, 0, newMaxHealth);
-        
+
+        UpdateHealthText(newHealth, newMaxHealth);
         VisualizeTakenFragment(newHealth, newMaxHealth);
         UpdateFillAmount(newHealth, newMaxHealth);
         DestroyIfZeroHealth(newHealth, newMaxHealth);
         
         _previousHealth = newHealth;
+    }
+
+    private void UpdateHealthText(int newHealth, int newMaxHealth)
+    {
+        healthBarText.text = $"{newHealth}/{newMaxHealth}";
     }
 
     private void DestroyIfZeroHealth(int newHealth, int newMaxHealth)
