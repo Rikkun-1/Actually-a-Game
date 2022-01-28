@@ -9,7 +9,6 @@ using static UnityEngine.GUILayout;
 public class GameControllerEditor : Editor
 {
     private GameController _gameController;
-    private Editor         _systemDisablingEditor;
 
     private void OnEnable()
     {
@@ -19,8 +18,6 @@ public class GameControllerEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        CreateCachedEditor(_gameController.systemDisablingSettings, null, ref _systemDisablingEditor);
-        _systemDisablingEditor.OnInspectorGUI();
 
         LabelField("ID for next created entity", EntityCreator.currentID.ToString());
 
