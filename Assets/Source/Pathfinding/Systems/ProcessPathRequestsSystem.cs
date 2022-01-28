@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 using Roy_T.AStar.Paths;
+using Roy_T.AStar.Primitives;
 using UnityEngine;
 
 public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
@@ -32,13 +33,12 @@ public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
             var start = e.pathRequest.from.ToGridPosition();
             var end   = e.pathRequest.to.ToGridPosition();
 
-            var waypoints = _pathfinder.FindPath(start, end, pathFindingGrid)
-                                       .GetWaypointsFromPath();
-
-            if (waypoints.Count > 0)
-            {
-                e.ReplacePath(0, waypoints);
-            }
+            var waypoints = start != end
+                                ? _pathfinder.FindPath(start, end, pathFindingGrid)
+                                             .GetWaypointsFromPath()
+                                : new List<Vector2Int> { end.ToVector2Int() };
+            
+            e.ReplacePath(0, waypoints);
 
             e.RemovePathRequest();
         }

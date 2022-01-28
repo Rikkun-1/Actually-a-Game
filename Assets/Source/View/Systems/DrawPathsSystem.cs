@@ -16,10 +16,10 @@ public class DrawPathsSystem : IExecuteSystem
         {
             var waypoints = e.path.waypoints;
 
-            for (int i = 0; i < waypoints.Count - 1; i++)
+            for (var i = 0; i < waypoints.Count - 1; i++)
             {
                 var start = waypoints[i].ToVector3XZ();
-                var end   = waypoints[i+1].ToVector3XZ();
+                var end   = waypoints[i + 1].ToVector3XZ();
                 Debug.DrawLine(start, end, new Color(255, 0, 0));
             }
         }

@@ -8,7 +8,7 @@ namespace Roy_T.AStar.Primitives
         {
             return new Vector3(value.X, value.Y);
         }
-        
+
         public static Vector3 ToVector3XZ(this Position value)
         {
             return new Vector3(value.X, 0, value.Y);

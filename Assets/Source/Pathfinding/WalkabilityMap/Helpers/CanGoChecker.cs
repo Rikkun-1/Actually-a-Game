@@ -69,7 +69,7 @@ public static class CanGoChecker
             Direction.Right  => noRightWall(from) && noLeftWall(right),
             Direction.Bottom => noBottomWall(from) && noTopWall(bottom),
             Direction.Left   => noLeftWall(from) && noRightWall(left),
-            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+            _                => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
 
         bool noTopWall(GridPosition position)
@@ -157,7 +157,7 @@ public static class CanGoChecker
             Direction.BottomLeft  => grid.IsInsideGrid(bottomLeft),
             Direction.Left        => grid.IsInsideGrid(left),
             Direction.TopLeft     => grid.IsInsideGrid(topLeft),
-            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+            _                     => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
     }
 

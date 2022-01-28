@@ -5,7 +5,7 @@ using Entitas;
 public class RecalculatePathSystem : ReactiveSystem<GameEntity>
 {
     private readonly IGroup<GameEntity> _entitiesWithPath;
-    
+
     public RecalculatePathSystem(Contexts contexts) : base(contexts.game)
     {
         _entitiesWithPath = contexts.game.GetGroup(GameMatcher.Path);
@@ -13,7 +13,7 @@ public class RecalculatePathSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.PathfindingGrid.Added());    
+        return context.CreateCollector(GameMatcher.PathfindingGrid.Added());
     }
 
     protected override bool Filter(GameEntity entity)
@@ -28,9 +28,9 @@ public class RecalculatePathSystem : ReactiveSystem<GameEntity>
             var lastDestination = e.path.waypoints.Last();
 
             var start = e.gridPosition.value;
-            
+
             e.ReplacePathRequest(start, lastDestination);
-            
+
             e.RemovePath();
         }
     }

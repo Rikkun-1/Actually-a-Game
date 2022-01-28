@@ -12,7 +12,7 @@ public partial class GameContext {
     public GameTickComponent gameTick { get { return gameTickEntity.gameTick; } }
     public bool hasGameTick { get { return gameTickEntity != null; } }
 
-    public GameEntity SetGameTick(double newDeltaTime, int newTickFromStart, double newTimeFromStart) {
+    public GameEntity SetGameTick(float newDeltaTime, int newTickFromStart, float newTimeFromStart) {
         if (hasGameTick) {
             throw new Entitas.EntitasException("Could not set GameTick!\n" + this + " already has an entity with GameTickComponent!",
                 "You should check if the context already has a gameTickEntity before setting it or use context.ReplaceGameTick().");
@@ -22,7 +22,7 @@ public partial class GameContext {
         return entity;
     }
 
-    public void ReplaceGameTick(double newDeltaTime, int newTickFromStart, double newTimeFromStart) {
+    public void ReplaceGameTick(float newDeltaTime, int newTickFromStart, float newTimeFromStart) {
         var entity = gameTickEntity;
         if (entity == null) {
             entity = SetGameTick(newDeltaTime, newTickFromStart, newTimeFromStart);
@@ -49,7 +49,7 @@ public partial class GameEntity {
     public GameTickComponent gameTick { get { return (GameTickComponent)GetComponent(GameComponentsLookup.GameTick); } }
     public bool hasGameTick { get { return HasComponent(GameComponentsLookup.GameTick); } }
 
-    public void AddGameTick(double newDeltaTime, int newTickFromStart, double newTimeFromStart) {
+    public void AddGameTick(float newDeltaTime, int newTickFromStart, float newTimeFromStart) {
         var index = GameComponentsLookup.GameTick;
         var component = (GameTickComponent)CreateComponent(index, typeof(GameTickComponent));
         component.deltaTime = newDeltaTime;
@@ -58,7 +58,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceGameTick(double newDeltaTime, int newTickFromStart, double newTimeFromStart) {
+    public void ReplaceGameTick(float newDeltaTime, int newTickFromStart, float newTimeFromStart) {
         var index = GameComponentsLookup.GameTick;
         var component = (GameTickComponent)CreateComponent(index, typeof(GameTickComponent));
         component.deltaTime = newDeltaTime;
