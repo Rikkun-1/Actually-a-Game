@@ -208,7 +208,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 10
   m_Depth: 0
   m_CullingMask:
@@ -269,9 +269,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32785ad2f4d33b449afd38b26c193f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeAccumulated: 0
-  _tickDeltaTime: 0.02
   _defaultMapSize: {x: 20, y: 20}
+  simulationController:
+    timeAccumulated: 0
+    tickDeltaTime: 0
+    timeUntilPhaseEnd: 0
+    timeForOnePhaseCycle: 0
 --- !u!4 &1168647769
 Transform:
   m_ObjectHideFlags: 0

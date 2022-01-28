@@ -1,7 +1,4 @@
-﻿using System;
-using Entitas;
-using ProceduralToolkit;
-using UnityEngine;
+﻿using Entitas;
 
 public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
 {
@@ -35,13 +32,14 @@ public class ExecuteShootAtEntityOrderSystem : IExecuteSystem
             {
                 e.ReplaceLookAtEntityOrder(e.shootAtEntityOrder.targetID);
             }
-            
+
             var targetEntityID = e.shootAtEntityOrder.targetID;
-            var targetEntity   = _contexts.game.GetEntityWithID(targetEntityID);
-            
+            var targetEntity   = _contexts.game.GetEntityWithId(targetEntityID);
+            if (targetEntity == null) continue;
+
             if (AimHelper.IsAimingAtTargetEntity(e, targetEntity))
             {
-                ShootHelper.Shoot(e.worldPosition.value, e.vision.value.directionAngle, e.weapon.value);
+                ShootHelper.Shoot(e.worldPosition.value, e.vision.directionAngle, e.weapon, e.id.value);
             }
         }
     }

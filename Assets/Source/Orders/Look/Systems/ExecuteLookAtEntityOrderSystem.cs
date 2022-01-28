@@ -17,19 +17,21 @@ public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
 
     public void Execute()
     {
-        var deltaTime = _contexts.game.gameTick.deltaTime;
+        var deltaTime = _contexts.game.simulationTick.deltaTime;
 
         foreach (var e in _entities)
         {
             var currentPosition = e.worldPosition.value;
 
             var targetEntityID = e.lookAtEntityOrder.targetID;
-            var targetEntity   = _contexts.game.GetEntityWithID(targetEntityID);
+            var targetEntity   = _contexts.game.GetEntityWithId(targetEntityID);
+            if (targetEntity == null) continue;
+
             var targetPosition = targetEntity.worldPosition.value;
-            
+
             var targetDirection = targetPosition - currentPosition;
 
-            var vision  = e.vision.value;
+            var vision      = e.vision;
             var angleChange = vision.turningSpeed * deltaTime;
 
             var desiredAngle = targetDirection.ToAngle();
@@ -39,7 +41,7 @@ public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
                 vision.directionAngle =
                     AngleHelper.RotateAngleTowards(vision.directionAngle, desiredAngle, angleChange);
 
-                e.ReplaceVision(vision);
+                e.ReplaceVision(vision.directionAngle, vision.viewingAngle, vision.distance, vision.turningSpeed);
             }
         }
     }

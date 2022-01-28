@@ -37,7 +37,7 @@ public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
                                 ? _pathfinder.FindPath(start, end, pathFindingGrid)
                                              .GetWaypointsFromPath()
                                 : new List<Vector2Int> { end.ToVector2Int() };
-            
+
             e.ReplacePath(0, waypoints);
 
             e.RemovePathRequest();

@@ -15,11 +15,11 @@ public class ExecuteLookDirectionOrderSystem : IExecuteSystem
 
     public void Execute()
     {
-        var deltaTime = _contexts.game.gameTick.deltaTime;
+        var deltaTime = _contexts.game.simulationTick.deltaTime;
 
         foreach (var e in _entities)
         {
-            var vision       = e.vision.value;
+            var vision       = e.vision;
             var orderedAngle = e.lookAtDirectionOrder.angle;
 
             var angleChange = vision.turningSpeed * deltaTime;
@@ -29,7 +29,7 @@ public class ExecuteLookDirectionOrderSystem : IExecuteSystem
                 vision.directionAngle =
                     AngleHelper.RotateAngleTowards(vision.directionAngle, orderedAngle, angleChange);
 
-                e.ReplaceVision(vision);
+                e.ReplaceVision(vision.directionAngle, vision.viewingAngle, vision.distance, vision.turningSpeed);
             }
         }
     }

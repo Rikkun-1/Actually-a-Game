@@ -17,7 +17,7 @@ public class TraversePathSystem : IExecuteSystem
 
     public void Execute()
     {
-        var deltaTime = _contexts.game.gameTick.deltaTime;
+        var deltaTime = _contexts.game.simulationTick.deltaTime;
 
         foreach (var e in _entities.GetEntities())
         {
@@ -41,7 +41,7 @@ public class TraversePathSystem : IExecuteSystem
 
             worldPosition = Vector2.MoveTowards(worldPosition,
                                                 nextWaypoint,
-                                                (float)distanceTraveled);
+                                                distanceTraveled);
 
             e.ReplaceWorldPosition(worldPosition);
 

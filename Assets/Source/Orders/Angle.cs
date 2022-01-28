@@ -20,7 +20,7 @@ public class Angle
         set
         {
             var val = Mathf.Repeat(value, 360);
-            
+
             _value = (float)Math.Round(val, 2);
         }
     }
