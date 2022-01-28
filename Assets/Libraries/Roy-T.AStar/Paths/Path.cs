@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Roy_T.AStar.Graphs;
 using Roy_T.AStar.Primitives;
-using UnityEngine;
 
 
 namespace Roy_T.AStar.Paths

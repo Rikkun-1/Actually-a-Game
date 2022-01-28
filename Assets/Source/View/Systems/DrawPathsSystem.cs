@@ -1,5 +1,4 @@
 ﻿using Entitas;
-using Roy_T.AStar.Primitives;
 using UnityEngine;
 
 public class DrawPathsSystem : IExecuteSystem
@@ -19,8 +18,8 @@ public class DrawPathsSystem : IExecuteSystem
 
             for (int i = 0; i < waypoints.Count - 1; i++)
             {
-                var start = waypoints[i].ToVector3();
-                var end   = waypoints[i+1].ToVector3();
+                var start = waypoints[i].ToVector3XZ();
+                var end   = waypoints[i+1].ToVector3XZ();
                 Debug.DrawLine(start, end, new Color(255, 0, 0));
             }
         }

@@ -9,7 +9,14 @@ public class GameController : MonoBehaviour
     private                  Contexts                  _contexts;
     private                  RootSystems               _systems;
     private                  EachFrameExecutionSystems _eachFrameExecutionSystems;
-    private                  GameEntity                _timeHolder;
+    
+    private void Initialize()
+    {
+        var e = EntityCreator.CreateGameEntity();
+        e.AddWorldPosition(new Vector2(1, 1));
+        e.AddVision(new Vision(0, 30, 5, 100));
+        e.AddViewPrefab("Cube");
+    }
     
     private void Start()
     {
@@ -17,13 +24,13 @@ public class GameController : MonoBehaviour
         _systems                   = new RootSystems(_contexts);
         _eachFrameExecutionSystems = new EachFrameExecutionSystems(_contexts);
 
-        _timeHolder = _contexts.game.CreateEntity();
-        _timeHolder.AddGameTick(0, 0, 0);
-
+        _contexts.game.SetGameTick(0, 0, 0);
         _contexts.game.SetMapSize(_defaultMapSize);
 
         _systems.Initialize();
         _eachFrameExecutionSystems.Initialize();
+
+        Initialize();
     }
 
     private void Update()
@@ -54,12 +61,13 @@ public class GameController : MonoBehaviour
 
     private void UpdateGameTick()
     {
-        var previous         = _timeHolder.gameTick;
+        var previous         = _contexts.game.gameTick;
         var newTimeFromStart = Math.Round(previous.timeFromStart + _tickDeltaTime, 3);
 
-        _timeHolder.ReplaceGameTick(_tickDeltaTime,
-                                    previous.tickFromStart + 1,
-                                    newTimeFromStart);
+        _contexts.game.ReplaceGameTick(_tickDeltaTime,
+                                       previous.tickFromStart + 1,
+                                       newTimeFromStart);
+        
         _timeAccumulated -= _tickDeltaTime;
     }
 }

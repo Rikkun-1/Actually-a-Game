@@ -31,7 +31,8 @@ public class UpdateUnityViewSystem : ReactiveSystem<GameEntity>
                 UnityViewHelper.DestroyView(e);
             }
 
-            if (e.hasViewPrefab)
+            if (e.hasViewPrefab && 
+                !string.IsNullOrEmpty(e.viewPrefab.prefabName))
             {
                 var prefabName = e.viewPrefab.prefabName;
 

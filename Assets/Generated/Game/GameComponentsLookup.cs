@@ -12,32 +12,44 @@ public static class GameComponentsLookup {
     public const int EastWall = 1;
     public const int GameTick = 2;
     public const int GridPosition = 3;
-    public const int Indestructible = 4;
-    public const int MapSize = 5;
-    public const int NonWalkable = 6;
-    public const int NorthWall = 7;
-    public const int Path = 8;
-    public const int PathfindingGrid = 9;
-    public const int PathRequest = 10;
-    public const int SouthWall = 11;
-    public const int TraversalSpeed = 12;
-    public const int UnityView = 13;
-    public const int ViewPrefab = 14;
-    public const int WestWall = 15;
-    public const int WorldPosition = 16;
-    public const int WorldPositionListener = 17;
+    public const int ID = 4;
+    public const int Indestructible = 5;
+    public const int LookAtDirectionOrder = 6;
+    public const int LookAtEntityOrder = 7;
+    public const int LookAtPositionOrder = 8;
+    public const int MapSize = 9;
+    public const int NonWalkable = 10;
+    public const int NorthWall = 11;
+    public const int OrderSequence = 12;
+    public const int Path = 13;
+    public const int PathfindingGrid = 14;
+    public const int PathRequest = 15;
+    public const int SouthWall = 16;
+    public const int TraversalSpeed = 17;
+    public const int UnityView = 18;
+    public const int ViewPrefab = 19;
+    public const int Vision = 20;
+    public const int VisionListener = 21;
+    public const int WestWall = 22;
+    public const int WorldPosition = 23;
+    public const int WorldPositionListener = 24;
 
-    public const int TotalComponents = 18;
+    public const int TotalComponents = 25;
 
     public static readonly string[] componentNames = {
         "Destroyed",
         "EastWall",
         "GameTick",
         "GridPosition",
+        "ID",
         "Indestructible",
+        "LookAtDirectionOrder",
+        "LookAtEntityOrder",
+        "LookAtPositionOrder",
         "MapSize",
         "NonWalkable",
         "NorthWall",
+        "OrderSequence",
         "Path",
         "PathfindingGrid",
         "PathRequest",
@@ -45,6 +57,8 @@ public static class GameComponentsLookup {
         "TraversalSpeed",
         "UnityView",
         "ViewPrefab",
+        "Vision",
+        "VisionListener",
         "WestWall",
         "WorldPosition",
         "WorldPositionListener"
@@ -55,10 +69,15 @@ public static class GameComponentsLookup {
         typeof(EastWallComponent),
         typeof(GameTickComponent),
         typeof(GridPositionComponent),
+        typeof(IDComponent),
         typeof(IndestructibleComponent),
+        typeof(LookAtDirectionOrderComponent),
+        typeof(LookAtEntityOrderComponent),
+        typeof(LookAtPositionOrderComponent),
         typeof(MapSizeComponent),
         typeof(NonWalkableComponent),
         typeof(NorthWallComponent),
+        typeof(OrderSequence),
         typeof(PathComponent),
         typeof(PathfindingGridComponent),
         typeof(PathRequestComponent),
@@ -66,6 +85,8 @@ public static class GameComponentsLookup {
         typeof(TraversalSpeedComponent),
         typeof(UnityViewComponent),
         typeof(ViewPrefabComponent),
+        typeof(VisionComponent),
+        typeof(VisionListenerComponent),
         typeof(WestWallComponent),
         typeof(WorldPositionComponent),
         typeof(WorldPositionListenerComponent)

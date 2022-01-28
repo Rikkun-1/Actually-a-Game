@@ -9,6 +9,7 @@
 public sealed class GameEventSystems : Feature {
 
     public GameEventSystems(Contexts contexts) {
+        Add(new VisionEventSystem(contexts)); // priority: 0
         Add(new WorldPositionEventSystem(contexts)); // priority: 0
     }
 }
