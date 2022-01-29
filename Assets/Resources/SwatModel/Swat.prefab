@@ -795,7 +795,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3571677498368378030}
   - component: {fileID: 7294535367895450064}
-  - component: {fileID: 6633062425317240711}
   m_Layer: 0
   m_Name: Health bar
   m_TagString: Untagged
@@ -841,18 +840,6 @@ MonoBehaviour:
   healthBarImage: {fileID: 6614192939968132267}
   healthBarText: {fileID: 8477163836599553942}
   takenPrefab: {fileID: 3794904688636744121, guid: 6bd859340238e1441947ec8e5a444366, type: 3}
---- !u!114 &6633062425317240711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878627297585713256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dcb8d841ad54702a4d9d4e2e085b683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1918759233778837602
 GameObject:
   m_ObjectHideFlags: 0
@@ -3196,7 +3183,6 @@ GameObject:
   - component: {fileID: 5070155321731837711}
   - component: {fileID: 7744371601235713087}
   - component: {fileID: 3881889622113460408}
-  - component: {fileID: 3871797271322913628}
   m_Layer: 0
   m_Name: Reloading bar
   m_TagString: Untagged
@@ -3274,18 +3260,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadingBarImage: {fileID: 7744371601235713087}
---- !u!114 &3871797271322913628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7088454978334401679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de0dc178abb9403ab2be18a22ee70f0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7153008557585664613
 GameObject:
   m_ObjectHideFlags: 0
@@ -3510,8 +3484,6 @@ GameObject:
   - component: {fileID: 2491243856401755406}
   - component: {fileID: 7817499189857056819}
   - component: {fileID: 2484540355014671054}
-  - component: {fileID: 929077009768402547}
-  - component: {fileID: 3048055322720095973}
   m_Layer: 0
   m_Name: Reaction bar
   m_TagString: Untagged
@@ -3589,30 +3561,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadingBarImage: {fileID: 7817499189857056819}
---- !u!114 &929077009768402547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7544907833301697160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13cb2577eb7240b5af974059cbc9045d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3048055322720095973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7544907833301697160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d912d7c12f5e47609111025c05081cd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7559129552347669427
 GameObject:
   m_ObjectHideFlags: 0

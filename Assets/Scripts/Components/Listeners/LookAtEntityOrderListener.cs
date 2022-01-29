@@ -1,28 +1,13 @@
-﻿using Entitas;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Aiming))]
-public class LookAtEntityOrderListener : MonoBehaviour, IEventListener, ILookAtEntityOrderListener
+public class LookAtEntityOrderListener : EventListener, ILookAtEntityOrderListener
 {
-    private Aiming     _aiming;
-    private GameEntity _entity;
+    private Aiming _aiming;
 
     private void Start()
     {
-        if (_entity.hasLookAtEntityOrder) OnLookAtEntityOrder(_entity, _entity.lookAtEntityOrder.targetID);
-    }
-    
-    public void RegisterEventListeners(IEntity entity)
-    {
         _aiming = GetComponent<Aiming>();
-        
-        _entity = (GameEntity)entity;
-        _entity.AddLookAtEntityOrderListener(this);
-    }
-
-    public void UnregisterEventListeners()
-    {
-        _entity.RemoveLookAtEntityOrderListener(this, false);
     }
 
     public void OnLookAtEntityOrder(GameEntity entity, long targetID)
@@ -32,4 +17,7 @@ public class LookAtEntityOrderListener : MonoBehaviour, IEventListener, ILookAtE
         var targetTransform  = targetGameObject.GetComponent<AimingPoints>().torso;
         _aiming.target = targetTransform;
     }
+    
+    protected override void Register()                 => gameEntity.AddLookAtEntityOrderListener(this);
+    public override    void UnregisterEventListeners() => gameEntity.RemoveLookAtEntityOrderListener(this, false);
 }

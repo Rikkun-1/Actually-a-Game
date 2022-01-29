@@ -1,26 +1,16 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
-[RequireComponent(typeof(WeaponListener))]
-public class ReloadingBar : MonoBehaviour
+public class ReloadingBar : WeaponListener
 {
     public Image reloadingBarImage;
 
     private float _timeOfLastShot;
     private float _delayBetweenShots;
     
-    private void Start()
-    {
-        GetComponent<WeaponListener>().OnWeaponChanged += UpdateReloadingBar;
-    }
+    public override void OnWeapon(GameEntity e, Weapon weapon, WeaponVFX weaponView) => UpdateReloadingBar(weapon);
 
-    private void OnDestroy()
-    {
-        GetComponent<WeaponListener>().OnWeaponChanged -= UpdateReloadingBar;
-    }
-    
-    private void UpdateReloadingBar(Weapon weapon, WeaponVFX weaponView)
-    {
+    private void UpdateReloadingBar(Weapon weapon)
+    {   
         _timeOfLastShot    = weapon.timeOfLastShot;
         _delayBetweenShots = weapon.delayBetweenShots;
     }

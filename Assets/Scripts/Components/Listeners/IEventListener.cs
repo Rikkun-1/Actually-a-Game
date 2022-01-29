@@ -1,8 +1,6 @@
-using Entitas;
-
 public interface IEventListener
 {
-    void RegisterEventListeners(IEntity entity);
+    void RegisterEventListeners(GameEntity entity);
 
     void UnregisterEventListeners();
 }

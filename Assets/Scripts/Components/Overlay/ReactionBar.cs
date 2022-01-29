@@ -1,53 +1,25 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
-[RequireComponent(typeof(ReactionDelayListener))]
-[RequireComponent(typeof(ReactionStartTimeListener))]
-[RequireComponent(typeof(ReactionStartTimeRemovedListener))]
-public class ReactionBar : MonoBehaviour
+public class ReactionBar : ReactionListener
 {
     public Image reloadingBarImage;
 
     private float _reactionStartTime;
     private float _reactionDelay;
 
-    private ReactionDelayListener            _cachedReactionDelayListener;
-    private ReactionStartTimeListener        _cachedReactionStartTimeListener;
-    private ReactionStartTimeRemovedListener _cachedReactionStartTimeRemovedListener;
+    public override void OnReactionDelay(GameEntity            entity, float newReactionDelay)  => UpdateReactionDelay(newReactionDelay);
+    public override void OnReactionStartTime(GameEntity        entity, float reactionStartTime) => UpdateReactionStart(reactionStartTime);
+    public override void OnReactionStartTimeRemoved(GameEntity entity) => HideBar();
+
+    private void UpdateReactionDelay(float newReactionDelay) => _reactionDelay = newReactionDelay;
     
-    private void Start()
-    {
-        _cachedReactionDelayListener            = GetComponent<ReactionDelayListener>();
-        _cachedReactionStartTimeListener        = GetComponent<ReactionStartTimeListener>();
-        _cachedReactionStartTimeRemovedListener = GetComponent<ReactionStartTimeRemovedListener>();
-        
-        _cachedReactionDelayListener.OnReactionDelayChanged                     += UpdateReactionDelay;
-        _cachedReactionStartTimeListener.OnReactionStartTimeChanged             += UpdateReactionStartTime;
-        _cachedReactionStartTimeRemovedListener.OnAfterReactionStartTimeRemoved += Hide;
-    }
-
-    private void OnDestroy()
-    {
-        _cachedReactionDelayListener.OnReactionDelayChanged                     -= UpdateReactionDelay;
-        _cachedReactionStartTimeListener.OnReactionStartTimeChanged             -= UpdateReactionStartTime;
-        _cachedReactionStartTimeRemovedListener.OnAfterReactionStartTimeRemoved -= Hide;
-    }
-
-    private void Hide()
-    {
-        reloadingBarImage.enabled = false;
-    }
-    
-    private void UpdateReactionDelay(float newReactionDelay)
-    {
-        _reactionDelay = newReactionDelay;
-    }
-
-    private void UpdateReactionStartTime(float newReactionStartTime)
+    private void UpdateReactionStart(float reactionStartTime)
     {
         reloadingBarImage.enabled = true;
-        _reactionStartTime        = newReactionStartTime;
+        _reactionStartTime        = reactionStartTime;
     }
+    
+    private void HideBar() => reloadingBarImage.enabled = false;
 
     private void Update()
     {

@@ -1,16 +1,13 @@
-﻿using Entitas;
-using ProceduralToolkit;
+﻿using ProceduralToolkit;
 using UnityEngine;
 
-public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
+public class ViewAngleListener : EventListener, IVisionListener
 {
-    private GameEntity _entity;
-
     public void OnDrawGizmos()
     {
-        if (_entity.hasVision)
+        if (gameEntity.hasVision)
         {
-            var vision         = _entity.vision;
+            var vision         = gameEntity.vision;
             var directionAngle = vision.directionAngle;
             var viewingAngle   = vision.viewingAngle;
             var distance       = vision.distance;
@@ -48,29 +45,12 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
             // }
         }
     }
-
-    private void Start()
-    {
-        if (_entity.hasVision)
-        {
-            var vision = _entity.vision;
-            OnVision(_entity, vision.directionAngle, vision.viewingAngle, vision.distance, vision.turningSpeed);
-        }
-    }
     
-    public void RegisterEventListeners(IEntity entity)
-    {
-        _entity = (GameEntity)entity;
-        _entity.AddVisionListener(this);
-    }
-
-    public void UnregisterEventListeners()
-    {
-        _entity.RemoveVisionListener(this, false);
-    }
-
     public void OnVision(GameEntity entity, float directionAngle, int viewingAngle, int distance, int turningSpeed)
     {
         transform.rotation = Quaternion.Euler(0, directionAngle, 0);
     }
+    
+    protected override void Register()                 => gameEntity.AddVisionListener(this);
+    public override    void UnregisterEventListeners() => gameEntity.RemoveVisionListener(this, false);
 }

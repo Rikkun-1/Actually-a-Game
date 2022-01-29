@@ -25,7 +25,7 @@ public class TakenHealthScript : MonoBehaviour
         
         _rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, x, width);
     }
-    
+        
     private void Update()
     {
         var newAnchoredPosition = _rectTransform.anchoredPosition.WithYDecreasedBy(moveSpeed * Time.unscaledDeltaTime);
@@ -35,10 +35,7 @@ public class TakenHealthScript : MonoBehaviour
         
         SetImagesAlpha(currentY);
 
-        if (currentY < _destructionY)
-        {
-            Destroy(gameObject);
-        }
+        if (currentY < _destructionY) Destroy(gameObject);
     }
 
     private void SetImagesAlpha(float currentY)
