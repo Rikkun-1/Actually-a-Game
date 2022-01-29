@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Entitas;
 using Entitas.Unity;
 using UnityEngine;
 
@@ -42,7 +41,7 @@ public static class UnityViewHelper
         }
     }
 
-    private static void RegisterEventListeners(IEntity entity, GameObject view)
+    private static void RegisterEventListeners(GameEntity entity, GameObject view)
     {
         foreach (var listener in GetEventListeners(view))
         {

@@ -1,13 +1,11 @@
-using System.Collections.Generic;
-using Data;
 using GraphProcessor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     public BaseGraph               AIGraph;
     public SimulationController    simulationController;
-    public SystemDisablingSettings systemDisablingSettings;
     public Vector2Int              defaultGridSize = new Vector2Int(10, 10);
     public int                     wallsCount;
     public int                     playersCount;
@@ -15,6 +13,8 @@ public class GameController : MonoBehaviour
     private Contexts                  _contexts;
     private EachFrameExecutionSystems _eachFrameExecutionSystems;
     private PlanningPhaseSystems      _planningPhaseSystems;
+
+    public Image timeProgress;
 
     private void Start()
     {
@@ -25,8 +25,6 @@ public class GameController : MonoBehaviour
         _planningPhaseSystems                     =  new PlanningPhaseSystems(_contexts);
         simulationController.OnSimulationPhaseEnd += UpdatePlanningPhaseSystems;
         
-        DeactivateSystems(systemDisablingSettings.deactivatedSystems);
-
         _contexts.game.SetAIGraph(AIGraph);
         _contexts.game.SetSimulationTick(0, 0, 0);
         _contexts.game.SetGridSize(defaultGridSize);
@@ -40,6 +38,8 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        timeProgress.fillAmount = 1 - simulationController.timeUntilPhaseEnd / simulationController.timeForOnePhaseCycle;
+        
         Time.timeScale = simulationController.timeUntilPhaseEnd > 0  ? 1 : 0;
         _eachFrameExecutionSystems.Execute();
         _eachFrameExecutionSystems.Cleanup();
@@ -56,19 +56,14 @@ public class GameController : MonoBehaviour
         _eachFrameExecutionSystems.TearDown();
     }
 
-    private void DeactivateSystems(List<string> deactivatedSystems)
+    public void Turn()
     {
-        var systemInfos = simulationController.simulationPhaseSystems.childSystemInfos;
-
-        foreach (var systemInfo in systemInfos)
+        if (simulationController.timeUntilPhaseEnd < 0.0001)
         {
-            if (deactivatedSystems.Contains(systemInfo.systemName))
-            {
-                systemInfo.isActive = false;
-            }
+            simulationController.timeUntilPhaseEnd = simulationController.timeForOnePhaseCycle;
         }
     }
-
+    
     public void UpdatePlanningPhaseSystems()
     {
         _planningPhaseSystems.Execute();
