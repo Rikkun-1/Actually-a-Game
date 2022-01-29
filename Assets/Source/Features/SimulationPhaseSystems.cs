@@ -8,8 +8,8 @@ public sealed class SimulationPhaseSystems : Feature
         Add(new HealthAndDamageSystems(contexts));
 
         Add(new PathfindingSystems(contexts));
-        Add(new ViewSystems(contexts));
         Add(new ImmediateAISystems(contexts));
+        Add(new ViewSystems(contexts));
 
         Add(new CollisionSystems(contexts));
         Add(new DestructionSystems(contexts));
