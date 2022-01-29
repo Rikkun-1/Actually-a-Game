@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public abstract class EventListener : MonoBehaviour, IEventListener
+[AddComponentMenu("")] // hide in component menu
+public abstract class BaseEventListener : MonoBehaviour, IEventListener
 {
     protected GameEntity gameEntity;
 

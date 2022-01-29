@@ -1,7 +1,7 @@
 ﻿using ProceduralToolkit;
 using UnityEngine;
 
-public class ViewAngleListener : EventListener, IVisionListener
+public class ViewAngleListener : BaseVisionListener
 {
     public void OnDrawGizmos()
     {
@@ -28,29 +28,11 @@ public class ViewAngleListener : EventListener, IVisionListener
                                  directionAngle - viewingAngle / 2f,
                                  directionAngle + viewingAngle / 2f,
                                  Color.red);
-
-            // if (_entity.hasLookAtDirectionOrder)
-            // {
-            //     direction =
-            //         Quaternion.Euler(0, _entity.lookAtDirectionOrder.angle, 0) * Vector3.forward * distance;
-            //     Debug.DrawRay(position, direction, Color.red);
-            // }
-            //
-            // if (_entity.hasLookAtPositionOrder)
-            // {
-            //     var targetPosition = _entity.lookAtPositionOrder.position;
-            //     var dir            = targetPosition - _entity.worldPosition.value;
-            //
-            //     Debug.DrawRay(_entity.worldPosition.value.ToVector3XZ(), dir.ToVector3XZ(), Color.red);
-            // }
         }
     }
     
-    public void OnVision(GameEntity entity, float directionAngle, int viewingAngle, int distance, int turningSpeed)
+    public override void OnVision(GameEntity entity, float directionAngle, int viewingAngle, int distance, int turningSpeed)
     {
         transform.rotation = Quaternion.Euler(0, directionAngle, 0);
     }
-    
-    protected override void Register()                 => gameEntity.AddVisionListener(this);
-    public override    void UnregisterEventListeners() => gameEntity.RemoveVisionListener(this, false);
 }

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : HealthListener
+public class HealthBar : BaseHealthListener
 {
     public Image           healthBarImage;
     public TextMeshProUGUI healthBarText;

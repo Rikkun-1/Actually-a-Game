@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-public class ReactionBar : ReactionListener
+public class ReactionBar : BaseReactionListener
 {
     public Image reloadingBarImage;
 

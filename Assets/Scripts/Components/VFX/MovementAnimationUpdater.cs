@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(MovementAnimationController))]
-public class MovementAnimationUpdater : VelocityListener
+public class MovementAnimationUpdater : BaseVelocityListener
 {
     private MovementAnimationController _movementAnimationController;
 

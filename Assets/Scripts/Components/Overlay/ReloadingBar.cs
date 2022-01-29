@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-public class ReloadingBar : WeaponListener
+public class ReloadingBar : BaseWeaponListener
 {
     public Image reloadingBarImage;
 

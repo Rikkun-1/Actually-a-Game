@@ -1,7 +1,10 @@
-﻿public abstract class ReactionListener: EventListener, 
-                                        IReactionDelayListener, 
-                                        IReactionStartTimeListener, 
-                                        IReactionStartTimeRemovedListener
+﻿using UnityEngine;
+
+[AddComponentMenu("")] // hide in component menu
+public abstract class BaseReactionListener: BaseEventListener, 
+                                            IReactionDelayListener, 
+                                            IReactionStartTimeListener, 
+                                            IReactionStartTimeRemovedListener
 {
     public virtual void OnReactionDelay(GameEntity            entity, float newReactionDelay) {}
     public virtual void OnReactionStartTime(GameEntity        entity, float reactionStartTime) {}

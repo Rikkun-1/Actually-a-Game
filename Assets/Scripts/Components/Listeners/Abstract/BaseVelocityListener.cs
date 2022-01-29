@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public abstract class VelocityListener : EventListener, IVelocityListener
+[AddComponentMenu("")] // hide in component menu
+public abstract class BaseVelocityListener : BaseEventListener, IVelocityListener
 {
     public abstract void OnVelocity(GameEntity entity, Vector3 newVelocity);
     

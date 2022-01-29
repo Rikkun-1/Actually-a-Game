@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-class VelocityToRotationListener : VelocityListener
+class VelocityToRotationListener : BaseVelocityListener
 {
     public override void OnVelocity(GameEntity entity, Vector3 newVelocity)
     {

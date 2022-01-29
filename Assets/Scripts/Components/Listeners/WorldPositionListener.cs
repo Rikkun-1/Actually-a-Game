@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 
-public class WorldPositionListener : EventListener, IWorldPositionListener
+public class WorldPositionListener : BaseWorldPositionListener
 { 
-    public void OnWorldPosition(GameEntity e, Vector3 newPosition)
+    public override void OnWorldPosition(GameEntity e, Vector3 newPosition)
     {
         transform.position = newPosition;
     }
-        
-    protected override void Register()                 => gameEntity.AddWorldPositionListener(this);
-    public override    void UnregisterEventListeners() => gameEntity.RemoveWorldPositionListener(this, false);
 }
