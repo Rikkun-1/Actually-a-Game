@@ -58,7 +58,8 @@ namespace Entitas.CodeGeneration.Plugins {
 
     protected override Entitas.ICollector<${EntityType}> GetTrigger(Entitas.IContext<${EntityType}> context) {
         return Entitas.CollectorContextExtension.CreateCollector(
-            context, Entitas.TriggerOnEventMatcherExtension.${GroupEvent}(${MatcherType}.${ComponentName})
+            context, Entitas.TriggerOnEventMatcherExtension.${GroupEvent}(${MatcherType}.${ComponentName}),
+            Entitas.TriggerOnEventMatcherExtension.${GroupEvent}(${MatcherType}.${EventListener})
         );
     }
 
