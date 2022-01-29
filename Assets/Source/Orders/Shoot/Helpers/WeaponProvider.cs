@@ -12,6 +12,6 @@
 
     public static void GiveSniper(GameEntity e)
     {
-        e.AddWeapon(new Weapon(0, 2.5f, 0.25f, 100, 50, 1, "Prefabs/Bullet"), null);
+        e.AddWeapon(new Weapon(0, 2.5f, 0.25f, 175, 50, 1, "Prefabs/Bullet"), null);
     }
 }

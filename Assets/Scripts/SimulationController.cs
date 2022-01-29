@@ -7,10 +7,13 @@ public class SimulationController
 {
     public float timeForOnePhaseCycle = 5f;
     public float timeUntilPhaseEnd;
+    public float tickDeltaTime = 0.02f;
 
-    public  float                  tickDeltaTime = 0.02f;
-    private Contexts               _contexts;
+    public event Action OnSimulationPhaseEnd;
+
     public  SimulationPhaseSystems simulationPhaseSystems;
+
+    private Contexts _contexts;
 
     public SimulationController(Contexts contexts)
     {
@@ -35,22 +38,24 @@ public class SimulationController
                     e.AddViewPrefab("SwatModel/SwatShotgun");
                     e.AddTraversalSpeed(1.8f);
                     WeaponProvider.GiveShotgun(e);
+                    e.AddReactionDelay(0.75f);
                     break;
                 case 1:
                     e.AddVision(teamNumber == 0 ? 0 : 180, 30, 500, 200);
                     e.AddViewPrefab("SwatModel/SwatRifle");
                     e.AddTraversalSpeed(1.8f);
                     WeaponProvider.GiveRiffle(e);
+                    e.AddReactionDelay(1.25f);
                     break;
                 case 2:
                     e.AddVision(teamNumber == 0 ? 0 : 180, 30, 500, 70);
                     e.AddViewPrefab("SwatModel/SwatSniper");
                     e.AddTraversalSpeed(1.8f);
                     WeaponProvider.GiveSniper(e);
+                    e.AddReactionDelay(2.25f);
                     break;
             }
-            e.AddReactionDelay(2);
-            e.AddHealth(250, 250);
+            e.AddHealth(200, 200);
             e.AddWorldPosition(new Vector3(10 + i % amount / 2 * 6, 0, teamNumber == 0 ? 1 : 28));
             e.ReplaceTeamID(teamNumber);
             e.hasAI                                    = true;
@@ -81,9 +86,7 @@ public class SimulationController
             simulationPhaseSystems.Cleanup();
         }
     }
-
-    public event Action OnSimulationPhaseEnd;
-
+    
     public void TearDown()
     {
         simulationPhaseSystems.TearDown();
