@@ -3,21 +3,21 @@ using System.Linq;
 using Entitas;
 using UnityEngine;
 
-public class PlaceBulletHitEffectsSystem : ReactiveSystem<GameEntity>, IInitializeSystem
+public class PlaceBulletHitEffectsSystem : ReactiveSystem<PhysicsEntity>, IInitializeSystem
 {
     private readonly GameContext _game;
 
-    public PlaceBulletHitEffectsSystem(Contexts contexts) : base(contexts.game)
+    public PlaceBulletHitEffectsSystem(Contexts contexts) : base(contexts.physics)
     {
         _game = contexts.game;
     }
 
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
+    protected override ICollector<PhysicsEntity> GetTrigger(IContext<PhysicsEntity> context)
     {
-        return context.CreateCollector(GameMatcher.BulletHit);
+        return context.CreateCollector(PhysicsMatcher.BulletHit);
     }
 
-    protected override bool Filter(GameEntity entity)
+    protected override bool Filter(PhysicsEntity entity)
     {
         return true;
     }
@@ -28,7 +28,7 @@ public class PlaceBulletHitEffectsSystem : ReactiveSystem<GameEntity>, IInitiali
         _game.ReplaceBulletHitEffect(bulletHitPrefab, Object.Instantiate(bulletHitPrefab));
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void Execute(List<PhysicsEntity> entities)
     {
         var bulletHitEffect = _game.bulletHitEffect.bulletHitCachedInstance;
         var effectTransform = bulletHitEffect.transform;

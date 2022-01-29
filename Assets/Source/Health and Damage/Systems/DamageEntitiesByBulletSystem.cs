@@ -2,26 +2,26 @@
 using System.Linq;
 using Entitas;
 
-public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
+public class DamageEntitiesByBulletSystem : ReactiveSystem<PhysicsEntity>
 {
     private readonly GameContext _game;
 
-    public DamageEntitiesByBulletSystem(Contexts contexts) : base(contexts.game)
+    public DamageEntitiesByBulletSystem(Contexts contexts) : base(contexts.physics)
     {
         _game = contexts.game;
     }
 
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
+    protected override ICollector<PhysicsEntity> GetTrigger(IContext<PhysicsEntity> context)
     {
-        return context.CreateCollector(GameMatcher.BulletHit.Added());
+        return context.CreateCollector(PhysicsMatcher.BulletHit.Added());
     }
 
-    protected override bool Filter(GameEntity entity)
+    protected override bool Filter(PhysicsEntity entity)
     {
         return true;
     }
 
-    protected override void Execute(List<GameEntity> bulletHitEntities)
+    protected override void Execute(List<PhysicsEntity> bulletHitEntities)
     {
         DropCollisionsBetweenBullets(ref bulletHitEntities);
 
@@ -48,7 +48,7 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
         return true;
     }
 
-    private void DropCollisionsBetweenBullets(ref List<GameEntity> bulletHitEntities)
+    private void DropCollisionsBetweenBullets(ref List<PhysicsEntity> bulletHitEntities)
     {
         bulletHitEntities = bulletHitEntities.Where(e => _game.GetEntityWithId(e.bulletHit.colliderEntityID)
                                                               .hasBullet == false)

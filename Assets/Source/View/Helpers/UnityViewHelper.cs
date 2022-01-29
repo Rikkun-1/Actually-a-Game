@@ -7,6 +7,8 @@ public static class UnityViewHelper
     public static void DestroyView(GameEntity entity)
     {
         var view = entity.unityView.gameObject;
+        entity.RemoveUnityView();
+        
         UnregisterEventListeners(view);
         view.gameObject.Unlink();
         Object.Destroy(view);

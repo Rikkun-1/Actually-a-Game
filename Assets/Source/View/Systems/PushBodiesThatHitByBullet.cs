@@ -2,28 +2,28 @@
 using UnityEngine;
 using Entitas;
 
-public class PushBodiesThatHitByBullet : ReactiveSystem<GameEntity>
+public class PushBodiesThatHitByBullet : ReactiveSystem<PhysicsEntity>
 {
     private readonly Contexts _contexts;
 
-    public PushBodiesThatHitByBullet(Contexts contexts) : base(contexts.game)
+    public PushBodiesThatHitByBullet(Contexts contexts) : base(contexts.physics)
     {
         _contexts = contexts;
     }
 
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
+    protected override ICollector<PhysicsEntity> GetTrigger(IContext<PhysicsEntity> context)
     {
-        return context.CreateCollector(GameMatcher.BulletHit);
+        return context.CreateCollector(PhysicsMatcher.BulletHit);
     }
 
-    protected override bool Filter(GameEntity entity)
+    protected override bool Filter(PhysicsEntity entity)
     {
         return true;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void Execute(List<PhysicsEntity> entities)
     {
-        const int pushForceMultiplier = 3;
+        const float pushForceMultiplier = 2.5f;
 
         foreach (var e in entities)
         {

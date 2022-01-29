@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
-[Game]
+[Game, Physics]
 public sealed class IndestructibleComponent : IComponent
 {
 }

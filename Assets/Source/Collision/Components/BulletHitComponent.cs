@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using UnityEngine;
 
-[Game]
+[Physics]
 public sealed class BulletHitComponent : IComponent
 {
     public long       bulletEntityID;

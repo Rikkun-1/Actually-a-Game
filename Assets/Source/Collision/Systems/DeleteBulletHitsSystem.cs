@@ -2,11 +2,11 @@
 
 public class DeleteBulletHitsSystem : ICleanupSystem
 {
-    private readonly IGroup<GameEntity> _entities;
+    private readonly IGroup<PhysicsEntity> _entities;
 
     public DeleteBulletHitsSystem(Contexts contexts)
     {
-        _entities = contexts.game.GetGroup(GameMatcher.BulletHit);
+        _entities = contexts.physics.GetGroup(PhysicsMatcher.BulletHit);
     }
 
     public void Cleanup()

@@ -13,7 +13,7 @@ public class DestroyViewOnEntityDestroyedSystem : ICleanupSystem
 
     public void Cleanup()
     {
-        foreach (var e in _entities)
+        foreach (var e in _entities.GetEntities())
         {
             UnityViewHelper.DestroyView(e);
         }

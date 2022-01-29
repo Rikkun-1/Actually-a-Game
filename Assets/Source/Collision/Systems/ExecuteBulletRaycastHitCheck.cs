@@ -3,8 +3,11 @@ using Entitas;
 
 public class ExecuteBulletRaycastHitCheck : ReactiveSystem<GameEntity>
 {
+    private readonly Contexts _contexts;
+    
     public ExecuteBulletRaycastHitCheck(Contexts contexts) : base(contexts.game)
     {
+        _contexts = contexts;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -27,8 +30,9 @@ public class ExecuteBulletRaycastHitCheck : ReactiveSystem<GameEntity>
 
                 if (colliderEntity != null)
                 {
-                    EntityCreator.CreateGameEntity()
-                                 .AddBulletHit(e.id.value, colliderEntity.id.value, raycastHit);
+
+                    _contexts.physics.CreateEntity()
+                             .AddBulletHit(e.id.value, colliderEntity.id.value, raycastHit);
                 }
             }
         }
