@@ -30,5 +30,7 @@ public class RagdollControl : MonoBehaviour
         {
             body.isKinematic = false;
         }
+        
+        transform.Find("VisionCollider").GetComponent<Collider>().enabled = false;
     }
 }

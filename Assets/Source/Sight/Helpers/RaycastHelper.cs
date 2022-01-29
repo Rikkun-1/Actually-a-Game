@@ -34,4 +34,14 @@ public static class RaycastHelper
 
         return IsInClearVision(raycastOrigin, targetEntity);
     }
+    
+    public static bool Raycast(Vector3 start, Vector3 end, out RaycastHit raycastHit)
+    {
+        var direction = end - start;
+        var distance  = Vector3.Distance(end, start);
+
+        Debug.DrawRay(start, direction, Color.red, 3f);
+        
+        return Physics.Raycast(start, direction, out raycastHit, distance);
+    }
 }

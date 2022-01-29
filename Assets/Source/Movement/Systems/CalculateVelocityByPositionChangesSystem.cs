@@ -7,6 +7,7 @@ public class CalculateVelocityByPositionChangesSystem : IExecuteSystem
     public CalculateVelocityByPositionChangesSystem(Contexts contexts)
     {
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.CalculateVelocityByPositionChanges,
+                                                             GameMatcher.PreviousWorldPosition,
                                                              GameMatcher.WorldPosition));
     }
 

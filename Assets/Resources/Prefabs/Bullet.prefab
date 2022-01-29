@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 73850576041492760}
   - component: {fileID: 3301900776845890196}
   - component: {fileID: 460276214691062331}
-  - component: {fileID: 4229993146454611692}
-  - component: {fileID: 3867556364121774465}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -115,31 +113,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 3
---- !u!114 &4229993146454611692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113799101781341439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 555fb354fc24479aa20a31a51eb3bb4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3867556364121774465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113799101781341439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f754f080a4e242c9a8306b71e4c2eda0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitEffectPrefab: {fileID: 2964143736926903216, guid: af9a6a1509712b94a9c53c7bdadb603e, type: 3}
 --- !u!1 &3921029294177295661
 GameObject:
   m_ObjectHideFlags: 0

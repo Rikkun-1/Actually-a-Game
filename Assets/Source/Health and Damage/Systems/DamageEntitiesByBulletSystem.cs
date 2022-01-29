@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 
 public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
@@ -12,45 +13,48 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.Collision.Added());
+        return context.CreateCollector(GameMatcher.BulletHit.Added());
     }
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasCollision;
+        return true;
     }
 
-    protected override void Execute(List<GameEntity> collisionEntities)
+    protected override void Execute(List<GameEntity> bulletHitEntities)
     {
-        foreach (var collisionEntity in collisionEntities)
+        DropCollisionsBetweenBullets(ref bulletHitEntities);
+
+        foreach (var bulletHitEntity in bulletHitEntities)
         {
-            var (firstEntity, secondEntity) = GetCollidedEntities(collisionEntity);
+            var bulletHit = bulletHitEntity.bulletHit;
+            
+            var bulletEntity   = _game.GetEntityWithId(bulletHit.bulletEntityID);
+            var colliderEntity = _game.GetEntityWithId(bulletHit.colliderEntityID);
 
-            if (!BulletCollisionHelper.IsCollisionBetweenBulletAndOtherEntity(firstEntity, secondEntity)) continue;
+            if (!IsAllowed(bulletEntity, colliderEntity)) continue;
 
-
-            var (bulletEntity, suffererEntity) = BulletCollisionHelper.SplitToBulletAndSufferer(firstEntity, secondEntity);
-
-            if (BulletHelper.IsSelfHit(suffererEntity, bulletEntity)) continue;
-            if (BulletHelper.IsHitByTeammate(suffererEntity, bulletEntity)) continue;
-
-            AddDamageToEntity(suffererEntity, bulletEntity);
+            AddDamageToEntity(colliderEntity, bulletEntity);
 
             bulletEntity.isDestroyed = true;
         }
     }
 
-    private (GameEntity firstEntity, GameEntity secondEntity) GetCollidedEntities(GameEntity collisionEntity)
+    private static bool IsAllowed(GameEntity bulletEntity, GameEntity colliderEntity)
     {
-        var firstID  = collisionEntity.collision.firstID;
-        var secondID = collisionEntity.collision.secondID;
-
-        var firstEntity  = _game.GetEntityWithId(firstID);
-        var secondEntity = _game.GetEntityWithId(secondID);
-
-        return (firstEntity, secondEntity);
+        if (bulletEntity == null || colliderEntity == null) return false;
+        if (BulletHelper.IsSelfHit(colliderEntity, bulletEntity)) return false;
+        if (BulletHelper.IsHitByTeammate(colliderEntity, bulletEntity)) return false;
+        return true;
     }
 
+    private void DropCollisionsBetweenBullets(ref List<GameEntity> bulletHitEntities)
+    {
+        bulletHitEntities = bulletHitEntities.Where(e => _game.GetEntityWithId(e.bulletHit.colliderEntityID)
+                                                              .hasBullet == false)
+                                             .ToList();
+    }
+    
     private static void AddDamageToEntity(GameEntity suffererEntity, GameEntity bulletEntity)
     {
         if (!suffererEntity.hasHealth) return;

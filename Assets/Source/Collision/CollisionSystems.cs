@@ -2,6 +2,8 @@
 {
     public CollisionSystems(Contexts contexts)
     {
-        Add(new DeleteCollisionSystem(contexts));
+        Add(new ExecuteBulletRaycastHitCheck(contexts));
+
+        Add(new DeleteBulletHitsSystem(contexts));
     }
 }

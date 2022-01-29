@@ -48,6 +48,7 @@ public static class ShootHelper
         bullet.AddBullet(weapon.weapon.bulletDamage, shooter.id.value, shooter.teamID.value);
         bullet.AddViewPrefab(weapon.weapon.bulletPrefab);
         bullet.AddWorldPosition(weapon.weaponView.barrelEnd.position);
+        bullet.enablePreviousWorldPositionMemorization = true;
         bullet.AddVelocity(velocity);
     }
 }

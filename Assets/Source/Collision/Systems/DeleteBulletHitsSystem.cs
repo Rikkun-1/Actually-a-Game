@@ -1,12 +1,12 @@
 ﻿using Entitas;
 
-public class DeleteCollisionSystem : ICleanupSystem
+public class DeleteBulletHitsSystem : ICleanupSystem
 {
     private readonly IGroup<GameEntity> _entities;
 
-    public DeleteCollisionSystem(Contexts contexts)
+    public DeleteBulletHitsSystem(Contexts contexts)
     {
-        _entities = contexts.game.GetGroup(GameMatcher.Collision);
+        _entities = contexts.game.GetGroup(GameMatcher.BulletHit);
     }
 
     public void Cleanup()

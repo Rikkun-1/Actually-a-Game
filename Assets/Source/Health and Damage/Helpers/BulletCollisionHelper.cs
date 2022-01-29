@@ -7,11 +7,4 @@
                    ? (firstEntity, secondEntity)
                    : (secondEntity, firstEntity);
     }
-
-    public static bool IsCollisionBetweenBulletAndOtherEntity(GameEntity firstEntity, GameEntity secondEntity)
-    {
-        if (firstEntity == null || secondEntity == null)     return false;
-        if (firstEntity.hasBullet == secondEntity.hasBullet) return false;
-        return true;
-    }
 }

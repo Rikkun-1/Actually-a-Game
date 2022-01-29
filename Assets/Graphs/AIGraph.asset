@@ -267,8 +267,8 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        x: 31
-        y: 16
+        x: 28
+        y: 22
         value: 1
         find: 0
     00000005:
@@ -337,7 +337,7 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        entityID: 9
+        entityID: 2393
         map: 1
     00000009:
       type: {class: TacticalMapCreatorNode, ns: , asm: Assembly-CSharp}
@@ -354,7 +354,7 @@ MonoBehaviour:
         expanded: 0
         debug: 0
         nodeLock: 0
-        entityID: 9
+        entityID: 2393
         map: 0
     0000000A:
       type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
@@ -418,7 +418,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 17
-        val: 9
+        val: 2393
     0000000E:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
@@ -432,7 +432,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 18
-        val: 31
+        val: 28
     0000000F:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
@@ -446,7 +446,7 @@ MonoBehaviour:
         input: 1
         settings:
           id: 19
-        val: 16
+        val: 22
     00000010:
       type: {class: IntParameter, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:

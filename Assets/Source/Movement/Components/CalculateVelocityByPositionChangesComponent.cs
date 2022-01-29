@@ -2,7 +2,7 @@
 using Entitas.CodeGeneration.Attributes;
 
 [Game]
-[FlagPrefix("Enable")]
+[FlagPrefix("enable")]
 public sealed class CalculateVelocityByPositionChangesComponent : IComponent
 {
 }

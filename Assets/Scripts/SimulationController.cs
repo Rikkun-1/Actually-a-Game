@@ -23,6 +23,9 @@ public class SimulationController
 
     public void Initialize(int wallsCount, int playersCount)
     {
+        var bulletHitEffectPrefab = Resources.Load<ParticleSystem>("Effects/Weapon Effects/Prefabs/HitEffect");
+        _contexts.game.SetBulletHitEffect(bulletHitEffectPrefab, null);
+        
         simulationPhaseSystems.Initialize();
 
         var amount = playersCount;

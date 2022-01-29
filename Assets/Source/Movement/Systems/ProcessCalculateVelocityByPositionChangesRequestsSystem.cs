@@ -21,16 +21,8 @@ public class ProcessCalculateVelocityByPositionChangesRequestsSystem : ReactiveS
     {
         foreach (var e in entities)
         {
-            if (e.enableCalculateVelocityByPositionChanges)
-            {
-                e.AddPreviousWorldPosition(e.worldPosition.value);
-            }
-            else
-            {
-                e.RemovePreviousWorldPosition();
-            }
-
-            e.isIgnoredByMoveSystem = e.enableCalculateVelocityByPositionChanges;
+            e.enablePreviousWorldPositionMemorization = e.enableCalculateVelocityByPositionChanges;
+            e.isIgnoredByMoveSystem                   = e.enableCalculateVelocityByPositionChanges;
         }
     }
 }
