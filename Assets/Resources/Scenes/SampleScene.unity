@@ -996,7 +996,7 @@ MonoBehaviour:
     timeUntilPhaseEnd: 5
     tickDeltaTime: 0.02
   defaultGridSize: {x: 40, y: 40}
-  wallsCount: 0
+  wallsCount: 1500
   playersCount: 10
   timeProgress: {fileID: 649635269}
 --- !u!4 &1168647769

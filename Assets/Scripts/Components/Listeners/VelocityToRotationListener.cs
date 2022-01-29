@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 
-public class VelocityToRotationListener : EventListener, IVelocityListener
+class VelocityToRotationListener : VelocityListener
 {
-    public void OnVelocity(GameEntity entity, Vector3 value)
+    public override void OnVelocity(GameEntity entity, Vector3 newVelocity)
     {
-        transform.rotation = Quaternion.LookRotation(value);
+        transform.rotation = Quaternion.LookRotation(newVelocity);
     }
-    
-    protected override void Register()                 => gameEntity.AddVelocityListener(this);
-    public override    void UnregisterEventListeners() => gameEntity.RemoveVelocityListener(this, false);
 }

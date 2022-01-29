@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class CharacterLocomotion : MonoBehaviour
+public class MovementAnimationController : MonoBehaviour
 {
     private static readonly int   _velXHash = Animator.StringToHash("Vel X");
     private static readonly int   _velZHash = Animator.StringToHash("Vel Z");
