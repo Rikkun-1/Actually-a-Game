@@ -14,7 +14,8 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
                                                              GameMatcher.Vision)
                                                       .NoneOf(GameMatcher.ShootAtEntityOrder));
 
-        _possibleTargets = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.TeamID));
+        _possibleTargets = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.TeamID)
+                                                             .NoneOf(GameMatcher.Dead));
     }
 
     public void Execute()
@@ -35,15 +36,13 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
 
     private static bool IsInSameTeam(GameEntity e, GameEntity targetEntity)
     {
-        return e.hasTeamID &&
-               targetEntity.hasTeamID &&
-               e.teamID.value == targetEntity.teamID.value;
+        return e.teamID.value == targetEntity.teamID.value;
     }
 
     private IEnumerable<GameEntity> GetPossibleTargetsByDistance(GameEntity e)
     {
         return _possibleTargets.GetEntities()
-                               .Where(targetEntity => !IsInSameTeam(e, targetEntity) && !targetEntity.isDead)
+                               .Where(targetEntity => !IsInSameTeam(e, targetEntity))
                                .OrderBy(entity => Vector2.Distance(e.gridPosition.value, entity.gridPosition.value));
     }
 }
