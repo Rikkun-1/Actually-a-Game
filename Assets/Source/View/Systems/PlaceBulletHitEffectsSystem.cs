@@ -19,7 +19,7 @@ public class PlaceBulletHitEffectsSystem : ReactiveSystem<PhysicsEntity>, IIniti
 
     protected override bool Filter(PhysicsEntity entity)
     {
-        return true;
+        return entity.hasBulletHit;
     }
 
     public void Initialize()

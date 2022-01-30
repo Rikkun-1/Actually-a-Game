@@ -18,7 +18,7 @@ public class PushBodiesThatHitByBullet : ReactiveSystem<PhysicsEntity>
 
     protected override bool Filter(PhysicsEntity entity)
     {
-        return true;
+        return entity.hasBulletHit;
     }
 
     protected override void Execute(List<PhysicsEntity> entities)
