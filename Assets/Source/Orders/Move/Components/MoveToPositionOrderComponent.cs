@@ -1,8 +1,7 @@
-﻿using Entitas;
-using UnityEngine;
+﻿using UnityEngine;
 
 [Game]
-public sealed class MoveToPositionOrderComponent : IComponent
+public sealed class MoveToPositionOrderComponent : IOrderComponent
 {
     public Vector2Int position;
 }

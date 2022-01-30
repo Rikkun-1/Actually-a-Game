@@ -1,7 +1,5 @@
-﻿using Entitas;
-
-[Game]
-public sealed class ShootAtEntityOrderComponent : IComponent
+﻿[Game]
+public sealed class ShootAtEntityOrderComponent : IOrderComponent
 {
     public long targetID;
 }

@@ -1,7 +1,5 @@
-﻿using Entitas;
-
-[Game]
-public sealed class LookAtDirectionOrderComponent : IComponent
+﻿[Game]
+public sealed class LookAtDirectionOrderComponent : IOrderComponent
 {
     private readonly Angle _angle;
 

@@ -1,8 +1,7 @@
-﻿using Entitas;
-using UnityEngine;
+﻿using UnityEngine;
 
 [Game]
-public sealed class LookAtPositionOrderComponent : IComponent
+public sealed class LookAtPositionOrderComponent : IOrderComponent
 {
     public Vector2 position;
 }
