@@ -2,7 +2,7 @@
 
 public class DestroySystem : ICleanupSystem
 {
-    private readonly IGroup<GameEntity> _gameEntities;
+    private readonly IGroup<GameEntity>    _gameEntities;
     private readonly IGroup<PhysicsEntity> _physicalEntities;
 
     public DestroySystem(Contexts contexts)

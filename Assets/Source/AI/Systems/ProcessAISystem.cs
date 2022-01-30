@@ -14,6 +14,12 @@ public class ProcessAISystem : IInitializeSystem, IExecuteSystem
         _game     = contexts.game;
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.TeamID, GameMatcher.AI));
     }
+    
+    public void Initialize()
+    {
+        _baseGraph = _game.aIGraph.graph;
+        _processor = new ProcessGraphProcessor(_baseGraph);
+    }
 
     public void Execute()
     {
@@ -27,11 +33,5 @@ public class ProcessAISystem : IInitializeSystem, IExecuteSystem
 
             e.ReplaceMoveToPositionOrder(new Vector2Int(x, y));
         }
-    }
-
-    public void Initialize()
-    {
-        _baseGraph = _game.aIGraph.graph;
-        _processor = new ProcessGraphProcessor(_baseGraph);
     }
 }
