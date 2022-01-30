@@ -63,6 +63,7 @@ public class SimulationController
             e.ReplaceTeamID(teamNumber);
             e.hasAI                                    = true;
             e.isPlayer                                 = true;
+            e.isInteractive                            = true;
             e.enableCalculateVelocityByPositionChanges = true;
         }
 
