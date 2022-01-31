@@ -8,7 +8,8 @@ public class TargetLostSystem : IExecuteSystem
     public TargetLostSystem(Contexts contexts)
     {
         _game = contexts.game;
-        _entities = _game.GetGroup(GameMatcher.AllOf(GameMatcher.ShootAtEntityOrder,
+        _entities = _game.GetGroup(GameMatcher.AllOf(GameMatcher.LookAtEntityOrder,
+                                                     GameMatcher.ShootAtEntityOrder,
                                                      GameMatcher.Vision));
     }
 
