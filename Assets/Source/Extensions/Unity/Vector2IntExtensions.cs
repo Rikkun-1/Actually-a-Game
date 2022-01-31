@@ -17,4 +17,10 @@ public static class Vector2IntExtensions
     {
         return new Vector3(value.x, 0, value.y);
     }
+    
+    public static float ToAngle(this Vector2Int value)
+    {
+        var vector = (Vector2)value;
+        return vector.ToAngle();
+    }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [Game]
-public sealed class LookAtPositionOrderComponent : IOrderComponent
+public sealed class LookAtPositionOrderComponent : IOrderComponent, IRequiresVector2Position
 {
-    public Vector2 position;
+    public Vector2 position { get; set; }
 }

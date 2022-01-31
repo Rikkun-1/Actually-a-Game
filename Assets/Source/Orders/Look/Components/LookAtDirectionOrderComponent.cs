@@ -1,5 +1,5 @@
 ﻿[Game]
-public sealed class LookAtDirectionOrderComponent : IOrderComponent
+public sealed class LookAtDirectionOrderComponent : IOrderComponent, IRequiresDirection
 {
     private readonly Angle _angle;
 

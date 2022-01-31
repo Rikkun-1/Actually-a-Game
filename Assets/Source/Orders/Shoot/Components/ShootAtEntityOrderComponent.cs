@@ -1,5 +1,5 @@
 ﻿[Game]
-public sealed class ShootAtEntityOrderComponent : IOrderComponent
+public sealed class ShootAtEntityOrderComponent : IOrderComponent, IRequiresTargetID
 {
-    public long targetID;
+    public long targetID { get; set; }
 }

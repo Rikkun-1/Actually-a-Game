@@ -39,31 +39,29 @@ public class SimulationController
                 case 0:
                     e.AddVision(teamNumber == 0 ? 0 : 180, 30, 500, 400);
                     e.AddViewPrefab("SwatModel/SwatShotgun");
-                    e.AddTraversalSpeed(1.8f);
                     WeaponProvider.GiveShotgun(e);
                     e.AddReactionDelay(0.75f);
                     break;
                 case 1:
                     e.AddVision(teamNumber == 0 ? 0 : 180, 30, 500, 200);
                     e.AddViewPrefab("SwatModel/SwatRifle");
-                    e.AddTraversalSpeed(1.8f);
                     WeaponProvider.GiveRiffle(e);
                     e.AddReactionDelay(1.25f);
                     break;
                 case 2:
                     e.AddVision(teamNumber == 0 ? 0 : 180, 30, 500, 70);
                     e.AddViewPrefab("SwatModel/SwatSniper");
-                    e.AddTraversalSpeed(1.8f);
                     WeaponProvider.GiveSniper(e);
                     e.AddReactionDelay(2.25f);
                     break;
             }
+            e.AddTraversalSpeed(1.8f);
             e.AddHealth(200, 200);
             e.AddWorldPosition(new Vector3(10 + i % amount / 2 * 6, 0, teamNumber == 0 ? 1 : 28));
             e.ReplaceTeamID(teamNumber);
-            e.hasAI                                    = true;
+            e.hasAI                                    = teamNumber == 1;
             e.isPlayer                                 = true;
-            e.isInteractive                            = true;
+            e.isInteractive                            = teamNumber != 1;
             e.enableCalculateVelocityByPositionChanges = true;
         }
 

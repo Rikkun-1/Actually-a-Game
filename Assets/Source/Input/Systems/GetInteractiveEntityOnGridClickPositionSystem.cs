@@ -25,15 +25,14 @@ public class GetInteractiveEntityOnGridClickPositionSystem : ReactiveSystem<Inpu
 
     protected override void Execute(List<InputEntity> entities)
     {
-        foreach (var e in entities)
-        {
-            var entitiesOnPosition = _game.GetEntitiesWithGridPosition(e.mouseGridClickPosition.value);
-            var interactiveEntity = entitiesOnPosition.FirstOrDefault(entity => entity.isInteractive);
+        if (_input.hasSelectedEntity && _input.hasSelectedOrder) return;
+        
+        var entitiesOnPosition = _game.GetEntitiesWithGridPosition(_input.mouseGridClickPosition.value);
+        var interactiveEntity = entitiesOnPosition.FirstOrDefault(entity => entity.isInteractive);
 
-            if (interactiveEntity != null)
-            {
-                _input.ReplaceSelectedEntity(interactiveEntity.id.value);
-            }
+        if (interactiveEntity != null)
+        {
+            _input.ReplaceSelectedEntity(interactiveEntity.id.value);
         }
     }
 }
