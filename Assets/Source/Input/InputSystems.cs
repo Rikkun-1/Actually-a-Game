@@ -6,6 +6,7 @@
         Add(new GetInteractiveEntityOnGridClickPositionSystem(contexts));
         
         Add(new AddSelectedOrderComponentToEntitySystem(contexts));
+        Add(new VisualizeSelectedEntitySystem(contexts));
         
         Add(new DrawSelectedInteractiveEntitySystem(contexts));
     }
