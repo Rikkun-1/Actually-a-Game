@@ -40,7 +40,7 @@ public class GameControllerEditor : Editor
 
     private static void CreateGameEntity()
     {
-        var entity = EntityCreator.CreateGameEntity();
+        var entity = GameEntityCreator.CreateEntity();
         Selection.activeGameObject = FindObjectsOfType<EntityBehaviour>()
                                     .Single(e => e.entity == entity).gameObject;
     }

@@ -44,7 +44,7 @@ public static class ShootHelper
 
     private static void CreateBullet(GameEntity shooter, WeaponComponent weapon, Vector3 velocity)
     {
-        var bullet = EntityCreator.CreateGameEntity();
+        var bullet = GameEntityCreator.CreateEntity();
         bullet.AddBullet(weapon.weapon.bulletDamage, shooter.id.value, shooter.teamID.value);
         bullet.AddViewPrefab(weapon.weapon.bulletPrefab);
         bullet.AddWorldPosition(weapon.weaponView.barrelEnd.position);

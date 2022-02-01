@@ -24,7 +24,7 @@ public class TestGridWallsSystem : IExecuteSystem
 
         if (Random.Range(0, 10) >= 5) return;
         
-        var e = EntityCreator.CreateGameEntity();
+        var e = GameEntityCreator.CreateEntity();
         e.AddWorldPosition(position.ToVector3XZ());
         e.AddHealth(50, 50);
         e.ReplaceViewPrefab("Prefabs/Wall");
