@@ -8,7 +8,7 @@ public class OrderButton : MonoBehaviour
 
     public void Start()
     {
-        GetComponent<Button>().onClick.AddListener(Click);
+        GetComponent<Button>().onClick.AddListener(Click);;
     }
 
     public void Click()
