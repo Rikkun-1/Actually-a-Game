@@ -6,6 +6,8 @@
         Add(new PushBodiesThatHitByBullet(contexts));
         Add(new UpdateUnityViewSystem(contexts));
         Add(new ColorizeTeamsSystem(contexts));
+        Add(new RotateWallsViewByTypeSystem(contexts));
+
         Add(new DestroyViewOnEntityDestroyedSystem(contexts));
     }
 }
