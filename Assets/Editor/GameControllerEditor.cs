@@ -19,8 +19,6 @@ public class GameControllerEditor : Editor
     {
         DrawDefaultInspector();
 
-        LabelField("ID for next created entity", EntityCreator.currentID.ToString());
-
         if (Button("Create game entity"))  CreateGameEntity();
         if (Button("Play"))                Play();
         if (Button("Play planning phase")) PlayPlaningPhase();

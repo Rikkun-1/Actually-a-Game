@@ -1,11 +1,9 @@
 ﻿public static class EntityCreator
 {
-    public static long currentID { get; private set; }
-
     public static GameEntity CreateGameEntity(Contexts contexts)
     {
         var e = contexts.game.CreateEntity();
-        e.AddId(currentID++);
+        e.AddId(e.creationIndex);
 
         return e;
     }
