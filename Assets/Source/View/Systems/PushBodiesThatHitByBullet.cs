@@ -23,7 +23,7 @@ public class PushBodiesThatHitByBullet : ReactiveSystem<PhysicsEntity>
 
     protected override void Execute(List<PhysicsEntity> entities)
     {
-        const float pushForceMultiplier = 2.5f;
+        const float pushForceMultiplier = 1.5f;
 
         foreach (var e in entities)
         {
