@@ -1668,7 +1668,7 @@ PrefabInstance:
     - target: {fileID: 8124565995924053864, guid: f6ee2dd25ceed284ca8ae8e6bcac17dc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ad525c164d656954a9abb8859fe6ea65, type: 3}
+      objectReference: {fileID: 21300000, guid: 60ce13fcb47996c448ddfa9416a9061a, type: 3}
     - target: {fileID: 8124565995924053866, guid: f6ee2dd25ceed284ca8ae8e6bcac17dc, type: 3}
       propertyPath: m_SizeDelta.x
       value: -8

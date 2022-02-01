@@ -59,6 +59,7 @@ public class SimulationController
             e.AddHealth(200, 200);
             e.AddWorldPosition(new Vector3(10 + i % amount / 2 * 6, 0, teamNumber == 0 ? 1 : 28));
             e.ReplaceTeamID(teamNumber);
+            e.AddTeamColor(teamNumber == 1 ? Color.red : Color.green);
             e.hasAI                                    = teamNumber == 1;
             e.isPlayer                                 = true;
             e.isInteractive                            = teamNumber != 1;

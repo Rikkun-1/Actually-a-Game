@@ -10,11 +10,11 @@ public class HealthBar : BaseHealthListener
 
     public GameObject takenPrefab;
 
-    private int   _previousHealth;
-    private float _parentWidth;
-    private bool  _isHidden;
+    private RectTransform _rectTransform;
+    private int           _previousHealth;
+    private bool          _isHidden;
 
-    private void  Start() => _parentWidth = GetComponent<RectTransform>().rect.width;
+    private void  Start() => _rectTransform = GetComponent<RectTransform>();
 
     public override void OnHealth(GameEntity entity, int currentHealth, int maxHealth)
     {
@@ -52,8 +52,10 @@ public class HealthBar : BaseHealthListener
 
     private void VisualizeTakenFragment(int newHealth, int newMaxHealth)
     {
-        var x     = _parentWidth * newHealth / newMaxHealth;
-        var width = _parentWidth * (_previousHealth - newHealth) / newMaxHealth;
+        var parentWidth = _rectTransform.rect.width;
+        
+        var x     = parentWidth * newHealth / newMaxHealth;
+        var width = parentWidth * (_previousHealth - newHealth) / newMaxHealth;
 
         Instantiate(takenPrefab, transform)
            .GetComponent<TakenHealthScript>()
