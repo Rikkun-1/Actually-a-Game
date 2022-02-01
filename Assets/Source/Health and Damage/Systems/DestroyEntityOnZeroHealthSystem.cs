@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 
 public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
@@ -19,23 +20,26 @@ public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in entities)
+        var entitiesWithZeroHealth = entities.Where(e => e.health.currentHealth <= 0);
+        
+        foreach (var e in entitiesWithZeroHealth)
         {
-            if (e.health.currentHealth <= 0)
+            if (e.hasVision)         e.RemoveVision();
+            if (e.hasTraversalSpeed) e.RemoveTraversalSpeed();
+            e.hasAI  = false;
+            e.isDead = true;
+            
+            if (e.hasUnityView)
             {
-                if (e.unityView.gameObject.GetComponent<RagdollControl>())
+                var destroyableComponent = e.unityView.gameObject.GetComponent<Destroyable>();
+                if (destroyableComponent != null)
                 {
-                    e.unityView.gameObject.GetComponent<RagdollControl>().MakePhysical();
-                    e.RemoveVision();
-                    e.RemoveTraversalSpeed();
-                    e.hasAI  = false;
-                    e.isDead = true;
+                    destroyableComponent.OnDestroy.Invoke();
+                    continue;
                 }
-                else
-                {
-                    e.isDestroyed = true;
-                }
-            }
+            } 
+            
+            e.isDestroyed = true;
         }
     }
 }

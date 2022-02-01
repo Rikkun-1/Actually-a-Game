@@ -4703,6 +4703,7 @@ GameObject:
   - component: {fileID: 4495541608435301995}
   - component: {fileID: 3657422190945266611}
   - component: {fileID: 532777800474608328}
+  - component: {fileID: 8682506025347488208}
   m_Layer: 0
   m_Name: Swat
   m_TagString: Untagged
@@ -5098,6 +5099,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454ff58adf1070341bcb5c9404f38c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8682506025347488208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069315219045929263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9862942552d4308900c5f1d9a1af2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnDestroy:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9069315219045929262}
+        m_TargetAssemblyTypeName: RagdollControl, Assembly-CSharp
+        m_MethodName: MakePhysical
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1695352168487478621}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9171891770166187667
 GameObject:
   m_ObjectHideFlags: 0
@@ -5349,5 +5389,10 @@ PrefabInstance:
 --- !u!224 &1996424663076856702 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5307166633039532302, guid: 29594a3327b8cb440a75a16d4bc03561, type: 3}
+  m_PrefabInstance: {fileID: 5913910517980131952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1695352168487478621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5014045258930231085, guid: 29594a3327b8cb440a75a16d4bc03561, type: 3}
   m_PrefabInstance: {fileID: 5913910517980131952}
   m_PrefabAsset: {fileID: 0}
