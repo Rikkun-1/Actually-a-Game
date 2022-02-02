@@ -1,12 +1,12 @@
 ﻿using Entitas;
 
-public class DestroyViewOnEntityDestroyedSystem : ICleanupSystem
+public class DeleteViewOnEntityDeletedSystem : ICleanupSystem
 {
     private readonly IGroup<GameEntity> _entities;
 
-    public DestroyViewOnEntityDestroyedSystem(Contexts contexts)
+    public DeleteViewOnEntityDeletedSystem(Contexts contexts)
     {
-        _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Destroyed,
+        _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Deleted,
                                                              GameMatcher.UnityView)
                                                       .NoneOf(GameMatcher.Indestructible));
     }

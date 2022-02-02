@@ -8,6 +8,6 @@
         Add(new ColorizeTeamsSystem(contexts));
         Add(new RotateWallsViewByTypeSystem(contexts));
 
-        Add(new DestroyViewOnEntityDestroyedSystem(contexts));
+        Add(new DeleteViewOnEntityDeletedSystem(contexts));
     }
 }

@@ -13,7 +13,7 @@ public class DeleteBulletHitsSystem : ICleanupSystem
     {
         foreach (var e in _entities)
         {
-            e.isDestroyed = true;
+            e.isDeleted = true;
         }
     }
 }

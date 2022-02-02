@@ -31,7 +31,7 @@ public class DeleteEntitiesOutsideGridSystem : ReactiveSystem<GameEntity>
 
             if (IsOutsideMap(position, gridSize))
             {
-                e.isDestroyed = true;
+                e.isDeleted = true;
             }
         }
     }

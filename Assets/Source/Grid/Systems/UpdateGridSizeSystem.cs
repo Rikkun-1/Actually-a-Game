@@ -33,7 +33,7 @@ public class UpdateGridSizeSystem : ReactiveSystem<GameEntity>
     {
         foreach (var e in _entitiesOnMap.GetEntities())
         {
-            e.isDestroyed = true;
+            e.isDeleted = true;
         }
     }
 

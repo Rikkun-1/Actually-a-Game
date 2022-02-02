@@ -55,7 +55,7 @@ public class TestGridWallsSystem : IExecuteSystem
                 }
                 break;
             default:
-                e.isDestroyed = true;
+                e.isDeleted = true;
                 break;
         }
     }

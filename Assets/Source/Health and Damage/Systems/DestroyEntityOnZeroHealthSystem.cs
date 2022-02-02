@@ -26,20 +26,14 @@ public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
         {
             if (e.hasVision)         e.RemoveVision();
             if (e.hasTraversalSpeed) e.RemoveTraversalSpeed();
-            e.hasAI  = false;
-            e.isDead = true;
-            
-            if (e.hasUnityView)
-            {
-                var destroyableComponent = e.unityView.gameObject.GetComponent<Destroyable>();
-                if (destroyableComponent != null)
-                {
-                    destroyableComponent.OnDestroy.Invoke();
-                    continue;
-                }
-            } 
-            
+            e.hasAI       = false;
             e.isDestroyed = true;
+
+            if (!e.hasUnityView) continue;
+            var destroyableComponent = e.unityView.gameObject.GetComponent<Destroyable>();
+            if (destroyableComponent == null) continue;
+                
+            destroyableComponent.OnDestroy.Invoke();
         }
     }
 }

@@ -28,7 +28,7 @@ public class TestGridNonWalkableSystem : IExecuteSystem
         {
             var rand = Random.Range(0, _nonWalkableEntities.count);
 
-            _nonWalkableEntities.GetEntities()[rand].isDestroyed = true;
+            _nonWalkableEntities.GetEntities()[rand].isDeleted = true;
         }
     }
 }

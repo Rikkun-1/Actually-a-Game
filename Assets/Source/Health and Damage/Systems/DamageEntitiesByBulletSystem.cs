@@ -36,7 +36,7 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<PhysicsEntity>
 
             AddDamageToEntity(colliderEntity, bulletEntity);
 
-            bulletEntity.isDestroyed = true;
+            bulletEntity.isDeleted = true;
         }
     }
 
