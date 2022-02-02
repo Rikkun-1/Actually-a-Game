@@ -31,27 +31,27 @@ public class TestGridWallsSystem : IExecuteSystem
         switch (Random.Range(0, 4))
         {
             case 0
-                when entitiesOnPosition.All(entity => entity.isNorthWall == false):
+                when entitiesOnPosition.All(entity => !entity.hasWall || entity.wall.direction != Direction.Top):
                 {
-                    e.isNorthWall = true;
+                    e.AddWall(Direction.Top);
                 }
                 break;
             case 1
-                when entitiesOnPosition.All(entity => entity.isSouthWall == false):
+                when entitiesOnPosition.All(entity => !entity.hasWall || entity.wall.direction != Direction.Bottom):
                 {
-                    e.isSouthWall = true;
+                    e.AddWall(Direction.Bottom);
                 }
                 break;
             case 2
-                when entitiesOnPosition.All(entity => entity.isEastWall == false):
+                when entitiesOnPosition.All(entity => !entity.hasWall || entity.wall.direction != Direction.Right):
                 {
-                    e.isEastWall = true;
+                    e.AddWall(Direction.Right);
                 }
                 break;
             case 3
-                when entitiesOnPosition.All(entity => entity.isWestWall == false):
+                when entitiesOnPosition.All(entity => !entity.hasWall || entity.wall.direction != Direction.Left):
                 {
-                    e.isWestWall = true;
+                    e.AddWall(Direction.Left);
                 }
                 break;
             default:

@@ -4,7 +4,7 @@ using Roy_T.AStar.Primitives;
 
 public static class GridChanger
 {
-    public static void ReconnectNode(GameContext context, Grid grid, int x, int y)
+    public static void ReconnectNode(GameContext game, Grid grid, int x, int y)
     {
         var velocity = Velocity.FromMetersPerSecond(2);
 
@@ -47,7 +47,7 @@ public static class GridChanger
             grid.AddTwoWayEdge(bottom, right,       velocity);
         }
 
-        bool canGoDirection(Direction direction) => CanGoChecker.CanGoDirection(context, grid, from, direction);
+        bool canGoDirection(Direction direction) => CanGoChecker.CanGoDirection(game, grid, from, direction);
     }
 
     public static void DisconnectNode(Grid grid, int x, int y)

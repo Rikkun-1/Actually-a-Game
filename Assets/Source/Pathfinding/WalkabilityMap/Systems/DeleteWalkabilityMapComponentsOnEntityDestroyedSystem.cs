@@ -8,10 +8,7 @@ public class DeleteWalkabilityMapComponentsOnEntityDestroyedSystem : IExecuteSys
     {
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Destroyed)
                                                       .AnyOf(GameMatcher.NonWalkable,
-                                                             GameMatcher.NorthWall,
-                                                             GameMatcher.SouthWall,
-                                                             GameMatcher.WestWall,
-                                                             GameMatcher.EastWall)
+                                                             GameMatcher.Wall)
                                                       .NoneOf(GameMatcher.Indestructible));
     }
 
@@ -20,10 +17,7 @@ public class DeleteWalkabilityMapComponentsOnEntityDestroyedSystem : IExecuteSys
         foreach (var e in _entities.GetEntities())
         {
             e.isNonWalkable = false;
-            e.isNorthWall   = false;
-            e.isSouthWall   = false;
-            e.isWestWall    = false;
-            e.isEastWall    = false;
+            e.RemoveWall();
         }
     }
 }

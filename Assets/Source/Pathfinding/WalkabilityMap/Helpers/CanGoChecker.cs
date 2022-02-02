@@ -45,11 +45,8 @@ public static class CanGoChecker
                 throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
         }
 
-        bool isWalkable(GridPosition position)
-        {
-            return context.GetEntitiesWithGridPosition(position.ToVector2Int())
-                          .All(e => !e.isNonWalkable);
-        }
+        bool isWalkable(GridPosition position) => context.GetEntitiesWithGridPosition(position.ToVector2Int())
+                                                         .All(e => !e.isNonWalkable);
     }
 
     private static bool NoWallsInLateralDirection(GameContext context, GridPosition from,
@@ -72,13 +69,21 @@ public static class CanGoChecker
             _                => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
 
-        bool noTopWall(GridPosition position) => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isNorthWall);
+        bool noTopWall(GridPosition position)
+            => context.GetEntitiesWithGridPosition(position.ToVector2Int())
+                      .All(e => !e.hasWall || e.wall.direction != Direction.Top);
 
-        bool noRightWall(GridPosition position) => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isEastWall);
+        bool noRightWall(GridPosition position)
+            => context.GetEntitiesWithGridPosition(position.ToVector2Int())
+                      .All(e => !e.hasWall || e.wall.direction != Direction.Right);
 
-        bool noBottomWall(GridPosition position) => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isSouthWall);
+        bool noBottomWall(GridPosition position)
+            => context.GetEntitiesWithGridPosition(position.ToVector2Int())
+                      .All(e => !e.hasWall || e.wall.direction != Direction.Bottom);
 
-        bool noLeftWall(GridPosition position) => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isWestWall);
+        bool noLeftWall(GridPosition position)
+            => context.GetEntitiesWithGridPosition(position.ToVector2Int())
+                      .All(e => !e.hasWall || e.wall.direction != Direction.Left);
     }
 
     private static bool NoWallsInDirection(GameContext context, GridPosition from,

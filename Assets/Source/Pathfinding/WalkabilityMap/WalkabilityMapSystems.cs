@@ -7,5 +7,6 @@
         Add(new ResizePathfindingMapSystem(contexts));
         Add(new DeleteWalkabilityMapComponentsOnEntityDestroyedSystem(contexts));
         Add(new UpdateNonWalkableMapSystem(contexts));
+        Add(new UpdateWallMapSystem(contexts));
     }
 }
