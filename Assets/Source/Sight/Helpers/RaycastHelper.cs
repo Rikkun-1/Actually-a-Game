@@ -6,7 +6,7 @@ public static class RaycastHelper
 
     static RaycastHelper()
     {
-        _layerMask.value = LayerMask.GetMask("Default", "VisionCheck");
+        _layerMask.value = LayerMask.GetMask("Default", "Vision Check");
     }
 
     public static bool IsInClearVision(Vector3 origin, Vector3 target)

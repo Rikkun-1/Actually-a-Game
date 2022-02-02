@@ -11,7 +11,7 @@ public class GetGridClickSystem : IInitializeSystem, IExecuteSystem
 
     public GetGridClickSystem(Contexts contexts)
     {
-        _layerMask.value = LayerMask.GetMask("Ground", "UI");
+        _layerMask.value = LayerMask.GetMask("Ground");
         _input           = contexts.input;
     }
 
