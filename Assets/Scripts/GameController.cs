@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public BaseGraph               AIGraph;
-    public SimulationController    simulationController;
-    public Vector2Int              defaultGridSize = new Vector2Int(10, 10);
-    public int                     wallsCount;
-    public int                     playersCount;
+    public BaseGraph            AIGraph;
+    public SimulationController simulationController;
+    public Vector2Int           defaultGridSize = new Vector2Int(10, 10);
+    public int                  wallsCount;
+    public int                  playersCount;
+    public float                timeScale;
 
     private Contexts                  _contexts;
     private EachFrameExecutionSystems _eachFrameExecutionSystems;
@@ -26,6 +27,7 @@ public class GameController : MonoBehaviour
         simulationController                      =  new SimulationController(_contexts);
         _planningPhaseSystems                     =  new PlanningPhaseSystems(_contexts);
         simulationController.OnSimulationPhaseEnd += UpdatePlanningPhaseSystems;
+        simulationController.tickDeltaTime        =  Time.fixedDeltaTime;
         
         _contexts.game.SetAIGraph(AIGraph);
         _contexts.game.SetSimulationTick(0, 0, 0);
@@ -37,12 +39,12 @@ public class GameController : MonoBehaviour
 
         _planningPhaseSystems.Initialize();
     }
-
+    
     private void Update()
     {
         timeProgress.fillAmount = 1 - simulationController.timeUntilPhaseEnd / simulationController.timeForOnePhaseCycle;
         
-        Time.timeScale = simulationController.timeUntilPhaseEnd > 0  ? 1 : 0;
+        Time.timeScale = simulationController.timeUntilPhaseEnd > 0  ? timeScale : 0;
         _eachFrameExecutionSystems.Execute();
         _eachFrameExecutionSystems.Cleanup();
     }

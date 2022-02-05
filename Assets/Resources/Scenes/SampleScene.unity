@@ -1407,6 +1407,7 @@ MonoBehaviour:
   wallsCount: 2500
   playersCount: 20
   timeProgress: {fileID: 649635269}
+  timeScale: 1
 --- !u!4 &1168647769
 Transform:
   m_ObjectHideFlags: 0
