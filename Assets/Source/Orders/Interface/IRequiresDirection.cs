@@ -1,4 +1,6 @@
-﻿public interface IRequiresDirection
+﻿using UnityEngine;
+
+public interface IRequiresDirection
 {
-    public float angle { get; set; }
+    public Vector2 direction { get; set; }
 }

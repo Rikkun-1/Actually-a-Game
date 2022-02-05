@@ -14,7 +14,7 @@ public class ExecuteLookDirectionOrderSystem : IExecuteSystem
     {
         foreach (var e in _entities)
         {
-            var desiredAngle = e.lookAtDirectionOrder.angle;
+            var desiredAngle = e.lookAtDirectionOrder.direction.ToAngle();
             var angleDelta   = e.vision.turningSpeed * GameTime.deltaTime;
             VisionHelper.RotateEntityVisionTowards(e, desiredAngle, angleDelta);
         }

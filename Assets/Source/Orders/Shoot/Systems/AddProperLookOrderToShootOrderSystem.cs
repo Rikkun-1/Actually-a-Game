@@ -25,7 +25,7 @@ public class AddProperLookOrderToShootOrderSystem : ReactiveSystem<GameEntity>
     {
         foreach (var e in entities)
         {
-            if (e.hasShootAtDirectionOrder) e.ReplaceLookAtDirectionOrder(e.shootAtDirectionOrder.angle);
+            if (e.hasShootAtDirectionOrder) e.ReplaceLookAtDirectionOrder(e.shootAtDirectionOrder.direction);
             if (e.hasShootAtPositionOrder)  e.ReplaceLookAtPositionOrder(e.shootAtPositionOrder.position);
             if (e.hasShootAtEntityOrder)    e.ReplaceLookAtEntityOrder(e.shootAtEntityOrder.targetID);
         }

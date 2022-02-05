@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Entitas;
-using ProceduralToolkit;
-using UnityEngine;
 
 public class AddSelectedOrderComponentToEntitySystem : ReactiveSystem<InputEntity>
 {
@@ -29,14 +27,14 @@ public class AddSelectedOrderComponentToEntitySystem : ReactiveSystem<InputEntit
     protected override void Execute(List<InputEntity> entities)
     {
         if (!_input.hasSelectedEntity || !_input.hasSelectedOrder) return;
-        
+
         var selectedEntity = _game.GetEntityWithId(_input.selectedEntity.gameEntityID);
         if (selectedEntity == null) return;
 
         var selectedOrderName  = _input.selectedOrder.orderName;
         var selectedOrderIndex = Array.IndexOf(GameComponentsLookup.componentNames, selectedOrderName);
         var selectedOrderType  = GameComponentsLookup.componentTypes[selectedOrderIndex];
-        
+
         var selectedOrderComponent = selectedEntity.CreateComponent(selectedOrderIndex, selectedOrderType);
 
         SetupComponent(selectedEntity, selectedOrderComponent);
@@ -57,32 +55,30 @@ public class AddSelectedOrderComponentToEntitySystem : ReactiveSystem<InputEntit
     {
         var mouseGridClickPosition = _input.mouseGridClickPosition.value;
 
-        if (selectedOrderComponent is IRequiresVector2IntPosition requiresVector2IntPosition)
+        switch (selectedOrderComponent)
         {
-            requiresVector2IntPosition.position = mouseGridClickPosition;
-            DebugE.DrawWireQuadXZ(mouseGridClickPosition.ToVector3XZ(), Quaternion.identity, Vector2.one, Color.magenta, 15f);
-            return;
-        }
-
-        if (selectedOrderComponent is IRequiresVector2Position requiresVector2Position)
-        {
-            requiresVector2Position.position = mouseGridClickPosition;
-            DebugE.DrawWireQuadXZ(mouseGridClickPosition.ToVector3XZ(), Quaternion.identity, Vector2.one, Color.magenta, 15f);
-            return;
-        }
-        
-        if (selectedOrderComponent is IRequiresDirection requiresDirection)
-        {
-            var direction = mouseGridClickPosition - selectedEntity.gridPosition.value;
-            requiresDirection.angle = direction.ToAngle();
-            Debug.DrawRay(selectedEntity.worldPosition.value, direction.ToVector3XZ(), Color.magenta, 15f);
-            return;
-        }
-        
-        if (selectedOrderComponent is IRequiresTargetID requiresTargetID)
-        {
-            requiresTargetID.targetID = _game.GetEntitiesWithGridPosition(mouseGridClickPosition)
-                                             .First(e => e.isPlayer).id.value;
+            case IRequiresVector2IntPosition requiresVector2IntPosition:
+                {
+                    requiresVector2IntPosition.position = mouseGridClickPosition;
+                    break;
+                }
+            case IRequiresVector2Position requiresVector2Position:
+                {
+                    requiresVector2Position.position = mouseGridClickPosition;
+                    break;
+                }
+            case IRequiresDirection requiresDirection:
+                {
+                    var direction = mouseGridClickPosition - selectedEntity.gridPosition.value;
+                    requiresDirection.direction = direction;
+                    break;
+                }
+            case IRequiresTargetID requiresTargetID:
+                {
+                    requiresTargetID.targetID = _game.GetEntitiesWithGridPosition(mouseGridClickPosition)
+                                                     .First(e => e.isPlayer).id.value;
+                    break;
+                }
         }
     }
 }

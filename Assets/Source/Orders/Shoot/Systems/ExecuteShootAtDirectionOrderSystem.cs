@@ -17,7 +17,7 @@ public class ExecuteShootAtDirectionOrderSystem : IExecuteSystem
     {
         foreach (var e in _entities)
         {
-            var direction = e.shootAtDirectionOrder.angle;
+            var direction = e.shootAtDirectionOrder.direction.ToAngle();
             if (AimHelper.IsAimingAtTargetDirection(e, direction))
             {
                 ShootHelper.Shoot(e, e.weapon);
