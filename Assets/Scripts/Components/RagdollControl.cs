@@ -3,15 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class RagdollControl : MonoBehaviour
 {
-    private Animator    _animator;
-    private Rigidbody[] _rigidbodies;
+    public Animator    _animator;
+    public Rigidbody[] _rigidbodies;
 
     private void Start()
     {
-        _animator    = GetComponent<Animator>();
-        _rigidbodies = GetComponentsInChildren<Rigidbody>();
-
-        MakeAnimated();
+        _animator    ??= GetComponent<Animator>();
+        _rigidbodies ??= GetComponentsInChildren<Rigidbody>();
     }
 
     public void MakeAnimated()
@@ -30,7 +28,5 @@ public class RagdollControl : MonoBehaviour
         {
             body.isKinematic = false;
         }
-        
-        transform.Find("VisionCollider").GetComponent<Collider>().enabled = false;
     }
 }
