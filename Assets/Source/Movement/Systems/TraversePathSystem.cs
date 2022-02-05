@@ -44,7 +44,7 @@ public class TraversePathSystem : IExecuteSystem
     private bool IsOccupiedByAnotherPlayer(GameEntity e, Vector2Int nextWaypoint)
     {
         return _game.GetEntitiesWithGridPosition(nextWaypoint)
-                    .Any(entity => entity.isPlayer && !entity.isDead && entity.id.value != e.id.value);
+                    .Any(entity => entity.isPlayer && !entity.isDestroyed && entity.id.value != e.id.value);
     }
 
     private static float SkipWaypoints(GameEntity e)

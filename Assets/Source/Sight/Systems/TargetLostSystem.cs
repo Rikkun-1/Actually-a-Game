@@ -18,7 +18,7 @@ public class TargetLostSystem : IExecuteSystem
         foreach (var e in _entities.GetEntities())
         {
             var targetEntity = GetTargetEntity(e);
-            if (targetEntity == null || targetEntity.isDead || !RaycastHelper.IsInClearVision(e, targetEntity))
+            if (targetEntity == null || targetEntity.isDestroyed || !RaycastHelper.IsInClearVision(e, targetEntity))
             {
                 TargetLost(e);
             }
