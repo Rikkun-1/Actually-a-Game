@@ -21,6 +21,8 @@ public class ScaleWithOrthographicCameraSize : MonoBehaviour
     private void Update()
     {
         var newScale = _defaultScale * _camera.orthographicSize / defaultCameraOrthographicSize;
+        if (newScale == _rectTransform.localScale) return;
+        
         newScale.x = Mathf.Clamp(newScale.x, minScale.x, maxScale.x);
         newScale.y = Mathf.Clamp(newScale.y, minScale.y, maxScale.y);
         
