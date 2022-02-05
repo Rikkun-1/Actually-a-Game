@@ -21,7 +21,7 @@ public class DrawWalkableTilesSystem : IExecuteSystem
                 var start = edge.Start.Position.ToVector3XZ();
                 var end   = edge.End.Position.ToVector3XZ();
 
-                Debug.DrawLine(start, end, new Color(0, 255, 0));
+                Debug.DrawLine(start, end, Color.red);
             }
         }
     }
