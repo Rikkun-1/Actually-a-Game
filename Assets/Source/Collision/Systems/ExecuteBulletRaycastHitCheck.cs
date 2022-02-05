@@ -5,7 +5,7 @@ using UnityEngine;
 public class ExecuteBulletRaycastHitCheck : ReactiveSystem<GameEntity>
 {
     private readonly PhysicsContext _physics;
-    private static   LayerMask      _layerMask;
+    private readonly LayerMask      _layerMask;
     
     public ExecuteBulletRaycastHitCheck(Contexts contexts) : base(contexts.game)
     {
