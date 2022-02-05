@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        UnityViewHelper.ClearCachedResources();
+        
         Contexts.sharedInstance                   =  new Contexts();
         _contexts                                 =  Contexts.sharedInstance;
         _eachFrameExecutionSystems                =  new EachFrameExecutionSystems(_contexts);

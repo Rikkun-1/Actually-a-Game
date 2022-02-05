@@ -4,6 +4,13 @@ using UnityEngine;
 
 public static class UnityViewHelper
 {
+    private static readonly Dictionary<string, GameObject> _cachedResources = new Dictionary<string, GameObject>();
+
+    public static void ClearCachedResources()
+    {
+        _cachedResources.Clear();
+    }
+    
     public static void DestroyView(GameEntity entity)
     {
         var view = entity.unityView.gameObject;
@@ -16,6 +23,12 @@ public static class UnityViewHelper
 
     public static void LoadViewFromPrefab(GameEntity entity, string prefabName, GameObject parent)
     {
+        if (_cachedResources.TryGetValue(prefabName, out var prefab))
+        {
+            CreateNewView(entity, parent, prefab);
+            return;
+        }
+        
         var viewPrefab = Resources.Load<GameObject>(prefabName);
 
         if (viewPrefab == null)
@@ -25,6 +38,7 @@ public static class UnityViewHelper
         }
 
         CreateNewView(entity, parent, viewPrefab);
+        _cachedResources[prefabName] = viewPrefab;
     }
 
     private static void CreateNewView(GameEntity entity, GameObject parent, GameObject viewPrefab)
