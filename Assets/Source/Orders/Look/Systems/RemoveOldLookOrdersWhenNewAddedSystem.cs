@@ -1,12 +1,12 @@
 ﻿using Entitas;
 
-public class DeleteOldLookOrdersWhenNewAddedSystem : IExecuteSystem
+public class RemoveOldLookOrdersWhenNewAddedSystem : IExecuteSystem
 {
     private readonly ICollector<GameEntity> _newLookAtDirection;
     private readonly ICollector<GameEntity> _newLookAtEntity;
     private readonly ICollector<GameEntity> _newLookAtPosition;
 
-    public DeleteOldLookOrdersWhenNewAddedSystem(Contexts contexts)
+    public RemoveOldLookOrdersWhenNewAddedSystem(Contexts contexts)
     {
         _newLookAtDirection = contexts.game.CreateCollector(GameMatcher.LookAtDirectionOrder.Added());
         _newLookAtPosition  = contexts.game.CreateCollector(GameMatcher.LookAtPositionOrder.Added());

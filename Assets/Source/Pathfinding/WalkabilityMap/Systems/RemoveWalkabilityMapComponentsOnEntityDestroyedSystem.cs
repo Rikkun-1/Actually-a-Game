@@ -1,10 +1,10 @@
 ﻿using Entitas;
 
-public class DeleteWalkabilityMapComponentsOnEntityDestroyedSystem : IExecuteSystem
+public class RemoveWalkabilityMapComponentsOnEntityDestroyedSystem : IExecuteSystem
 {
     private readonly IGroup<GameEntity> _entities;
 
-    public DeleteWalkabilityMapComponentsOnEntityDestroyedSystem(Contexts contexts)
+    public RemoveWalkabilityMapComponentsOnEntityDestroyedSystem(Contexts contexts)
     {
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Destroyed)
                                                       .AnyOf(GameMatcher.NonWalkable,

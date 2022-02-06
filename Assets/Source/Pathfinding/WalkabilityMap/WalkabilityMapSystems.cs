@@ -5,7 +5,7 @@
         Add(new WalkabilityMapTestingSystems(contexts));
 
         Add(new ResizePathfindingMapSystem(contexts));
-        Add(new DeleteWalkabilityMapComponentsOnEntityDestroyedSystem(contexts));
+        Add(new RemoveWalkabilityMapComponentsOnEntityDestroyedSystem(contexts));
         Add(new UpdateNonWalkableMapSystem(contexts));
         Add(new UpdateWallMapSystem(contexts));
     }

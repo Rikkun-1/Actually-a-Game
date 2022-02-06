@@ -1,12 +1,12 @@
 ﻿using Entitas;
 
-public class DeleteOldShootOrdersWhenNewAddedSystem : IExecuteSystem
+public class RemoveOldShootOrdersWhenNewAddedSystem : IExecuteSystem
 {
     private readonly ICollector<GameEntity> _newShootAtDirection;
     private readonly ICollector<GameEntity> _newShootAtEntity;
     private readonly ICollector<GameEntity> _newShootAtPosition;
 
-    public DeleteOldShootOrdersWhenNewAddedSystem(Contexts contexts)
+    public RemoveOldShootOrdersWhenNewAddedSystem(Contexts contexts)
     {
         _newShootAtDirection = contexts.game.CreateCollector(GameMatcher.ShootAtDirectionOrder.Added());
         _newShootAtPosition  = contexts.game.CreateCollector(GameMatcher.ShootAtPositionOrder.Added());
