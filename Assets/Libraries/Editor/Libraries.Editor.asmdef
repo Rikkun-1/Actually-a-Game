@@ -1,10 +1,12 @@
 {
-    "name": "com.alelievr.NodeGraphProcessor.Examples",
+    "name": "Libraries.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:ca937d03ee5dd4d699091438dc0f3ae6"
+        "GUID:65a47b012899e3b43b820c9098379bf6"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
