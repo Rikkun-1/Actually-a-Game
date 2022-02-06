@@ -17,4 +17,9 @@ public static class Vector2Extensions
         var angle = Mathf.Atan2(value.x, value.y)  * Mathf.Rad2Deg;
         return  Mathf.Repeat(angle, 360);
     }
+    
+    public static Vector3 ToVector3XZInt(this Vector2 value)
+    {
+        return value.ToVector2Int().ToVector3XZ();
+    }
 }
