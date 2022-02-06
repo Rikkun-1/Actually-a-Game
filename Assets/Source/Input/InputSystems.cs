@@ -2,11 +2,10 @@
 {
     public InputSystems(Contexts contexts)
     {
-        Add(new GetGridClickSystem(contexts));
+        Add(new ProcessMouseInputSystem(contexts));
         Add(new GetInteractiveEntityOnGridClickPositionSystem(contexts));
         
         Add(new AddSelectedOrderComponentToEntitySystem(contexts));
-        Add(new VisualizeSelectedEntitySystem(contexts));
         
         Add(new DrawSelectedInteractiveEntitySystem(contexts));
     }
