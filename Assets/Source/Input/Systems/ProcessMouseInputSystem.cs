@@ -1,7 +1,6 @@
 ﻿using Entitas;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 public class ProcessMouseInputSystem : IInitializeSystem, IExecuteSystem
 {
@@ -43,7 +42,7 @@ public class ProcessMouseInputSystem : IInitializeSystem, IExecuteSystem
         if (!Input.GetMouseButtonDown(0) || IsOverUI()) return;
 
         var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (!Physics.Raycast(ray , out var raycastHit, 1000f, _layerMask))
+        if (Physics.Raycast(ray , out var raycastHit, 1000f, _layerMask))
         {
             _input.ReplaceMouseGridClickPosition(raycastHit.point.ToVector2XZInt());
         }
