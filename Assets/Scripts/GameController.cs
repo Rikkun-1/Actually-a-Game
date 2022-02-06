@@ -10,12 +10,14 @@ public class GameController : MonoBehaviour
     public int                  wallsCount;
     public int                  playersCount;
     public float                timeScale;
+    
+    public Image timeProgress;
 
-    private Contexts                  _contexts;
+    public GameSettings gameSettings;
+        
+    private Contexts _contexts;
     private EachFrameExecutionSystems _eachFrameExecutionSystems;
     private PlanningPhaseSystems      _planningPhaseSystems;
-
-    public Image timeProgress;
 
     private void Start()
     {
@@ -28,7 +30,8 @@ public class GameController : MonoBehaviour
         _planningPhaseSystems                     =  new PlanningPhaseSystems(_contexts);
         simulationController.OnSimulationPhaseEnd += UpdatePlanningPhaseSystems;
         simulationController.tickDeltaTime        =  Time.fixedDeltaTime;
-        
+
+        _contexts.game.SetGameSettings(gameSettings);
         _contexts.game.SetAIGraph(AIGraph);
         _contexts.game.SetSimulationTick(0, 0, 0);
         _contexts.game.SetGridSize(defaultGridSize);
