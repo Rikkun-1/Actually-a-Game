@@ -21,7 +21,7 @@ namespace Entitas.VisualDebugging.Unity {
             _entity.OnEntityReleased += onEntityReleased;
             gameObject.hideFlags = HideFlags.None;
             gameObject.SetActive(true);
-            Update();
+            UpdateName();
         }
 
         void onEntityReleased(IEntity e) {
@@ -30,10 +30,10 @@ namespace Entitas.VisualDebugging.Unity {
             gameObject.hideFlags = HideFlags.HideInHierarchy;
             _entityBehaviourPool.Push(this);
             _cachedName = null;
-            name = string.Empty;
+            name        = string.Empty;
         }
 
-        void Update() {
+        public void UpdateName() {
             if (_entity != null && _cachedName != _entity.ToString()) {
                 name = _cachedName = _entity.ToString();
             }
