@@ -40,9 +40,9 @@ public class FreeCamera : MonoBehaviour
             var move = Time.unscaledDeltaTime * this.moveSpeed;
             if (_fire1 || _leftShiftBoost && _leftShift)
                 move *= turbo;
-            transform.position += transform.forward * move * _inputVertical;
-            transform.position += transform.right * move * _inputHorizontal;
-            transform.position += Vector3.up * move * _inputYAxis;
+            transform.position += transform.forward * (move * _inputVertical);
+            transform.position += transform.right * (move * _inputHorizontal);
+            transform.position += Vector3.up * (move * _inputYAxis);
         }
     }
 

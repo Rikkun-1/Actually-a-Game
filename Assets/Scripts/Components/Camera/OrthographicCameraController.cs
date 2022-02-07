@@ -37,8 +37,8 @@ public class OrthographicCameraController: MonoBehaviour
         var forwardVector = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
         var rightVector   = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.right;
         
-        var verticalMove   = forwardVector * Input.GetAxisRaw("Vertical") * move;
-        var horizontalMove = rightVector * Input.GetAxisRaw("Horizontal") * move;
+        var verticalMove   = forwardVector * (Input.GetAxisRaw("Vertical") * move);
+        var horizontalMove = rightVector * (Input.GetAxisRaw("Horizontal") * move);
 
         transform.Translate(verticalMove + horizontalMove, Space.World);
     }

@@ -12,18 +12,10 @@ public class RagdollControl : MonoBehaviour
         _rigidbodies ??= GetComponentsInChildren<Rigidbody>();
     }
 
-    public void MakeAnimated()
-    {
-        _animator.enabled = true;
-        foreach (var body in _rigidbodies)
-        {
-            body.isKinematic = true;
-        }
-    }
-
     public void MakePhysical()
     {
         _animator.enabled = false;
+        
         foreach (var body in _rigidbodies)
         {
             body.isKinematic = false;

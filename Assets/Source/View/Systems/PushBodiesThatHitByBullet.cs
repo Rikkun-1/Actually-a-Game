@@ -34,7 +34,7 @@ public class PushBodiesThatHitByBullet : ReactiveSystem<PhysicsEntity>
 
             if (rigidbody)
             {
-                rigidbody.AddForceAtPosition(-raycastHit.normal * damage * pushForceMultiplier,
+                rigidbody.AddForceAtPosition(-raycastHit.normal * (damage * pushForceMultiplier),
                                              raycastHit.point,
                                              ForceMode.Acceleration);
             }
