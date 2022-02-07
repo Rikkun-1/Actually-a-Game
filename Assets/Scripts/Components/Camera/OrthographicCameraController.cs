@@ -2,10 +2,14 @@
 
 public class OrthographicCameraController: MonoBehaviour
 {
-    public          float moveSpeed;
-    public          float rotationSpeed;
-    public          float sizeChangeSpeed;
-    [Min(1)] public float defaultSize;
+    public float maxTranslationMagnitude;
+    public float moveSpeed;
+    public float rotationSpeed;
+    public float sizeChangeSpeed;
+
+    public          float minimumCameraSize;
+    public          float maximumCameraSize;
+    [Min(1)] public float defaultCameraSize;
     
     private Camera _camera;
 
@@ -29,7 +33,7 @@ public class OrthographicCameraController: MonoBehaviour
     
     private void HandleMovement()
     {
-        var zoomAcceleratedMoveSpeed = moveSpeed * _camera.orthographicSize / defaultSize;
+        var zoomAcceleratedMoveSpeed = moveSpeed * _camera.orthographicSize / defaultCameraSize;
 
         var move =  zoomAcceleratedMoveSpeed * Time.unscaledDeltaTime;
 
@@ -40,12 +44,16 @@ public class OrthographicCameraController: MonoBehaviour
         var verticalMove   = forwardVector * (Input.GetAxisRaw("Vertical") * move);
         var horizontalMove = rightVector * (Input.GetAxisRaw("Horizontal") * move);
 
-        transform.Translate(verticalMove + horizontalMove, Space.World);
+        var translation = verticalMove + horizontalMove;
+        translation = Vector3.ClampMagnitude(translation, maxTranslationMagnitude);
+        transform.Translate(translation, Space.World);
     }
     
     private void HandleZooming()
     {
         var orthographicSizeDelta = Input.mouseScrollDelta.y * sizeChangeSpeed * Time.unscaledDeltaTime;
-        _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize + orthographicSizeDelta, 1, float.MaxValue);
+        _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize + orthographicSizeDelta, 
+                                               minimumCameraSize,
+                                               maximumCameraSize);
     }
 }

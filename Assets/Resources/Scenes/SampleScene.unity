@@ -1167,10 +1167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce534682f854786a1cd19bf1c60aa78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxTranslationMagnitude: 10
   moveSpeed: 20
   rotationSpeed: 40
   sizeChangeSpeed: 50
-  defaultSize: 20
+  minimumCameraSize: 1
+  maximumCameraSize: 60
+  defaultCameraSize: 20
 --- !u!4 &930279520
 Transform:
   m_ObjectHideFlags: 0
@@ -1403,10 +1406,10 @@ MonoBehaviour:
     timeForOnePhaseCycle: 5
     timeUntilPhaseEnd: 5
     tickDeltaTime: 0.02
-  defaultGridSize: {x: 80, y: 80}
-  wallsCount: 3000
-  playersCount: 20
-  timeScale: 1
+  defaultGridSize: {x: 20, y: 20}
+  wallsCount: 500
+  timeScale: 0.75
+  wallsPerPress: 200
   timeProgress: {fileID: 649635269}
   gameSettings: {fileID: 11400000, guid: 50b8f284f8c845b59b66d097432db6c7, type: 2}
 --- !u!4 &1168647769
@@ -1813,7 +1816,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 3.4e-44, z: 2.24398e-40, w: 1.02e-43}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
