@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Entitas;
 
 public class DamageEntitiesByBulletSystem : ReactiveSystem<PhysicsEntity>
@@ -23,12 +22,10 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<PhysicsEntity>
 
     protected override void Execute(List<PhysicsEntity> bulletHitEntities)
     {
-        DropCollisionsBetweenBullets(ref bulletHitEntities);
-
         foreach (var bulletHitEntity in bulletHitEntities)
         {
             var bulletHit = bulletHitEntity.bulletHit;
-            
+
             var bulletEntity   = _game.GetEntityWithId(bulletHit.bulletEntityID);
             var colliderEntity = _game.GetEntityWithId(bulletHit.colliderEntityID);
 
@@ -48,13 +45,6 @@ public class DamageEntitiesByBulletSystem : ReactiveSystem<PhysicsEntity>
         return true;
     }
 
-    private void DropCollisionsBetweenBullets(ref List<PhysicsEntity> bulletHitEntities)
-    {
-        bulletHitEntities = bulletHitEntities.Where(e => _game.GetEntityWithId(e.bulletHit.colliderEntityID)
-                                                              .hasBullet == false)
-                                             .ToList();
-    }
-    
     private static void AddDamageToEntity(GameEntity suffererEntity, GameEntity bulletEntity)
     {
         if (!suffererEntity.hasHealth) return;
