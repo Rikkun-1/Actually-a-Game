@@ -61,6 +61,8 @@ public class GameController : MonoBehaviour
     {
         simulationController.TearDown();
         _eachFrameExecutionSystems.TearDown();
+        _planningPhaseSystems.TearDown();
+        RaycastHelper.DisposeNativeArrays();
     }
 
     public void Turn()
