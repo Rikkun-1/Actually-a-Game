@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using ProceduralToolkit;
+using UnityEngine;
 
 public class RotateTowardsMovementDirectionSystem : IExecuteSystem
 {
@@ -19,6 +20,7 @@ public class RotateTowardsMovementDirectionSystem : IExecuteSystem
     {
         foreach (var e in _entities)
         {
+            if (e.velocity.value == Vector3.zero) return;
             var desiredAngle  = e.velocity.value.ToVector2XZ().ToAngle();
             var angleDelta    = e.vision.turningSpeed * GameTime.deltaTime;
             VisionHelper.RotateEntityVisionTowards(e, desiredAngle, angleDelta);
