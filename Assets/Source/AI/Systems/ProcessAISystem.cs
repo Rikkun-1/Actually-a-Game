@@ -23,6 +23,7 @@ public class ProcessAISystem : IInitializeSystem, IExecuteSystem
 
     public void Execute()
     {
+        CacheLambdaResult.Cache.Clear();
         foreach (var e in _entities)
         {
             _baseGraph.SetParameterValue("Entity ID", e.id.value);
