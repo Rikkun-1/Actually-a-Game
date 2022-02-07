@@ -23,7 +23,7 @@ public class PushBodiesThatHitByBullet : ReactiveSystem<PhysicsEntity>
 
     protected override void Execute(List<PhysicsEntity> entities)
     {
-        const float pushForceMultiplier = 2f;
+        const float pushForceMultiplier = 1.5f;
 
         foreach (var e in entities)
         {
@@ -36,7 +36,7 @@ public class PushBodiesThatHitByBullet : ReactiveSystem<PhysicsEntity>
             {
                 rigidbody.AddForceAtPosition(-raycastHit.normal * (damage * pushForceMultiplier),
                                              raycastHit.point,
-                                             ForceMode.Acceleration);
+                                             ForceMode.Impulse);
             }
         }
     }
