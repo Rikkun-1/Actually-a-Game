@@ -5,8 +5,8 @@ public static class RaycastHelper
 {
     private static readonly LayerMask _layerMask;
 
-    private static NativeArray<RaycastCommand> _commands;
-    private static NativeArray<RaycastHit>     _results;
+    private static NativeArray<RaycastCommand> _commands = new NativeArray<RaycastCommand>(64, Allocator.Persistent);
+    private static NativeArray<RaycastHit>     _results = new NativeArray<RaycastHit>(64, Allocator.Persistent);
 
     static RaycastHelper()
     {
