@@ -24,7 +24,7 @@ public static class TacticalMapCreator
                             var raycastOrigin = Vector3.zero;
     
                             raycastOrigin.x = x;
-                            raycastOrigin.y = 0.4f;
+                            raycastOrigin.y = 1.4f;
                             raycastOrigin.z = y;
     
                             var targetPosition = players[z].worldPosition.value;

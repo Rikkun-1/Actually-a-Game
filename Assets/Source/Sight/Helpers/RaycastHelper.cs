@@ -5,8 +5,9 @@ public static class RaycastHelper
 {
     private static readonly LayerMask _layerMask;
 
-    private static NativeArray<RaycastCommand> _commands = new NativeArray<RaycastCommand>(64, Allocator.Persistent);
-    private static NativeArray<RaycastHit>     _results = new NativeArray<RaycastHit>(64, Allocator.Persistent);
+    private static int                         _allocatedSize;
+    private static NativeArray<RaycastCommand> _commands;
+    private static NativeArray<RaycastHit>     _results;
 
     static RaycastHelper()
     {
@@ -49,12 +50,14 @@ public static class RaycastHelper
 
     private static void AllocateArrays(int size)
     {
-        if (_commands.Length >= size) return;
-        if (_commands.IsCreated) _commands.Dispose();
+        if (_allocatedSize >= size) return;
+        
+        if (_results.IsCreated)  _commands.Dispose();
         if (_results.IsCreated)  _results.Dispose();
 
         _commands = new NativeArray<RaycastCommand>(size, Allocator.Persistent);
         _results  = new NativeArray<RaycastHit>(size, Allocator.Persistent);
+        _allocatedSize = size;
     }
 
     private static void SetupRaycastCommands(Vector3[] from, Vector3[] to, LayerMask layerMask)
@@ -71,6 +74,7 @@ public static class RaycastHelper
     {
         if (_commands.IsCreated) _commands.Dispose();
         if (_results.IsCreated)  _results.Dispose();
+        _allocatedSize = 0;
     }
     
     public static bool Linecast(Vector3 start, Vector3 end, out RaycastHit raycastHit, int layerMask)
