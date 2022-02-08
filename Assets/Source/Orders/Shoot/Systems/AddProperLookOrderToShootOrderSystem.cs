@@ -9,25 +9,19 @@ public class AddProperLookOrderToShootOrderSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.ShootAtDirectionOrder.Added(),
-                                       GameMatcher.ShootAtPositionOrder.Added(),
-                                       GameMatcher.ShootAtEntityOrder.Added());
+        return context.CreateCollector(GameMatcher.ShootOrder);
     }
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasShootAtDirectionOrder ||
-               entity.hasShootAtPositionOrder ||
-               entity.hasShootAtEntityOrder;
+        return true;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in entities)
         {
-            if (e.hasShootAtDirectionOrder) e.ReplaceLookAtDirectionOrder(e.shootAtDirectionOrder.direction);
-            if (e.hasShootAtPositionOrder)  e.ReplaceLookAtPositionOrder(e.shootAtPositionOrder.position);
-            if (e.hasShootAtEntityOrder)    e.ReplaceLookAtEntityOrder(e.shootAtEntityOrder.targetID);
+            e.ReplaceLookOrder(e.shootOrder.target);
         }
     }
 }

@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using UnityEngine;
 
 public class VisualizeShootAtEntityOrderSystem : VisualizeOrderSystemBase, IInitializeSystem
 {
-    private readonly GameContext                        _game;
+    private readonly GameContext _game;
+    
+    private GameObject _visualizationPrefab;
 
     public VisualizeShootAtEntityOrderSystem(Contexts contexts) : base(contexts.game)
     {
         _game = contexts.game;
     }
 
-    protected override ICollector<GameEntity> GetTrigger(
-        IContext<GameEntity> context)
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.ShootAtEntityOrder.AddedOrRemoved());
+        return context.CreateCollector(GameMatcher.ShootOrder.AddedOrRemoved());
     }
 
     protected override bool Filter(GameEntity entity)
@@ -23,7 +25,7 @@ public class VisualizeShootAtEntityOrderSystem : VisualizeOrderSystemBase, IInit
 
     public void Initialize()
     {
-        visualizationPrefab = _game.gameSettings.value.orderVisualizationPrefabs.shootAtEntityOrder;
+        _visualizationPrefab = _game.gameSettings.value.orderVisualizationPrefabs.shootAtEntityOrder;
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -31,12 +33,12 @@ public class VisualizeShootAtEntityOrderSystem : VisualizeOrderSystemBase, IInit
         foreach (var e in entities)
         {
             DestroyVisualizationInstance(e);
-            if (!e.hasShootAtEntityOrder) continue;
+            if (!e.hasShootOrder || e.shootOrder.target.targetType != TargetType.Entity) continue;
 
-            var entityWithId = _game.GetEntityWithId(e.shootAtEntityOrder.targetID);
+            var entityWithId = _game.GetEntityWithId(e.shootOrder.target.entityID);
             if (entityWithId == null) return;
 
-            var visualizationInstance = CreateVisualizationInstance(e);
+            var visualizationInstance = CreateVisualizationInstance(e, _visualizationPrefab);
             
             var transform = entityWithId.unityView.gameObject.transform;
             OrderVisualizationHelper.SetupPositionConstraint(visualizationInstance, transform);

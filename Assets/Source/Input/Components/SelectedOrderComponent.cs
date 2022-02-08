@@ -6,4 +6,5 @@ using Entitas.CodeGeneration.Attributes;
 public sealed class SelectedOrderComponent : IComponent
 {
     public string orderName;
+    public string orderArgument;
 }

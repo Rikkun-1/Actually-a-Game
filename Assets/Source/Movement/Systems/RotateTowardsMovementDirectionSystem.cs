@@ -10,9 +10,7 @@ public class RotateTowardsMovementDirectionSystem : IExecuteSystem
     {
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Velocity,
                                                              GameMatcher.Vision)
-                                                      .NoneOf(GameMatcher.LookAtPositionOrder,
-                                                              GameMatcher.LookAtDirectionOrder,
-                                                              GameMatcher.LookAtEntityOrder,
+                                                      .NoneOf(GameMatcher.LookOrder,
                                                               GameMatcher.Destroyed));
     }
 
@@ -21,7 +19,7 @@ public class RotateTowardsMovementDirectionSystem : IExecuteSystem
         foreach (var e in _entities)
         {
             if (e.velocity.value == Vector3.zero) return;
-            var desiredAngle  = e.velocity.value.ToVector2XZ().ToAngle();
+            var desiredAngle  = e.velocity.value.ToVector2XZ().ToAngle360();
             var angleDelta    = e.vision.turningSpeed * GameTime.deltaTime;
             VisionHelper.RotateEntityVisionTowards(e, desiredAngle, angleDelta);
         }

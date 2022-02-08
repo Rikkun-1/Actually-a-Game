@@ -12,7 +12,7 @@ public static class AimHelper
     {
         var shooterPosition = e.worldPosition.value.ToVector2XZ();
         var targetDirection = targetPosition - shooterPosition;
-        var angleToTarget   = targetDirection.ToAngle();
+        var angleToTarget   = targetDirection.ToAngle360();
 
         return IsAimingAtTargetDirection(e, angleToTarget);
     }

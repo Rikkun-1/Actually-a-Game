@@ -14,16 +14,14 @@ public class RemoveShootOrdersFromDestroyedSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.isDestroyed;
+        return entity.hasShootOrder;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in entities)
         {
-            if(e.hasShootAtDirectionOrder) e.RemoveShootAtDirectionOrder();
-            if(e.hasShootAtPositionOrder) e.RemoveShootAtPositionOrder();
-            if(e.hasShootAtEntityOrder) e.RemoveShootAtEntityOrder();
+            e.RemoveShootOrder();
         }
     }
 }

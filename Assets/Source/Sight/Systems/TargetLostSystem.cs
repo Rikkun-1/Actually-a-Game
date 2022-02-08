@@ -8,8 +8,7 @@ public class TargetLostSystem : IExecuteSystem
     public TargetLostSystem(Contexts contexts)
     {
         _game = contexts.game;
-        _entities = _game.GetGroup(GameMatcher.AllOf(GameMatcher.LookAtEntityOrder,
-                                                     GameMatcher.ShootAtEntityOrder,
+        _entities = _game.GetGroup(GameMatcher.AllOf(GameMatcher.ShootOrder,
                                                      GameMatcher.Vision));
     }
 
@@ -17,24 +16,26 @@ public class TargetLostSystem : IExecuteSystem
     {
         foreach (var e in _entities.GetEntities())
         {
+            if (e.shootOrder.target.targetType != TargetType.Entity) return;
+
             var targetEntity = GetTargetEntity(e);
-            if (targetEntity == null || targetEntity.isDestroyed || !RaycastHelper.IsInClearVision(e, targetEntity))
+            if (TargetLost(targetEntity, e))
             {
-                TargetLost(e);
+                e.RemoveShootOrder();
+                e.RemoveLookOrder();
             }
         }
     }
 
-    private GameEntity GetTargetEntity(GameEntity e)
+    private static bool TargetLost(GameEntity targetEntity, GameEntity e)
     {
-        var targetEntityID = e.shootAtEntityOrder.targetID;
-        var targetEntity   = _game.GetEntityWithId(targetEntityID);
-        return targetEntity;
+        return targetEntity == null || targetEntity.isDestroyed || !RaycastHelper.IsInClearVision(e, targetEntity);
     }
 
-    private static void TargetLost(GameEntity e)
+    private GameEntity GetTargetEntity(GameEntity e)
     {
-        e.RemoveShootAtEntityOrder();
-        e.RemoveLookAtEntityOrder();
+        var targetEntityID = e.shootOrder.target.entityID;
+        var targetEntity   = _game.GetEntityWithId(targetEntityID);
+        return targetEntity;
     }
 }

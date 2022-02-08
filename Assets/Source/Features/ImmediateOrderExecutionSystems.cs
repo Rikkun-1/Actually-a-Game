@@ -2,9 +2,6 @@
 {
     public ImmediateOrderExecutionSystems(Contexts contexts)
     {
-        Add(new RemoveOldLookOrdersWhenNewAddedSystem(contexts));
-        Add(new RemoveOldShootOrdersWhenNewAddedSystem(contexts));
-        
         Add(new AddProperLookOrderToShootOrderSystem(contexts));
         
         Add(new RemoveReactionStartTimeWhenShootAtEntityOrderRemovedSystem(contexts));

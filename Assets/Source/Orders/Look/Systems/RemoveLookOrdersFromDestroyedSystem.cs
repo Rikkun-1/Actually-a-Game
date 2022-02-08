@@ -14,16 +14,14 @@ public class RemoveLookOrdersWhenDestroyedSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.isDestroyed;
+        return entity.hasLookOrder;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in entities)
         {
-            if(e.hasLookAtDirectionOrder) e.RemoveLookAtDirectionOrder();
-            if(e.hasLookAtPositionOrder) e.RemoveLookAtPositionOrder();
-            if(e.hasLookAtEntityOrder) e.RemoveLookAtEntityOrder();
+            e.RemoveLookOrder();
         }
     }
 }

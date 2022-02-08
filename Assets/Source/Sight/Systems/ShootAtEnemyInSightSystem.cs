@@ -19,7 +19,7 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
     {
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.TeamID,
                                                              GameMatcher.Vision)
-                                                      .NoneOf(GameMatcher.ShootAtEntityOrder));
+                                                      .NoneOf(GameMatcher.ShootOrder));
 
         _possibleTargets = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.TeamID)
                                                              .NoneOf(GameMatcher.Destroyed));
@@ -51,7 +51,7 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
             {
                 if (RaycastHelper.IsInClearVision(e, targetEntity))
                 {
-                    e.ReplaceShootAtEntityOrder(targetEntity.id.value);
+                    e.ReplaceShootOrder(Target.Entity(targetEntity.id.value));
                     break;
                 }
             }

@@ -37,7 +37,8 @@ public class AddSelectedOrderComponentToEntitySystem : ReactiveSystem<InputEntit
 
         var selectedOrderComponent = selectedEntity.CreateComponent(selectedOrderIndex, selectedOrderType);
 
-        SetupComponent(selectedEntity, selectedOrderComponent);
+        var selectedOrderArgument = _input.selectedOrder.orderArgument;
+        SetupComponent(selectedEntity, selectedOrderArgument, selectedOrderComponent);
 
         selectedEntity.ReplaceComponent(selectedOrderIndex, selectedOrderComponent);
 
@@ -51,34 +52,34 @@ public class AddSelectedOrderComponentToEntitySystem : ReactiveSystem<InputEntit
         _input.RemoveMouseGridClickPosition();
     }
 
-    private void SetupComponent(GameEntity selectedEntity, IComponent selectedOrderComponent)
+    private void SetupComponent(GameEntity selectedEntity, 
+                                string selectedOrderArgument, 
+                                IComponent selectedOrderComponent)
     {
         var mouseGridClickPosition = _input.mouseGridClickPosition.value;
 
         switch (selectedOrderComponent)
         {
             case IRequiresVector2IntPosition requiresVector2IntPosition:
+            {
+                requiresVector2IntPosition.position = mouseGridClickPosition;
+                break;
+            }
+            case IRequiresTarget requiresTarget:
+            {
+                var targetType = (TargetType)Enum.Parse(typeof(TargetType), selectedOrderArgument);
+                var target = targetType switch
                 {
-                    requiresVector2IntPosition.position = mouseGridClickPosition;
-                    break;
-                }
-            case IRequiresVector2Position requiresVector2Position:
-                {
-                    requiresVector2Position.position = mouseGridClickPosition;
-                    break;
-                }
-            case IRequiresDirection requiresDirection:
-                {
-                    var direction = mouseGridClickPosition - selectedEntity.gridPosition.value;
-                    requiresDirection.direction = direction;
-                    break;
-                }
-            case IRequiresTargetID requiresTargetID:
-                {
-                    requiresTargetID.targetID = _game.GetEntitiesWithGridPosition(mouseGridClickPosition)
-                                                     .First(e => e.isPlayer).id.value;
-                    break;
-                }
+                    TargetType.Direction => Target.Direction(mouseGridClickPosition - selectedEntity.gridPosition.value),
+                    TargetType.Position  => Target.Position(mouseGridClickPosition),
+                    TargetType.Entity    => Target.Entity(_game.GetEntitiesWithGridPosition(mouseGridClickPosition)
+                                                               .First(e => e.isPlayer).id.value),
+                    _                    => throw new ArgumentOutOfRangeException()
+                };
+
+                requiresTarget.target = target;
+                break;
+            }
         }
     }
 }

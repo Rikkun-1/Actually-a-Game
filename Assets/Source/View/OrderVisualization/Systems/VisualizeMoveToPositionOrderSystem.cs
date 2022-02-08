@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using UnityEngine;
 
 public class VisualizeMoveToPositionOrderSystem : VisualizeOrderSystemBase, IInitializeSystem
 {
     private readonly GameContext _game;
+
+    private GameObject _visualizationPrefab;
 
     public VisualizeMoveToPositionOrderSystem(Contexts contexts) : base(contexts.game)
     {
@@ -22,9 +25,9 @@ public class VisualizeMoveToPositionOrderSystem : VisualizeOrderSystemBase, IIni
 
     public void Initialize()
     {
-        visualizationPrefab = _game.gameSettings.value.orderVisualizationPrefabs.moveToPositionOrder;
+        _visualizationPrefab = _game.gameSettings.value.orderVisualizationPrefabs.moveToPositionOrder;
     }
-
+    
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in entities)
@@ -32,8 +35,8 @@ public class VisualizeMoveToPositionOrderSystem : VisualizeOrderSystemBase, IIni
             DestroyVisualizationInstance(e);
             if (!e.hasMoveToPositionOrder) continue;
 
-            var position = e.moveToPositionOrder.position.ToVector3XZ();
-            var visualizationInstance = CreateVisualizationInstance(e, position);
+            var position              = e.moveToPositionOrder.position.ToVector3XZ();
+            var visualizationInstance = CreateVisualizationInstance(e, _visualizationPrefab, position);
             
             OrderVisualizationHelper.PaintInTeamColor(visualizationInstance, e);
         }

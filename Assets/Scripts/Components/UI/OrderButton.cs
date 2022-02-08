@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class OrderButton : MonoBehaviour
 {
     public string orderName;
+    public string orderArgument;
 
     public void Start()
     {
@@ -13,6 +14,6 @@ public class OrderButton : MonoBehaviour
 
     public void Click()
     {
-        Contexts.sharedInstance.input.ReplaceSelectedOrder(orderName);
+        Contexts.sharedInstance.input.ReplaceSelectedOrder(orderName, orderArgument);
     }
 }
