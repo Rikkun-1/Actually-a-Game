@@ -21,7 +21,7 @@ public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
     {
         foreach (var e in entities)
         {
-            if(e.health.currentHealth > 0) return;
+            if(e.health.currentHealth > 0) continue;
             
             if (e.hasVision)         e.RemoveVision();
             if (e.hasTraversalSpeed) e.RemoveTraversalSpeed();
