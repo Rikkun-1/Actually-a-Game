@@ -14,7 +14,7 @@ public class AddProperLookOrderToShootOrderSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return true;
+        return entity.hasShootOrder;
     }
 
     protected override void Execute(List<GameEntity> entities)

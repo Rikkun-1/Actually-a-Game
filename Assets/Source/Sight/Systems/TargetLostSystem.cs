@@ -23,8 +23,8 @@ public class TargetLostSystem : IExecuteSystem
             {
                 e.RemoveShootOrder();
                 
-                if (e.hasAITarget) e.ReplaceLookOrder(e.aITarget.value);
-                else               e.RemoveLookOrder();
+                if      (e.hasAITarget)  e.ReplaceLookOrder(e.aITarget.value);
+                else if (e.hasLookOrder) e.RemoveLookOrder();
             }
         }
     }
