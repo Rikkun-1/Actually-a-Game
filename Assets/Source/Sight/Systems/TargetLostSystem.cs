@@ -22,7 +22,9 @@ public class TargetLostSystem : IExecuteSystem
             if (TargetLost(targetEntity, e))
             {
                 e.RemoveShootOrder();
-                e.RemoveLookOrder();
+                
+                if (e.hasAITarget) e.ReplaceLookOrder(e.aITarget.value);
+                else               e.RemoveLookOrder();
             }
         }
     }
