@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 8737206848195662065}
   - component: {fileID: 4286098880691268031}
   - component: {fileID: 6388369729073760279}
+  - component: {fileID: 2161892376038301989}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4938625042105345125
 Transform:
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379908232189970049}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0}
+  m_LocalScale: {x: 0.8, y: 1.1, z: 0.8}
   m_Children: []
   m_Father: {fileID: 3914083574816972098}
   m_RootOrder: 0
@@ -95,6 +96,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2161892376038301989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379908232189970049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe242da578694970b6c6775877ee54d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementPrefab: {fileID: 2708639408790870675, guid: 619acc173ecafe94d828335caf4e7b33, type: 3}
 --- !u!1 &5271450796480665623
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,12 +120,13 @@ GameObject:
   - component: {fileID: 3914083574816972098}
   - component: {fileID: 1613677583719031132}
   - component: {fileID: -4266670611263921429}
+  - component: {fileID: 7943776527045089972}
   m_Layer: 0
-  m_Name: nonWalkable
+  m_Name: MidSizeCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3914083574816972098
 Transform:
@@ -152,3 +167,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e779c06e5b3d3ec4d958b03983f64a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7943776527045089972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271450796480665623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9862942552d4308900c5f1d9a1af2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnDestroy:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2161892376038301989}
+        m_TargetAssemblyTypeName: ReplaceWithDestroyed, Assembly-CSharp
+        m_MethodName: Replace
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

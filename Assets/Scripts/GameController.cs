@@ -8,7 +8,8 @@ public class GameController : MonoBehaviour
     public SimulationController simulationController;
     public Vector2Int           defaultGridSize = new Vector2Int(10, 10);
     public int                  wallsCount;
-    public int                  playersCount;
+    public int                  windowCount;
+    public int                  nonWalkableCount;
     public float                timeScale;
     
     public Image timeProgress;
@@ -36,9 +37,8 @@ public class GameController : MonoBehaviour
         _contexts.game.SetSimulationTick(0, 0, 0);
         _contexts.game.SetGridSize(defaultGridSize);
 
-        simulationController.Initialize(wallsCount, playersCount);
+        simulationController.Initialize(wallsCount, windowCount, nonWalkableCount);
         _eachFrameExecutionSystems.Initialize();
-        simulationController.UpdateSimulation();
 
         _planningPhaseSystems.Initialize();
     }

@@ -1313,10 +1313,11 @@ MonoBehaviour:
     timeForOnePhaseCycle: 500
     timeUntilPhaseEnd: 5
     tickDeltaTime: 0.02
-  defaultGridSize: {x: 20, y: 20}
-  wallsCount: 250
-  timeScale: 1.25
-  wallsPerPress: 200
+  defaultGridSize: {x: 60, y: 60}
+  wallsCount: 500
+  windowCount: 1000
+  nonWalkableCount: 500
+  timeScale: 1
   timeProgress: {fileID: 649635269}
   gameSettings: {fileID: 11400000, guid: 50b8f284f8c845b59b66d097432db6c7, type: 2}
 --- !u!4 &1168647769
@@ -1839,7 +1840,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 3.4e-44, z: 2.24398e-40, w: 1.02e-43}
+  m_BoundingSphereOverride: {x: 0, y: 9.1528316e-32, z: 4.5905e-41, w: 9.152192e-32}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

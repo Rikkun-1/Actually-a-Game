@@ -8,7 +8,9 @@ public class ReplaceWithDestroyed : MonoBehaviour
     public void Replace()
     {
         gameObject.SetActive(false);
-        Instantiate(replacementPrefab, transform.position, transform.rotation, transform.parent);
+        var destroyedObject = Instantiate(replacementPrefab, transform.position, transform.rotation);
+        destroyedObject.transform.localScale = transform.localScale;
+        destroyedObject.transform.SetParent(transform.parent);
         Destroy(gameObject);
     }
 }

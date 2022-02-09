@@ -21,12 +21,13 @@ public class SimulationController
         simulationPhaseSystems = new SimulationPhaseSystems(_contexts);
     }
 
-    public void Initialize(int wallsCount, int playersCount)
+    public void Initialize(int wallsCount, int windowCount, int coversCount)
     {
         var bulletHitEffectPrefab = Resources.Load<ParticleSystem>("Effects/Weapon Effects/Prefabs/HitEffect");
         _contexts.game.SetBulletHitEffect(bulletHitEffectPrefab, null);
 
         simulationPhaseSystems.Initialize();
+        simulationPhaseSystems.Execute();
 
         CreateTeam(6, 0, 7, 3);
         CreateTeam(4, 0, 14, 20);
@@ -44,26 +45,19 @@ public class SimulationController
     {
         for (var i = 0; i < playersCount; i++)
         {
-            var e = CreateRandomUnit(teamNumber);
-
-            e.AddWorldPosition(new Vector3(5 + i * spacing, 0, spawnZ));
+            var position = new Vector2Int(5 + i * spacing, spawnZ);
+            CreateRandomUnit(teamNumber, position);
         }
     }
 
-    private static GameEntity CreateRandomUnit(int teamNumber)
+    private static GameEntity CreateRandomUnit(int teamNumber, Vector2Int position)
     {
-        var e = GameEntityCreator.CreateEntity();
-        switch (Random.Range(0, 3))
+        var e = GameEntityCreator.CreateEntity(position);
+        switch (Random.Range(1, 2))
         {
-            case 0:
-                SetupShotgun(e);
-                break;
-            case 1:
-                SetupRifle(e);
-                break;
-            case 2:
-                SetupSniper(e);
-                break;
+            case 0: SetupShotgun(e); break;
+            case 1: SetupRifle(e);   break;
+            case 2: SetupSniper(e);  break;
         }
 
         e.enableCalculateVelocityByPositionChanges = true;
