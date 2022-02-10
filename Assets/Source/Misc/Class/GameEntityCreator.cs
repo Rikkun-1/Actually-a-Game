@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public static class GameEntityCreator
 {
@@ -6,10 +7,26 @@ public static class GameEntityCreator
     public const string DefaultWindowPrefabName = "Prefabs/Window";
     public const string DefaultCoverPrefabName  = "Prefabs/MidSizeCover";
 
+    public static long currentID;
+    
+    static GameEntityCreator()
+    {
+        // UpdateCurrentID();
+    }
+
+    public static void UpdateCurrentID()
+    {
+        currentID = Contexts.sharedInstance.game.GetGroup(GameMatcher.Id)
+                            .AsEnumerable()
+                            .Select(e => e.id.value)
+                            .DefaultIfEmpty(0)
+                            .Max() + 1;
+    }
+    
     public static GameEntity CreateEntity(Contexts contexts)
     {
         var e = contexts.game.CreateEntity();
-        e.AddId(e.creationIndex);
+        e.AddId(currentID++);
 
         return e;
     }
