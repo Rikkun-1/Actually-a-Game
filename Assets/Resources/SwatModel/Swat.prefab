@@ -4102,7 +4102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9069315218071094190}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ref_left_hand_grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4133,7 +4133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9069315218088897542}
   - component: {fileID: 5103052943099972691}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WeaponPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4168,10 +4168,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.02
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!1 &9069315218101014031
 GameObject:
   m_ObjectHideFlags: 0
@@ -4268,7 +4268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9069315218159055214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ref_right_hand_grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
