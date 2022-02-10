@@ -33,10 +33,10 @@ public class VisualizeShootAtEntityOrderSystem : VisualizeOrderSystemBase, IInit
         foreach (var e in entities)
         {
             DestroyVisualizationInstance(e);
-            if (!e.hasShootOrder || e.shootOrder.target.targetType != TargetType.Entity) continue;
+            if (!e.hasShootOrder || e.shootOrder.target.targetType != TargetType.Entity || e.teamID.value != 0) continue;
 
             var entityWithId = _game.GetEntityWithId(e.shootOrder.target.entityID);
-            if (entityWithId == null) return;
+            if (!(entityWithId is { hasUnityView: true })) return;
 
             var visualizationInstance = CreateVisualizationInstance(e, _visualizationPrefab);
             
