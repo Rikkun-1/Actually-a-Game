@@ -11,6 +11,7 @@ public class RotateTowardsMovementDirectionSystem : IExecuteSystem
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Velocity,
                                                              GameMatcher.Vision)
                                                       .NoneOf(GameMatcher.LookOrder,
+                                                              GameMatcher.AITarget,
                                                               GameMatcher.Destroyed));
     }
 
