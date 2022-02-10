@@ -12,8 +12,8 @@ public class Target
     }
 
     public Vector2    direction => _direction ?? throw new NullReferenceException("direction not set");
-    public Vector2Int position  => _position ?? throw new NullReferenceException("direction not set");
-    public long       entityID  => _entityID ?? throw new NullReferenceException("direction not set");
+    public Vector2Int position  => _position ?? throw new NullReferenceException("position not set");
+    public long       entityID  => _entityID ?? throw new NullReferenceException("entityID not set");
 
     private Vector2?    _direction;
     private Vector2Int? _position;
