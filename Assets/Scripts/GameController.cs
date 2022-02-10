@@ -1,65 +1,76 @@
-using System;
+using System.Collections.Generic;
+using Data;
+using GraphProcessor;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private double                    _timeAccumulated;
-    [SerializeField] private double                    _tickDeltaTime  = 0.05;
-    [SerializeField] private Vector2Int                _defaultMapSize = new Vector2Int(10, 10);
-    private                  Contexts                  _contexts;
-    private                  RootSystems               _systems;
-    private                  EachFrameExecutionSystems _eachFrameExecutionSystems;
-    private                  GameEntity                _timeHolder;
-    
+    public BaseGraph               AIGraph;
+    public SimulationController    simulationController;
+    public SystemDisablingSettings systemDisablingSettings;
+    public Vector2Int              defaultGridSize = new Vector2Int(10, 10);
+    public int                     wallsCount;
+    public int                     playersCount;
+
+    private Contexts                  _contexts;
+    private EachFrameExecutionSystems _eachFrameExecutionSystems;
+    private PlanningPhaseSystems      _planningPhaseSystems;
+
     private void Start()
     {
-        _contexts                  = Contexts.sharedInstance;
-        _systems                   = new RootSystems(_contexts);
-        _eachFrameExecutionSystems = new EachFrameExecutionSystems(_contexts);
+        Contexts.sharedInstance                   =  new Contexts();
+        _contexts                                 =  Contexts.sharedInstance;
+        _eachFrameExecutionSystems                =  new EachFrameExecutionSystems(_contexts);
+        simulationController                      =  new SimulationController(_contexts);
+        _planningPhaseSystems                     =  new PlanningPhaseSystems(_contexts);
+        simulationController.OnSimulationPhaseEnd += UpdatePlanningPhaseSystems;
+        
+        DeactivateSystems(systemDisablingSettings.deactivatedSystems);
 
-        _timeHolder = _contexts.game.CreateEntity();
-        _timeHolder.AddGameTick(0, 0, 0);
+        _contexts.game.SetAIGraph(AIGraph);
+        _contexts.game.SetSimulationTick(0, 0, 0);
+        _contexts.game.SetGridSize(defaultGridSize);
 
-        _contexts.game.SetMapSize(_defaultMapSize);
-
-        _systems.Initialize();
+        simulationController.Initialize(wallsCount, playersCount);
         _eachFrameExecutionSystems.Initialize();
+        simulationController.UpdateSimulation();
+
+        _planningPhaseSystems.Initialize();
     }
 
     private void Update()
     {
-        if (IsTimeForNewTick())
-        {
-            UpdateGameTick();
-            _systems.Execute();
-            _systems.Cleanup();
-        }
-
+        Time.timeScale = simulationController.timeUntilPhaseEnd > 0  ? 1 : 0;
         _eachFrameExecutionSystems.Execute();
         _eachFrameExecutionSystems.Cleanup();
     }
 
+    private void FixedUpdate()
+    {
+        simulationController.UpdateSimulation();
+    }
+
     private void OnDestroy()
     {
-        _systems.TearDown();
+        simulationController.TearDown();
         _eachFrameExecutionSystems.TearDown();
     }
 
-    private bool IsTimeForNewTick()
+    private void DeactivateSystems(List<string> deactivatedSystems)
     {
-        _timeAccumulated += Time.deltaTime;
+        var systemInfos = simulationController.simulationPhaseSystems.childSystemInfos;
 
-        return _timeAccumulated >= _tickDeltaTime;
+        foreach (var systemInfo in systemInfos)
+        {
+            if (deactivatedSystems.Contains(systemInfo.systemName))
+            {
+                systemInfo.isActive = false;
+            }
+        }
     }
 
-    private void UpdateGameTick()
+    public void UpdatePlanningPhaseSystems()
     {
-        var previous         = _timeHolder.gameTick;
-        var newTimeFromStart = Math.Round(previous.timeFromStart + _tickDeltaTime, 3);
-
-        _timeHolder.ReplaceGameTick(_tickDeltaTime,
-                                    previous.tickFromStart + 1,
-                                    newTimeFromStart);
-        _timeAccumulated -= _tickDeltaTime;
+        _planningPhaseSystems.Execute();
     }
 }

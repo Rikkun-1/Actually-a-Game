@@ -1,12 +1,10 @@
-﻿using UnityEngine;
+﻿using Roy_T.AStar.Primitives;
+using UnityEngine;
 
-namespace Roy_T.AStar.Primitives
+public static class GridPositionExtensions
 {
-    public static class GridPositionExtensions
+    public static Vector2Int ToVector2Int(this GridPosition position)
     {
-        public static Vector2Int ToVector2Int(this GridPosition position)
-        {
-            return new Vector2Int(position.X, position.Y);
-        }
+        return new Vector2Int(position.X, position.Y);
     }
 }

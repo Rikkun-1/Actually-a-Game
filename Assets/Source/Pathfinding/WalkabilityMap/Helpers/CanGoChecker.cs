@@ -5,8 +5,8 @@ using Roy_T.AStar.Primitives;
 
 public static class CanGoChecker
 {
-    public static bool NoNonWalkableInDirection(GameContext context, GridPosition from,
-                                                Direction   direction)
+    private static bool NoNonWalkableInDirection(GameContext context, GridPosition from,
+                                                 Direction   direction)
     {
         var x = from.X;
         var y = from.Y;
@@ -69,24 +69,20 @@ public static class CanGoChecker
             Direction.Right  => noRightWall(from) && noLeftWall(right),
             Direction.Bottom => noBottomWall(from) && noTopWall(bottom),
             Direction.Left   => noLeftWall(from) && noRightWall(left),
-            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+            _                => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
 
-        bool noTopWall(GridPosition position)
-            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isNorthWall);
+        bool noTopWall(GridPosition position) => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isNorthWall);
 
-        bool noRightWall(GridPosition position)
-            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isEastWall);
+        bool noRightWall(GridPosition position) => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isEastWall);
 
-        bool noBottomWall(GridPosition position)
-            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isSouthWall);
+        bool noBottomWall(GridPosition position) => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isSouthWall);
 
-        bool noLeftWall(GridPosition position)
-            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isWestWall);
+        bool noLeftWall(GridPosition position) => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isWestWall);
     }
 
-    public static bool NoWallsInDirection(GameContext context, GridPosition from,
-                                          Direction   direction)
+    private static bool NoWallsInDirection(GameContext context, GridPosition from,
+                                           Direction   direction)
     {
         var x = from.X;
         var y = from.Y;
@@ -133,7 +129,7 @@ public static class CanGoChecker
         }
     }
 
-    public static bool DirectionIsInsideGrid(Grid grid, GridPosition from, Direction direction)
+    private static bool DirectionIsInsideGrid(Grid grid, GridPosition from, Direction direction)
     {
         var x = from.X;
         var y = from.Y;
@@ -157,13 +153,14 @@ public static class CanGoChecker
             Direction.BottomLeft  => grid.IsInsideGrid(bottomLeft),
             Direction.Left        => grid.IsInsideGrid(left),
             Direction.TopLeft     => grid.IsInsideGrid(topLeft),
-            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+            _                     => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
     }
 
-    public static bool CanGoDirection(GameContext context, Grid grid, GridPosition from,
-                                      Direction   direction)
-        => DirectionIsInsideGrid(grid, from, direction) &&
-           NoNonWalkableInDirection(context, from, direction) &&
-           NoWallsInDirection(context, from, direction);
+    public static bool CanGoDirection(GameContext context, Grid grid, GridPosition from, Direction direction)
+    {
+        return DirectionIsInsideGrid(grid, from, direction) &&
+               NoNonWalkableInDirection(context, from, direction) &&
+               NoWallsInDirection(context, from, direction);
+    }
 }

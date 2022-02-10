@@ -47,8 +47,7 @@ public static class GridChanger
             grid.AddTwoWayEdge(bottom, right,       velocity);
         }
 
-        bool canGoDirection(Direction direction) =>
-            CanGoChecker.CanGoDirection(context, grid, from, direction);
+        bool canGoDirection(Direction direction) => CanGoChecker.CanGoDirection(context, grid, from, direction);
     }
 
     public static void DisconnectNode(Grid grid, int x, int y)
@@ -83,7 +82,7 @@ public static class GridChanger
             if (grid.IsInsideGrid(topRight))    grid.RemoveTwoWayEdge(center, topRight);
             if (grid.IsInsideGrid(bottomRight)) grid.RemoveTwoWayEdge(center, bottomRight);
 
-            if (grid.IsInsideGrid(right) && grid.IsInsideGrid(top))    grid.RemoveTwoWayEdge(right,    top);
+            if (grid.IsInsideGrid(right) && grid.IsInsideGrid(top))    grid.RemoveTwoWayEdge(right, top);
             if (grid.IsInsideGrid(right) && grid.IsInsideGrid(bottom)) grid.RemoveTwoWayEdge(right, bottom);
         }
 
@@ -91,9 +90,9 @@ public static class GridChanger
         {
             if (grid.IsInsideGrid(left))       grid.RemoveTwoWayEdge(center, left);
             if (grid.IsInsideGrid(topLeft))    grid.RemoveTwoWayEdge(center, topLeft);
-                                                          if (grid.IsInsideGrid(bottomLeft)) grid.RemoveTwoWayEdge(center, bottomLeft);
+            if (grid.IsInsideGrid(bottomLeft)) grid.RemoveTwoWayEdge(center, bottomLeft);
 
-            if (grid.IsInsideGrid(left) && grid.IsInsideGrid(top))    grid.RemoveTwoWayEdge(left,    top);
+            if (grid.IsInsideGrid(left) && grid.IsInsideGrid(top))    grid.RemoveTwoWayEdge(left, top);
             if (grid.IsInsideGrid(left) && grid.IsInsideGrid(bottom)) grid.RemoveTwoWayEdge(left, bottom);
         }
 
@@ -103,7 +102,7 @@ public static class GridChanger
             if (grid.IsInsideGrid(topLeft))  grid.RemoveTwoWayEdge(center, topLeft);
             if (grid.IsInsideGrid(topRight)) grid.RemoveTwoWayEdge(center, topRight);
 
-            if (grid.IsInsideGrid(top) && grid.IsInsideGrid(left))  grid.RemoveTwoWayEdge(top,  left);
+            if (grid.IsInsideGrid(top) && grid.IsInsideGrid(left))  grid.RemoveTwoWayEdge(top, left);
             if (grid.IsInsideGrid(top) && grid.IsInsideGrid(right)) grid.RemoveTwoWayEdge(top, right);
         }
 

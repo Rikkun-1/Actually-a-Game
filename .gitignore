@@ -3,9 +3,14 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+*.csproj
 .editorconfig
 Assembly-CSharp.csproj
+Assembly-CSharp-Editor.csproj
 *.bat
+!Tests.csproj
+*Assets/Generated/*
+*Tests/coverage_output/*
 
 # Solution
 

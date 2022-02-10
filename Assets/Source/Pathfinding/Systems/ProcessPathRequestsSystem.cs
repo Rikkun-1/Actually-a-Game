@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
 {
-    private readonly Contexts   _contexts;
-    private readonly PathFinder _pathfinder = new PathFinder();
+    private readonly GameContext _game;
+    private readonly PathFinder  _pathfinder = new PathFinder();
 
     public ProcessPathRequestsSystem(Contexts contexts) : base(contexts.game)
     {
-        _contexts = contexts;
+        _game = contexts.game;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -25,22 +25,23 @@ public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var pathFindingGrid = _contexts.game.pathfindingGrid.value;
+        var pathFindingGrid = _game.pathfindingGrid.value;
 
         foreach (var e in entities)
         {
             var start = e.pathRequest.from.ToGridPosition();
             var end   = e.pathRequest.to.ToGridPosition();
 
-            var waypoints = _pathfinder.FindPath(start, end, pathFindingGrid)
-                                       .GetWaypointsFromPath();
+            var waypoints = start != end
+                                ? _pathfinder.FindPath(start, end, pathFindingGrid)
+                                             .GetWaypointsFromPath()
+                                : new List<Vector2Int> { end.ToVector2Int() };
 
-            if (waypoints.Count > 0)
+            if (waypoints.Count != 0)
             {
                 e.ReplacePath(0, waypoints);
+                e.RemovePathRequest();
             }
-
-            e.RemovePathRequest();
         }
     }
 }
