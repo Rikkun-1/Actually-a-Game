@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public int                  windowCount;
     public int                  nonWalkableCount;
     public float                timeScale;
+    public bool                 isSpawning;
     
     public Image timeProgress;
 
@@ -37,7 +38,7 @@ public class GameController : MonoBehaviour
         _contexts.game.SetSimulationTick(0, 0, 0);
         _contexts.game.SetGridSize(defaultGridSize);
 
-        simulationController.Initialize(wallsCount, windowCount, nonWalkableCount);
+        simulationController.Initialize(wallsCount, windowCount, nonWalkableCount, isSpawning);
         _eachFrameExecutionSystems.Initialize();
 
         _planningPhaseSystems.Initialize();

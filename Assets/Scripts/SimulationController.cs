@@ -21,7 +21,7 @@ public class SimulationController
         simulationPhaseSystems = new SimulationPhaseSystems(_contexts);
     }
 
-    public void Initialize(int wallsCount, int windowCount, int coversCount)
+    public void Initialize(int wallsCount, int windowCount, int coversCount, bool isSpawning)
     {
         var bulletHitEffectPrefab = Resources.Load<ParticleSystem>("Effects/Weapon Effects/Prefabs/HitEffect");
         _contexts.game.SetBulletHitEffect(bulletHitEffectPrefab, null);
@@ -29,15 +29,40 @@ public class SimulationController
         simulationPhaseSystems.Initialize();
         simulationPhaseSystems.Execute();
 
-        CreateTeam(6, 0, 7, 3);
-        CreateTeam(4, 0, 14, 20);
-        CreateTeam(8, 1, 7, 40);
-        CreateTeam(8, 1, 7, 59);
+        var spacing      = 5;
+        var playersCount = 10;
 
-        var testWallsSystem = new TestGridWallsSystem(_contexts);
-        for (var i = 0; i < wallsCount; i++)
+        if (isSpawning)
         {
-            testWallsSystem.Execute();
+            PopulateMapWithFloor(_contexts.game.gridSize.value);
+            CreateTeam(playersCount, 0, spacing, 10);
+            // CreateTeam(playersCount, 0, spacing, 20);
+            // CreateTeam(playersCount, 0, spacing, 50);
+            // CreateTeam(playersCount, 0, spacing, 60);
+            // CreateTeam(playersCount, 0, spacing, 90);
+            
+            // CreateTeam(playersCount, 1, spacing, 20);
+            CreateTeam(playersCount, 1, spacing, 40);
+            // CreateTeam(playersCount, 1, spacing, 70);
+            // CreateTeam(playersCount, 1, spacing, 80);
+            // CreateTeam(playersCount, 1, spacing, 100);
+    
+            RandomMapGenerator.PlaceRandomWalls(_contexts.game, wallsCount);
+            RandomMapGenerator.PlaceRandomWindows(_contexts.game, windowCount);
+            RandomMapGenerator.PlaceRandomCovers(_contexts.game, coversCount);
+        }
+    }
+    
+    private static void PopulateMapWithFloor(Vector2Int size)
+    {
+        for (var x = 0; x < size.x; x++)
+        {
+            for (var z = 0; z < size.y; z++)
+            {
+                var e = GameEntityCreator.CreateEntity();
+                e.AddWorldPosition(new Vector3(x, 0, z));
+                e.AddViewPrefab("Prefabs/floor");
+            }
         }
     }
 
@@ -53,7 +78,7 @@ public class SimulationController
     private static GameEntity CreateRandomUnit(int teamNumber, Vector2Int position)
     {
         var e = GameEntityCreator.CreateEntity(position);
-        switch (Random.Range(1, 2))
+        switch (Random.Range(0, 3))
         {
             case 0: SetupShotgun(e); break;
             case 1: SetupRifle(e);   break;
@@ -71,7 +96,8 @@ public class SimulationController
         e.ReplaceTeamID(teamNumber);
         e.AddTeamColor(teamNumber == 1 ? Color.red : Color.green);
         
-        e.hasAI         = teamNumber == 1;
+        //e.hasAI         = teamNumber == 1;
+        e.hasAI         = true;
         e.isInteractive = teamNumber != 1;
         return e;
     }
