@@ -27,7 +27,6 @@ public class SimulationController
         _contexts.game.SetBulletHitEffect(bulletHitEffectPrefab, null);
 
         simulationPhaseSystems.Initialize();
-        simulationPhaseSystems.Execute();
 
         var spacing      = 5;
         var playersCount = 10;
@@ -51,6 +50,7 @@ public class SimulationController
             RandomMapGenerator.PlaceRandomWindows(_contexts.game, windowCount);
             RandomMapGenerator.PlaceRandomCovers(_contexts.game, coversCount);
         }
+        simulationPhaseSystems.Execute();
     }
     
     private static void PopulateMapWithFloor(Vector2Int size)
