@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ProceduralToolkit;
+using UnityEngine;
 
 public static class ShootHelper
 {
@@ -14,7 +15,7 @@ public static class ShootHelper
     {
         for (var i = 0; i < weapon.weapon.bulletsPerShot; i++)
         {
-            CreateBullet(shooter, weapon, GetDeviatedVelocity(weapon));
+            CreateBullet(shooter, weapon, GetDeviatedVelocity(shooter.vision.directionAngle, weapon));
         }
 
         weapon.weapon.timeOfLastShot = GameTime.timeFromStart;
@@ -32,13 +33,12 @@ public static class ShootHelper
         return GameTime.timeFromStart > weapon.weapon.timeOfLastShot + weapon.weapon.delayBetweenShots;
     }
 
-    private static Vector3 GetDeviatedVelocity(WeaponComponent weapon)
+    private static Vector3 GetDeviatedVelocity(float angle, WeaponComponent weapon)
     {
         var dispersal = weapon.weapon.dispersal;
 
-        var velocity = weapon.weaponView.barrelEnd.forward.normalized * weapon.weapon.bulletSpeed;
+        var velocity = Quaternion.Euler(0, angle, 0) * Vector3.forward * weapon.weapon.bulletSpeed;
         velocity += new Vector3().Randomize(dispersal, dispersal);
-
         return velocity;
     }
 
@@ -47,8 +47,22 @@ public static class ShootHelper
         var bullet = GameEntityCreator.CreateEntity();
         bullet.AddBullet(weapon.weapon.bulletDamage, shooter.id.value, shooter.teamID.value);
         bullet.AddViewPrefab(weapon.weapon.bulletPrefab);
-        bullet.AddWorldPosition(weapon.weaponView.barrelEnd.position);
+
+        var position      = shooter.worldPosition.value;
+        var offset        = new Vector3(0.116f, 1.3f, 0.25f);
+        var rotatedOffset = RotatePointAroundPivot(offset, 
+                                                   Vector3.zero, 
+                                                   new Vector3(0, shooter.vision.directionAngle, 0));
+        
+        bullet.AddWorldPosition(position + rotatedOffset);
         bullet.enablePreviousWorldPositionMemorization = true;
         bullet.AddVelocity(velocity);
+    }
+    
+    public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles) {
+        Vector3 dir = point - pivot;            // get point direction relative to pivot
+        dir   = Quaternion.Euler(angles) * dir; // rotate it
+        point = dir + pivot;                    // calculate rotated point
+        return point;                           // return it
     }
 }

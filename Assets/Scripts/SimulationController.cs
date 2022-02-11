@@ -50,7 +50,7 @@ public class SimulationController
             RandomMapGenerator.PlaceRandomWindows(_contexts.game, windowCount);
             RandomMapGenerator.PlaceRandomCovers(_contexts.game, coversCount);
         }
-        simulationPhaseSystems.Execute();
+        // simulationPhaseSystems.Execute();
     }
     
     private static void PopulateMapWithFloor(Vector2Int size)

@@ -6,7 +6,6 @@ using Entitas;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Debug = System.Diagnostics.Debug;
-using Random = UnityEngine.Random;
 
 public class EntitySaveLoader
 {
@@ -24,7 +23,7 @@ public class EntitySaveLoader
     class GameSave
     {
         public EntitiesSaveData entitiesSaveData;
-        public Random.State     randomState;
+        public long             seed;
     }
 
     public static void SaveAllEntitiesInScene(Contexts contexts, string saveFileName)
@@ -41,7 +40,7 @@ public class EntitySaveLoader
             saveData.entityInfos.Add(MakeEntityInfo(savingEntity, null));
         }
 
-        var gameSave = new GameSave {entitiesSaveData = saveData, randomState = Random.state};
+        var gameSave = new GameSave {entitiesSaveData = saveData, seed = GameRandom.Random.seed};
 
         var json = JsonConvert.SerializeObject(gameSave, Formatting.Indented);
         var path = $"Assets/Resources/EntityTemplate/SaveFile/{saveFileName}.json";
@@ -58,7 +57,7 @@ public class EntitySaveLoader
         {
             MakeEntityFromEntityInfo(entityInfo, contexts);
         }
-        Random.state = saveData.randomState;
+        GameRandom.Random.seed = saveData.seed;
         GameEntityCreator.UpdateCurrentID();
     }
 

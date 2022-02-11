@@ -2,6 +2,7 @@ public sealed class SimulationPhaseSystems : Feature
 {
     public SimulationPhaseSystems(Contexts contexts)
     {
+        Add(new GameEventSystems(contexts));
         Add(new GridSystems(contexts));
 
         Add(new MovementSystems(contexts));
