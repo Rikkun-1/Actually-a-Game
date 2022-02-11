@@ -27,7 +27,7 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
 
     public void Execute()
     {
-        if (++_frame != _delayBetweenChecks) return;
+        if (++_frame < _delayBetweenChecks) return;
         
         _frame = 0;
         FindTargets();

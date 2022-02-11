@@ -128,26 +128,24 @@ public class SimulationController
 
     public void UpdateSimulation()
     {
-        if (timeUntilPhaseEnd >= tickDeltaTime)
+        if (!(timeUntilPhaseEnd >= tickDeltaTime)) return;
+        
+        timeUntilPhaseEnd -= tickDeltaTime;
+        if (timeUntilPhaseEnd < tickDeltaTime)
         {
-            timeUntilPhaseEnd -= tickDeltaTime;
-            if (timeUntilPhaseEnd < tickDeltaTime)
-            {
-                timeUntilPhaseEnd = 0;
-                OnSimulationPhaseEnd?.Invoke();
-            }
-
-            UpdateSimulationTickComponent();
-            simulationPhaseSystems.Execute();
-            simulationPhaseSystems.Cleanup();
+            timeUntilPhaseEnd = 0;
+            OnSimulationPhaseEnd?.Invoke();
         }
+
+        UpdateSimulationTickComponent();
+        simulationPhaseSystems.Execute();
+        simulationPhaseSystems.Cleanup();
     }
 
     public void TearDown()
     {
         simulationPhaseSystems.TearDown();
     }
-
 
     private void UpdateSimulationTickComponent()
     {
