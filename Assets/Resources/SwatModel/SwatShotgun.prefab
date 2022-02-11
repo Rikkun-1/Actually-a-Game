@@ -277,6 +277,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5103052943099972691, guid: 92a370bfad905944a815df544c679812, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5360595622018278870, guid: 92a370bfad905944a815df544c679812, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
