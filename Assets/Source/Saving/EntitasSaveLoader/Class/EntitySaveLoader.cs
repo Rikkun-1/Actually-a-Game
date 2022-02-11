@@ -5,7 +5,6 @@ using System.Linq;
 using Entitas;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using UnityEngine;
 using Debug = System.Diagnostics.Debug;
 using Random = UnityEngine.Random;
 
@@ -30,7 +29,6 @@ public class EntitySaveLoader
 
     public static void SaveAllEntitiesInScene(Contexts contexts, string saveFileName)
     {
-        var state = JsonConvert.SerializeObject(Random.state);
         foreach (var gameEntity in contexts.game.GetEntities())
         {
             gameEntity.isSavingData = true;
@@ -203,7 +201,7 @@ public class EntitySaveLoader
     /// <summary>
     ///     make Json file and save to Resource/EntityTemplate.
     /// </summary>
-    public void SaveEntityTemplateToSingleFile(IEntity entity, string templateName)
+    public static void SaveEntityTemplateToSingleFile(IEntity entity, string templateName)
     {
         var json = MakeEntityInfoJson(entity, Formatting.Indented, templateName);
         var path = $"Assets/Resources/EntityTemplate/SingleEntity/{templateName}.json";

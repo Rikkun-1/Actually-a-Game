@@ -22,28 +22,27 @@ public class FreeCamera : MonoBehaviour
         UpdateInputs();
 
         var moved = _inputRotateAxisX != 0.0f || _inputRotateAxisY != 0.0f || _inputVertical != 0.0f || _inputHorizontal != 0.0f || _inputYAxis != 0.0f;
-        if (moved)
-        {
-            var localEulerAngles = transform.localEulerAngles;
-            var rotationX        = localEulerAngles.x;
-            var newRotationY     = localEulerAngles.y + _inputRotateAxisX;
+        if (!moved) return;
+        
+        var localEulerAngles = transform.localEulerAngles;
+        var rotationX        = localEulerAngles.x;
+        var newRotationY     = localEulerAngles.y + _inputRotateAxisX;
 
-            // Weird clamping code due to weird Euler angle mapping...
-            var newRotationX = rotationX - _inputRotateAxisY;
-            if (rotationX <= 90.0f && newRotationX >= 0.0f)
-                newRotationX = Mathf.Clamp(newRotationX, 0.0f, 90.0f);
-            if (rotationX >= 270.0f)
-                newRotationX = Mathf.Clamp(newRotationX, 270.0f, 360.0f);
+        // Weird clamping code due to weird Euler angle mapping...
+        var newRotationX = rotationX - _inputRotateAxisY;
+        if (rotationX <= 90.0f && newRotationX >= 0.0f)
+            newRotationX = Mathf.Clamp(newRotationX, 0.0f, 90.0f);
+        if (rotationX >= 270.0f)
+            newRotationX = Mathf.Clamp(newRotationX, 270.0f, 360.0f);
 
-            transform.localRotation = Quaternion.Euler(newRotationX, newRotationY, transform.localEulerAngles.z);
+        transform.localRotation = Quaternion.Euler(newRotationX, newRotationY, transform.localEulerAngles.z);
 
-            var move = Time.unscaledDeltaTime * this.moveSpeed;
-            if (_fire1 || _leftShiftBoost && _leftShift)
-                move *= turbo;
-            transform.position += transform.forward * (move * _inputVertical);
-            transform.position += transform.right * (move * _inputHorizontal);
-            transform.position += Vector3.up * (move * _inputYAxis);
-        }
+        var move = Time.unscaledDeltaTime * this.moveSpeed;
+        if (_fire1 || _leftShiftBoost && _leftShift)
+            move *= turbo;
+        transform.position += transform.forward * (move * _inputVertical);
+        transform.position += transform.right * (move * _inputHorizontal);
+        transform.position += Vector3.up * (move * _inputYAxis);
     }
 
     private void UpdateInputs()

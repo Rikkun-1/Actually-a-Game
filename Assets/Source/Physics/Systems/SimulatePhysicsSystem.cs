@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class SimulatePhysicsSystem : IExecuteSystem
 {
-    private int frameDelay = 2;
-    private int count;
+    private int _frameDelay = 2;
+    private int _frame;
     
     public SimulatePhysicsSystem(Contexts contexts)
     {
@@ -12,9 +12,8 @@ public class SimulatePhysicsSystem : IExecuteSystem
     
     public void Execute()
     {
-        count++;
-        if (count < frameDelay) return;
-        count = 0;
-        Physics.Simulate(GameTime.deltaTime * frameDelay);
+        if (++_frame < _frameDelay) return;
+        _frame = 0;
+        Physics.Simulate(GameTime.deltaTime * _frameDelay);
     }
 }

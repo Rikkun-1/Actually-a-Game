@@ -75,7 +75,7 @@ public class EntityTemplateSaveLoadWindow : EditorWindow
         {
             if (_currentEntity == null) return;
 
-            _entitySaveLoader.SaveEntityTemplateToSingleFile(_currentEntity, _assetSaveName);
+            EntitySaveLoader.SaveEntityTemplateToSingleFile(_currentEntity, _assetSaveName);
             AssetDatabase.Refresh();
             _entitySaveLoader.ReloadTemplates();
         }

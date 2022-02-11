@@ -12,7 +12,7 @@ public class TargetConverter : JsonConverter
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        var jObject          = (JObject)serializer.Deserialize(reader);
+        var jObject    = (JObject)serializer.Deserialize(reader);
         var targetType = Enum.Parse(typeof(TargetType), jObject["targetType"].ToString());
 
         var stringTarget = jObject["target"].ToString();

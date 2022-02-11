@@ -5,7 +5,7 @@ public static class CacheLambdaResult
 {
     public static class Cache
     {
-        private static Dictionary<string, object> _cache = new Dictionary<string, object>();
+        private static readonly Dictionary<string, object> _cache = new Dictionary<string, object>();
 
         public static void Store(string key, object value)
         {

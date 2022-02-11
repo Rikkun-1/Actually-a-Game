@@ -27,12 +27,10 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
 
     public void Execute()
     {
-        _frame++;
-        if (_frame == _delayBetweenChecks)
-        {
-            _frame = 0;
-            FindTargets();
-        }
+        if (++_frame != _delayBetweenChecks) return;
+        
+        _frame = 0;
+        FindTargets();
     }
 
     private void FindTargets()
@@ -61,7 +59,7 @@ public class ShootAtEnemyInSightSystem : IExecuteSystem
     private void FindPossibleTargets(int length, GameEntity[] entities)
     {
         if (_possibleTargetsByDistance.Length < length) _possibleTargetsByDistance = new IEnumerable<GameEntity>[length];
-        Parallel.For(0L, length, (i) => _possibleTargetsByDistance[i] = GetPossibleTargetsByDistance(entities[i]));
+        Parallel.For(0L, length, i => _possibleTargetsByDistance[i] = GetPossibleTargetsByDistance(entities[i]));
     }
 
     private static bool IsInSameTeam(GameEntity e, GameEntity targetEntity)
