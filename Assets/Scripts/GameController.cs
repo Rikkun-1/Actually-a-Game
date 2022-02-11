@@ -1,3 +1,4 @@
+using System;
 using GraphProcessor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,8 +48,15 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         timeProgress.fillAmount = 1 - simulationController.timeUntilPhaseEnd / simulationController.timeForOnePhaseCycle;
-        
-        Time.timeScale = simulationController.timeUntilPhaseEnd > 0  ? timeScale : 0;
+
+        var newAdaptiveTimeScale = Mathf.Clamp01(simulationController.tickDeltaTime / Time.smoothDeltaTime);
+
+        if (float.IsNaN(newAdaptiveTimeScale)) newAdaptiveTimeScale = 1;
+
+        Time.timeScale = simulationController.timeUntilPhaseEnd > 0
+                             ? newAdaptiveTimeScale
+                             : 0;
+
         _eachFrameExecutionSystems.Execute();
         _eachFrameExecutionSystems.Cleanup();
     }
