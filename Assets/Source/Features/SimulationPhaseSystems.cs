@@ -5,7 +5,7 @@ public sealed class SimulationPhaseSystems : Feature
         Add(new GridSystems(contexts));
 
         Add(new MovementSystems(contexts));
-        Add(new CollisionSystems(contexts));
+        Add(new PhysicsSystems(contexts));
         Add(new HealthAndDamageSystems(contexts));
 
         Add(new PathfindingSystems(contexts));
