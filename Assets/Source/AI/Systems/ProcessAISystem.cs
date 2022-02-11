@@ -66,7 +66,7 @@ public class ProcessAISystem : IInitializeSystem, IExecuteSystem
                                   .SelectMany(enemy => enemy)
                                   .ToList();
 
-        var origin         = moveTarget.ToVector3XZ().WithY(1.4f);
+        var origin         = moveTarget.ToVector3XZ().WithY(1.6f);
         var visibleEnemies = enemies.Where(enemy => RaycastHelper.IsInClearVision(origin, enemy));
         var enemyPositions = visibleEnemies.Select(enemy => enemy.gridPosition.value).ToArray();
         return enemyPositions;
