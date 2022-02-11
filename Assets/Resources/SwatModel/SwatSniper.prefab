@@ -10351,6 +10351,14 @@ PrefabInstance:
       propertyPath: m_UpdateMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9069315219045929262, guid: 92a370bfad905944a815df544c679812, type: 3}
+      propertyPath: _rigidbodies.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 9069315219045929262, guid: 92a370bfad905944a815df544c679812, type: 3}
+      propertyPath: _rigidbodies.Array.data[13]
+      value: 
+      objectReference: {fileID: 1706029849365747620}
     - target: {fileID: 9069315219045929263, guid: 92a370bfad905944a815df544c679812, type: 3}
       propertyPath: m_Name
       value: SwatSniper
