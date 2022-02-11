@@ -28,20 +28,20 @@ public class SimulationController
 
         simulationPhaseSystems.Initialize();
 
-        var spacing      = 5;
-        var playersCount = 10;
+        const int spacing      = 4;
+        const int playersCount = 5;
 
         if (isSpawning)
         {
             PopulateMapWithFloor(_contexts.game.gridSize.value);
-            CreateTeam(playersCount, 0, spacing, 10);
+            CreateTeam(playersCount, 0, spacing, 1);
             // CreateTeam(playersCount, 0, spacing, 20);
             // CreateTeam(playersCount, 0, spacing, 50);
             // CreateTeam(playersCount, 0, spacing, 60);
             // CreateTeam(playersCount, 0, spacing, 90);
             
-            // CreateTeam(playersCount, 1, spacing, 20);
-            CreateTeam(playersCount, 1, spacing, 40);
+            CreateTeam(playersCount, 1, spacing, 19);
+            // CreateTeam(playersCount, 1, spacing, 40);
             // CreateTeam(playersCount, 1, spacing, 70);
             // CreateTeam(playersCount, 1, spacing, 80);
             // CreateTeam(playersCount, 1, spacing, 100);

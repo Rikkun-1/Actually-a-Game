@@ -11,7 +11,7 @@ public class ExecuteBulletRaycastHitCheck : ReactiveSystem<GameEntity>
     public ExecuteBulletRaycastHitCheck(Contexts contexts) : base(contexts.game)
     {
         _physics         = contexts.physics;
-        _layerMask.value = LayerMask.GetMask("Default", "Ragdoll");
+        _layerMask.value = LayerMask.GetMask("Default", "Hitbox");
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
