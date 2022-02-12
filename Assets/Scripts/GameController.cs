@@ -33,6 +33,8 @@ public class GameController : MonoBehaviour
         simulationController.OnSimulationPhaseEnd += UpdatePlanningPhaseSystems;
         simulationController.tickDeltaTime        =  Time.fixedDeltaTime;
 
+        var bulletHitEffectPrefab = Resources.Load<ParticleSystem>("Effects/Weapon Effects/Prefabs/HitEffect");
+        _contexts.game.SetBulletHitEffect(bulletHitEffectPrefab, null);
         _contexts.game.SetGameSettings(gameSettings);
         _contexts.game.SetAIGraph(AIGraph);
         _contexts.game.SetSimulationTick(0, 0, 0);
@@ -48,7 +50,7 @@ public class GameController : MonoBehaviour
     {
         timeProgress.fillAmount = 1 - simulationController.timeUntilPhaseEnd / simulationController.timeForOnePhaseCycle;
 
-        var newAdaptiveTimeScale = Mathf.Clamp01(simulationController.tickDeltaTime / Time.smoothDeltaTime);
+        var newAdaptiveTimeScale = Mathf.Clamp(simulationController.tickDeltaTime / Time.smoothDeltaTime, 0, timeScale);
 
         if (float.IsNaN(newAdaptiveTimeScale)) newAdaptiveTimeScale = 1;
 
