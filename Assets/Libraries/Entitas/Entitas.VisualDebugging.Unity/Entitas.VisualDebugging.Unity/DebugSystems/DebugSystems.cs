@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using UnityEngine;
 
 namespace Entitas.VisualDebugging.Unity {
@@ -88,6 +89,41 @@ namespace Entitas.VisualDebugging.Unity {
         public SystemInfo[] executeSystemInfos { get { return _executeSystemInfos.ToArray(); } }
         public SystemInfo[] cleanupSystemInfos { get { return _cleanupSystemInfos.ToArray(); } }
         public SystemInfo[] tearDownSystemInfos { get { return _tearDownSystemInfos.ToArray(); } }
+
+        public SystemInfo[] systemInfos
+        {
+            get
+            {
+                var infos = new List<SystemInfo>();
+                infos.AddRange(_initializeSystemInfos);
+                infos.AddRange(_executeSystemInfos);
+                infos.AddRange(_cleanupSystemInfos);
+                infos.AddRange(_tearDownSystemInfos);
+                return infos.Distinct().ToArray();
+            }
+        }
+
+        public SystemInfo[] childSystemInfos
+        {
+            get
+            {
+                var childInfos = new List<SystemInfo>();
+                
+                foreach (var systemInfo in systemInfos)
+                {
+                    var debugSystems = systemInfo.system as DebugSystems;
+
+                    childInfos.Add(systemInfo);
+                    
+                    if (debugSystems != null)
+                    {
+                        childInfos.AddRange(debugSystems.childSystemInfos);
+                    }
+                }
+
+                return childInfos.Distinct().ToArray();
+            }
+        }
 
         public bool paused;
 

@@ -29,6 +29,12 @@ ${memberAssignmentList}
         ReplaceComponent(index, component);
     }
 
+    public void Update${ComponentName}() {
+        var index = ${Index};
+        var component = GetComponent(index);;
+        ReplaceComponent(index, component);
+    }
+
     public void Remove${ComponentName}() {
         RemoveComponent(${Index});
     }

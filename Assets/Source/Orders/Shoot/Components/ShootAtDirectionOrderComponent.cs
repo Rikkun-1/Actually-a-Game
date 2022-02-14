@@ -1,18 +1,8 @@
-﻿using Entitas;
+﻿using UnityEngine;
 
 [Game]
-public sealed class ShootAtDirectionOrderComponent : IComponent
+public sealed class ShootAtDirectionOrderComponent : IOrderComponent, IRequiresDirection
 {
-    private readonly Angle _angle;
-
-    public ShootAtDirectionOrderComponent()
-    {
-        _angle = new Angle();
-    }
-
-    public float angle
-    {
-        get => _angle.value;
-        set => _angle.value = value;
-    }
+    public Vector2 direction { get; set; }
+    public float   angle     => direction.ToAngle();
 }

@@ -2,7 +2,9 @@
 {
     public OrdersExecutionSystems(Contexts contexts)
     {
-        Add(new ExecuteLookAtOrdersSystems(contexts));
-        Add(new ExecuteShootAtOrdersSystems(contexts));
+        Add(new RemoveOrdersFromDestroyedSystems(contexts));
+
+        Add(new ExecuteLookOrderSystems(contexts));
+        Add(new ExecuteShootOrderSystems(contexts));
     }
 }

@@ -10,7 +10,7 @@ public class ApplyDamageToHealthSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.Damage);
+        return context.CreateCollector(GameMatcher.Damage.Added());
     }
 
     protected override bool Filter(GameEntity entity)
@@ -25,8 +25,8 @@ public class ApplyDamageToHealthSystem : ReactiveSystem<GameEntity>
         foreach (var e in entities)
         {
             var damageSum = e.damage.damageList.Sum(elem => elem.damage);
-
-            e.ReplaceHealth(e.health.value - damageSum);
+            e.health.currentHealth -= damageSum;
+            e.UpdateHealth();
         }
     }
 }

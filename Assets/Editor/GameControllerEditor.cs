@@ -1,15 +1,14 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Entitas.VisualDebugging.Unity;
 using UnityEditor;
-using UnityEngine;
+using static UnityEngine.GUILayout;
+
 
 [CustomEditor(typeof(GameController))]
 public class GameControllerEditor : Editor
 {
     private GameController _gameController;
-    private static WorldDebugGrid _worldDebugGrid;
-    
+
     private void OnEnable()
     {
         _gameController = (GameController)target;
@@ -18,36 +17,30 @@ public class GameControllerEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        EditorGUILayout.LabelField("ID for next created entity", EntityCreator.currentID.ToString());
 
-        if (GUILayout.Button("Create game entity"))
-        {
-            var entity = EntityCreator.CreateGameEntity();
-            Selection.activeGameObject = FindObjectsOfType<EntityBehaviour>()
-                                         .Single(e => e.entity == entity).gameObject;
-        }
+        if (Button("Create game entity"))  CreateGameEntity();
+        if (Button("Play"))                Play();
+        if (Button("Play planning phase")) PlayPlaningPhase();
+    }
 
-        if (GUILayout.Button("Play simulation phase"))
-        {
-            var simulationController = _gameController.simulationController;
-            if (simulationController.timeUntilPhaseEnd < 0.0001)
-            {
-                simulationController.timeUntilPhaseEnd = simulationController.timeForOnePhaseCycle;
-            }
-        }
+    private void PlayPlaningPhase()
+    {
+        _gameController.UpdatePlanningPhaseSystems();
+    }
 
-        var teamID = EditorGUILayout.IntField("Team ID: ", 1);
-        
-        if (GUILayout.Button("Show team players positions tactical map"))
+    private void Play()
+    {
+        var simulationController = _gameController.simulationController;
+        if (simulationController.timeUntilPhaseEnd < 0.0001)
         {
-            _worldDebugGrid ??= new WorldDebugGrid(20, 20, 1, new Vector3());
-            _worldDebugGrid.SetValues(TacticalMapCreator.CreateTeamPlayersPositionMap(Contexts.sharedInstance, teamID));
+            simulationController.timeUntilPhaseEnd = simulationController.timeForOnePhaseCycle;
         }
-        
-        if (GUILayout.Button("Show amount of team players that can be seen from this position map"))
-        {
-            _worldDebugGrid ??= new WorldDebugGrid(20, 20, 1, new Vector3());
-            _worldDebugGrid.SetValues(TacticalMapCreator.CreateAmountOfTeamPlayersThatCanBeSeenFromThisPositionMap(Contexts.sharedInstance, teamID));
-        }
+    }
+
+    private static void CreateGameEntity()
+    {
+        var entity = GameEntityCreator.CreateEntity();
+        Selection.activeGameObject = FindObjectsOfType<EntityBehaviour>()
+                                    .Single(e => e.entity == entity).gameObject;
     }
 }

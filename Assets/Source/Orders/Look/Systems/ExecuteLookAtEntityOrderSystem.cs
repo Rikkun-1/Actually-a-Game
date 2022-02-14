@@ -1,15 +1,14 @@
-﻿using System;
-using Entitas;
-using UnityEngine;
+﻿using Entitas;
+using ProceduralToolkit;
 
 public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
 {
-    private readonly Contexts           _contexts;
     private readonly IGroup<GameEntity> _entities;
+    private readonly GameContext        _game;
 
     public ExecuteLookAtEntityOrderSystem(Contexts contexts)
     {
-        _contexts = contexts;
+        _game = contexts.game;
         _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.LookAtEntityOrder,
                                                              GameMatcher.Vision,
                                                              GameMatcher.WorldPosition));
@@ -17,32 +16,22 @@ public class ExecuteLookAtEntityOrderSystem : IExecuteSystem
 
     public void Execute()
     {
-        var deltaTime = _contexts.game.simulationTick.deltaTime;
-
-        foreach (var e in _entities)
+        foreach (var e in _entities.GetEntities())
         {
+            var targetEntity = _game.GetEntityWithId(e.lookAtEntityOrder.targetID);
+            if (targetEntity == null)
+            {
+                e.RemoveLookAtEntityOrder();
+                continue;
+            }
+
             var currentPosition = e.worldPosition.value;
-
-            var targetEntityID = e.lookAtEntityOrder.targetID;
-            var targetEntity   = _contexts.game.GetEntityWithId(targetEntityID);
-            if (targetEntity == null) continue;
-
-            var targetPosition = targetEntity.worldPosition.value;
-
+            var targetPosition  = targetEntity.worldPosition.value;
             var targetDirection = targetPosition - currentPosition;
 
-            var vision      = e.vision;
-            var angleChange = vision.turningSpeed * deltaTime;
+            var angleDelta = e.vision.turningSpeed * GameTime.deltaTime;
 
-            var desiredAngle = targetDirection.ToAngle();
-
-            if (Math.Abs(vision.directionAngle - desiredAngle) > 0.01)
-            {
-                vision.directionAngle =
-                    AngleHelper.RotateAngleTowards(vision.directionAngle, desiredAngle, angleChange);
-
-                e.ReplaceVision(vision.directionAngle, vision.viewingAngle, vision.distance, vision.turningSpeed);
-            }
+            VisionHelper.RotateEntityVisionTowards(e, targetDirection.ToVector2XZ().ToAngle(), angleDelta);
         }
     }
 }

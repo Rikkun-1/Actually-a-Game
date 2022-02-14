@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 using Roy_T.AStar.Paths;
-using Roy_T.AStar.Primitives;
 using UnityEngine;
 
 public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
 {
-    private readonly Contexts   _contexts;
-    private readonly PathFinder _pathfinder = new PathFinder();
+    private readonly GameContext _game;
+    private readonly PathFinder  _pathfinder = new PathFinder();
 
     public ProcessPathRequestsSystem(Contexts contexts) : base(contexts.game)
     {
-        _contexts = contexts;
+        _game = contexts.game;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -26,7 +25,7 @@ public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var pathFindingGrid = _contexts.game.pathfindingGrid.value;
+        var pathFindingGrid = _game.pathfindingGrid.value;
 
         foreach (var e in entities)
         {
@@ -38,9 +37,11 @@ public class ProcessPathRequestsSystem : ReactiveSystem<GameEntity>
                                              .GetWaypointsFromPath()
                                 : new List<Vector2Int> { end.ToVector2Int() };
 
-            e.ReplacePath(0, waypoints);
-
-            e.RemovePathRequest();
+            if (waypoints.Count != 0)
+            {
+                e.ReplacePath(0, waypoints);
+                e.RemovePathRequest();
+            }
         }
     }
 }

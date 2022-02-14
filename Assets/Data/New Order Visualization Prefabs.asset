@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f56f487f76c4a03923373d2827f96ae, type: 3}
+  m_Name: New Order Visualization Prefabs
+  m_EditorClassIdentifier: 
+  gridCursor: {fileID: 5356673223898582564, guid: 041ff16e901544b439f13b3cf0ba3e72, type: 3}
+  selectedEntity: {fileID: 5356673223898582564, guid: 00a4573e22152e84aba56e206c54719a, type: 3}
+  moveToPositionOrder: {fileID: 5356673223898582564, guid: 1f5cb431507871f47926f5d37f010741, type: 3}
+  path: {fileID: 5356673223898582564, guid: f056c9ac1be62564397be06085ca9020, type: 3}
+  lookAtDirectionOrder: {fileID: 5356673223898582564, guid: bb8ed8c3503f310488be97fd4aaa8823, type: 3}
+  lookAtPositionOrder: {fileID: 5356673223898582564, guid: 3fc03deb309610947b7bd993da37e9fc, type: 3}
+  shootAtEntityOrder: {fileID: 5356673223898582564, guid: 246e20e7fdd8bca4faedccd7fb348ac7, type: 3}

@@ -5,165 +5,89 @@ using Roy_T.AStar.Primitives;
 
 public static class CanGoChecker
 {
-    public static bool NoNonWalkableInDirection(GameContext context, GridPosition from,
-                                                Direction   direction)
+    private static bool IsWalkable(GameContext game, GridPosition position)
     {
-        var x = from.X;
-        var y = from.Y;
-
-        var top         = new GridPosition(x,     y + 1);
-        var bottom      = new GridPosition(x,     y - 1);
-        var left        = new GridPosition(x - 1, y);
-        var right       = new GridPosition(x + 1, y);
-        var topLeft     = new GridPosition(x - 1, y + 1);
-        var topRight    = new GridPosition(x + 1, y + 1);
-        var bottomLeft  = new GridPosition(x - 1, y - 1);
-        var bottomRight = new GridPosition(x + 1, y - 1);
-
-        if (!isWalkable(from)) return false;
-
-        switch (direction)
-        {
-            case Direction.Top:    return isWalkable(top);
-            case Direction.Right:  return isWalkable(right);
-            case Direction.Bottom: return isWalkable(bottom);
-            case Direction.Left:   return isWalkable(left);
-
-            case Direction.TopRight:
-                return isWalkable(topRight) && isWalkable(top) && isWalkable(right);
-
-            case Direction.BottomRight:
-                return isWalkable(bottomRight) && isWalkable(bottom) && isWalkable(right);
-
-            case Direction.BottomLeft:
-                return isWalkable(bottomLeft) && isWalkable(bottom) && isWalkable(left);
-
-            case Direction.TopLeft:
-                return isWalkable(topLeft) && isWalkable(top) && isWalkable(left);
-
-            default:
-                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-        }
-
-        bool isWalkable(GridPosition position)
-        {
-            return context.GetEntitiesWithGridPosition(position.ToVector2Int())
-                          .All(e => !e.isNonWalkable);
-        }
+        return game.GetEntitiesWithGridPosition(position.ToVector2Int())
+                   .All(e => !e.isNonWalkable);
     }
 
-    private static bool NoWallsInLateralDirection(GameContext context, GridPosition from,
-                                                  Direction   direction)
+    private static bool CheckNonWalkableInLateralDirection(GameContext game, GridPosition from, Direction   direction)
     {
-        var x = from.X;
-        var y = from.Y;
-
-        var top    = new GridPosition(x,     y + 1);
-        var bottom = new GridPosition(x,     y - 1);
-        var left   = new GridPosition(x - 1, y);
-        var right  = new GridPosition(x + 1, y);
-
-        return direction switch
-        {
-            Direction.Top    => noTopWall(from) && noBottomWall(top),
-            Direction.Right  => noRightWall(from) && noLeftWall(right),
-            Direction.Bottom => noBottomWall(from) && noTopWall(bottom),
-            Direction.Left   => noLeftWall(from) && noRightWall(left),
-            _                => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
-        };
-
-        bool noTopWall(GridPosition position)
-            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isNorthWall);
-
-        bool noRightWall(GridPosition position)
-            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isEastWall);
-
-        bool noBottomWall(GridPosition position)
-            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isSouthWall);
-
-        bool noLeftWall(GridPosition position)
-            => context.GetEntitiesWithGridPosition(position.ToVector2Int()).All(e => !e.isWestWall);
+        var to = from.StepInDirection(direction);
+        return IsWalkable(game, to);
     }
 
-    public static bool NoWallsInDirection(GameContext context, GridPosition from,
-                                          Direction   direction)
+    private static bool CheckNonWalkableInDiagonalDirection(GameContext game, GridPosition from, Direction   direction)
     {
-        var x = from.X;
-        var y = from.Y;
+        var to = from.StepInDirection(direction);
+        
+        var (firstSubDirection, secondSubDirection) = direction.GetNeighbours();
 
-        var top    = new GridPosition(x,     y + 1);
-        var bottom = new GridPosition(x,     y - 1);
-        var left   = new GridPosition(x - 1, y);
-        var right  = new GridPosition(x + 1, y);
-
-        switch (direction)
-        {
-            case Direction.Top:
-            case Direction.Bottom:
-            case Direction.Right:
-            case Direction.Left:
-                return NoWallsInLateralDirection(context, from, direction);
-
-            case Direction.TopRight:
-                return NoWallsInLateralDirection(context, from,  Direction.Top) &&
-                       NoWallsInLateralDirection(context, from,  Direction.Right) &&
-                       NoWallsInLateralDirection(context, top,   Direction.Right) &&
-                       NoWallsInLateralDirection(context, right, Direction.Top);
-
-            case Direction.TopLeft:
-                return NoWallsInLateralDirection(context, from, Direction.Top) &&
-                       NoWallsInLateralDirection(context, from, Direction.Left) &&
-                       NoWallsInLateralDirection(context, top,  Direction.Left) &&
-                       NoWallsInLateralDirection(context, left, Direction.Top);
-
-            case Direction.BottomRight:
-                return NoWallsInLateralDirection(context, from,   Direction.Bottom) &&
-                       NoWallsInLateralDirection(context, from,   Direction.Right) &&
-                       NoWallsInLateralDirection(context, bottom, Direction.Right) &&
-                       NoWallsInLateralDirection(context, right,  Direction.Bottom);
-
-            case Direction.BottomLeft:
-                return NoWallsInLateralDirection(context, from,   Direction.Bottom) &&
-                       NoWallsInLateralDirection(context, from,   Direction.Left) &&
-                       NoWallsInLateralDirection(context, bottom, Direction.Left) &&
-                       NoWallsInLateralDirection(context, left,   Direction.Bottom);
-
-            default:
-                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-        }
+        return IsWalkable(game, to) &&
+               IsWalkable(game, from.StepInDirection(firstSubDirection)) &&
+               IsWalkable(game, from.StepInDirection(secondSubDirection));
     }
 
-    public static bool DirectionIsInsideGrid(Grid grid, GridPosition from, Direction direction)
+    private static bool NoNonWalkableInDirection(GameContext game, GridPosition from,
+                                                 Direction   direction)
     {
-        var x = from.X;
-        var y = from.Y;
+        if (!IsWalkable(game, from)) return false;
 
-        var top         = new GridPosition(x,     y + 1);
-        var bottom      = new GridPosition(x,     y - 1);
-        var left        = new GridPosition(x - 1, y);
-        var right       = new GridPosition(x + 1, y);
-        var topLeft     = new GridPosition(x - 1, y + 1);
-        var topRight    = new GridPosition(x + 1, y + 1);
-        var bottomLeft  = new GridPosition(x - 1, y - 1);
-        var bottomRight = new GridPosition(x + 1, y - 1);
-
-        return direction switch
-        {
-            Direction.Top         => grid.IsInsideGrid(top),
-            Direction.TopRight    => grid.IsInsideGrid(topRight),
-            Direction.Right       => grid.IsInsideGrid(right),
-            Direction.BottomRight => grid.IsInsideGrid(bottomRight),
-            Direction.Bottom      => grid.IsInsideGrid(bottom),
-            Direction.BottomLeft  => grid.IsInsideGrid(bottomLeft),
-            Direction.Left        => grid.IsInsideGrid(left),
-            Direction.TopLeft     => grid.IsInsideGrid(topLeft),
-            _                     => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
-        };
+        if (direction.IsLateralDirection())  return CheckNonWalkableInLateralDirection(game, from, direction);
+        if (direction.IsDiagonalDirection()) return CheckNonWalkableInDiagonalDirection(game, from, direction);
+        throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
     }
 
-    public static bool CanGoDirection(GameContext context, Grid grid, GridPosition from,
-                                      Direction   direction)
-        => DirectionIsInsideGrid(grid, from, direction) &&
-           NoNonWalkableInDirection(context, from, direction) &&
-           NoWallsInDirection(context, from, direction);
+    private static bool NoWallInDirection(GameContext game, GridPosition position, Direction direction)
+    {
+        if(!direction.IsLateralDirection()) throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+
+        return game.GetEntitiesWithGridPosition(position.ToVector2Int())
+                   .All(e => !e.hasWall || e.wall.direction != direction);
+    }
+
+    private static bool NoWallsInLateralDirectionTwoWay(GameContext game, GridPosition from, Direction direction)
+    {
+        var to = from.StepInDirection(direction);
+
+        if(!direction.IsLateralDirection()) throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+
+        return NoWallInDirection(game, from, direction) &&
+               NoWallInDirection(game, to,   direction.OppositeDirection());
+    }
+
+    private static bool NoWallInDiagonalDirection(GameContext game, GridPosition from, Direction direction)
+    {
+        var (firstSubDirection, secondSubDirection) = direction.GetNeighbours();
+        var firstSubPosition  = from.StepInDirection(firstSubDirection);
+        var secondSubPosition = from.StepInDirection(secondSubDirection);
+
+        if (direction.IsDiagonalDirection()) return NoWallsInLateralDirectionTwoWay(game, from,              firstSubDirection) &&
+                                                    NoWallsInLateralDirectionTwoWay(game, from,              secondSubDirection) &&
+                                                    NoWallsInLateralDirectionTwoWay(game, firstSubPosition,  secondSubDirection) &&
+                                                    NoWallsInLateralDirectionTwoWay(game, secondSubPosition, firstSubDirection);
+
+        throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+    }
+    
+    private static bool NoWallsInDirection(GameContext game, GridPosition from,
+                                           Direction   direction)
+    {
+        if (direction.IsLateralDirection())  return NoWallsInLateralDirectionTwoWay(game, from, direction);
+        if (direction.IsDiagonalDirection()) return NoWallInDiagonalDirection(game, from, direction);
+        throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+    }
+
+    private static bool DirectionIsInsideGrid(Grid grid, GridPosition from, Direction direction)
+    {
+        var to = from.StepInDirection(direction);
+        return grid.IsInsideGrid(to);
+    }
+
+    public static bool CanGoDirection(GameContext game, Grid grid, GridPosition from, Direction direction)
+    {
+        return DirectionIsInsideGrid(grid, from, direction) &&
+               NoNonWalkableInDirection(game, from, direction) &&
+               NoWallsInDirection(game, from, direction);
+    }
 }

@@ -1,7 +1,8 @@
-﻿using Entitas;
+﻿using Entitas.CodeGeneration.Attributes;
 
 [Game]
-public sealed class LookAtEntityOrderComponent : IComponent
+[Event(EventTarget.Self)]
+public sealed class LookAtEntityOrderComponent : IOrderComponent, IRequiresTargetID
 {
-    public long targetID;
+    public long targetID { get; set; }
 }

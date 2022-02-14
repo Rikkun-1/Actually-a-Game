@@ -3,6 +3,6 @@
     public DestructionSystems(Contexts contexts)
     {
         Add(new RemoveDestroyedForIndestructibleSystem(contexts));
-        Add(new DestroySystem(contexts));
+        Add(new DeletionSystem(contexts));
     }
 }

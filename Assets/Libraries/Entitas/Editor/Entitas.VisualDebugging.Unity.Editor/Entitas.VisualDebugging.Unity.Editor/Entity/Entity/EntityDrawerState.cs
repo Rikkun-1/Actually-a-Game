@@ -59,9 +59,6 @@ namespace Entitas.VisualDebugging.Unity.Editor {
             bool[] unfoldedComponents;
             if (!contextToUnfoldedComponents.TryGetValue(entity.contextInfo.name, out unfoldedComponents)) {
                 unfoldedComponents = new bool[entity.totalComponents];
-                for (int i = 0; i < unfoldedComponents.Length; i++) {
-                    unfoldedComponents[i] = true;
-                }
                 contextToUnfoldedComponents.Add(entity.contextInfo.name, unfoldedComponents);
             }
 

@@ -15,17 +15,25 @@ public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasHealth;
+        return entity.hasHealth && !entity.isIndestructible && !entity.isDestroyed;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in entities)
+        var entitiesWithZeroHealth = entities.Where(e => e.health.currentHealth <= 0);
+        
+        foreach (var e in entitiesWithZeroHealth)
         {
-            if (e.health.value <= 0)
-            {
-                e.isDestroyed = true;
-            }
+            if (e.hasVision)         e.RemoveVision();
+            if (e.hasTraversalSpeed) e.RemoveTraversalSpeed();
+            e.hasAI       = false;
+            e.isDestroyed = true;
+
+            if (!e.hasUnityView) continue;
+            var destroyableComponent = e.unityView.gameObject.GetComponent<Destroyable>();
+            if (destroyableComponent == null) continue;
+                
+            destroyableComponent.OnDestroy.Invoke();
         }
     }
 }

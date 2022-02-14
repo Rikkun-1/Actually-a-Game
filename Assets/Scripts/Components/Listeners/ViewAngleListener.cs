@@ -1,16 +1,13 @@
-﻿using Entitas;
-using ProceduralToolkit;
+﻿using ProceduralToolkit;
 using UnityEngine;
 
-public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
+public class ViewAngleListener : BaseVisionListener
 {
-    private GameEntity _entity;
-
     public void OnDrawGizmos()
     {
-        if (_entity.hasVision)
+        if (gameEntity.hasVision)
         {
-            var vision         = _entity.vision;
+            var vision         = gameEntity.vision;
             var directionAngle = vision.directionAngle;
             var viewingAngle   = vision.viewingAngle;
             var distance       = vision.distance;
@@ -31,42 +28,10 @@ public class ViewAngleListener : MonoBehaviour, IEventListener, IVisionListener
                                  directionAngle - viewingAngle / 2f,
                                  directionAngle + viewingAngle / 2f,
                                  Color.red);
-
-            if (_entity.hasLookAtDirectionOrder)
-            {
-                direction =
-                    Quaternion.Euler(0, _entity.lookAtDirectionOrder.angle, 0) * Vector3.forward * distance;
-                Debug.DrawRay(position, direction, Color.red);
-            }
-
-            if (_entity.hasLookAtPositionOrder)
-            {
-                var targetPosition = _entity.lookAtPositionOrder.position;
-                var dir            = targetPosition - _entity.worldPosition.value;
-
-                Debug.DrawRay(_entity.worldPosition.value.ToVector3XZ(), dir.ToVector3XZ(), Color.red);
-            }
         }
     }
-
-    public void RegisterEventListeners(IEntity entity)
-    {
-        _entity = (GameEntity)entity;
-        _entity.AddVisionListener(this);
-
-        if (_entity.hasVision)
-        {
-            var vision = _entity.vision;
-            OnVision(_entity, vision.directionAngle, vision.viewingAngle, vision.distance, vision.turningSpeed);
-        }
-    }
-
-    public void UnregisterEventListeners()
-    {
-        _entity.RemoveVisionListener(this, false);
-    }
-
-    public void OnVision(GameEntity entity, float directionAngle, int viewingAngle, int distance, int turningSpeed)
+    
+    public override void OnVision(GameEntity entity, float directionAngle, int viewingAngle, int distance, int turningSpeed)
     {
         transform.rotation = Quaternion.Euler(0, directionAngle, 0);
     }

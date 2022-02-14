@@ -5,32 +5,32 @@ using Roy_T.AStar.Primitives;
 
 public class ResizePathfindingMapSystem : ReactiveSystem<GameEntity>
 {
-    private readonly Contexts _contexts;
+    private readonly GameContext _game;
 
     public  ResizePathfindingMapSystem(Contexts contexts) : base(contexts.game)
     {
-        _contexts = contexts;
+        _game = contexts.game;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.MapSize.Added());
+        return context.CreateCollector(GameMatcher.GridSize.Added());
     }
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasMapSize;
+        return entity.hasGridSize;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var mapSize = _contexts.game.mapSize.value;
-        var grid    = CreateNewMap(mapSize.x, mapSize.y);
+        var gridSize = _game.gridSize.value;
+        var grid     = CreateNewMap(gridSize.x, gridSize.y);
 
-        _contexts.game.ReplacePathfindingGrid(grid);
+        _game.ReplacePathfindingGrid(grid);
     }
 
-    private Grid CreateNewMap(int columns, int rows)
+    private static Grid CreateNewMap(int columns, int rows)
     {
         var gridSize = new GridSize(columns, rows);
         var cellSize = new Size(Distance.FromMeters(1), Distance.FromMeters(1));
