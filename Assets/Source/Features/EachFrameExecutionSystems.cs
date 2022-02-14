@@ -8,7 +8,5 @@
         
         Add(new ImmediateOrderExecutionSystems(contexts));
         Add(new OrderVisualizationSystems(contexts));
-        
-        Add(new GameEventSystems(contexts));
     }
 }

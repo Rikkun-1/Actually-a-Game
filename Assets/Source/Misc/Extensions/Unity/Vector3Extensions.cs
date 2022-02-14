@@ -15,9 +15,9 @@ public static class Vector3Extensions
     
     public static Vector3 Randomize(this Vector3 value, float min, float max)
     {
-        value.x = Random.Range(-min, max);
-        value.y = Random.Range(-min, max);
-        value.z = Random.Range(-min, max);
+        value.x = GameRandom.Range(-min, max);
+        value.y = GameRandom.Range(-min, max);
+        value.z = GameRandom.Range(-min, max);
         
         return value;
     }

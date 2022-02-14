@@ -374,21 +374,6 @@ MonoBehaviour:
         parameterGUID: 0331ef5c-18a9-4d84-92c0-cd401e753da2
         accessor: 0
     0000000B:
-      type: {class: PrintNode, ns: , asm: com.alelievr.NodeGraphProcessor.Examples}
-      data:
-        nodeCustomName: 
-        GUID: 9a2c4ab3-17d6-4f7a-8980-b8963aaadc35
-        computeOrder: 12
-        position:
-          serializedVersion: 2
-          x: -734.39996
-          y: 183.59999
-          width: 69.599976
-          height: 88.000015
-        expanded: 0
-        debug: 0
-        nodeLock: 0
-    0000000C:
       type: {class: ParameterNode, ns: GraphProcessor, asm: com.alelievr.NodeGraphProcessor.Runtime}
       data:
         nodeCustomName: 

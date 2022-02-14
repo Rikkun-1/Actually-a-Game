@@ -24,7 +24,7 @@ public static class RaycastHelper
     {
         if (!targetEntity.hasUnityView) return false;
 
-        var targetPosition   = targetEntity.worldPosition.value.WithY(1.4f);
+        var targetPosition   = targetEntity.worldPosition.value.WithY(1.6f);
         var distance         = Vector3.Distance(origin, targetPosition);
 
         var raycastDirection = targetPosition - origin;
@@ -34,7 +34,7 @@ public static class RaycastHelper
 
     public static bool IsInClearVision(GameEntity e, GameEntity targetEntity)
     {
-        var raycastOrigin = e.worldPosition.value.WithY(1.4f);
+        var raycastOrigin = e.worldPosition.value.WithY(1.6f);
 
         return IsInClearVision(raycastOrigin, targetEntity);
     }

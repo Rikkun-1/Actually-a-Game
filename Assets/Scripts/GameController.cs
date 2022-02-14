@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public int                  windowCount;
     public int                  nonWalkableCount;
     public float                timeScale;
+    public bool                 isSpawning;
     
     public Image timeProgress;
 
@@ -32,12 +33,14 @@ public class GameController : MonoBehaviour
         simulationController.OnSimulationPhaseEnd += UpdatePlanningPhaseSystems;
         simulationController.tickDeltaTime        =  Time.fixedDeltaTime;
 
+        var bulletHitEffectPrefab = Resources.Load<ParticleSystem>("Effects/Weapon Effects/Prefabs/HitEffect");
+        _contexts.game.SetBulletHitEffect(bulletHitEffectPrefab, null);
         _contexts.game.SetGameSettings(gameSettings);
         _contexts.game.SetAIGraph(AIGraph);
         _contexts.game.SetSimulationTick(0, 0, 0);
         _contexts.game.SetGridSize(defaultGridSize);
 
-        simulationController.Initialize(wallsCount, windowCount, nonWalkableCount);
+        simulationController.Initialize(wallsCount, windowCount, nonWalkableCount, isSpawning);
         _eachFrameExecutionSystems.Initialize();
 
         _planningPhaseSystems.Initialize();
@@ -46,8 +49,15 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         timeProgress.fillAmount = 1 - simulationController.timeUntilPhaseEnd / simulationController.timeForOnePhaseCycle;
-        
-        Time.timeScale = simulationController.timeUntilPhaseEnd > 0  ? timeScale : 0;
+
+        var newAdaptiveTimeScale = Mathf.Clamp(simulationController.tickDeltaTime / Time.smoothDeltaTime, 0, timeScale);
+
+        if (float.IsNaN(newAdaptiveTimeScale)) newAdaptiveTimeScale = 1;
+
+        Time.timeScale = simulationController.timeUntilPhaseEnd > 0
+                             ? newAdaptiveTimeScale
+                             : 0;
+
         _eachFrameExecutionSystems.Execute();
         _eachFrameExecutionSystems.Cleanup();
     }

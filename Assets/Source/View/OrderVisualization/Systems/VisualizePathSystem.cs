@@ -79,7 +79,7 @@ public class VisualizePathSystem : VisualizeOrderSystemBase, IInitializeSystem
     private static void SetupLineRendererPositions(GameObject pathVisualizationInstance, Vector3[] visualizedPathVertices)
     {
         var lineRenderer = pathVisualizationInstance.GetComponent<LineRenderer>();
-        lineRenderer.positionCount = visualizedPathVertices.Count();
+        lineRenderer.positionCount = visualizedPathVertices.Length;
         lineRenderer.SetPositions(visualizedPathVertices);
     }
 }

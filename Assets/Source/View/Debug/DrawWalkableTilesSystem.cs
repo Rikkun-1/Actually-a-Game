@@ -12,17 +12,16 @@ public class DrawWalkableTilesSystem : IExecuteSystem
 
     public void Execute()
     {
-        if (_game.hasPathfindingGrid)
+        if (!_game.hasPathfindingGrid) return;
+        
+        var edges = _game.pathfindingGrid.value.GetAllEdges();
+
+        foreach (var edge in edges)
         {
-            var edges = _game.pathfindingGrid.value.GetAllEdges();
+            var start = edge.Start.Position.ToVector3XZ();
+            var end   = edge.End.Position.ToVector3XZ();
 
-            foreach (var edge in edges)
-            {
-                var start = edge.Start.Position.ToVector3XZ();
-                var end   = edge.End.Position.ToVector3XZ();
-
-                Debug.DrawLine(start, end, Color.red);
-            }
+            Debug.DrawLine(start, end, Color.red);
         }
     }
 }

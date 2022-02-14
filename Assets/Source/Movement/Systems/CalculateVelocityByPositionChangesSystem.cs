@@ -13,10 +13,13 @@ public class CalculateVelocityByPositionChangesSystem : IExecuteSystem
 
     public void Execute()
     {
+        var deltaTime = GameTime.deltaTime;
+        if (deltaTime == 0) return;
+        
         foreach (var e in _entities)
         {
             var positionDifference = e.worldPosition.value - e.previousWorldPosition.value;
-            e.ReplaceVelocity(positionDifference * (1f / GameTime.deltaTime));
+            e.ReplaceVelocity(positionDifference * (1f /deltaTime));
             e.ReplacePreviousWorldPosition(e.worldPosition.value);
         }
     }

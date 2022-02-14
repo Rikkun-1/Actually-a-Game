@@ -43,7 +43,11 @@ public static class UnityViewHelper
 
     private static void CreateNewView(GameEntity entity, GameObject parent, GameObject viewPrefab)
     {
-        var viewGameObject = Object.Instantiate(viewPrefab, parent.transform);
+        var position = entity.hasWorldPosition 
+                           ? entity.worldPosition.value
+                           : Vector3.zero;
+
+        var viewGameObject = Object.Instantiate(viewPrefab, position, viewPrefab.transform.rotation, parent.transform);
         viewGameObject.Link(entity);
         entity.ReplaceUnityView(viewGameObject);
         RegisterEventListeners(entity, viewGameObject);

@@ -1313,11 +1313,12 @@ MonoBehaviour:
     timeForOnePhaseCycle: 500
     timeUntilPhaseEnd: 5
     tickDeltaTime: 0.02
-  defaultGridSize: {x: 60, y: 60}
-  wallsCount: 500
-  windowCount: 1000
-  nonWalkableCount: 500
+  defaultGridSize: {x: 51, y: 51}
+  wallsCount: 1500
+  windowCount: 0
+  nonWalkableCount: 0
   timeScale: 1
+  isSpawning: 0
   timeProgress: {fileID: 649635269}
   gameSettings: {fileID: 11400000, guid: 50b8f284f8c845b59b66d097432db6c7, type: 2}
 --- !u!4 &1168647769

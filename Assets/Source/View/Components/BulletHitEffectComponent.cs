@@ -2,8 +2,7 @@
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
 
-[Game]
-[Unique]
+[Game] [Unique] [IgnoreSave]
 public sealed class BulletHitEffectComponent : IComponent
 {
     public ParticleSystem bulletHitPrefab;

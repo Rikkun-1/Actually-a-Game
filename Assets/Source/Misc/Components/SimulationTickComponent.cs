@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using Entitas.CodeGeneration.Attributes;
 
-[Game] [Unique]
+[Game] [Unique] [IgnoreSave]
 public sealed class SimulationTickComponent : IComponent
 {
     public float deltaTime;
