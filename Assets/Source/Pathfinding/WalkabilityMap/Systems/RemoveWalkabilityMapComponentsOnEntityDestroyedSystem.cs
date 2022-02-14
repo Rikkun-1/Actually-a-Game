@@ -17,7 +17,7 @@ public class RemoveWalkabilityMapComponentsOnEntityDestroyedSystem : IExecuteSys
         foreach (var e in _entities.GetEntities())
         {
             e.isNonWalkable = false;
-            e.RemoveWall();
+            if(e.hasWall) e.RemoveWall();
         }
     }
 }

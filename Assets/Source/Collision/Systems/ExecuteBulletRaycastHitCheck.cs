@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Unity.Collections;
 using UnityEngine;
 
 public class ExecuteBulletRaycastHitCheck : ReactiveSystem<GameEntity>
 {
     private readonly PhysicsContext _physics;
     private readonly LayerMask      _layerMask;
-    
+
     public ExecuteBulletRaycastHitCheck(Contexts contexts) : base(contexts.game)
     {
         _physics         = contexts.physics;
@@ -25,14 +26,31 @@ public class ExecuteBulletRaycastHitCheck : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var bullet in entities)
+        var count = entities.Count;
+        var from  = new Vector3[count];
+        var to    = new Vector3[count];
+
+        for (var i = 0; i < count; i++)
         {
-            if (!RaycastHelper.Linecast(bullet.previousWorldPosition.value, bullet.worldPosition.value, out var raycastHit, _layerMask)) continue;
-            
+            from[i] = entities[i].previousWorldPosition.value;
+            to[i]   = entities[i].worldPosition.value;
+        }
+
+        var results = RaycastHelper.BatchedRaycast(from, to, _layerMask);
+        ProcessRaycastResults(entities, results);
+    }
+
+    private void ProcessRaycastResults(List<GameEntity> entities, NativeArray<RaycastHit> results)
+    {
+        for (var i = 0; i < entities.Count; i++)
+        {
+            var raycastHit = results[i];
+            if (raycastHit.collider == null) continue;
+
             var colliderEntity = raycastHit.collider.GetGameEntity();
             if (colliderEntity != null)
             {
-                RegisterBulletHit(bullet, colliderEntity, raycastHit);
+                RegisterBulletHit(entities[i], colliderEntity, raycastHit);
             }
         }
     }

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 [AddComponentMenu("")] // hide in component menu
-public abstract class BaseLookAtEntityOrderListener : BaseEventListener, ILookAtEntityOrderListener
+public abstract class BaseLookAtEntityOrderListener : BaseEventListener, ILookOrderListener
 {
-    public virtual void OnLookAtEntityOrder(GameEntity entity, long targetID) {}
+    public virtual void OnLookOrder(GameEntity entity, Target target) {}
     
-    protected override void Register()                 => gameEntity.AddLookAtEntityOrderListener(this);
-    public override    void UnregisterEventListeners() => gameEntity.RemoveLookAtEntityOrderListener(this, false);
+    protected override void Register()                 => gameEntity.AddLookOrderListener(this);
+    public override    void UnregisterEventListeners() => gameEntity.RemoveLookOrderListener(this, false);
 }

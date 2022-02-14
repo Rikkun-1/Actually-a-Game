@@ -9,7 +9,7 @@ public class RemoveReactionStartTimeWhenShootAtEntityOrderRemovedSystem : Reacti
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.ShootAtEntityOrder.Removed());
+        return context.CreateCollector(GameMatcher.ShootOrder.Removed());
     }
 
     protected override bool Filter(GameEntity entity)

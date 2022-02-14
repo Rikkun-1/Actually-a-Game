@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Entitas;
 
 public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
@@ -20,10 +19,10 @@ public class DestroyEntityOnZeroHealthSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var entitiesWithZeroHealth = entities.Where(e => e.health.currentHealth <= 0);
-        
-        foreach (var e in entitiesWithZeroHealth)
+        foreach (var e in entities)
         {
+            if(e.health.currentHealth > 0) continue;
+            
             if (e.hasVision)         e.RemoveVision();
             if (e.hasTraversalSpeed) e.RemoveTraversalSpeed();
             e.hasAI       = false;

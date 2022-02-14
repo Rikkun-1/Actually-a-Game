@@ -11,5 +11,7 @@
         Add(new UpdateGridPositionRelyingOnWorldPositionSystem(contexts));
         
         Add(new CalculateVelocityByPositionChangesSystem(contexts));
+        
+        Add(new RotateTowardsMovementDirectionSystem(contexts));
     }
 }

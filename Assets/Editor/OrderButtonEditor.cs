@@ -26,18 +26,44 @@ public class OrderButtonEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        var orderName = HandleOrderName();
+        HandleLookShootOrders(orderName);
+    }
+
+    private void HandleLookShootOrders(string orderName)
+    {
+        if (orderName != "LookOrder" && orderName != "ShootOrder") return;
+        
+        EditorGUI.BeginChangeCheck();
+
+        Enum.TryParse<TargetType>(_orderButton.orderArgument, out var targetType);
+        var newTargetType = (TargetType)EditorGUILayout.EnumPopup(targetType);
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            _orderButton.orderArgument = newTargetType.ToString();
+            EditorUtility.SetDirty(target);
+            Repaint();
+        }
+    }
+
+    private string HandleOrderName()
+    {
         EditorGUI.BeginChangeCheck();
 
         DrawDefaultInspector();
 
         _popupOrderIndex = EditorGUILayout.Popup(_popupOrderIndex, _possibleOrderNames);
 
+        var orderName = _possibleOrderNames[_popupOrderIndex];
+
         if (EditorGUI.EndChangeCheck())
         {
-            _orderButton.orderName = _possibleOrderNames[_popupOrderIndex];
+            _orderButton.orderName = orderName;
             EditorUtility.SetDirty(target);
-            
             Repaint();
         }
+
+        return orderName;
     }
 }

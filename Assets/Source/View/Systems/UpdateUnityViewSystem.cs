@@ -42,13 +42,12 @@ public class UpdateUnityViewSystem : ReactiveSystem<GameEntity>
 
     private void AddNewCategoryIfNotExist(string newCategoryName)
     {
-        if (!_categories.ContainsKey(newCategoryName))
-        {
-            var newCategory = new GameObject(newCategoryName);
-            newCategory.transform.SetParent(_parent.transform);
+        if (_categories.ContainsKey(newCategoryName)) return;
+        
+        var newCategory = new GameObject(newCategoryName);
+        newCategory.transform.SetParent(_parent.transform);
 
-            _categories.Add(newCategoryName, newCategory);
-        }
+        _categories.Add(newCategoryName, newCategory);
     }
 
     private static bool HasViewPrefabName(GameEntity e)

@@ -8,6 +8,8 @@ public class VisualizePathSystem : VisualizeOrderSystemBase, IInitializeSystem
 {
     private readonly GameContext _game;
 
+    private GameObject _visualizationPrefab;
+
     public VisualizePathSystem(Contexts contexts) : base(contexts.game)
     {
         _game = contexts.game;
@@ -25,7 +27,7 @@ public class VisualizePathSystem : VisualizeOrderSystemBase, IInitializeSystem
 
     public void Initialize()
     {
-        visualizationPrefab = _game.gameSettings.value.orderVisualizationPrefabs.path;
+        _visualizationPrefab = _game.gameSettings.value.orderVisualizationPrefabs.path;
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -36,7 +38,7 @@ public class VisualizePathSystem : VisualizeOrderSystemBase, IInitializeSystem
             if (!e.hasPath) continue;
 
             var visualizedPathVertices = GetVisualizedPathVertices(e);
-            var visualizationInstance  = CreateVisualizationInstance(e);
+            var visualizationInstance  = CreateVisualizationInstance(e, _visualizationPrefab);
 
             SetupLineRendererPositions(visualizationInstance, visualizedPathVertices);
             OrderVisualizationHelper.PaintInTeamColor(visualizationInstance, e);

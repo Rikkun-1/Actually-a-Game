@@ -28,6 +28,13 @@ namespace Entitas.VisualDebugging.Unity.Editor {
 
                 EditorGUILayout.BeginHorizontal();
                 {
+                    if (GUILayout.Button("Update Entity Names")) {
+                        var entityBehaviours = contextObserver.gameObject.GetComponentsInChildren<EntityBehaviour>();
+                        foreach (var entityBehaviour in entityBehaviours) {
+                            entityBehaviour.UpdateName();
+                        }
+                    }
+                
                     if (GUILayout.Button("Create Entity")) {
                         var entity = contextObserver.context.CreateEntity();
                         var entityBehaviour = Object.FindObjectsOfType<EntityBehaviour>()

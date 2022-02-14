@@ -21,6 +21,19 @@ public static class Vector2IntExtensions
     public static float ToAngle(this Vector2Int value)
     {
         var vector = (Vector2)value;
-        return vector.ToAngle();
+        return vector.ToAngle360();
+    }
+    
+    public static Vector2Int Average(Vector2Int[] values)
+    {
+        var average = Vector2Int.zero;
+        foreach (var value in values)
+        {
+            average += value;
+        }
+        
+        average /= values.Length;
+        
+        return average;
     }
 }

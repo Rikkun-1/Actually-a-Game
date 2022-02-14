@@ -12,10 +12,15 @@ public static class Vector2Extensions
         return new Vector2(value.x, value.y - decrement);
     }
 
-    public static float ToAngle(this Vector2 value)
+    public static float ToAngle360(this Vector2 value)
     {
         var angle = Mathf.Atan2(value.x, value.y)  * Mathf.Rad2Deg;
         return  Mathf.Repeat(angle, 360);
+    }
+
+    public static float Angle360(Vector2 from, Vector2 to)
+    {
+        return (to - from).ToAngle360();
     }
     
     public static Vector3 ToVector3XZInt(this Vector2 value)

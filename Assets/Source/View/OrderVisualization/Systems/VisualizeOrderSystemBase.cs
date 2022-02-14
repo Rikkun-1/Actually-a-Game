@@ -4,17 +4,19 @@ using UnityEngine;
 
 public abstract class VisualizeOrderSystemBase : ReactiveSystem<GameEntity>
 {
-    protected GameObject visualizationPrefab;
-
     private readonly Dictionary<GameEntity, GameObject> _visualizationInstances = new Dictionary<GameEntity, GameObject>();
+
+    private Transform _parent;
 
     protected VisualizeOrderSystemBase(IContext<GameEntity> context) : base(context)
     {
     }
     
-    protected GameObject CreateVisualizationInstance(GameEntity e, Vector3 position = new Vector3())
+    protected GameObject CreateVisualizationInstance(GameEntity e, GameObject prefab, Vector3 position = new Vector3())
     {
-        var gameObject = Object.Instantiate(visualizationPrefab, position, visualizationPrefab.transform.rotation);
+        _parent ??= new GameObject(prefab.name).transform;
+
+        var gameObject = Object.Instantiate(prefab, position, prefab.transform.rotation, _parent);
         _visualizationInstances[e] = gameObject;
         return gameObject;
     }
